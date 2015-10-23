@@ -82,6 +82,9 @@
     <Compile Include="View\BSTUserControl.xaml.cs">
       <DependentUpon>BSTUserControl.xaml</DependentUpon>
     </Compile>
+    <Compile Include="View\SidePanel.xaml.cs">
+      <DependentUpon>SidePanel.xaml</DependentUpon>
+    </Compile>
     <Compile Include="View\MenuBar.xaml.cs">
       <DependentUpon>MenuBar.xaml</DependentUpon>
     </Compile>
@@ -106,6 +109,10 @@
     <Page Include="View\BSTUserControl.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="View\SidePanel.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
     </Page>
     <Page Include="View\MenuBar.xaml">
       <SubType>Designer</SubType>
