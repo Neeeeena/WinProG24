@@ -35,8 +35,8 @@ namespace AlgoTreeDraw
             else
             {
                 Random random = new Random();
-                int n = random.Next(0, 3);
-                String[] answers = { "No!", "Wrong!", "Not Likely" };
+                int n = random.Next(0, 4);
+                String[] answers = { "No!", "Wrong!", "Not Likely","Er du dum?" };
                 MessageBox.Show(answers[n]);
             }
         }
