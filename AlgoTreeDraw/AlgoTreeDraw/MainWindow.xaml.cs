@@ -24,21 +24,6 @@ namespace AlgoTreeDraw
         {
             InitializeComponent();
         }
-        private void RDChecked(object sender, RoutedEventArgs e)
-        {
-            RadioButton rb = null;
-            rb = e.OriginalSource as RadioButton;
-            if (String.Equals(rb.Content, "Mathias"))
-            {
-                MessageBox.Show("You are absolutely right!");
-            }
-            else
-            {
-                Random random = new Random();
-                int n = random.Next(0, 4);
-                String[] answers = { "No!", "Wrong!", "Not Likely","Er du dum?" };
-                MessageBox.Show(answers[n]);
-            }
-        }
+
     }
 }
