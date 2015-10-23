@@ -20,10 +20,10 @@
                 TextAlignment="Left"
                 FontSize="12"
                 />
-            <RadioButton GroupName="Names" Content="Alexander" Checked="RDChecked"/>
-            <RadioButton GroupName="Names" Content="Carl" Checked="RDChecked"/>
-            <RadioButton GroupName="Names" Content="Mathias" Checked="RDChecked"/>
+            <RadioButton GroupName="Names" Content="9Na" Checked="RDChecked"/>
             <RadioButton GroupName="Names" Content="Nina" Checked="RDChecked"/>
+            <RadioButton GroupName="Names" Content="Nina" Checked="RDChecked"/>
+            <RadioButton GroupName="Names" Content="Mig" Checked="RDChecked"/>
         </StackPanel>
         <Rectangle Fill="Bisque" Grid.Row="2"/>
         <Rectangle Fill="IndianRed" Grid.Row="3"/>
