@@ -14,9 +14,9 @@
             <RowDefinition />
             <RowDefinition />
         </Grid.RowDefinitions>
-        <StackPanel Orientation="Horizontal" Grid.Row="0">
+        <StackPanel Orientation="Horizontal" Grid.Row="1">
             <TextBlock
-                Text="Who is the smartest in the group?"
+                Text="Who is the smartest in the group?  "
                 TextAlignment="Left"
                 FontSize="12"
                 />
