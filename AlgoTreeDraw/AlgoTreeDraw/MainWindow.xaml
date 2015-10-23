@@ -27,6 +27,6 @@
         </StackPanel>
         <Rectangle Fill="Bisque" Grid.Row="2"/>
         <Rectangle Fill="IndianRed" Grid.Row="3"/>
-
+        <Rectangle Fill="IndianRed" Grid.Row="3"/>
     </Grid>
 </Window>
