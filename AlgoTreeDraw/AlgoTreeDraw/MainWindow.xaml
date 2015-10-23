@@ -25,6 +25,8 @@
             <RadioButton GroupName="Names" Content="Mathias" Checked="RDChecked"/>
             <RadioButton GroupName="Names" Content="Nina" Checked="RDChecked"/>
         </StackPanel>
+        <Rectangle Fill="Bisque" Grid.Row="2"/>
+        <Rectangle Fill="IndianRed" Grid.Row="3"/>
 
     </Grid>
 </Window>
