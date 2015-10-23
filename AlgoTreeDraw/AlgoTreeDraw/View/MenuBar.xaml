@@ -17,6 +17,10 @@
                 <MenuItem Header="Undo"/>
                 <MenuItem Header="Redo"/>
             </MenuItem>
+            <MenuItem Header="View">
+                <MenuItem Header="Zoom out"/>
+                <MenuItem Header="Zoom in"/>
+            </MenuItem>
         </Menu>     
     </Grid>
 </UserControl>
