@@ -28,7 +28,7 @@ namespace AlgoTreeDraw
         {
             RadioButton rb = null;
             rb = e.OriginalSource as RadioButton;
-            if (String.Equals(rb.Content, "Nina"))
+            if (String.Equals(rb.Content, "Mathias"))
             {
                 MessageBox.Show("You are absolutely right!");
             }
