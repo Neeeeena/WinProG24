@@ -7,17 +7,14 @@
         xmlns:View="clr-namespace:AlgoTreeDraw.View"
         mc:Ignorable="d"
         Title="MainWindow" Height="350" Width="525">
-    
+
 
     <DockPanel>
-        <StackPanel DockPanel.Dock="Left" Orientation="Vertical">
-            <!--<View:SidePanelView/>-->
-        </StackPanel>
 
-        <Grid DockPanel.Dock="Top">
-            <View:MenuBar/>
-
-        </Grid>
+        <View:MenuBar DockPanel.Dock="Top"/>
+        
+        <View:SidePanel DockPanel.Dock="left"/>
+       
 
         <Canvas>
             <!--<ItemsControl ItemsSource="{Binding Lines}"/>
