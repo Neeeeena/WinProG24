@@ -5,9 +5,13 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:AlgoTreeDraw"
         xmlns:View="clr-namespace:AlgoTreeDraw.View"
+        xmlns:ViewModel="clr-namespace:AlgoTreeDraw.ViewModel"
         mc:Ignorable="d"
         Title="MainWindow" Height="350" Width="525">
-    
+
+    <Window.DataContext>
+        <ViewModel:NodeViewModel />
+    </Window.DataContext>
 
     <DockPanel>
         <StackPanel DockPanel.Dock="Left" Orientation="Vertical">
@@ -19,10 +23,9 @@
 
         </Grid>
 
-        <Canvas>
-            <!--<ItemsControl ItemsSource="{Binding Lines}"/>
-            <ItemsControl ItemsSource="{Binding Shapes}"/> -->
-        </Canvas>
+        <Grid>
+            <ItemsControl ItemsSource="{Binding BSTNodes}"/> 
+        </Grid>
         
             
 
