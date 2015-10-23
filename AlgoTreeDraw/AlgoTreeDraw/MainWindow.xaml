@@ -8,14 +8,9 @@
         mc:Ignorable="d"
         Title="MainWindow" Height="350" Width="525">
 
-
     <DockPanel>
-
         <View:MenuBar DockPanel.Dock="Top"/>
-        
         <View:SidePanel DockPanel.Dock="left"/>
-       
-
         <Canvas>
             <!--<ItemsControl ItemsSource="{Binding Lines}"/>
             <ItemsControl ItemsSource="{Binding Shapes}"/> -->
