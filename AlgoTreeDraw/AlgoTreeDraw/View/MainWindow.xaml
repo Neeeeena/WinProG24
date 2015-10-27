@@ -8,17 +8,18 @@
         xmlns:ViewModel="clr-namespace:AlgoTreeDraw.ViewModel"
         mc:Ignorable="d"
         Title="MainWindow" Height="350" Width="525">
-    
+
     <Window.DataContext>
-        <ViewModel:NodeViewModel />
+        <ViewModel:MainViewModel />
     </Window.DataContext>
 
     <DockPanel>
         <View:MenuBar DockPanel.Dock="Top"/>
         <View:SidePanel DockPanel.Dock="Left"/>
         <Grid>
-            <ItemsControl ItemsSource="{Binding BSTNodes}"/>
-            <ItemsControl ItemsSource="{Binding RBTNodes}"/>
+            <ItemsControl ItemsSource="{Binding NodeViewModel.BSTNodes}"/>
+            <ItemsControl ItemsSource="{Binding NodeViewModel.RBTNodes}"/>
+            <ItemsControl ItemsSource="{Binding LineViewModel.Lines}"/>
         </Grid>
 
     </DockPanel>

@@ -16,11 +16,15 @@ namespace AlgoTreeDraw.ViewModel
     /// </summary>
     public class MainViewModel : ViewModelBase
     {
+        public NodeViewModel NodeViewModel { get; set; }
+        public LineViewModel LineViewModel { get; set; }
         /// <summary>
         /// Initializes a new instance of the MainViewModel class.
         /// </summary>
         public MainViewModel()
         {
+            NodeViewModel = new NodeViewModel();
+            LineViewModel = new LineViewModel();
             ////if (IsInDesignMode)
             ////{
             ////    // Code runs in Blend --> create design time data.

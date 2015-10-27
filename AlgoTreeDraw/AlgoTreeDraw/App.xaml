@@ -24,7 +24,12 @@
         <View:T234UserControl />
       </Canvas>
     </DataTemplate>
-    <!--ResourceDictionary>
+        <DataTemplate DataType="{x:Type Model:Line}">
+            <Canvas>
+                <View:LineUserControl />
+            </Canvas>
+        </DataTemplate>
+        <!--ResourceDictionary>
       <vm:ViewModelLocator x:Key="Locator" d:IsDataSource="True" xmlns:vm="clr-namespace:AlgoTreeDraw.ViewModel" />
     </>-->
   </Application.Resources>

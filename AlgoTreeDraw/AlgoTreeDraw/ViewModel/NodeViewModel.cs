@@ -16,7 +16,7 @@ using AlgoTreeDraw.Command;
 
 namespace AlgoTreeDraw.ViewModel
 {
-    class NodeViewModel : ViewModelBase
+    public class NodeViewModel : ViewModelBase
     {
         Boolean isEditing =false;
         public ObservableCollection<BST> BSTNodes {get; set; }
@@ -60,7 +60,6 @@ namespace AlgoTreeDraw.ViewModel
             //if (!isAddingLine)
             //{
             // The Shape is gotten from the mouse event.
-            System.Console.WriteLine("LOL");
             var shape = TargetShape(e);
             // The mouse position relative to the target of the mouse event.
             var mousePosition = RelativeMousePosition(e);
@@ -139,7 +138,6 @@ namespace AlgoTreeDraw.ViewModel
 
         private void MouseMoveNode(MouseEventArgs e)
         {
-
             // Checks that the mouse is captured and that a line is not being drawn.
             if (Mouse.Captured != null) //&& !isAddingLine)
             {
@@ -160,6 +158,7 @@ namespace AlgoTreeDraw.ViewModel
             // Here the visual element that the mouse is captured by is retrieved.
             var nodeVisualElement = (FrameworkElement)e.MouseDevice.Target;
             // From the shapes visual element, the Shape object which is the DataContext is retrieved.
+
             return (Node)nodeVisualElement.DataContext;
         }
 
