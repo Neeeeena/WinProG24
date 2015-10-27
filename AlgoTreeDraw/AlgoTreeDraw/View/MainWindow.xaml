@@ -18,6 +18,7 @@
         <View:SidePanel DockPanel.Dock="Left"/>
         <Grid>
             <ItemsControl ItemsSource="{Binding BSTNodes}"/>
+            <ItemsControl ItemsSource="{Binding RBTNodes}"/>
         </Grid>
 
     </DockPanel>
