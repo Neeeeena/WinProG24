@@ -4,12 +4,12 @@
              xmlns:local="clr-namespace:AlgoTreeDraw" 
              xmlns:Model="clr-namespace:AlgoTreeDraw.Model" 
              xmlns:View="clr-namespace:AlgoTreeDraw.View" 
-             StartupUri="MainWindow.xaml" 
+             StartupUri="View/MainWindow.xaml" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              d1p1:Ignorable="d" 
              xmlns:d1p1="http://schemas.openxmlformats.org/markup-compatibility/2006">
-  <Application.Resources>
-    <DataTemplate DataType="{x:Type Model:BST}">
+    <Application.Resources>
+        <DataTemplate DataType="{x:Type Model:BST}">
       <Canvas>
         <View:BSTUserControl />
       </Canvas>

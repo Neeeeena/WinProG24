@@ -13,7 +13,7 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 
-namespace AlgoTreeDraw
+namespace AlgoTreeDraw.View
 {
     /// <summary>
     /// Interaction logic for MainWindow.xaml
