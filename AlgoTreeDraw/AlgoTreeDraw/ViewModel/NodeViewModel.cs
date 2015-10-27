@@ -29,13 +29,20 @@ namespace AlgoTreeDraw.ViewModel
         public ICommand MouseUpNodeCommand { get; }
 
 
+        public ObservableCollection<RBT> RBTNodes { get; set; }
         public NodeViewModel()
         {
             BSTNodes = new ObservableCollection<BST>() {
                 new BST() { X = 30, Y = 40, diameter = 50},
                 new BST() { X = 300, Y = 100, diameter = 50}
             };
-
+            
+            RBTNodes = new ObservableCollection<RBT>()
+            {
+                new RBT() {X = 60, Y=90, diameter=50 },
+                new RBT() {X= 120, Y=50,diameter=50 }
+            };
+            
             MouseDownNodeCommand = new RelayCommand<MouseButtonEventArgs>(MouseDownNode);
             MouseMoveNodeCommand = new RelayCommand<MouseEventArgs>(MouseMoveNode);
         }
