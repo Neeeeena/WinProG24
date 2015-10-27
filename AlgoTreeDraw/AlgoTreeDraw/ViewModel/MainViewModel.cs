@@ -23,8 +23,8 @@ namespace AlgoTreeDraw.ViewModel
         /// </summary>
         public MainViewModel()
         {
-            NodeViewModel = new NodeViewModel();
-            LineViewModel = new LineViewModel();
+            NodeViewModel = new NodeViewModel(LineViewModel);
+            LineViewModel = new LineViewModel(NodeViewModel);
             ////if (IsInDesignMode)
             ////{
             ////    // Code runs in Blend --> create design time data.

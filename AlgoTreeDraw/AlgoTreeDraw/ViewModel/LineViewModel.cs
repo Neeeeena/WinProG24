@@ -12,11 +12,13 @@ namespace AlgoTreeDraw.ViewModel
     public class LineViewModel
     {
         public ObservableCollection<Line> Lines { get; set; }
-        public LineViewModel()
+        public NodeViewModel nvm;
+        public LineViewModel(NodeViewModel nvm)
         {
+            this.nvm = nvm;
+
             Lines = new ObservableCollection<Line>() {
-                new Line() {From = new BST() { X = 300, Y = 40, diameter = 50}, To = new BST() { X = 30, Y = 40, diameter = 50}},
-                 new Line() {From = new BST() { X = 100, Y = 100, diameter = 50}, To = new BST() { X = 0, Y = 0, diameter = 50}}
+                new Line() {From = nvm.BSTNodes[0], To = nvm.BSTNodes[1]}
             };
 
         }

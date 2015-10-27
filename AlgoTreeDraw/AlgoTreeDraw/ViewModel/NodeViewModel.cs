@@ -30,7 +30,7 @@ namespace AlgoTreeDraw.ViewModel
 
 
         public ObservableCollection<RBT> RBTNodes { get; set; }
-        public NodeViewModel()
+        public NodeViewModel(LineViewModel lvm)
         {
             BSTNodes = new ObservableCollection<BST>() {
                 new BST() { X = 30, Y = 40, diameter = 50},
