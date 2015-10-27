@@ -10,7 +10,7 @@
         Title="MainWindow" Height="350" Width="525">
     
     <Window.DataContext>
-        <ViewModel:MainViewModel />
+        <ViewModel:NodeViewModel />
     </Window.DataContext>
 
     <DockPanel>

@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace AlgoTreeDraw.Model
 {
-    class RBT : Node
+    public class RBT : Node
     {
     }
 }

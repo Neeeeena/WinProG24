@@ -7,7 +7,7 @@ using System.Windows;
 
 namespace AlgoTreeDraw.Model
 {
-    class BST : Node
+    public class BST : Node
     {
         public BST()
         {
