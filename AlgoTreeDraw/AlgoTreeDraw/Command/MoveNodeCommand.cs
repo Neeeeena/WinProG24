@@ -30,7 +30,7 @@ namespace AlgoTreeDraw.Command
         #region Constructor
 
         // For changing the current state of the diagram.
-        MoveNodeCommand(Node _node, double _offsetX, double _offsetY) 
+        public MoveNodeCommand(Node _node, double _offsetX, double _offsetY) 
         {
             node = _node;
             offsetX = _offsetX;
