@@ -10,10 +10,6 @@
              d:DesignHeight="100" d:DesignWidth="100"
              Canvas.Left="{Binding X}" Canvas.Top="{Binding Y}" Width="{Binding diameter}" Height="{Binding diameter}">
 
-    <Window.DataContext>
-        <ViewModel:MainViewModel />
-    </Window.DataContext>
-
     <Grid>
         <Ellipse Fill="Aquamarine" Stroke="Firebrick" StrokeThickness="5">
             <i:Interaction.Triggers>
