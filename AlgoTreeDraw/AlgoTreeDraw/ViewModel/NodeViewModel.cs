@@ -45,6 +45,7 @@ namespace AlgoTreeDraw.ViewModel
             
             MouseDownNodeCommand = new RelayCommand<MouseButtonEventArgs>(MouseDownNode);
             MouseMoveNodeCommand = new RelayCommand<MouseEventArgs>(MouseMoveNode);
+            MouseUpNodeCommand = new RelayCommand<MouseButtonEventArgs>(MouseUpNode);
         }
 
         public void edit()
@@ -118,11 +119,11 @@ namespace AlgoTreeDraw.ViewModel
             // The Shape is gotten from the mouse event.
             var shape = TargetShape(e);
                 // The mouse position relative to the target of the mouse event.
-                var mousePosition = RelativeMousePosition(e);
+                //var mousePosition = RelativeMousePosition(e);
 
-                // The Shape is moved back to its original position, so the offset given to the move command works.
-                shape.X = initialShapePosition.X;
-                shape.Y = initialShapePosition.Y;
+                //// The Shape is moved back to its original position, so the offset given to the move command works.
+                //shape.X = initialShapePosition.X;
+                //shape.Y = initialShapePosition.Y;
 
             // Now that the Move Shape operation is over, the Shape is moved to the final position, 
             //  by using a MoveNodeCommand to move it.
