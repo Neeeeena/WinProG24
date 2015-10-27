@@ -16,7 +16,7 @@ namespace AlgoTreeDraw.ViewModel
 {
     class NodeViewModel : ViewModelBase
     {
-
+        Boolean isEditing =false;
         public ObservableCollection<BST> BSTNodes {get; set; }
         public NodeViewModel()
         {
@@ -24,6 +24,12 @@ namespace AlgoTreeDraw.ViewModel
                 new BST() { X = 30, Y = 40, diameter = 50},
                 new BST() { X = 300, Y = 100, diameter = 50}
             };
+            
+        }
+
+        public void edit()
+        {
+            isEditing = true;
         }
     }
 }
