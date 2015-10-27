@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows;
 using System.Windows.Media;
 
 namespace AlgoTreeDraw.Model
@@ -15,10 +16,18 @@ namespace AlgoTreeDraw.Model
 
         public double diameter {get; set; } // Tilføj Notify hvis Diameter skal ændres
 
-        public string visualText;
+        public string visualText { get; set; }
 
         public double CanvasCenterX { get { return X + diameter / 2; } set { X = value - diameter / 2; NotifyPropertyChanged(() => X); } }
 
         public double CanvasCenterY { get { return Y + diameter / 2; } set { Y = value - diameter / 2; NotifyPropertyChanged(() => Y); } }
+
+        public Object isVisible { get; set; }
+
+        public Object derp()
+        {
+            return Visibility.Visible;
+        }
     }
+
 }

@@ -10,11 +10,20 @@
              d:DesignHeight="100" d:DesignWidth="100"
              Canvas.Left="{Binding X}" Canvas.Top="{Binding Y}" Width="{Binding diameter}" Height="{Binding diameter}">
     <Grid>
-        <Ellipse Fill="Aquamarine" Stroke="Firebrick" StrokeThickness="5" />
+        <Ellipse Stroke="Black" StrokeThickness="1">
+            <Ellipse.InputBindings>
+                <MouseBinding Gesture="LeftClick" Command="{Binding derp}" />
+            </Ellipse.InputBindings>
+        </Ellipse>
         <Grid>
             <Grid.RowDefinitions>
+                <RowDefinition />
                 <RowDefinition Height="auto" />
+                <RowDefinition />
             </Grid.RowDefinitions>
+            <TextBlock Grid.Row="1" Text="{Binding visualText}" TextAlignment="Center" Visibility="Visible"/>
+            <TextBox Grid.Row="1" Text="{Binding visualText}" TextAlignment="Center" Visibility="{Binding isVisible}" />
         </Grid>
+        
     </Grid>
 </UserControl>
