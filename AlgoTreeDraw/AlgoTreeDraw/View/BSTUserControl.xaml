@@ -10,11 +10,14 @@
              d:DesignHeight="100" d:DesignWidth="100"
              Canvas.Left="{Binding X}" Canvas.Top="{Binding Y}" Width="{Binding diameter}" Height="{Binding diameter}">
     <Grid>
-        <Ellipse Fill="Aquamarine" Stroke="Firebrick" StrokeThickness="5" />
+        <Ellipse Stroke="Black" StrokeThickness="1" />
         <Grid>
             <Grid.RowDefinitions>
+                <RowDefinition />
                 <RowDefinition Height="auto" />
+                <RowDefinition />
             </Grid.RowDefinitions>
+            <TextBlock Text="{Binding VisualText}" Grid.Row="1" HorizontalAlignment="Center" VerticalAlignment="Center"/>
         </Grid>
     </Grid>
 </UserControl>

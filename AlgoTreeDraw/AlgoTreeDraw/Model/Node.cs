@@ -15,7 +15,9 @@ namespace AlgoTreeDraw.Model
 
         public double diameter {get; set; } // Tilføj Notify hvis Diameter skal ændres
 
-        public string visualText;
+        private string visualText = "Tihi";
+        public string VisualText { get { return visualText; } set { visualText = value; NotifyPropertyChanged(); } }
+
 
         public double CanvasCenterX { get { return X + diameter / 2; } set { X = value - diameter / 2; NotifyPropertyChanged(() => X); } }
 
