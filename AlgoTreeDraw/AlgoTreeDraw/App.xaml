@@ -4,6 +4,7 @@
              xmlns:local="clr-namespace:AlgoTreeDraw" 
              xmlns:Model="clr-namespace:AlgoTreeDraw.Model" 
              xmlns:View="clr-namespace:AlgoTreeDraw.View" 
+             xmlns:ViewModel="clr-namespace:AlgoTreeDraw.ViewModel"
              StartupUri="View/MainWindow.xaml" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              d1p1:Ignorable="d" 
@@ -29,8 +30,6 @@
                 <View:LineUserControl />
             </Canvas>
         </DataTemplate>
-        <!--ResourceDictionary>
-      <vm:ViewModelLocator x:Key="Locator" d:IsDataSource="True" xmlns:vm="clr-namespace:AlgoTreeDraw.ViewModel" />
-    </>-->
-  </Application.Resources>
+        <ViewModel:ViewModelLocator x:Key="Locator" />
+    </Application.Resources>
 </Application>

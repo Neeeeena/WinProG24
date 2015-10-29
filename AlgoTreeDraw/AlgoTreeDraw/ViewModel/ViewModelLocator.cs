@@ -15,7 +15,7 @@
 using GalaSoft.MvvmLight;
 using GalaSoft.MvvmLight.Ioc;
 using Microsoft.Practices.ServiceLocation;
-/*
+
 namespace AlgoTreeDraw.ViewModel
 {
     /// <summary>
@@ -58,4 +58,4 @@ namespace AlgoTreeDraw.ViewModel
             // TODO Clear the ViewModels
         }
     }
-}*/
+}
