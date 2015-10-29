@@ -6,12 +6,9 @@
         xmlns:local="clr-namespace:AlgoTreeDraw"
         xmlns:View="clr-namespace:AlgoTreeDraw.View"
         xmlns:ViewModel="clr-namespace:AlgoTreeDraw.ViewModel"
+        DataContext="{Binding Source={StaticResource Locator}, Path=Main}"
         mc:Ignorable="d"
         Title="MainWindow" Height="350" Width="525">
-
-    <Window.DataContext>
-        <ViewModel:MainViewModel />
-    </Window.DataContext>
 
     <DockPanel>
         <View:MenuBar DockPanel.Dock="Top"/>
