@@ -15,7 +15,7 @@ namespace AlgoTreeDraw.Model
 
         public double diameter {get; set; } // Tilføj Notify hvis Diameter skal ændres
 
-        private string visualText = "Tihi";
+        private string visualText = "1";
         public string VisualText { get { return visualText; } set { visualText = value; NotifyPropertyChanged(); } }
 
 

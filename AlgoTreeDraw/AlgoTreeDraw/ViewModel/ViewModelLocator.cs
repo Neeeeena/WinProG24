@@ -12,10 +12,10 @@
   See http://www.galasoft.ch/mvvm
 */
 
-/*using GalaSoft.MvvmLight;
+using GalaSoft.MvvmLight;
 using GalaSoft.MvvmLight.Ioc;
 using Microsoft.Practices.ServiceLocation;
-
+/*
 namespace AlgoTreeDraw.ViewModel
 {
     /// <summary>
