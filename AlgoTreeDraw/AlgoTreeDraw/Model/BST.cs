@@ -11,12 +11,13 @@ namespace AlgoTreeDraw.Model
     {
         public BST()
         {
-
+            initialX = -225;
+            initialY = 20;
         }
 
         public override Node NewNode()
         {
-            return new BST() { diameter = 50 };
+            return new BST() { X = -225, Y = 20, diameter = 50 };
         }
     }
 }

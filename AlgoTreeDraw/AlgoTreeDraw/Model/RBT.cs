@@ -9,9 +9,17 @@ namespace AlgoTreeDraw.Model
     public class RBT : Node
     {
 
+        public RBT ()
+        {
+
+        initialX = -145;
+        initialY = 20;
+
+       }
+
         public override Node NewNode()
         {
-            return new RBT() { diameter = 50};
+            return new RBT() { X = -145, Y = 20, diameter = 50};
         }
     }
 }

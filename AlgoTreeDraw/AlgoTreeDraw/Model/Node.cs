@@ -8,6 +8,8 @@ using System.Windows.Media;
 namespace AlgoTreeDraw.Model
 {
     public abstract class Node : NotifyBase {
+        public double initialX;
+        public double initialY;
         private double x = 200;
         private double y = 200;
         public double X { get { return x; } set { x = value; NotifyPropertyChanged(); NotifyPropertyChanged(() => CanvasCenterX); } }

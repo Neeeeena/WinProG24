@@ -19,6 +19,8 @@ namespace AlgoTreeDraw.ViewModel
     public class NodeViewModel : ViewModelBase
     {
         Boolean isEditing =false;
+
+        Boolean moved = true;
         public ObservableCollection<Node> Nodes {get; set; }
 
         private Point initialMousePosition;
@@ -33,9 +35,7 @@ namespace AlgoTreeDraw.ViewModel
         {
             Nodes = new ObservableCollection<Node>() {
                 new BST() { X = -225, Y = 20, diameter = 50},
-                new BST() { X = 300, Y = 100, diameter = 50},
-                new RBT() {X = 60, Y=90, diameter=50 },
-                new RBT() {X= 120, Y=50,diameter=50 }
+                new RBT() {X = -145, Y=20, diameter=50 }
             };
             
 
@@ -53,8 +53,6 @@ namespace AlgoTreeDraw.ViewModel
         public void AddNode(Node e)
         {
             Node newNode = e.NewNode();
-            newNode.X = -225;
-            newNode.Y = 20;
             Nodes.Add(newNode);
         }
 
@@ -142,11 +140,13 @@ namespace AlgoTreeDraw.ViewModel
                 MessageBox.Show("wtf");
                 node.X = initialNodePosition.X;
                 node.Y = initialNodePosition.Y;
+                moved = false;
             }
-            if (initialNodePosition.X == -225 && initialNodePosition.Y == 20)
+            if (moved && initialNodePosition.X == node.initialX && initialNodePosition.Y == node.initialY)
             {
                 AddNode(node);
             }
+            moved = true;
             //}
         
         }
@@ -165,7 +165,7 @@ namespace AlgoTreeDraw.ViewModel
                 // The View (GUI) is then notified by the Shape, that its properties have changed.
                 var tempX = initialNodePosition.X + (mousePosition.X - initialMousePosition.X);
                 var tempY = initialNodePosition.Y + (mousePosition.Y - initialMousePosition.Y);
-                if((initialNodePosition.X==-225 && initialNodePosition.Y == 20)||!(tempX<0||tempY<0))
+                if((initialNodePosition.X==node.initialX && initialNodePosition.Y == node.initialY)||!(tempX<0||tempY<0))
                 {
                     node.X = tempX;
                     node.Y = tempY;
