@@ -24,11 +24,10 @@
                     <cmd:EventToCommand Command="{Binding DataContext.NodeViewModel.MouseUpNodeCommand, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type Window}}}" PassEventArgsToCommand="True"/>
                 </i:EventTrigger>
             </i:Interaction.Triggers>
-
-    <Grid>
-        <Ellipse Fill="Fuchsia" Stroke="Black" StrokeThickness="3">
         </Ellipse>
         <Grid>
+             <Ellipse Fill="Fuchsia" Stroke="Black" StrokeThickness="3"/>
+             <Grid>
             <Grid.RowDefinitions>
                 <RowDefinition />
                 <RowDefinition Height="auto" />
@@ -36,5 +35,6 @@
             </Grid.RowDefinitions>
             <TextBlock Text="{Binding VisualText}" Grid.Row="1" HorizontalAlignment="Center" VerticalAlignment="Center"/>
         </Grid>
+    </Grid>
     </Grid>
 </UserControl>
