@@ -7,11 +7,11 @@
              xmlns:cmd="clr-namespace:GalaSoft.MvvmLight.Command;assembly=GalaSoft.MvvmLight.Platform"
              xmlns:local="clr-namespace:AlgoTreeDraw.ViewModel"
              mc:Ignorable="d" 
-             d:DesignHeight="100" d:DesignWidth="99"
+             d:DesignHeight="100" d:DesignWidth="100"
              Canvas.Left="{Binding X}" Canvas.Top="{Binding Y}" Width="{Binding diameter}" Height="{Binding diameter}">
 
     <Grid>
-        <Ellipse Fill="Fuchsia" Stroke="Black" StrokeThickness="5">
+        <Ellipse Fill="Fuchsia" Stroke="Black" StrokeThickness="1337">
             <i:Interaction.Triggers>
                 <i:EventTrigger EventName="MouseDown">
                     <cmd:EventToCommand Command="{Binding DataContext.NodeViewModel.MouseDownNodeCommand, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type Window}}}" PassEventArgsToCommand="True"/>
