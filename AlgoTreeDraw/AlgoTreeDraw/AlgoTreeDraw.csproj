@@ -107,6 +107,15 @@
     <Compile Include="View\RBTUserControl.xaml.cs">
       <DependentUpon>RBTUserControl.xaml</DependentUpon>
     </Compile>
+    <Compile Include="View\T234UserControl2.xaml.cs">
+      <DependentUpon>T234UserControl2.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="View\T234UserControl1.xaml.cs">
+      <DependentUpon>T234UserControl1.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="View\T234UserControl3.xaml.cs">
+      <DependentUpon>T234UserControl3.xaml</DependentUpon>
+    </Compile>
     <Compile Include="View\T234UserControl.xaml.cs">
       <DependentUpon>T234UserControl.xaml</DependentUpon>
     </Compile>
@@ -145,6 +154,18 @@
     <Page Include="View\RBTUserControl.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="View\T234UserControl2.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="View\T234UserControl1.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="View\T234UserControl3.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
     </Page>
     <Page Include="View\T234UserControl.xaml">
       <SubType>Designer</SubType>
