@@ -8,12 +8,14 @@ namespace AlgoTreeDraw.ViewModel
 {
     public class SidePanelViewModel
     {
-        NodeViewModel NodeViewModel;
-        public SidePanelViewModel(NodeViewModel NodeViewModel)
+        public SidePanelViewModel()
         {
-            this.NodeViewModel = NodeViewModel;
 
         }
+        //private void Delete_Click(object sender, RoutedEventArgs e)
+        //{
+
+        //}
 
 
     }

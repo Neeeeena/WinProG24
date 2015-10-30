@@ -27,7 +27,7 @@ namespace AlgoTreeDraw.ViewModel
         {
             NodeViewModel = new NodeViewModel(LineViewModel);
             LineViewModel = new LineViewModel(NodeViewModel);
-            SidePanelViewModel = new SidePanelViewModel(NodeViewModel);
+            SidePanelViewModel = new SidePanelViewModel();
 
             ////if (IsInDesignMode)
             ////{

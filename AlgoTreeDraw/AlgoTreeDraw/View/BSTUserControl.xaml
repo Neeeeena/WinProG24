@@ -10,7 +10,10 @@
              d:DesignHeight="100" d:DesignWidth="100"
              Canvas.Left="{Binding X}" Canvas.Top="{Binding Y}" Width="{Binding diameter}" Height="{Binding diameter}">
     <i:Interaction.Triggers>
-        <i:EventTrigger EventName="MouseDown">
+        <i:EventTrigger EventName="MouseRightButtonDown">
+            <cmd:EventToCommand Command="{Binding DataContext.NodeViewModel.MouseDoubleClickCommand, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type Window}}}" PassEventArgsToCommand="True"/>
+        </i:EventTrigger>
+        <i:EventTrigger EventName="MouseLeftButtonDown">
             <cmd:EventToCommand Command="{Binding DataContext.NodeViewModel.MouseDownNodeCommand, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type Window}}}" PassEventArgsToCommand="True"/>
         </i:EventTrigger>
         <i:EventTrigger EventName="MouseMove">

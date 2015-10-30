@@ -30,6 +30,8 @@ namespace AlgoTreeDraw.ViewModel
         public ICommand MouseMoveNodeCommand { get; }
         public ICommand MouseUpNodeCommand { get; }
 
+        public ICommand MouseDoubleClickCommand { get; }
+
 
         public NodeViewModel(LineViewModel lvm)
         {
@@ -37,9 +39,9 @@ namespace AlgoTreeDraw.ViewModel
                 new BST() { X = -225, Y = 20, diameter = 50},
                 new RBT() {X = -145, Y=20, diameter=50 }
             };
-            
 
-            
+
+            MouseDoubleClickCommand = new RelayCommand<MouseButtonEventArgs>(MouseDoubleClick);   
             MouseDownNodeCommand = new RelayCommand<MouseButtonEventArgs>(MouseDownNode);
             MouseMoveNodeCommand = new RelayCommand<MouseEventArgs>(MouseMoveNode);
             MouseUpNodeCommand = new RelayCommand<MouseButtonEventArgs>(MouseUpNode);
@@ -54,6 +56,12 @@ namespace AlgoTreeDraw.ViewModel
         {
             Node newNode = e.NewNode();
             Nodes.Add(newNode);
+        }
+
+        private void MouseDoubleClick(MouseButtonEventArgs e)
+        {
+            MessageBox.Show("Carl siger det ikke virker");
+            edit();
         }
 
         private void MouseDownNode(MouseButtonEventArgs e)
