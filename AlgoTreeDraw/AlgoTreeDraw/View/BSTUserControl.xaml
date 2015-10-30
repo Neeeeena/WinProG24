@@ -7,7 +7,7 @@
              xmlns:cmd="clr-namespace:GalaSoft.MvvmLight.Command;assembly=GalaSoft.MvvmLight.Platform"
              xmlns:local="clr-namespace:AlgoTreeDraw.ViewModel"
              mc:Ignorable="d" 
-             d:DesignHeight="100" d:DesignWidth="100"
+             d:DesignHeight="100" d:DesignWidth="99"
              Canvas.Left="{Binding X}" Canvas.Top="{Binding Y}" Width="{Binding diameter}" Height="{Binding diameter}">
 
     <Grid>
