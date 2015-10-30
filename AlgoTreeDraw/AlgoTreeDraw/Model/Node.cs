@@ -18,6 +18,8 @@ namespace AlgoTreeDraw.Model
         private string visualText = "1";
         public string VisualText { get { return visualText; } set { visualText = value; NotifyPropertyChanged(); } }
 
+        public abstract Node NewNode();
+
 
         public double CanvasCenterX { get { return X + diameter / 2; } set { X = value - diameter / 2; NotifyPropertyChanged(() => X); } }
 

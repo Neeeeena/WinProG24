@@ -19,7 +19,7 @@ namespace AlgoTreeDraw.ViewModel
     public class NodeViewModel : ViewModelBase
     {
         Boolean isEditing =false;
-        public ObservableCollection<BST> BSTNodes {get; set; }
+        public ObservableCollection<Node> Nodes {get; set; }
 
         private Point initialMousePosition;
         private Point initialNodePosition;
@@ -29,19 +29,16 @@ namespace AlgoTreeDraw.ViewModel
         public ICommand MouseUpNodeCommand { get; }
 
 
-        public ObservableCollection<RBT> RBTNodes { get; set; }
         public NodeViewModel(LineViewModel lvm)
         {
-            BSTNodes = new ObservableCollection<BST>() {
+            Nodes = new ObservableCollection<Node>() {
                 new BST() { X = -225, Y = 20, diameter = 50},
-                new BST() { X = 300, Y = 100, diameter = 50}
-            };
-            
-            RBTNodes = new ObservableCollection<RBT>()
-            {
+                new BST() { X = 300, Y = 100, diameter = 50},
                 new RBT() {X = 60, Y=90, diameter=50 },
                 new RBT() {X= 120, Y=50,diameter=50 }
             };
+            
+
             
             MouseDownNodeCommand = new RelayCommand<MouseButtonEventArgs>(MouseDownNode);
             MouseMoveNodeCommand = new RelayCommand<MouseEventArgs>(MouseMoveNode);
@@ -53,9 +50,12 @@ namespace AlgoTreeDraw.ViewModel
             isEditing = true;
         }
 
-        public void AddBstNode()
+        public void AddNode(Node e)
         {
-            BSTNodes.Add(new BST { X = -225, Y = 20, diameter=50});
+            Node newNode = e.NewNode();
+            newNode.X = -225;
+            newNode.Y = 20;
+            Nodes.Add(newNode);
         }
 
         private void MouseDownNode(MouseButtonEventArgs e)
@@ -143,6 +143,10 @@ namespace AlgoTreeDraw.ViewModel
                 node.X = initialNodePosition.X;
                 node.Y = initialNodePosition.Y;
             }
+            if (initialNodePosition.X == -225 && initialNodePosition.Y == 20)
+            {
+                AddNode(node);
+            }
             //}
         
         }
@@ -161,11 +165,11 @@ namespace AlgoTreeDraw.ViewModel
                 // The View (GUI) is then notified by the Shape, that its properties have changed.
                 var tempX = initialNodePosition.X + (mousePosition.X - initialMousePosition.X);
                 var tempY = initialNodePosition.Y + (mousePosition.Y - initialMousePosition.Y);
-                //if(tempX>0 && tempY > 0)
-                //{
+                if((initialNodePosition.X==-225 && initialNodePosition.Y == 20)||!(tempX<0||tempY<0))
+                {
                     node.X = tempX;
                     node.Y = tempY;
-              //  }
+                }
                 
             }
         }
