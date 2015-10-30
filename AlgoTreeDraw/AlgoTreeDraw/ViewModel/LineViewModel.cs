@@ -18,7 +18,6 @@ namespace AlgoTreeDraw.ViewModel
             this.nvm = nvm;
 
             Lines = new ObservableCollection<Line>() {
-                new Line() {From = nvm.BSTNodes[0], To = nvm.BSTNodes[1]}
             };
 
         }

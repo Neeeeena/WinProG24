@@ -18,6 +18,8 @@ namespace AlgoTreeDraw.ViewModel
     {
         public NodeViewModel NodeViewModel { get; set; }
         public LineViewModel LineViewModel { get; set; }
+
+        public SidePanelViewModel SidePanelViewModel { get; set; }
         /// <summary>
         /// Initializes a new instance of the MainViewModel class.
         /// </summary>
@@ -25,6 +27,8 @@ namespace AlgoTreeDraw.ViewModel
         {
             NodeViewModel = new NodeViewModel(LineViewModel);
             LineViewModel = new LineViewModel(NodeViewModel);
+            SidePanelViewModel = new SidePanelViewModel(NodeViewModel);
+
             ////if (IsInDesignMode)
             ////{
             ////    // Code runs in Blend --> create design time data.

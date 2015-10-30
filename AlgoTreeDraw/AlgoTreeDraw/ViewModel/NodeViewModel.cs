@@ -22,7 +22,7 @@ namespace AlgoTreeDraw.ViewModel
         public ObservableCollection<BST> BSTNodes {get; set; }
 
         private Point initialMousePosition;
-        private Point initialShapePosition;
+        private Point initialNodePosition;
 
         public ICommand MouseDownNodeCommand { get; }
         public ICommand MouseMoveNodeCommand { get; }
@@ -33,7 +33,7 @@ namespace AlgoTreeDraw.ViewModel
         public NodeViewModel(LineViewModel lvm)
         {
             BSTNodes = new ObservableCollection<BST>() {
-                new BST() { X = 30, Y = 40, diameter = 50},
+                new BST() { X = -225, Y = 20, diameter = 50},
                 new BST() { X = 300, Y = 100, diameter = 50}
             };
             
@@ -51,6 +51,11 @@ namespace AlgoTreeDraw.ViewModel
         public void edit()
         {
             isEditing = true;
+        }
+
+        public void AddBstNode()
+        {
+            BSTNodes.Add(new BST { X = -225, Y = 20, diameter=50});
         }
 
         private void MouseDownNode(MouseButtonEventArgs e)
@@ -71,7 +76,7 @@ namespace AlgoTreeDraw.ViewModel
             //  from when the mouse is released, can become one Undo/Redo command.
             // The initial shape position is saved to calculate the offset that the shape should be moved.
             initialMousePosition = mousePosition;
-            initialShapePosition = new Point(shape.X, shape.Y);
+            initialNodePosition = new Point(shape.X, shape.Y);
 
             // The mouse is captured, so the current shape will always be the target of the mouse events, 
             //  even if the mouse is outside the application window.
@@ -116,13 +121,13 @@ namespace AlgoTreeDraw.ViewModel
             e
             {*/
             // The Shape is gotten from the mouse event.
-            var shape = TargetShape(e);
+            var node = TargetShape(e);
                 // The mouse position relative to the target of the mouse event.
                 //var mousePosition = RelativeMousePosition(e);
 
                 //// The Shape is moved back to its original position, so the offset given to the move command works.
-                //shape.X = initialShapePosition.X;
-                //shape.Y = initialShapePosition.Y;
+                //shape.X = initialNodePosition.X;
+                //shape.Y = initialNodePosition.Y;
 
             // Now that the Move Shape operation is over, the Shape is moved to the final position, 
             //  by using a MoveNodeCommand to move it.
@@ -132,6 +137,12 @@ namespace AlgoTreeDraw.ViewModel
             //new MoveNodeCommand(shape, mousePosition.X - initialMousePosition.X, mousePosition.Y - initialMousePosition.Y);
                 // The mouse is released, as the move operation is done, so it can be used by other controls.
                 e.MouseDevice.Target.ReleaseMouseCapture();
+            if (node.X < 0 || node.Y < 0)
+            {
+                MessageBox.Show("wtf");
+                node.X = initialNodePosition.X;
+                node.Y = initialNodePosition.Y;
+            }
             //}
         
         }
@@ -148,8 +159,14 @@ namespace AlgoTreeDraw.ViewModel
 
                 // The Shape is moved by the offset between the original and current mouse position.
                 // The View (GUI) is then notified by the Shape, that its properties have changed.
-                node.X = initialShapePosition.X + (mousePosition.X - initialMousePosition.X);
-                node.Y = initialShapePosition.Y + (mousePosition.Y - initialMousePosition.Y);
+                var tempX = initialNodePosition.X + (mousePosition.X - initialMousePosition.X);
+                var tempY = initialNodePosition.Y + (mousePosition.Y - initialMousePosition.Y);
+                //if(tempX>0 && tempY > 0)
+                //{
+                    node.X = tempX;
+                    node.Y = tempY;
+              //  }
+                
             }
         }
 

@@ -87,6 +87,7 @@
     <Compile Include="ViewModel\LineViewModel.cs" />
     <Compile Include="ViewModel\MainViewModel.cs" />
     <Compile Include="ViewModel\NodeViewModel.cs" />
+    <Compile Include="ViewModel\SidePanelViewModel.cs" />
     <Compile Include="ViewModel\ViewModelLocator.cs" />
     <Compile Include="View\BSTUserControl.xaml.cs">
       <DependentUpon>BSTUserControl.xaml</DependentUpon>
