@@ -8,11 +8,12 @@
              xmlns:local="clr-namespace:AlgoTreeDraw.ViewModel"
              mc:Ignorable="d" 
              d:DesignHeight="100" d:DesignWidth="100"
-             Canvas.Left="{Binding X}" Canvas.Top="{Binding Y}" Width="{Binding diameter}" Height="{Binding diameter}">
+             AllowDrop="true"
+             Canvas.Left="{Binding X}" Canvas.Top="{Binding Y}" Width="{Binding diameter}" Height="{Binding diameter}" >
 
     <Grid>
-        <Ellipse Fill="White" Stroke="Black" StrokeThickness="1">
-            <i:Interaction.Triggers>
+        <Ellipse Fill="White" Stroke="Black" StrokeThickness="1" >
+             <i:Interaction.Triggers>
                 <i:EventTrigger EventName="MouseDown">
                     <cmd:EventToCommand Command="{Binding DataContext.NodeViewModel.MouseDownNodeCommand, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type Window}}}" PassEventArgsToCommand="True"/>
                 </i:EventTrigger>

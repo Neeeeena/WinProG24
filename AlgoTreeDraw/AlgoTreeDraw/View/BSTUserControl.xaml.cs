@@ -24,5 +24,31 @@ namespace AlgoTreeDraw.View
         {
             InitializeComponent();
         }
+
+        /*public BSTUserControl(Canvas c)
+        {
+            InitializeComponent();
+            this.Height = c.Height;
+            this.Width = c.Width;
+        }
+        protected override void OnMouseMove(MouseEventArgs e)
+        {
+            base.OnMouseMove(e);
+            if (e.LeftButton == MouseButtonState.Pressed)
+            {
+                DataObject data = new DataObject();
+                data.SetData("Double", Height);
+                data.SetData("Object", this);
+
+                DragDrop.DoDragDrop(this, data, DragDropEffects.Move);
+            }
+        }
+
+        protected override void OnDrop(DragEventArgs e)
+        {
+            base.OnDrop(e);
+            e.Handled = true;
+        }*/
+       
     }
 }

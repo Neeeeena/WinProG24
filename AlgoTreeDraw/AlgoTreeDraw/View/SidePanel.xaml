@@ -19,9 +19,15 @@
                 <RowDefinition Height="auto"/>
                 <RowDefinition Height="auto"/>
             </Grid.RowDefinitions>
-            <Button Grid.Column="0" Grid.Row="0" Content="Binary Search Tree" Margin="3,0"/>
-            <Button Grid.Column="1" Grid.Row="0" Content="Red-Black Tree" Margin="3,0"/>
-            <Button Grid.Column="2" Grid.Row="0" Content="Two-Three-Four Tree" Margin="3,0" />
+            <TextBlock Grid.Column="0" Grid.Row="0" Text="Binary Search Tree" Margin="3,0"/>
+            <TextBlock Grid.Column="1" Grid.Row="0" Text="Red-Black Tree" Margin="3,0"/>
+            <Menu Grid.Column="2" Grid.Row="0">
+                <MenuItem Header ="2-3-4">
+                    <MenuItem Header="2-node"/>
+                    <MenuItem Header="3-node"/>
+                    <MenuItem Header="4-node"/>
+                </MenuItem>
+            </Menu>
             <Ellipse Grid.Column="0" Grid.Row="1" Fill="Red" Height="40" Margin="20,5"/>
             <Ellipse Grid.Column="1" Grid.Row="1" Fill="Blue" Height="40" Margin="20,5"/>
             <Ellipse Grid.Column="2" Grid.Row="1" Fill="Green" Height="40" Margin="20,5"/>
