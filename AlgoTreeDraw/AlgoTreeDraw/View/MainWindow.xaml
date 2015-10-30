@@ -13,7 +13,7 @@
     <DockPanel>
         <View:MenuBar DockPanel.Dock="Top"/>
         <View:SidePanel DockPanel.Dock="Left"/>
-        <Grid>
+        <Grid AllowDrop="True">
             <ItemsControl ItemsSource="{Binding LineViewModel.Lines}"/>
             <ItemsControl ItemsSource="{Binding NodeViewModel.BSTNodes}"/>
             <ItemsControl ItemsSource="{Binding NodeViewModel.RBTNodes}"/>
