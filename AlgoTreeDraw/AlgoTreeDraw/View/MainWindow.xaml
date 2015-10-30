@@ -15,8 +15,7 @@
         <View:SidePanel DockPanel.Dock="Left"/>
         <Grid AllowDrop="True">
             <ItemsControl ItemsSource="{Binding LineViewModel.Lines}"/>
-            <ItemsControl ItemsSource="{Binding NodeViewModel.BSTNodes}"/>
-            <ItemsControl ItemsSource="{Binding NodeViewModel.RBTNodes}"/>
+            <ItemsControl ItemsSource="{Binding NodeViewModel.Nodes}"/>
             
         </Grid>
 

@@ -8,5 +8,9 @@ namespace AlgoTreeDraw.Model
 {
     public class T234 : Node
     {
+        public override Node NewNode()
+        {
+            return new T234();
+        }
     }
 }

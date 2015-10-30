@@ -13,5 +13,10 @@ namespace AlgoTreeDraw.Model
         {
 
         }
+
+        public override Node NewNode()
+        {
+            return new BST() { diameter = 50 };
+        }
     }
 }
