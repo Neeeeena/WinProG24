@@ -10,19 +10,20 @@
              d:DesignHeight="100" d:DesignWidth="100"
              Canvas.Left="{Binding X}" Canvas.Top="{Binding Y}" Width="{Binding diameter}" Height="{Binding diameter}">
 
+    <i:Interaction.Triggers>
+        <i:EventTrigger EventName="MouseDown">
+            <cmd:EventToCommand Command="{Binding DataContext.NodeViewModel.MouseDownNodeCommand, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type Window}}}" PassEventArgsToCommand="True"/>
+        </i:EventTrigger>
+        <i:EventTrigger EventName="MouseMove">
+            <cmd:EventToCommand Command="{Binding DataContext.NodeViewModel.MouseMoveNodeCommand, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type Window}}}" PassEventArgsToCommand="True"/>
+        </i:EventTrigger>
+        <i:EventTrigger EventName="MouseUp">
+            <cmd:EventToCommand Command="{Binding DataContext.NodeViewModel.MouseUpNodeCommand, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type Window}}}" PassEventArgsToCommand="True"/>
+        </i:EventTrigger>
+    </i:Interaction.Triggers>
+
     <Grid>
-        <Ellipse Fill="Fuchsia" Stroke="Black" StrokeThickness="1337">
-            <i:Interaction.Triggers>
-                <i:EventTrigger EventName="MouseDown">
-                    <cmd:EventToCommand Command="{Binding DataContext.NodeViewModel.MouseDownNodeCommand, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type Window}}}" PassEventArgsToCommand="True"/>
-                </i:EventTrigger>
-                <i:EventTrigger EventName="MouseMove">
-                    <cmd:EventToCommand Command="{Binding DataContext.NodeViewModel.MouseMoveNodeCommand, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type Window}}}" PassEventArgsToCommand="True"/>
-                </i:EventTrigger>
-                <i:EventTrigger EventName="MouseUp">
-                    <cmd:EventToCommand Command="{Binding DataContext.NodeViewModel.MouseUpNodeCommand, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type Window}}}" PassEventArgsToCommand="True"/>
-                </i:EventTrigger>
-            </i:Interaction.Triggers>
+        <Ellipse Fill="Fuchsia" Stroke="Black" StrokeThickness="3">
         </Ellipse>
         <Grid>
             <Grid.RowDefinitions>
