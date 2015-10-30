@@ -11,7 +11,7 @@
              Canvas.Left="{Binding X}" Canvas.Top="{Binding Y}" Width="{Binding diameter}" Height="{Binding diameter}">
 
     <Grid>
-        <Ellipse Fill="White" Stroke="Black" StrokeThickness="1">
+        <Ellipse Fill="Fuchsia" Stroke="Black" StrokeThickness="1">
             <i:Interaction.Triggers>
                 <i:EventTrigger EventName="MouseDown">
                     <cmd:EventToCommand Command="{Binding DataContext.NodeViewModel.MouseDownNodeCommand, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type Window}}}" PassEventArgsToCommand="True"/>

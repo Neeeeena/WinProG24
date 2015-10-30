@@ -11,6 +11,7 @@ namespace AlgoTreeDraw.Model
     {
         public BST()
         {
+
         }
     }
 }
