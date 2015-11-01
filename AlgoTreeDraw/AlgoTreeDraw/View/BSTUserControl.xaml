@@ -25,8 +25,7 @@
     </i:Interaction.Triggers>
 
     <Grid>
-        <Ellipse Fill="White" Stroke="Black" StrokeThickness="1">
-        </Ellipse>
+        <Ellipse Fill="White" Stroke="Black" StrokeThickness="1"></Ellipse>
 
         <Grid>
             <Grid.RowDefinitions>

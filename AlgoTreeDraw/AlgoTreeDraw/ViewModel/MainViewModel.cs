@@ -16,18 +16,15 @@ namespace AlgoTreeDraw.ViewModel
     /// </summary>
     public class MainViewModel : ViewModelBase
     {
-        public NodeViewModel NodeViewModel { get; set; }
-        public LineViewModel LineViewModel { get; set; }
-
         public SidePanelViewModel SidePanelViewModel { get; set; }
         /// <summary>
         /// Initializes a new instance of the MainViewModel class.
         /// </summary>
         public MainViewModel()
         {
-            NodeViewModel = new NodeViewModel(LineViewModel);
-            LineViewModel = new LineViewModel(NodeViewModel);
-            SidePanelViewModel = new SidePanelViewModel();
+            //NodeViewModel = new BstViewModel();
+            //LineViewModel = new LineViewModel();
+            //SidePanelViewModel = new SidePanelViewModel();
 
             ////if (IsInDesignMode)
             ////{

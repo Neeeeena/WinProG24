@@ -16,11 +16,11 @@ using System.Windows.Shapes;
 namespace AlgoTreeDraw.View
 {
     /// <summary>
-    /// Interaction logic for RBTUserControl.xaml
+    /// Interaction logic for LineView.xaml
     /// </summary>
-    public partial class LineUserControl : UserControl
+    public partial class LineView : UserControl
     {
-        public LineUserControl()
+        public LineView()
         {
             InitializeComponent();
         }

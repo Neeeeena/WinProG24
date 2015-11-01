@@ -50,6 +50,18 @@
     <Reference Include="Microsoft.Practices.ServiceLocation">
       <HintPath>..\packages\CommonServiceLocator.1.3\lib\portable-net4+sl5+netcore45+wpa81+wp8\Microsoft.Practices.ServiceLocation.dll</HintPath>
     </Reference>
+    <Reference Include="Prism, Version=6.1.0.0, Culture=neutral, PublicKeyToken=91a96d2a154366d8, processorArchitecture=MSIL">
+      <HintPath>..\packages\Prism.Core.6.1.0\lib\net45\Prism.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Prism.Mef.Wpf, Version=6.1.0.0, Culture=neutral, PublicKeyToken=91a96d2a154366d8, processorArchitecture=MSIL">
+      <HintPath>..\packages\Prism.Mef.6.1.0\lib\net45\Prism.Mef.Wpf.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Prism.Wpf, Version=6.1.0.0, Culture=neutral, PublicKeyToken=91a96d2a154366d8, processorArchitecture=MSIL">
+      <HintPath>..\packages\Prism.Wpf.6.1.0\lib\net45\Prism.Wpf.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Data" />
     <Reference Include="System.Drawing" />
@@ -84,6 +96,8 @@
     <Compile Include="Model\NotifyBase.cs" />
     <Compile Include="Model\Node.cs" />
     <Compile Include="Model\T234.cs" />
+    <Compile Include="NodeMessage.cs" />
+    <Compile Include="ViewModel\BstViewModel.cs" />
     <Compile Include="ViewModel\LineViewModel.cs" />
     <Compile Include="ViewModel\MainViewModel.cs" />
     <Compile Include="ViewModel\NodeViewModel.cs" />
@@ -92,8 +106,11 @@
     <Compile Include="View\BSTUserControl.xaml.cs">
       <DependentUpon>BSTUserControl.xaml</DependentUpon>
     </Compile>
-    <Compile Include="View\LineUserControl.xaml.cs">
-      <DependentUpon>LineUserControl.xaml</DependentUpon>
+    <Compile Include="View\BstView.xaml.cs">
+      <DependentUpon>BstView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="View\LineView.xaml.cs">
+      <DependentUpon>LineView.xaml</DependentUpon>
     </Compile>
     <Compile Include="View\SidePanel.xaml.cs">
       <DependentUpon>SidePanel.xaml</DependentUpon>
@@ -107,6 +124,14 @@
     <Compile Include="View\T234UserControl.xaml.cs">
       <DependentUpon>T234UserControl.xaml</DependentUpon>
     </Compile>
+    <Page Include="View\BstView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="View\LineView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="View\MainWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
@@ -122,10 +147,6 @@
     <Page Include="View\BSTUserControl.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="View\LineUserControl.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
     </Page>
     <Page Include="View\SidePanel.xaml">
       <Generator>MSBuild:Compile</Generator>

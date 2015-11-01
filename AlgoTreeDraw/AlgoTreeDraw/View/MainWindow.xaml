@@ -6,18 +6,19 @@
         xmlns:local="clr-namespace:AlgoTreeDraw"
         xmlns:View="clr-namespace:AlgoTreeDraw.View"
         xmlns:ViewModel="clr-namespace:AlgoTreeDraw.ViewModel"
-        DataContext="{Binding Source={StaticResource Locator}, Path=Main}"
         mc:Ignorable="d"
-        Title="MainWindow" Height="350" Width="525">
+        Title="MainWindow" Height="600" Width="900">
 
+    <Window.DataContext>
+        <ViewModel:MainViewModel />
+    </Window.DataContext>
+    
     <DockPanel>
-        <View:MenuBar DockPanel.Dock="Top"/>
-        <View:SidePanel DockPanel.Dock="Left"/>
-        <Grid AllowDrop="True">
-            <ItemsControl ItemsSource="{Binding LineViewModel.Lines}"/>
-            <ItemsControl ItemsSource="{Binding NodeViewModel.Nodes}"/>
-            
-        </Grid>
-
+        <View:MenuBar DockPanel.Dock="Top"/> <!-- Draw Menu bar -->
+        <View:SidePanel DockPanel.Dock="Left"/> <!-- Draw sidepanel -->
+        <View:BstView /> <!-- Draw Bst nodes -->
+        <View:LineView />  <!-- Draw lines -->
     </DockPanel>
 </Window>
+    
+    

@@ -8,12 +8,12 @@ using System.Windows.Media;
 namespace AlgoTreeDraw.Model
 {
     public abstract class Node : NotifyBase {
-        public double initialX;
-        public double initialY;
-        private double x = 200;
-        private double y = 200;
-        public double X { get { return x; } set { x = value; NotifyPropertyChanged(); NotifyPropertyChanged(() => CanvasCenterX); } }
-        public double Y { get { return y; } set { y = value; NotifyPropertyChanged(); NotifyPropertyChanged(() => CanvasCenterY); } }
+        public int initialX;
+        public int initialY;
+        private int x = 200;
+        private int y = 200;
+        public double X { get { return x; } set { x = (int)value; NotifyPropertyChanged(); NotifyPropertyChanged(() => CanvasCenterX); } }
+        public double Y { get { return y; } set { y = (int)value; NotifyPropertyChanged(); NotifyPropertyChanged(() => CanvasCenterY); } }
 
         public double diameter {get; set; } // Tilføj Notify hvis Diameter skal ændres
 
