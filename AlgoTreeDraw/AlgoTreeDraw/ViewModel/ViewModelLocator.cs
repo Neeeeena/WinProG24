@@ -45,6 +45,7 @@ namespace AlgoTreeDraw.ViewModel
             SimpleIoc.Default.Register<MainViewModel>();
             SimpleIoc.Default.Register<BstViewModel>();
             SimpleIoc.Default.Register<LineViewModel>();
+            SimpleIoc.Default.Register<SidePanelViewModel>();
         }
 
         public MainViewModel Main
@@ -68,6 +69,14 @@ namespace AlgoTreeDraw.ViewModel
             get
             {
                 return ServiceLocator.Current.GetInstance<LineViewModel>();
+            }
+        }
+
+        public SidePanelViewModel SidePanel
+        {
+            get
+            {
+                return ServiceLocator.Current.GetInstance<SidePanelViewModel>();
             }
         }
 

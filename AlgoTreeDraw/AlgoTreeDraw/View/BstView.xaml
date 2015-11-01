@@ -8,8 +8,7 @@
              xmlns:cmd="clr-namespace:GalaSoft.MvvmLight.Command;assembly=GalaSoft.MvvmLight.Platform"
              xmlns:ViewModel="clr-namespace:AlgoTreeDraw.ViewModel"
              mc:Ignorable="d" 
-             d:DesignHeight="300" d:DesignWidth="300" 
-             DataContext="{Binding Source={StaticResource Locator}, Path=Bst}">
+             d:DesignHeight="300" d:DesignWidth="300">
 
     <i:Interaction.Triggers>
         <i:EventTrigger EventName="MouseDown">

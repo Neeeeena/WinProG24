@@ -7,16 +7,13 @@
         xmlns:View="clr-namespace:AlgoTreeDraw.View"
         xmlns:ViewModel="clr-namespace:AlgoTreeDraw.ViewModel"
         mc:Ignorable="d"
-        Title="MainWindow" Height="600" Width="900">
-
-    <Window.DataContext>
-        <ViewModel:MainViewModel />
-    </Window.DataContext>
+        Title="MainWindow" Height="600" Width="900"
+        DataContext="{Binding Source={StaticResource Locator}, Path=Main}">
     
     <DockPanel>
         <View:MenuBar DockPanel.Dock="Top"/> <!-- Draw Menu bar -->
-        <View:SidePanel DockPanel.Dock="Left"/> <!-- Draw sidepanel -->
-        <View:BstView /> <!-- Draw Bst nodes -->
+        <View:SidePanel DataContext="{Binding Source={StaticResource Locator}, Path=SidePanel}" DockPanel.Dock="Left"/> <!-- Draw sidepanel -->
+        <View:BstView DataContext="{Binding Source={StaticResource Locator}, Path=Bst}" /> <!-- Draw Bst nodes -->
         <View:LineView />  <!-- Draw lines -->
     </DockPanel>
 </Window>

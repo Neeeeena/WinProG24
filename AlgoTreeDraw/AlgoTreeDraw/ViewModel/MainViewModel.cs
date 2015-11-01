@@ -16,7 +16,7 @@ namespace AlgoTreeDraw.ViewModel
     /// </summary>
     public class MainViewModel : ViewModelBase
     {
-        public SidePanelViewModel SidePanelViewModel { get; set; }
+        //public SidePanelViewModel SidePanelViewModel { get; set; }
         /// <summary>
         /// Initializes a new instance of the MainViewModel class.
         /// </summary>
