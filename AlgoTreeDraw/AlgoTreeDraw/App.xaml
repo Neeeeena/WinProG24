@@ -10,26 +10,6 @@
              d1p1:Ignorable="d" 
              xmlns:d1p1="http://schemas.openxmlformats.org/markup-compatibility/2006">
     <Application.Resources>
-        <DataTemplate DataType="{x:Type Model:BST}">
-      <Canvas>
-        <View:BSTUserControl />
-      </Canvas>
-    </DataTemplate>
-    <DataTemplate DataType="{x:Type Model:RBT}">
-      <Canvas>
-        <View:RBTUserControl />
-      </Canvas>
-    </DataTemplate>
-    <DataTemplate DataType="{x:Type Model:T234}">
-      <Canvas>
-        <View:T234UserControl />
-      </Canvas>
-    </DataTemplate>
-        <DataTemplate DataType="{x:Type Model:Line}">
-            <Canvas>
-                <View:LineUserControl />
-            </Canvas>
-        </DataTemplate>
         <ViewModel:ViewModelLocator x:Key="Locator" />
     </Application.Resources>
 </Application>
