@@ -18,9 +18,9 @@ namespace AlgoTreeDraw.View
     /// <summary>
     /// Interaction logic for LineView.xaml
     /// </summary>
-    public partial class LineView : UserControl
+    public partial class LineViewUserControl : UserControl
     {
-        public LineView()
+        public LineViewUserControl()
         {
             InitializeComponent();
         }

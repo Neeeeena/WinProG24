@@ -10,6 +10,8 @@ using System.Linq;
 using System.Linq.Expressions;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows;
+using System.Windows.Controls;
 using System.Windows.Input;
 using System.Windows.Media;
 
@@ -48,7 +50,7 @@ namespace AlgoTreeDraw.ViewModel
 
             mecs = new MouseEventCommands();
       
-            Messenger.Default.Register<LineMessage>(this, (action) => AddLineMSG(action));
+            Messenger.Default.Register<ALBstToSide>(this, (action) => ReceiveALBstToSide(action));
         }
 
         //Commands
@@ -89,14 +91,15 @@ namespace AlgoTreeDraw.ViewModel
         private void AddLineClicked()
         {
             isAddingLine = !isAddingLine;
-            var msg = new LineMessage() { line = null, isAddline = isAddingLine };
-            Messenger.Default.Send<LineMessage>(msg);
+            Messenger.Default.Send<ALSideToBst>(new ALSideToBst() { isAddingLine = isAddingLine });
             RaisePropertyChanged("BackgroundAddLine");
         }
 
-        private object AddLineMSG(LineMessage action)
+        private object ReceiveALBstToSide(ALBstToSide action)
         {
-            isAddingLine = action.isAddline;
+            isAddingLine = action.isAddingLine;
+            
+            RaisePropertyChanged("BackgroundAddLine");
             return null;
         }
     }

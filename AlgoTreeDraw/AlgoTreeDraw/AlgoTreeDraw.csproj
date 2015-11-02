@@ -88,6 +88,8 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="ALBstToSide.cs" />
+    <Compile Include="ALSideToBst.cs" />
     <Compile Include="Command\IUndoRedoCommand.cs" />
     <Compile Include="Command\MoveNodeCommand.cs" />
     <Compile Include="LineMessage.cs" />
@@ -106,14 +108,11 @@
     <Compile Include="ViewModel\NodeViewModel.cs" />
     <Compile Include="ViewModel\SidePanelViewModel.cs" />
     <Compile Include="ViewModel\ViewModelLocator.cs" />
-    <Compile Include="View\BSTUserControl.xaml.cs">
-      <DependentUpon>BSTUserControl.xaml</DependentUpon>
+    <Compile Include="View\BstViewUserControl.xaml.cs">
+      <DependentUpon>BstViewUserControl.xaml</DependentUpon>
     </Compile>
-    <Compile Include="View\BstView.xaml.cs">
-      <DependentUpon>BstView.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="View\LineView.xaml.cs">
-      <DependentUpon>LineView.xaml</DependentUpon>
+    <Compile Include="View\LineViewUserControl.xaml.cs">
+      <DependentUpon>LineViewUserControl.xaml</DependentUpon>
     </Compile>
     <Compile Include="View\SidePanel.xaml.cs">
       <DependentUpon>SidePanel.xaml</DependentUpon>
@@ -127,11 +126,11 @@
     <Compile Include="View\T234UserControl.xaml.cs">
       <DependentUpon>T234UserControl.xaml</DependentUpon>
     </Compile>
-    <Page Include="View\BstView.xaml">
+    <Page Include="View\BstViewUserControl.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="View\LineView.xaml">
+    <Page Include="View\LineViewUserControl.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -147,10 +146,6 @@
       <DependentUpon>MainWindow.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
-    <Page Include="View\BSTUserControl.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
     <Page Include="View\SidePanel.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>

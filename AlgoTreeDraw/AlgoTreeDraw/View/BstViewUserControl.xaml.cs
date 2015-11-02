@@ -18,9 +18,9 @@ namespace AlgoTreeDraw.View
     /// <summary>
     /// Interaction logic for BstView.xaml
     /// </summary>
-    public partial class BstView : UserControl
+    public partial class BstViewUserControl : UserControl
     {
-        public BstView()
+        public BstViewUserControl()
         {
             InitializeComponent();
         }

@@ -32,7 +32,7 @@ namespace AlgoTreeDraw.ViewModel
                 new BST() { X = 100, Y = 200, diameter = 50}
             };
             Messenger.Default.Register<NodeMessage>(this, (action) => ReceiveMessage(action));
-            Messenger.Default.Register<LineMessage>(this, (action) => AddLineMSG(action));
+            Messenger.Default.Register<ALSideToBst>(this, (action) => ReceiveALSideToBst(action));
 
             MouseDownNodeCommand = new RelayCommand<MouseButtonEventArgs>(MouseDownNode);
             MouseMoveNodeCommand = new RelayCommand<MouseEventArgs>(MouseMoveNode);
@@ -62,7 +62,7 @@ namespace AlgoTreeDraw.ViewModel
             if (isAddingLine)
             {
                 if (LineFrom == null) { LineFrom = node; LineFrom.Color = Brushes.Blue; }
-                else if(LineFrom != null && !Object.ReferenceEquals(LineFrom, node)) { AddLine(node); }
+                else if(!Object.ReferenceEquals(LineFrom, node)) { AddLine(node); }
               
             }
 
@@ -75,8 +75,9 @@ namespace AlgoTreeDraw.ViewModel
 
         public void AddLine(Node node)
         {
-            Messenger.Default.Send<LineMessage>(new LineMessage() { line = new Line() { From = LineFrom , To = node }, isAddline = false } );
-            //LineFrom.Color = Brushes.White;
+            Messenger.Default.Send<LineMessage>(new LineMessage() { line = new Line() { From = LineFrom, To = node }, isAddline = false });
+            Messenger.Default.Send<ALBstToSide>(new ALBstToSide() { isAddingLine = false });
+            LineFrom.Color = Brushes.White;
             LineFrom = null;
             isAddingLine = false;
         }
@@ -96,9 +97,9 @@ namespace AlgoTreeDraw.ViewModel
             return null;
         }
 
-        private object AddLineMSG(LineMessage action)
+        private object ReceiveALSideToBst(ALSideToBst action)
         {
-            isAddingLine = action.isAddline;
+            isAddingLine = action.isAddingLine;
             if(isAddingLine == false)
             {
                 if(LineFrom != null) LineFrom.Color = Brushes.White;
