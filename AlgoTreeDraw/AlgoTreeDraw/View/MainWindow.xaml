@@ -13,8 +13,8 @@
     <DockPanel>
         <View:MenuBar DockPanel.Dock="Top"/> <!-- Draw Menu bar -->
         <View:SidePanel DataContext="{Binding Source={StaticResource Locator}, Path=SidePanel}" DockPanel.Dock="Left"/> <!-- Draw sidepanel -->
+        <View:LineView /> <!-- Draw lines -->
         <View:BstView DataContext="{Binding Source={StaticResource Locator}, Path=Bst}" /> <!-- Draw Bst nodes -->
-        <View:LineView />  <!-- Draw lines -->
     </DockPanel>
 </Window>
     

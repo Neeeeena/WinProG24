@@ -17,19 +17,17 @@ namespace AlgoTreeDraw.ViewModel
         public NodeViewModel nvm;
         public LineViewModel()
         {
-            Messenger.Default.Register<NodeMessage>(this, (action) => ReceiveMessage(action)); //Register message from BstViewModel
+            Messenger.Default.Register<LineMessage>(this, (action) => LineMSG(action)); //Register message from BstViewModel
             Lines = new ObservableCollection<Line>() {
-                new Line() {From = new BST() { X = 500, Y = 500, diameter = 50}, To = new BST() { X = 10, Y = 50, diameter = 50}},
-                new Line() {From = new BST() { X = 900, Y = 20, diameter = 50}, To = new BST() { X = 10, Y = 50, diameter = 50}}
             };
         }
 
         //Commands
 
-        private object ReceiveMessage(NodeMessage action)
+        private object LineMSG(LineMessage action)
         {
-            Node node = action.node;
-            Lines.Add(new Line() { From = new BST() { X = 0, Y = 0, diameter = 0 }, To = node });
+            Line line = action.line;
+            Lines.Add(line);
             return null;
         }
 

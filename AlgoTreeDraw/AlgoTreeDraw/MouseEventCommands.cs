@@ -34,6 +34,8 @@ namespace AlgoTreeDraw
             var node = TargetShape(e);
 
             e.MouseDevice.Target.ReleaseMouseCapture();
+
+
             if (node.X < 0 || node.Y < 0)
             {
                 MessageBox.Show("wtf");

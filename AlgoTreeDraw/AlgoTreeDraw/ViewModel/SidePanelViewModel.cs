@@ -1,19 +1,39 @@
 ﻿using AlgoTreeDraw.Model;
+using GalaSoft.MvvmLight;
 using GalaSoft.MvvmLight.CommandWpf;
+using GalaSoft.MvvmLight.Messaging;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.ComponentModel;
 using System.Linq;
+using System.Linq.Expressions;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Input;
+using System.Windows.Media;
 
 namespace AlgoTreeDraw.ViewModel
 {
-    public class SidePanelViewModel
+    public class SidePanelViewModel : ViewModelBase
     {
 
         public ObservableCollection<Node> Nodes { get; set; }
+
+        private bool isAddingLine = false;
+
+        public int HEIGHT {get{ return 350;}}
+        public int WIDTH { get { return 240; } }
+
+        Brush _background;
+
+        public Brush BackgroundAddLine
+        {
+            get { return isAddingLine ? Brushes.Pink : Brushes.LightGreen; }
+            set { _background = value; }
+        }
+
+
 
         public SidePanelViewModel()
         {
@@ -24,13 +44,18 @@ namespace AlgoTreeDraw.ViewModel
             MouseDownNodeCommand = new RelayCommand<MouseButtonEventArgs>(MouseDownNode);
             MouseMoveNodeCommand = new RelayCommand<MouseEventArgs>(MouseMoveNode);
             MouseUpNodeCommand = new RelayCommand<MouseButtonEventArgs>(MouseUpNode);
+            AddLineCommand = new RelayCommand(AddLineClicked);
+
+            mecs = new MouseEventCommands();
+      
+            Messenger.Default.Register<LineMessage>(this, (action) => AddLineMSG(action));
         }
 
         //Commands
-
         public ICommand MouseDownNodeCommand { get; }
         public ICommand MouseMoveNodeCommand { get; }
         public ICommand MouseUpNodeCommand { get; }
+        public ICommand AddLineCommand { get; }
 
         private MouseEventCommands mecs { get; set; }
 
@@ -41,7 +66,14 @@ namespace AlgoTreeDraw.ViewModel
 
         private void MouseUpNode(MouseButtonEventArgs e)
         {
-            mecs.MouseUpNode(e);
+            var node = mecs.MouseUpNode(e);
+            
+            if (isInsideCanvas(node))
+            {
+                Messenger.Default.Send<NodeMessage>(new NodeMessage() { node = new BST() { X = node.X - WIDTH, Y = node.Y, diameter = node.diameter} });
+            }
+            node.X = MouseEventCommands.initialNodePosition.X;
+            node.Y = MouseEventCommands.initialNodePosition.Y;
         }
 
         private void MouseMoveNode(MouseEventArgs e)
@@ -49,5 +81,23 @@ namespace AlgoTreeDraw.ViewModel
             mecs.MouseMoveNode(e);
         }
 
+        public bool isInsideCanvas(Node node)
+        {
+            return node.X > WIDTH;
+        }
+
+        private void AddLineClicked()
+        {
+            isAddingLine = !isAddingLine;
+            var msg = new LineMessage() { line = null, isAddline = isAddingLine };
+            Messenger.Default.Send<LineMessage>(msg);
+            RaisePropertyChanged("BackgroundAddLine");
+        }
+
+        private object AddLineMSG(LineMessage action)
+        {
+            isAddingLine = action.isAddline;
+            return null;
+        }
     }
 }

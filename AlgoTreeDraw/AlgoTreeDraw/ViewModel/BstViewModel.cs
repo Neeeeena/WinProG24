@@ -14,6 +14,7 @@ using System.Windows.Media;
 using GalaSoft.MvvmLight.CommandWpf;
 using AlgoTreeDraw.Command;
 using GalaSoft.MvvmLight.Messaging;
+using System.ComponentModel;
 
 namespace AlgoTreeDraw.ViewModel
 {
@@ -21,10 +22,8 @@ namespace AlgoTreeDraw.ViewModel
     {
         public ObservableCollection<Node> Nodes { get; set; }
 
-        private Point initialMousePosition;
-        private Point initialNodePosition;
-        Boolean moved = true;
-
+        public bool isAddingLine = false;
+        public Node LineFrom;
         public BstViewModel()
         {
             Nodes = new ObservableCollection<Node>() {
@@ -32,12 +31,15 @@ namespace AlgoTreeDraw.ViewModel
                 new BST() { X = 100, Y = 100, diameter = 50},
                 new BST() { X = 100, Y = 200, diameter = 50}
             };
+            Messenger.Default.Register<NodeMessage>(this, (action) => ReceiveMessage(action));
+            Messenger.Default.Register<LineMessage>(this, (action) => AddLineMSG(action));
 
             MouseDownNodeCommand = new RelayCommand<MouseButtonEventArgs>(MouseDownNode);
             MouseMoveNodeCommand = new RelayCommand<MouseEventArgs>(MouseMoveNode);
             MouseUpNodeCommand = new RelayCommand<MouseButtonEventArgs>(MouseUpNode);
 
             mecs = new MouseEventCommands();
+
         }
 
         //Commands
@@ -55,7 +57,15 @@ namespace AlgoTreeDraw.ViewModel
 
         private void MouseUpNode(MouseButtonEventArgs e)
         {
-            mecs.MouseUpNode(e);
+            Node node = mecs.MouseUpNode(e);
+
+            if (isAddingLine)
+            {
+                if (LineFrom == null) { LineFrom = node; LineFrom.Color = Brushes.Blue; }
+                else if(LineFrom != null && !Object.ReferenceEquals(LineFrom, node)) { AddLine(node); }
+              
+            }
+
         }
 
         private void MouseMoveNode(MouseEventArgs e)
@@ -63,9 +73,17 @@ namespace AlgoTreeDraw.ViewModel
             mecs.MouseMoveNode(e);
         }
 
-        public void AddNode(Node e)
+        public void AddLine(Node node)
         {
-            Node newNode = e.NewNode();
+            Messenger.Default.Send<LineMessage>(new LineMessage() { line = new Line() { From = LineFrom , To = node }, isAddline = false } );
+            //LineFrom.Color = Brushes.White;
+            LineFrom = null;
+            isAddingLine = false;
+        }
+
+        public void AddNode(Node node)
+        {
+            Node newNode = new BST() { X = node.X, Y = node.Y, diameter = 50};
             Nodes.Add(newNode);
         }
 
@@ -74,7 +92,24 @@ namespace AlgoTreeDraw.ViewModel
         private object send(Node newNode)
         {
             var msg = new NodeMessage() { node = newNode };
-            Messenger.Default.Send<NodeMessage>(msg);
+            //Messenger.Default.Send<NodeMessage>(msg);
+            return null;
+        }
+
+        private object AddLineMSG(LineMessage action)
+        {
+            isAddingLine = action.isAddline;
+            if(isAddingLine == false)
+            {
+                if(LineFrom != null) LineFrom.Color = Brushes.White;
+                LineFrom = null;
+            }
+            return null;
+        }
+
+        private object ReceiveMessage(NodeMessage action)
+        {
+            AddNode(action.node);
             return null;
         }
 
@@ -102,6 +137,12 @@ namespace AlgoTreeDraw.ViewModel
         {
             get { return Node.Y; }
             set { Node.Y = value; }
+        }
+
+        public Brush Color
+        {
+            get { return Node.Color; }
+            set { Node.Color = value; }
         }
 
     }

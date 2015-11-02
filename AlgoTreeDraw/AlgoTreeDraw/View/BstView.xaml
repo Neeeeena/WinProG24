@@ -8,7 +8,8 @@
              xmlns:cmd="clr-namespace:GalaSoft.MvvmLight.Command;assembly=GalaSoft.MvvmLight.Platform"
              xmlns:ViewModel="clr-namespace:AlgoTreeDraw.ViewModel"
              mc:Ignorable="d" 
-             d:DesignHeight="300" d:DesignWidth="300">
+             d:DesignHeight="300" d:DesignWidth="300"
+             >
 
     <i:Interaction.Triggers>
         <i:EventTrigger EventName="MouseDown">
@@ -22,6 +23,7 @@
         </i:EventTrigger>
     </i:Interaction.Triggers>
 
+    
     <ItemsControl ItemsSource="{Binding Nodes}">
         <ItemsControl.ItemsPanel>
             <ItemsPanelTemplate>
@@ -37,7 +39,8 @@
         <ItemsControl.ItemTemplate>
             <DataTemplate>
                 <Grid>
-                    <Ellipse Fill="White" Stroke="Black" StrokeThickness="1" Width="{Binding diameter}" Height="{Binding diameter}"></Ellipse>
+                    <Ellipse Fill="{Binding Color}" Stroke="Black" StrokeThickness="1" Width="{Binding diameter}" Height="{Binding diameter}">
+                    </Ellipse>
                     <TextBlock Text="{Binding VisualText}" Grid.Row="1" HorizontalAlignment="Center" VerticalAlignment="Center" Foreground="Black"/>
                 </Grid>
             </DataTemplate>
