@@ -100,7 +100,6 @@
     <Compile Include="Model\Node.cs" />
     <Compile Include="Model\T234.cs" />
     <Compile Include="MouseEventCommands.cs" />
-    <Compile Include="myBrush.cs" />
     <Compile Include="NodeMessage.cs" />
     <Compile Include="ViewModel\BstViewModel.cs" />
     <Compile Include="ViewModel\LineViewModel.cs" />
