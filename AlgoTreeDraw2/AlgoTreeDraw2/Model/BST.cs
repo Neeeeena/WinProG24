@@ -1,14 +1,13 @@
-﻿using AlgoTreeDraw.Model;
+﻿using AlgoTreeDraw2.Model;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace AlgoTreeDraw
+namespace AlgoTreeDraw2.Model
 {
-    class NodeMessage
+    public class BST :Node
     {
-        public Node node { set; get; }
     }
 }

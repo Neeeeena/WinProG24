@@ -11,5 +11,21 @@
              xmlns:d1p1="http://schemas.openxmlformats.org/markup-compatibility/2006">
     <Application.Resources>
         <ViewModel:ViewModelLocator x:Key="Locator" />
+        <DataTemplate DataType="{x:Type ViewModel:BSTViewModel}">
+            <Canvas>
+                <View:BstViewUserControl/>
+            </Canvas>
+        </DataTemplate>
+        <DataTemplate DataType="{x:Type ViewModel:RBTViewModel}">
+            <Canvas>
+                <View:RBTUserControl/>
+            </Canvas>
+        </DataTemplate>
+        <DataTemplate DataType="{x:Type ViewModel:T234ViewModel}">
+            <Canvas>
+                <View:T234UserControl/>
+            </Canvas>
+        </DataTemplate>
+        
     </Application.Resources>
 </Application>
