@@ -32,6 +32,8 @@ namespace AlgoTreeDraw.ViewModel
 
         public ICommand MouseDoubleClickCommand { get; }
 
+        public ICommand KeyPressedCommand { get; }
+
 
         public NodeViewModel(LineViewModel lvm)
         {
@@ -45,6 +47,8 @@ namespace AlgoTreeDraw.ViewModel
             MouseDownNodeCommand = new RelayCommand<MouseButtonEventArgs>(MouseDownNode);
             MouseMoveNodeCommand = new RelayCommand<MouseEventArgs>(MouseMoveNode);
             MouseUpNodeCommand = new RelayCommand<MouseButtonEventArgs>(MouseUpNode);
+            KeyPressedCommand = new RelayCommand<KeyEventArgs>(KeyPressedNode);
+
         }
 
         public void edit()
@@ -62,6 +66,13 @@ namespace AlgoTreeDraw.ViewModel
         {
             MessageBox.Show("Carl siger det ikke virker");
             edit();
+        }
+
+        private void KeyPressedNode(KeyEventArgs e)
+        {
+            //if e.key = delete && knude = markeret {
+            // delete node og bla
+            //}
         }
 
         private void MouseDownNode(MouseButtonEventArgs e)
