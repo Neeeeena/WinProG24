@@ -32,6 +32,7 @@ namespace AlgoTreeDraw.ViewModel
             MouseDownNodeCommand = new RelayCommand<MouseButtonEventArgs>(MouseDownNode);
             MouseMoveNodeCommand = new RelayCommand<MouseEventArgs>(MouseMoveNode);
             MouseUpNodeCommand = new RelayCommand<MouseButtonEventArgs>(MouseUpNode);
+            KeyPressedCommand = new RelayCommand<KeyEventArgs>(DeleteKeyPressed);
 
 
         }
@@ -41,6 +42,7 @@ namespace AlgoTreeDraw.ViewModel
         public ICommand MouseDownNodeCommand { get; }
         public ICommand MouseMoveNodeCommand { get; }
         public ICommand MouseUpNodeCommand { get; }
+        public ICommand KeyPressedCommand { get; }
 
 
 
@@ -75,6 +77,14 @@ namespace AlgoTreeDraw.ViewModel
             get { return Node.Color; }
             set { Node.Color = value; }
         }
+
+        private void DeleteKeyPressed(KeyEventArgs e)
+        {
+            /*if e.key = delete && Node er markeret
+                Delete node
+            */
+        }
+
         private void MouseUpNode(MouseButtonEventArgs e)
         {
 
