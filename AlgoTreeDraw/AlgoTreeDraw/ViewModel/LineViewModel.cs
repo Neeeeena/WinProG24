@@ -11,25 +11,14 @@ using System.Windows;
 
 namespace AlgoTreeDraw.ViewModel
 {
-    public class LineViewModel
+    public class LineViewModel : MainViewModelBase
     {
-        public ObservableCollection<Line> Lines { get; set; }
-        public NodeViewModel nvm;
+
         public LineViewModel()
         {
-            Messenger.Default.Register<LineMessage>(this, (action) => LineMSG(action)); //Register message from BstViewModel
-            Lines = new ObservableCollection<Line>() {
-            };
         }
 
         //Commands
-
-        private object LineMSG(LineMessage action)
-        {
-            Line line = action.line;
-            Lines.Add(line);
-            return null;
-        }
 
         Line _line;
 

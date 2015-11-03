@@ -1,13 +1,13 @@
-﻿using System;
+﻿using AlgoTreeDraw2.Model;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace AlgoTreeDraw
+namespace AlgoTreeDraw2.Model
 {
-    class ALSideToBst
+    class RBT : Node
     {
-        public bool isAddingLine { get; set; }
     }
 }

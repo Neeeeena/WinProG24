@@ -43,7 +43,7 @@ namespace AlgoTreeDraw.ViewModel
             ////}
 
             SimpleIoc.Default.Register<MainViewModel>();
-            SimpleIoc.Default.Register<BstViewModel>();
+            SimpleIoc.Default.Register<NodeViewModel>();
             SimpleIoc.Default.Register<LineViewModel>();
             SimpleIoc.Default.Register<SidePanelViewModel>();
         }
@@ -56,11 +56,11 @@ namespace AlgoTreeDraw.ViewModel
             }
         }
 
-        public BstViewModel Bst
+        public NodeViewModel Bst
         {
             get
             {
-                return ServiceLocator.Current.GetInstance<BstViewModel>();
+                return ServiceLocator.Current.GetInstance<NodeViewModel>();
             }
         }
 

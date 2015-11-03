@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace AlgoTreeDraw.ViewModel
 {
-    public class BSTViewModel : NodeViewModel
+    class RBTViewModel : NodeViewModel
     {
     }
 }

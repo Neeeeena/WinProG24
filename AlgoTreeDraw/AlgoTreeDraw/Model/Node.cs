@@ -27,7 +27,9 @@ namespace AlgoTreeDraw.Model
 
         public double CanvasCenterY { get { return Y + diameter / 2; } set { Y = value - diameter / 2; NotifyPropertyChanged(() => Y); } }
 
-        Brush color = Brushes.White;
-        public Brush Color { get { return color; } set { color = value; NotifyPropertyChanged(); NotifyPropertyChanged(() => Color); } }
+        public abstract Brush PreColor { get; }
+        Brush preColor;
+        Brush color;
+        public abstract Brush Color { get; set; }
     }
 }

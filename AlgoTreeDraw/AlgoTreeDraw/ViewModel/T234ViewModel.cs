@@ -4,10 +4,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace AlgoTreeDraw
+namespace AlgoTreeDraw.ViewModel
 {
-    class ALBstToSide
+    class T234ViewModel
     {
-        public bool isAddingLine { get; set; }
     }
 }
