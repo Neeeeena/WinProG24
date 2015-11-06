@@ -53,13 +53,12 @@ namespace AlgoTreeDraw.ViewModel
 
         //public SidePanelViewModel SidePanel
         //{
-         //   get
+        //   get
         //    {
                 //return ServiceLocator.Current.GetInstance<SidePanelViewModel>();
         //    }
        // }
-
-
+       
         public static void Cleanup()
         {
             // TODO Clear the ViewModels
