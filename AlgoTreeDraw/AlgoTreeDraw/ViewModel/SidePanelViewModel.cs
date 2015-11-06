@@ -24,7 +24,8 @@ namespace AlgoTreeDraw.ViewModel
         public static ObservableCollection<NodeViewModel> NodesSP{ get; set; } 
             = new ObservableCollection<NodeViewModel>
             {
-                 new BSTViewModel(new BST() { X = 0, Y = 0, diameter = 50 })
+                 new BSTViewModel(new BST() { X = 0, Y = 0, diameter = 50 }),
+                 new RBTViewModel(new RBT() { X = 50, Y = 0, diameter = 50 })
             };
 
         
@@ -35,26 +36,21 @@ namespace AlgoTreeDraw.ViewModel
 
         public void MouseUpNodeSP(MouseButtonEventArgs e)
         {
-            NodeViewModel node = MouseUpNodeSP2(e);
+            var node = MouseUpNodeSP2(e);
             if(node.X > WIDTH)
             {
                 
                 if(node is BSTViewModel)
                 {
-                    AddNode(new BSTViewModel(new BST() { X = node.X, Y = node.Y, diameter = node.Diameter }));
+                    AddNode(new BSTViewModel(new BST() { X = node.X - WIDTH, Y = node.Y , diameter = node.Diameter }));
                 } else if(node is RBTViewModel)
                 {
-
+                    AddNode(new RBTViewModel(new RBT() { X = node.X - WIDTH, Y = node.Y, diameter = node.Diameter }));
                 }
-                node.X = initialNodePosition.X;
-                node.Y = initialNodePosition.Y;
-
-            } else if(node.X < WIDTH)
-            {
-                node.X = initialNodePosition.X;
-                node.Y = initialNodePosition.Y;
             }
-            
+            node.X = initialNodePosition.X;
+            node.Y = initialNodePosition.Y;
+
 
             e.MouseDevice.Target.ReleaseMouseCapture();
 
