@@ -16,29 +16,7 @@ namespace AlgoTreeDraw.Model
             initialY = 20;
         }
 
-        Brush color = Brushes.White;
-        Brush preColor = Brushes.White;
-
-        public override System.Windows.Media.Brush PreColor
-        {
-            get
-            {
-                return preColor;
-            }
-        }
-       
-        public override Brush Color
-        {
-            get
-            {
-                return color;
-            }
-
-            set
-            {
-            color = value; NotifyPropertyChanged(); NotifyPropertyChanged(() => Color);
-            }
-        }
+        
 
         public override Node NewNode()
         {

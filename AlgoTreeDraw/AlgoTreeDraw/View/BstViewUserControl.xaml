@@ -9,41 +9,31 @@
              xmlns:ViewModel="clr-namespace:AlgoTreeDraw.ViewModel"
              mc:Ignorable="d" 
              d:DesignHeight="300" d:DesignWidth="300"
+             Canvas.Left="{Binding X}" Canvas.Top="{Binding Y}" Width="{Binding Diameter}" Height="{Binding Diameter}" 
              >
 
     <i:Interaction.Triggers>
         <i:EventTrigger EventName="MouseDown">
-            <cmd:EventToCommand Command="{Binding MouseDownNodeCommand}" PassEventArgsToCommand="True"/>
+            <cmd:EventToCommand Command="{Binding DataContext.MouseDownNodeCommand, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type Grid}}}" PassEventArgsToCommand="True"/>
         </i:EventTrigger>
         <i:EventTrigger EventName="MouseMove">
-            <cmd:EventToCommand Command="{Binding MouseMoveNodeCommand}" PassEventArgsToCommand="True"/>
+            <cmd:EventToCommand Command="{Binding DataContext.MouseMoveNodeCommand, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type Grid}}}" PassEventArgsToCommand="True"/>
         </i:EventTrigger>
         <i:EventTrigger EventName="MouseUp">
-            <cmd:EventToCommand Command="{Binding MouseUpNodeCommand}" PassEventArgsToCommand="True"/>
+            <cmd:EventToCommand Command="{Binding DataContext.MouseUpNodeCommand, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type Grid}}}" PassEventArgsToCommand="True"/>
+        </i:EventTrigger>
+        <i:EventTrigger EventName="MouseDoubleClick">
+            <cmd:EventToCommand Command="{Binding DataContext.Mdc, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type Grid}}}" PassEventArgsToCommand="True"/>
         </i:EventTrigger>
     </i:Interaction.Triggers>
 
     
-    <ItemsControl ItemsSource="{Binding Nodes}">
-        <ItemsControl.ItemsPanel>
-            <ItemsPanelTemplate>
-                <Canvas/>
-            </ItemsPanelTemplate>
-        </ItemsControl.ItemsPanel>
-        <ItemsControl.ItemContainerStyle>
-            <Style TargetType="ContentPresenter">
-                <Setter Property="Canvas.Left" Value="{Binding X}"/>
-                <Setter Property="Canvas.Top" Value="{Binding Y}"/>
-            </Style>
-        </ItemsControl.ItemContainerStyle>
-        <ItemsControl.ItemTemplate>
-            <DataTemplate>
-                <Grid>
-                    <Ellipse Fill="{Binding Color}" Stroke="Black" StrokeThickness="1" Width="{Binding diameter}" Height="{Binding diameter}">
-                    </Ellipse>
-                    <TextBlock Text="{Binding VisualText}" Grid.Row="1" HorizontalAlignment="Center" VerticalAlignment="Center" Foreground="Black"/>
-                </Grid>
-            </DataTemplate>
-        </ItemsControl.ItemTemplate>
-    </ItemsControl>
+    <Grid>
+        <Ellipse Fill="{Binding Color}" Stroke="Black" StrokeThickness="1" Width="{Binding diameter}" Height="{Binding diameter}">
+        </Ellipse>
+        <TextBlock Text="{Binding VisualText}" Grid.Row="1" HorizontalAlignment="Center" VerticalAlignment="Center" Foreground="Black"/>
+    </Grid>
+    
+
+
 </UserControl>

@@ -14,8 +14,9 @@ namespace AlgoTreeDraw.ViewModel
     public class LineViewModel : MainViewModelBase
     {
 
-        public LineViewModel()
+        public LineViewModel(Line line)
         {
+            _line = line;
         }
 
         //Commands
