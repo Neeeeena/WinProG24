@@ -21,6 +21,7 @@ namespace AlgoTreeDraw.ViewModel
     {
         public new ICommand MouseUpNodeCommand { get; }
         public int WIDTH { get; set; } = 240;
+        public int NODEHEIGHT { get; set; } = 13;
         public static ObservableCollection<NodeViewModel> NodesSP{ get; set; } 
             = new ObservableCollection<NodeViewModel>
             {
@@ -40,14 +41,12 @@ namespace AlgoTreeDraw.ViewModel
             var node = MouseUpNodeSP2(e);
             if(node.X > WIDTH)
             {
-                
-                if(node is BSTViewModel)
-                {
-                    AddNode(new BSTViewModel(new BST() { X = node.X - WIDTH, Y = node.Y , diameter = node.Diameter }));
-                } else if(node is RBTViewModel)
-                {
-                    AddNode(new RBTViewModel(new RBT() { X = node.X - WIDTH, Y = node.Y, diameter = node.Diameter }));
-                }
+                NodeViewModel tempNode = node.newNodeViewModel();
+                tempNode.X = node.X - WIDTH;
+                tempNode.Y = node.Y + NODEHEIGHT;
+                tempNode.Diameter = node.Diameter;
+                AddNode(tempNode);
+
             }
             node.X = initialNodePosition.X;
             node.Y = initialNodePosition.Y;
