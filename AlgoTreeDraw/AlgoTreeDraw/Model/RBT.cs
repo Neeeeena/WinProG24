@@ -20,7 +20,7 @@ namespace AlgoTreeDraw.Model
         Brush color = Brushes.Red;
         Brush preColor = Brushes.Red;
 
-        public override System.Windows.Media.Brush PreColor
+        public override Brush PreColor
         {
             get
             {
