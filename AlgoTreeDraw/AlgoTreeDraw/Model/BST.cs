@@ -10,11 +10,6 @@ namespace AlgoTreeDraw.Model
 {
     public class BST : Node
     {
-        public BST()
-        {
-            initialX = -225;
-            initialY = 20;
-        }
 
         
 

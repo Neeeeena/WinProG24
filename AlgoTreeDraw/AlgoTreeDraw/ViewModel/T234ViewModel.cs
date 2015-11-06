@@ -8,5 +8,6 @@ namespace AlgoTreeDraw.ViewModel
 {
     class T234ViewModel
     {
+
     }
 }
