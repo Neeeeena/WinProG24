@@ -124,13 +124,12 @@ namespace AlgoTreeDraw.ViewModel
 
                 var tempX = initialNodePosition.X + (mousePosition.X - initialMousePosition.X);
                 var tempY = initialNodePosition.Y + (mousePosition.Y - initialMousePosition.Y);
-                if ((initialNodePosition.X == node.initialX && initialNodePosition.Y == node.initialY) || !(tempX < 0 || tempY < 0))
+                if ( !(tempX < 0 || tempY < 0))
                 {
-                    //    node.X = tempX;
-                    //  node.Y = tempY;
+                    node.X = tempX;
+                    node.Y = tempY;
                 }
-                node.X = tempX;
-                node.Y = tempY;
+                
             }
         }
 

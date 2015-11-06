@@ -20,6 +20,8 @@ namespace AlgoTreeDraw.ViewModel
     public class SidePanelViewModel : MainViewModelBase
     {
         public new ICommand MouseUpNodeCommand { get; }
+        Brush _background;
+        public ICommand AddLineCommand { get; }
         public int WIDTH { get; set; } = 240;
         public int NODEHEIGHT { get; set; } = 13;
         public static ObservableCollection<NodeViewModel> NodesSP{ get; set; } 
@@ -33,6 +35,13 @@ namespace AlgoTreeDraw.ViewModel
         public  SidePanelViewModel()
         {
             MouseUpNodeCommand = new RelayCommand<MouseButtonEventArgs>(MouseUpNode);
+            AddLineCommand = new RelayCommand<MouseButtonEventArgs>(AddLineClicked);
+        }
+
+        private void AddLineClicked(MouseButtonEventArgs e)
+        {
+            isAddingLine = !isAddingLine;
+            RaisePropertyChanged("BackgroundAddLine");
         }
 
         public new void MouseUpNode(MouseButtonEventArgs e)
@@ -57,12 +66,6 @@ namespace AlgoTreeDraw.ViewModel
         }
 
 
-
-        Brush _background;
-        public ICommand AddLineCommand { get;  }
-
-
-   
         
 
         public bool isNodeOutSideSidePanel(NodeViewModel node) {
@@ -76,11 +79,5 @@ namespace AlgoTreeDraw.ViewModel
             set { _background = value; }
         }
 
-
-        private void AddLineClicked()
-        {
-            isAddingLine = !isAddingLine;
-            RaisePropertyChanged("BackgroundAddLine");
-        }
     }
 }
