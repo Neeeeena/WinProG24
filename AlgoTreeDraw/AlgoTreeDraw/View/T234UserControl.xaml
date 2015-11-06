@@ -8,6 +8,6 @@
              d:DesignHeight="300" d:DesignWidth="300"
              Canvas.Left="{Binding X}" Canvas.Top="{Binding Y}" Width="{Binding Diameter}" Height="{Binding Diameter}">
     <Grid>
-        
+        <Rectangle Stroke="Black" Fill="White"></Rectangle>
     </Grid>
 </UserControl>
