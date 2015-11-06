@@ -19,7 +19,7 @@ using System.Diagnostics;
 
 namespace AlgoTreeDraw.ViewModel
 {
-    public class NodeViewModel : MainViewModelBase
+    public abstract class NodeViewModel : MainViewModelBase
     {
 
         public NodeViewModel(Node node)
@@ -42,6 +42,8 @@ namespace AlgoTreeDraw.ViewModel
                 _node = value;
             }
         }
+
+        public abstract NodeViewModel newNodeViewModel();
 
         public double X
         {

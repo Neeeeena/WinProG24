@@ -31,10 +31,10 @@ namespace AlgoTreeDraw.ViewModel
         
         public  SidePanelViewModel()
         {
-            MouseUpNodeCommand = new RelayCommand<MouseButtonEventArgs>(MouseUpNodeSP);
+            MouseUpNodeCommand = new RelayCommand<MouseButtonEventArgs>(MouseUpNode);
         }
 
-        public void MouseUpNodeSP(MouseButtonEventArgs e)
+        public new void MouseUpNode(MouseButtonEventArgs e)
         {
             var node = MouseUpNodeSP2(e);
             if(node.X > WIDTH)
