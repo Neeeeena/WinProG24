@@ -52,7 +52,7 @@ namespace AlgoTreeDraw.ViewModel
         {
             fromNode.Color = fromNode.PreColor;
             isAddingLine = false;
-            Lines.Add(new LineViewModel(new Line() { From = new BST() { X = fromNode.X, Y = fromNode.Y, diameter = fromNode.Diameter}, To = new BST() { X = to.X, Y = to.Y, diameter = to.Diameter } }));
+            Lines.Add(new LineViewModel(new Line() { From = fromNode.Node, To = to.Node }));
         }
 
         public void AddNode(NodeViewModel node)

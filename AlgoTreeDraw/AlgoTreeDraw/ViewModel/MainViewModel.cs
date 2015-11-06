@@ -39,10 +39,7 @@ namespace AlgoTreeDraw.ViewModel
                 new BSTViewModel(new BST() { X = 100, Y = 100, diameter = 50 })
             };
 
-            Lines = new ObservableCollection<LineViewModel>()
-            {
-                new LineViewModel(new Line() {From = new BST() { X = 0, Y = 0, diameter = 50 }, To = new BST() { X = 200, Y = 200, diameter = 50 } } )
-            };
+            Lines = new ObservableCollection<LineViewModel>();
 
 
             
