@@ -52,7 +52,8 @@ namespace AlgoTreeDraw.ViewModel
         {
             fromNode.Color = fromNode.PreColor;
             isAddingLine = false;
-            Lines.Add(new LineViewModel(new Line() { From = fromNode.Node, To = to.Node }));
+            Lines.Add(new LineViewModel(new Line()) { From = fromNode, To = to });
+            fromNode = null;
         }
 
         public void AddNode(NodeViewModel node)
