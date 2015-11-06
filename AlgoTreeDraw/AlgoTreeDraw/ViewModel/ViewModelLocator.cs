@@ -29,7 +29,7 @@ namespace AlgoTreeDraw.ViewModel
         /// </summary>
         public ViewModelLocator()
         {
-            ServiceLocator.SetLocatorProvider(() => SimpleIoc.Default);
+            //ServiceLocator.SetLocatorProvider(() => SimpleIoc.Default);
 
             ////if (ViewModelBase.IsInDesignModeStatic)
             ////{
@@ -43,42 +43,22 @@ namespace AlgoTreeDraw.ViewModel
             ////}
 
             SimpleIoc.Default.Register<MainViewModel>();
-            SimpleIoc.Default.Register<NodeViewModel>();
-            SimpleIoc.Default.Register<LineViewModel>();
-            SimpleIoc.Default.Register<SidePanelViewModel>();
+            //SimpleIoc.Default.Register<NodeViewModel>();
+            //SimpleIoc.Default.Register<LineViewModel>();
+            //SimpleIoc.Default.Register<SidePanelViewModel>();
         }
 
-        public MainViewModel Main
-        {
-            get
-            {
-                return ServiceLocator.Current.GetInstance<MainViewModel>();
-            }
-        }
+        public MainViewModel Main { get; } = new MainViewModel();
+        public SidePanelViewModel SidePanel { get; } = new SidePanelViewModel();
 
-        public NodeViewModel Bst
-        {
-            get
-            {
-                return ServiceLocator.Current.GetInstance<NodeViewModel>();
-            }
-        }
+        //public SidePanelViewModel SidePanel
+        //{
+         //   get
+        //    {
+                //return ServiceLocator.Current.GetInstance<SidePanelViewModel>();
+        //    }
+       // }
 
-        public LineViewModel Line
-        {
-            get
-            {
-                return ServiceLocator.Current.GetInstance<LineViewModel>();
-            }
-        }
-
-        public SidePanelViewModel SidePanel
-        {
-            get
-            {
-                return ServiceLocator.Current.GetInstance<SidePanelViewModel>();
-            }
-        }
 
         public static void Cleanup()
         {
