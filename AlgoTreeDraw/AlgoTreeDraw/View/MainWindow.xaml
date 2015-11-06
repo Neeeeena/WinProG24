@@ -16,8 +16,9 @@
         <View:SidePanel DockPanel.Dock="Left"/> <!-- Draw sidepanel -->
         <!-- Draw lines -->
         <Grid>
-            <ItemsControl ItemsSource="{Binding Nodes}"/>
             <ItemsControl ItemsSource="{Binding Lines}"/>
+            <ItemsControl ItemsSource="{Binding Nodes}"/>
+            
         </Grid>
         <!--<View:BstViewUserControl  />  Draw Bst nodes -->
     </DockPanel>
