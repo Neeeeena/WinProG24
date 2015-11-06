@@ -92,12 +92,9 @@ namespace AlgoTreeDraw.ViewModel
 
             if (isAddingLine)
             {
-
                 if (fromNode == null) { fromNode = node; fromNode.Color = Brushes.Blue; }
                 else if (!Object.ReferenceEquals(fromNode, node)) { AddLine(node); }
-
             }
-           
         }
 
         private void MouseDownNode(MouseButtonEventArgs e)
@@ -109,9 +106,7 @@ namespace AlgoTreeDraw.ViewModel
             initialNodePosition = new Point(node.X, node.Y);
 
             e.MouseDevice.Target.CaptureMouse();
-
         }
-
 
         private void MouseMoveNode(MouseEventArgs e)
         {
@@ -152,7 +147,5 @@ namespace AlgoTreeDraw.ViewModel
             dynamic parent = VisualTreeHelper.GetParent(o);
             return parent.GetType().IsAssignableFrom(typeof(T)) ? parent : FindParentOfType<T>(parent);
         }
-
-
     }
 }

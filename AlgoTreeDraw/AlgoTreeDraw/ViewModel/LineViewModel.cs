@@ -38,12 +38,12 @@ namespace AlgoTreeDraw.ViewModel
         public Node To
         {
             get { return Line.To; }
-            set { Line.To = value; }
+            set { Line.To = value; RaisePropertyChanged(); RaisePropertyChanged(() => To); }
         }
         public Node From
         {
             get { return Line.From; }
-            set { Line.From = value; }
+            set { Line.From = value; RaisePropertyChanged(); RaisePropertyChanged(() => From); }
         }
 
     }
