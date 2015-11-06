@@ -28,7 +28,8 @@ namespace AlgoTreeDraw.ViewModel
             = new ObservableCollection<NodeViewModel>
             {
                  new BSTViewModel(new BST() { X = 0, Y = 0, diameter = 50 }),
-                 new RBTViewModel(new RBT() { X = 50, Y = 0, diameter = 50 })
+                 new RBTViewModel(new RBT() { X = 50, Y = 0, diameter = 50 }),
+                 new T234ViewModel(new T234() { X = 100, Y = 0, diameter = 50 })
             };
 
         

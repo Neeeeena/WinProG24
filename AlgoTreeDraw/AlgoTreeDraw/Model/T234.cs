@@ -14,7 +14,7 @@ namespace AlgoTreeDraw.Model
         //    initialX = -225;
         //    initialY = 20;
         //}
-
+    
 
         public override Node NewNode()
         {
