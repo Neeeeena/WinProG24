@@ -31,20 +31,16 @@ namespace AlgoTreeDraw.ViewModel
         /// </summary>
         /// 
 
+        public string TextBoxFocus { get; set; } = "BSTValue";
+
         public MainViewModel() 
         {
             Nodes = new ObservableCollection<NodeViewModel>()
             {
-                new BSTViewModel(new BST() { X = 10, Y = 10, diameter = 50 }),
-                new BSTViewModel(new BST() { X = 100, Y = 100, diameter = 50 })
+
             };
 
             Lines = new ObservableCollection<LineViewModel>();
-
-
-            
-
-
         }
 
 

@@ -27,7 +27,6 @@ namespace AlgoTreeDraw.ViewModel
         public static bool isAddingLine { get; set; }
         public static NodeViewModel fromNode { get; set; }
 
-
         public static Point initialMousePosition { get; set; }
         public static Point initialNodePosition { get; set; }
 
@@ -35,18 +34,23 @@ namespace AlgoTreeDraw.ViewModel
 
         public MainViewModelBase()
         {
-            MouseDownNodeCommand = new RelayCommand<MouseButtonEventArgs>(MouseDownNode);
+            MouseLeftButtonDown = new RelayCommand<MouseButtonEventArgs>(MouseDownNode);
             MouseMoveNodeCommand = new RelayCommand<MouseEventArgs>(MouseMoveNode);
-            MouseUpNodeCommand = new RelayCommand<MouseButtonEventArgs>(MouseUpNode);
+            MouseLeftButtonUp = new RelayCommand<MouseButtonEventArgs>(MouseUpNode);
+            //MouseDoubleClick = new RelayCommand<MouseButtonEventArgs>(e => Debug.WriteLine(e));
             Mdc = new RelayCommand<MouseButtonEventArgs>(e => Debug.WriteLine(e));
+
         }
 
         //Commands
 
-        public ICommand MouseDownNodeCommand { get; }
+        public ICommand MouseLeftButtonDown { get; }
         public ICommand MouseMoveNodeCommand { get; }
-        public ICommand MouseUpNodeCommand { get; }
+        public ICommand MouseLeftButtonUp { get; }
         public ICommand Mdc { get; }
+
+
+
 
         public void AddLine( NodeViewModel to)
         {
@@ -59,6 +63,19 @@ namespace AlgoTreeDraw.ViewModel
         public void AddNode(NodeViewModel node)
         {
             Nodes.Add(node);
+        }
+        public void MouseDoubleClickNode(MouseButtonEventArgs e)
+        {
+            var node = TargetShape(e);
+            if(!(node.isTextBoxVisible == Visibility.Visible))
+            {
+                
+                node.isTextBoxVisible = Visibility.Visible;
+            } else
+            {
+                node.isTextBoxVisible = Visibility.Hidden;
+            }
+            MessageBox.Show("lol");
         }
 
         public NodeViewModel MouseUpNodeSP2(MouseButtonEventArgs e)
@@ -98,15 +115,18 @@ namespace AlgoTreeDraw.ViewModel
             }
         }
 
+
         private void MouseDownNode(MouseButtonEventArgs e)
         {
-            var node = TargetShape(e);
-            var mousePosition = RelativeMousePosition(e);
 
-            initialMousePosition = mousePosition;
-            initialNodePosition = new Point(node.X, node.Y);
+                var node = TargetShape(e);
+                var mousePosition = RelativeMousePosition(e);
 
-            e.MouseDevice.Target.CaptureMouse();
+                initialMousePosition = mousePosition;
+                initialNodePosition = new Point(node.X, node.Y);
+
+                e.MouseDevice.Target.CaptureMouse();
+
         }
 
         private void MouseMoveNode(MouseEventArgs e)

@@ -21,6 +21,9 @@ namespace AlgoTreeDraw.ViewModel
 {
     public abstract class NodeViewModel : MainViewModelBase
     {
+        
+        private Visibility _isTextBoxVisible = Visibility.Visible;
+        public Visibility isTextBoxVisible { get { return _isTextBoxVisible; } set { _isTextBoxVisible = value; RaisePropertyChanged(); RaisePropertyChanged(() => isTextBoxVisible); } }
 
         public NodeViewModel(Node node)
         {

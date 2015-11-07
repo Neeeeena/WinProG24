@@ -11,14 +11,14 @@
              Canvas.Left="{Binding X}" Canvas.Top="{Binding Y}" Width="{Binding Diameter}" Height="{Binding Diameter}">
    
     <i:Interaction.Triggers>
-        <i:EventTrigger EventName="MouseDown">
-            <cmd:EventToCommand Command="{Binding DataContext.MouseDownNodeCommand, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type Grid}}}" PassEventArgsToCommand="True"/>
+        <i:EventTrigger EventName="MouseLeftButtonDown">
+            <cmd:EventToCommand Command="{Binding DataContext.MouseLeftButtonDown, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type Grid}}}" PassEventArgsToCommand="True"/>
         </i:EventTrigger>
         <i:EventTrigger EventName="MouseMove">
             <cmd:EventToCommand Command="{Binding DataContext.MouseMoveNodeCommand, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type Grid}}}" PassEventArgsToCommand="True"/>
         </i:EventTrigger>
-        <i:EventTrigger EventName="MouseUp">
-            <cmd:EventToCommand Command="{Binding DataContext.MouseUpNodeCommand, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type Grid}}}" PassEventArgsToCommand="True"/>
+        <i:EventTrigger EventName="MouseLeftButtonUp">
+            <cmd:EventToCommand Command="{Binding DataContext.MouseLeftButtonUp, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type Grid}}}" PassEventArgsToCommand="True"/>
         </i:EventTrigger>
     </i:Interaction.Triggers>
 

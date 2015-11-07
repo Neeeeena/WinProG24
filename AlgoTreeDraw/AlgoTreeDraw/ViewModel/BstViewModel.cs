@@ -11,6 +11,8 @@ namespace AlgoTreeDraw.ViewModel
     {
         public BSTViewModel(Node _node) : base(_node) { }
 
+        
+
         public override NodeViewModel newNodeViewModel()
         {
             return new BSTViewModel(new BST());

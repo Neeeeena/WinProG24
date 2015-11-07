@@ -13,26 +13,24 @@
              >
 
     <i:Interaction.Triggers>
-        <i:EventTrigger EventName="MouseDown">
-            <cmd:EventToCommand Command="{Binding DataContext.MouseDownNodeCommand, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type Grid}}}" PassEventArgsToCommand="True"/>
+        <i:EventTrigger EventName="MouseLeftButtonDown">
+            <cmd:EventToCommand Command="{Binding DataContext.MouseLeftButtonDown, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type Grid}}}" PassEventArgsToCommand="True"/>
         </i:EventTrigger>
         <i:EventTrigger EventName="MouseMove">
             <cmd:EventToCommand Command="{Binding DataContext.MouseMoveNodeCommand, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type Grid}}}" PassEventArgsToCommand="True"/>
         </i:EventTrigger>
-        <i:EventTrigger EventName="MouseUp">
-            <cmd:EventToCommand Command="{Binding DataContext.MouseUpNodeCommand, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type Grid}}}" PassEventArgsToCommand="True"/>
-        </i:EventTrigger>
-        <i:EventTrigger EventName="MouseDoubleClick">
-            <cmd:EventToCommand Command="{Binding DataContext.Mdc, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type Grid}}}" PassEventArgsToCommand="True"/>
+        <i:EventTrigger EventName="MouseLeftButtonUp">
+            <cmd:EventToCommand Command="{Binding DataContext.MouseLeftButtonUp, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type Grid}}}" PassEventArgsToCommand="True"/>
         </i:EventTrigger>
     </i:Interaction.Triggers>
 
-    
     <Grid>
-        <Ellipse Fill="{Binding Color}" Stroke="Black" StrokeThickness="1" Width="{Binding diameter}" Height="{Binding diameter}">
-        </Ellipse>
-        <TextBlock Text="{Binding VisualText}" Grid.Row="1" HorizontalAlignment="Center" VerticalAlignment="Center" Foreground="Black"/>
-    </Grid>
+        <Ellipse Fill="{Binding Color}" Stroke="Black" StrokeThickness="1" />
+        
+        <!--<TextBox Name="BSTValue" Visibility="Visible" Text="{Binding VisualText}" VerticalAlignment="Center"></TextBox>-->
+         <TextBlock Text="{Binding VisualText}" Grid.Row="1" HorizontalAlignment="Center" VerticalAlignment="Center" Foreground="Black"/> 
+        
+        </Grid>
     
 
 

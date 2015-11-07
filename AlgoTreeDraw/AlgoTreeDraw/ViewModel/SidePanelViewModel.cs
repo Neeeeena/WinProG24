@@ -19,29 +19,30 @@ namespace AlgoTreeDraw.ViewModel
 {
     public class SidePanelViewModel : MainViewModelBase
     {
-        public new ICommand MouseUpNodeCommand { get; }
+        public new ICommand MouseLeftButtonUp { get; }
         Brush _background;
         public ICommand AddLineCommand { get; }
-        public int WIDTH { get; set; } = 240;
+        public static int WIDTH { get; set; } = 240;
         public int NODEHEIGHT { get; set; } = 13;
         public static ObservableCollection<NodeViewModel> NodesSP{ get; set; } 
             = new ObservableCollection<NodeViewModel>
             {
-                 new BSTViewModel(new BST() { X = 0, Y = 0, diameter = 50 }),
-                 new RBTViewModel(new RBT() { X = 50, Y = 0, diameter = 50 }),
-                 new T234ViewModel(new T234() { X = 100, Y = 0, diameter = 50 })
+                 new BSTViewModel(new BST() { X = WIDTH/3-WIDTH/3+(240-(WIDTH-WIDTH/3+50))/2, Y = 0, diameter = 50 }),
+                 new RBTViewModel(new RBT() { X = WIDTH/3*2-WIDTH/3+(240-(WIDTH-WIDTH/3+50))/2, Y = 0, diameter = 50 }),
+                 new T234ViewModel(new T234() { X = WIDTH-WIDTH/3+(240-(WIDTH-WIDTH/3+50))/2, Y = 0, diameter = 50 },1)
             };
-
+        
         
         public  SidePanelViewModel()
         {
-            MouseUpNodeCommand = new RelayCommand<MouseButtonEventArgs>(MouseUpNode);
+            MouseLeftButtonUp = new RelayCommand<MouseButtonEventArgs>(MouseUpNode);
             AddLineCommand = new RelayCommand<MouseButtonEventArgs>(AddLineClicked);
         }
 
         private void AddLineClicked(MouseButtonEventArgs e)
         {
             isAddingLine = !isAddingLine;
+            if(!isAddingLine) fromNode = null;
             RaisePropertyChanged("BackgroundAddLine");
         }
 
