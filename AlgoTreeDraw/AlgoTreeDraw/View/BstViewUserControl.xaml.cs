@@ -16,11 +16,11 @@ using System.Windows.Shapes;
 namespace AlgoTreeDraw.View
 {
     /// <summary>
-    /// Interaction logic for NodeUserControl.xaml
+    /// Interaction logic for BstView.xaml
     /// </summary>
-    public partial class NodeUserControl : UserControl
+    public partial class BstViewUserControl : UserControl
     {
-        public NodeUserControl()
+        public BstViewUserControl()
         {
             InitializeComponent();
         }

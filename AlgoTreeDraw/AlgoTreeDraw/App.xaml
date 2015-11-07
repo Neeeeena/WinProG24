@@ -10,26 +10,47 @@
              d1p1:Ignorable="d" 
              xmlns:d1p1="http://schemas.openxmlformats.org/markup-compatibility/2006">
     <Application.Resources>
-        <DataTemplate DataType="{x:Type Model:BST}">
-      <Canvas>
-        <View:BSTUserControl />
-      </Canvas>
-    </DataTemplate>
-    <DataTemplate DataType="{x:Type Model:RBT}">
-      <Canvas>
-        <View:RBTUserControl />
-      </Canvas>
-    </DataTemplate>
-    <DataTemplate DataType="{x:Type Model:T234}">
-      <Canvas>
-        <View:T234UserControl />
-      </Canvas>
-    </DataTemplate>
-        <DataTemplate DataType="{x:Type Model:Line}">
+        <ViewModel:ViewModelLocator x:Key="Locator" />
+        <DataTemplate DataType="{x:Type ViewModel:BSTViewModel}">
             <Canvas>
-                <View:LineUserControl />
+                <View:BstViewUserControl/>
             </Canvas>
         </DataTemplate>
-        <ViewModel:ViewModelLocator x:Key="Locator" />
+        <DataTemplate DataType="{x:Type ViewModel:RBTViewModel}">
+            <Canvas>
+                <View:RBTUserControl/>
+            </Canvas>
+        </DataTemplate>
+        <DataTemplate DataType="{x:Type ViewModel:T234ViewModel}">
+            <Canvas>
+                <View:T234UserControl/>
+            </Canvas>
+        </DataTemplate>
+        <DataTemplate DataType="{x:Type ViewModel:LineViewModel}">
+            <Canvas>
+                <View:LineViewUserControl/>
+            </Canvas>
+        </DataTemplate>
+
+        <Style TargetType="Button">
+            
+            <Setter Property="Foreground" Value="Black" />
+            <Setter Property="FontFamily" Value="Ebrima" />
+            <Setter Property="Focusable" Value="False" />
+            <Setter Property="BorderThickness" Value="1" />
+            <Setter Property="Background">
+                <Setter.Value>
+                    <LinearGradientBrush StartPoint="0.5,0" EndPoint="0.5,1">
+                        <GradientStop Color="Chocolate" Offset="0.0" />
+                        <GradientStop Color="White" Offset="2.0" />
+                    </LinearGradientBrush>
+                </Setter.Value>
+            </Setter>
+        </Style>
+        <Style TargetType="TextBlock">
+            <Setter Property="FontFamily" Value="Ebrima" />
+        </Style>
+        
     </Application.Resources>
+    
 </Application>
