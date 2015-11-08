@@ -46,6 +46,7 @@ namespace AlgoTreeDraw.ViewModel
         {
             Node newNode = node.NewNode();
             Nodes.Add(newNode);
+
         }
     }
 }
