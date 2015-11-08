@@ -4,9 +4,47 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:AlgoTreeDraw.View"
+             xmlns:i="clr-namespace:System.Windows.Interactivity;assembly=System.Windows.Interactivity"
+             xmlns:cmd="clr-namespace:GalaSoft.MvvmLight.Command;assembly=GalaSoft.MvvmLight.Platform"
              mc:Ignorable="d" 
-             d:DesignHeight="300" d:DesignWidth="300">
-    <Grid>
-            
-    </Grid>
+             d:DesignHeight="300" d:DesignWidth="300"
+             Canvas.Left="{Binding X}" Canvas.Top="{Binding Y}" Width="{Binding Diameter*3}" Height="{Binding Diameter}">
+
+    <i:Interaction.Triggers>
+        <i:EventTrigger EventName="MouseLeftButtonDown">
+            <cmd:EventToCommand Command="{Binding DataContext.MouseLeftButtonDown, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type Grid}}}" PassEventArgsToCommand="True"/>
+        </i:EventTrigger>
+        <i:EventTrigger EventName="MouseMove">
+            <cmd:EventToCommand Command="{Binding DataContext.MouseMoveNodeCommand, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type Grid}}}" PassEventArgsToCommand="True"/>
+        </i:EventTrigger>
+        <i:EventTrigger EventName="MouseLeftButtonUp">
+            <cmd:EventToCommand Command="{Binding DataContext.MouseLeftButtonUp, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type Grid}}}" PassEventArgsToCommand="True"/>
+        </i:EventTrigger>
+        <i:EventTrigger EventName="MouseRightButtonDown">
+            <cmd:EventToCommand Command="{Binding DataContext.MouseRightButtonDown, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type Grid}}}" PassEventArgsToCommand="True"/>
+        </i:EventTrigger>
+    </i:Interaction.Triggers>
+
+    <UserControl.ContextMenu>
+        <ContextMenu>
+            <MenuItem Command="{Binding ShowOneT234}" Header="2-Node" />
+            <MenuItem Command="{Binding ShowTwoT234}" Header="3-Node" />
+            <MenuItem Command="{Binding ShowThreeT234}" Header="4-Node" />
+        </ContextMenu>
+    </UserControl.ContextMenu>
+
+    <StackPanel Orientation="Horizontal">
+        <Grid Visibility="{Binding ShowNode1}">
+            <Rectangle Width="{Binding Diameter}" Stroke="Black" Fill="White"></Rectangle>
+            <TextBlock HorizontalAlignment="Center" VerticalAlignment="Center" Text="1" />
+        </Grid>
+        <Grid Visibility="{Binding ShowNode2}">
+            <Rectangle Width="{Binding Diameter}" Stroke="Black" Fill="White"></Rectangle>
+            <TextBlock HorizontalAlignment="Center" VerticalAlignment="Center" Text="1" />
+        </Grid>
+        <Grid Visibility="{Binding ShowNode3}">
+            <Rectangle Width="{Binding Diameter}" Stroke="Black" Fill="White"></Rectangle>
+            <TextBlock HorizontalAlignment="Center" VerticalAlignment="Center" Text="1" />
+        </Grid>
+    </StackPanel>
 </UserControl>

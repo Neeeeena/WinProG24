@@ -11,11 +11,16 @@
         DataContext="{Binding Source={StaticResource Locator}, Path=Main}">
     
     <DockPanel>
-        <View:MenuBar DockPanel.Dock="Top"/> <!-- Draw Menu bar -->
-        <View:SidePanel DataContext="{Binding Source={StaticResource Locator}, Path=SidePanel}" DockPanel.Dock="Left"/> <!-- Draw sidepanel -->
-        <View:LineViewUserControl /> <!-- Draw lines -->
-        <View:BstViewUserControl DataContext="{Binding Source={StaticResource Locator}, Path=Bst}" /> <!-- Draw Bst nodes -->
+        <View:MenuBar DockPanel.Dock="Top"/>
+        <!-- Draw Menu bar -->
+        <View:SidePanel DockPanel.Dock="Left"/> <!-- Draw sidepanel -->
+        <!-- Draw lines -->
+        <Grid>
+            <ItemsControl ItemsSource="{Binding Lines}"/>
+            <ItemsControl ItemsSource="{Binding Nodes}"/>
+            
+        </Grid>
+        <!--<View:BstViewUserControl  />  Draw Bst nodes -->
     </DockPanel>
 </Window>
-    
     

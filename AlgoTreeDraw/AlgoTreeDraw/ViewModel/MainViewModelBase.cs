@@ -15,37 +15,158 @@ using GalaSoft.MvvmLight.CommandWpf;
 using AlgoTreeDraw.Command;
 using GalaSoft.MvvmLight.Messaging;
 using System.ComponentModel;
+using System.Diagnostics;
 
 namespace AlgoTreeDraw.ViewModel
 {
-    public class MainViewModelBase : ViewModelBase
+    public abstract class MainViewModelBase : ViewModelBase
     {
-        public ObservableCollection<Node> Nodes { get; set; }
-        public ObservableCollection<Line> Lines { get; set; }
-        public bool isAddingLine = false;
 
-        public Node fromNode = null;
+        public static ObservableCollection<NodeViewModel> Nodes { get; set; } 
+        public static ObservableCollection<LineViewModel> Lines { get; set; }
+        public static bool isAddingLine { get; set; }
+        public static NodeViewModel fromNode { get; set; }
+
+        public static Point initialMousePosition { get; set; }
+        public static Point initialNodePosition { get; set; }
+
+        private static Boolean moved = true;
 
         public MainViewModelBase()
         {
-            Nodes = new ObservableCollection<Node>() {
-                new RBT() { X = -145, Y = 20, diameter = 50},
-                new BST() { X = -225, Y = 20, diameter = 50 },
-            }; Lines = new ObservableCollection<Line>();
+            MouseLeftButtonDown = new RelayCommand<MouseButtonEventArgs>(MouseDownNode);
+            MouseMoveNodeCommand = new RelayCommand<MouseEventArgs>(MouseMoveNode);
+            MouseLeftButtonUp = new RelayCommand<MouseButtonEventArgs>(MouseUpNode);
+            //MouseDoubleClick = new RelayCommand<MouseButtonEventArgs>(e => Debug.WriteLine(e));
+            Mdc = new RelayCommand<MouseButtonEventArgs>(e => Debug.WriteLine(e));
+
         }
 
-        public void AddLine( Node to)
+        //Commands
+
+        public ICommand MouseLeftButtonDown { get; }
+        public ICommand MouseMoveNodeCommand { get; }
+        public ICommand MouseLeftButtonUp { get; }
+        public ICommand Mdc { get; }
+
+
+
+
+        public void AddLine( NodeViewModel to)
         {
             fromNode.Color = fromNode.PreColor;
             isAddingLine = false;
-            Lines.Add(new Line() { From=fromNode, To=to});
+            Lines.Add(new LineViewModel(new Line()) { From = fromNode, To = to });
+            fromNode = null;
+        }
+
+        public void AddNode(NodeViewModel node)
+        {
+            Nodes.Add(node);
+        }
+        public void MouseDoubleClickNode(MouseButtonEventArgs e)
+        {
+            var node = TargetShape(e);
+            if(!(node.isTextBoxVisible == Visibility.Visible))
+            {
+                
+                node.isTextBoxVisible = Visibility.Visible;
+            } else
+            {
+                node.isTextBoxVisible = Visibility.Hidden;
+            }
+            MessageBox.Show("lol");
+        }
+
+        public NodeViewModel MouseUpNodeSP2(MouseButtonEventArgs e)
+        {
+            var node = TargetShape(e);
+
+            e.MouseDevice.Target.ReleaseMouseCapture();
+
+            return node;
+        }
+
+        public void MouseUpNode(MouseButtonEventArgs e)
+        {
+
+            var node = TargetShape(e);
+
+            e.MouseDevice.Target.ReleaseMouseCapture();
+
+
+            //if (node.X < 0 || node.Y < 0)
+            //{
+
+            //                node.X = initialNodePosition.X;
+            //              node.Y = initialNodePosition.Y;
+            //            moved = false;
+            //         }
+            //if (moved && initialNodePosition.X == node.initialX && initialNodePosition.Y == node.initialY)
+            //{
+            //      AddNode(node);
+            // }
+            //moved = true;
+
+            if (isAddingLine)
+            {
+                if (fromNode == null) { fromNode = node; fromNode.Color = Brushes.Blue; }
+                else if (!Object.ReferenceEquals(fromNode, node)) { AddLine(node); }
+            }
+        }
+
+
+        private void MouseDownNode(MouseButtonEventArgs e)
+        {
+
+                var node = TargetShape(e);
+                var mousePosition = RelativeMousePosition(e);
+
+                initialMousePosition = mousePosition;
+                initialNodePosition = new Point(node.X, node.Y);
+
+                e.MouseDevice.Target.CaptureMouse();
 
         }
 
-        public void AddNode(Node node)
+        private void MouseMoveNode(MouseEventArgs e)
         {
-            Node newNode = node.NewNode();
-            Nodes.Add(newNode);
+            if (Mouse.Captured != null)
+            {
+
+                var node = TargetShape(e);
+
+                var mousePosition = RelativeMousePosition(e);
+
+                var tempX = initialNodePosition.X + (mousePosition.X - initialMousePosition.X);
+                var tempY = initialNodePosition.Y + (mousePosition.Y - initialMousePosition.Y);
+                if ( !(tempX < 0 || tempY < 0))
+                {
+                    node.X = tempX;
+                    node.Y = tempY;
+                }
+                
+            }
+        }
+
+        //Non important functions
+        public NodeViewModel TargetShape(MouseEventArgs e)
+        {
+            var nodeVisualElement = (FrameworkElement)e.MouseDevice.Target;
+            return (NodeViewModel)nodeVisualElement.DataContext;
+        }
+
+        private Point RelativeMousePosition(MouseEventArgs e)
+        {
+            var shapeVisualElement = (FrameworkElement)e.MouseDevice.Target;
+            var canvas = FindParentOfType<Canvas>(shapeVisualElement);
+            return Mouse.GetPosition(canvas);
+        }
+
+        private static T FindParentOfType<T>(DependencyObject o)
+        {
+            dynamic parent = VisualTreeHelper.GetParent(o);
+            return parent.GetType().IsAssignableFrom(typeof(T)) ? parent : FindParentOfType<T>(parent);
         }
     }
 }

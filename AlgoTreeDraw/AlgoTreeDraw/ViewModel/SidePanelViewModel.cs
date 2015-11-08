@@ -19,15 +19,59 @@ namespace AlgoTreeDraw.ViewModel
 {
     public class SidePanelViewModel : MainViewModelBase
     {
-
-
+        public new ICommand MouseLeftButtonUp { get; }
         Brush _background;
-        public ICommand AddLineCommand { get;  }
-
-        public SidePanelViewModel()
+        public ICommand AddLineCommand { get; }
+        public static int WIDTH { get; set; } = 240;
+        public int NODEHEIGHT { get; set; } = 13;
+        public static ObservableCollection<NodeViewModel> NodesSP{ get; set; } 
+            = new ObservableCollection<NodeViewModel>
+            {
+                 new BSTViewModel(new BST() { X = WIDTH/3-WIDTH/3+(240-(WIDTH-WIDTH/3+50))/2, Y = 0, diameter = 50 }),
+                 new RBTViewModel(new RBT() { X = WIDTH/3*2-WIDTH/3+(240-(WIDTH-WIDTH/3+50))/2, Y = 0, diameter = 50 }),
+                 new T234ViewModel(new T234() { X = WIDTH-WIDTH/3+(240-(WIDTH-WIDTH/3+50))/2, Y = 0, diameter = 50 },1)
+            };
+        
+        
+        public  SidePanelViewModel()
         {
-            AddLineCommand = new RelayCommand(AddLineClicked);
+            MouseLeftButtonUp = new RelayCommand<MouseButtonEventArgs>(MouseUpNode);
+            AddLineCommand = new RelayCommand<MouseButtonEventArgs>(AddLineClicked);
+        }
 
+        private void AddLineClicked(MouseButtonEventArgs e)
+        {
+            isAddingLine = !isAddingLine;
+            if(!isAddingLine) fromNode = null;
+            RaisePropertyChanged("BackgroundAddLine");
+        }
+
+        public new void MouseUpNode(MouseButtonEventArgs e)
+        {
+            var node = MouseUpNodeSP2(e);
+            if(node.X > WIDTH)
+            {
+                NodeViewModel tempNode = node.newNodeViewModel();
+                tempNode.X = node.X - WIDTH;
+                tempNode.Y = node.Y + NODEHEIGHT;
+                tempNode.Diameter = node.Diameter;
+                AddNode(tempNode);
+
+            }
+            node.X = initialNodePosition.X;
+            node.Y = initialNodePosition.Y;
+
+
+            e.MouseDevice.Target.ReleaseMouseCapture();
+
+
+        }
+
+
+        
+
+        public bool isNodeOutSideSidePanel(NodeViewModel node) {
+            return node.X > WIDTH;
         }
 
 
@@ -37,11 +81,5 @@ namespace AlgoTreeDraw.ViewModel
             set { _background = value; }
         }
 
-
-        private void AddLineClicked()
-        {
-            isAddingLine = !isAddingLine;
-            RaisePropertyChanged("BackgroundAddLine");
-        }
     }
 }

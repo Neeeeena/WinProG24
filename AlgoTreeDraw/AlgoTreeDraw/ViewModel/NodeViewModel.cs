@@ -15,34 +15,21 @@ using GalaSoft.MvvmLight.CommandWpf;
 using AlgoTreeDraw.Command;
 using GalaSoft.MvvmLight.Messaging;
 using System.ComponentModel;
+using System.Diagnostics;
 
 namespace AlgoTreeDraw.ViewModel
 {
-    public class NodeViewModel : MainViewModelBase
+    public abstract class NodeViewModel : MainViewModelBase
     {
+        
+        private Visibility _isTextBoxVisible = Visibility.Visible;
+        public Visibility isTextBoxVisible { get { return _isTextBoxVisible; } set { _isTextBoxVisible = value; RaisePropertyChanged(); RaisePropertyChanged(() => isTextBoxVisible); } }
 
-        public static Point initialMousePosition { get; set; }
-        public static Point initialNodePosition { get; set; }
-        public Node LineFrom = null;
-        private static Boolean moved = true;
-        public NodeViewModel()
+        public NodeViewModel(Node node)
         {
-
-
-            MouseDownNodeCommand = new RelayCommand<MouseButtonEventArgs>(MouseDownNode);
-            MouseMoveNodeCommand = new RelayCommand<MouseEventArgs>(MouseMoveNode);
-            MouseUpNodeCommand = new RelayCommand<MouseButtonEventArgs>(MouseUpNode);
-
+            _node = node;
 
         }
-
-        //Commands
-
-        public ICommand MouseDownNodeCommand { get; }
-        public ICommand MouseMoveNodeCommand { get; }
-        public ICommand MouseUpNodeCommand { get; }
-
-
 
         //View databinds to the following
         Node _node;
@@ -59,15 +46,45 @@ namespace AlgoTreeDraw.ViewModel
             }
         }
 
+        public abstract NodeViewModel newNodeViewModel();
+
         public double X
         {
             get { return Node.X; }
-            set { Node.X = value; }
+            set { Node.X = value; RaisePropertyChanged(); RaisePropertyChanged(() => CanvasCenterX); }
         }
+
+        public double initialX
+        {
+            get { return Node.initialX; }
+            set { Node.initialX = (int)value; }
+        }
+
         public double Y
         {
             get { return Node.Y; }
-            set { Node.Y = value; }
+            set { Node.Y = value; RaisePropertyChanged(); RaisePropertyChanged(() => CanvasCenterY); }
+        }
+
+        public double initialY
+        {
+            get { return Node.initialY; }
+            set { Node.initialY = (int)value; }
+        }
+
+        public double CanvasCenterX { get { return X + Diameter / 2; } set { X = value - Diameter / 2; RaisePropertyChanged(() => X); } }
+        public double CanvasCenterY { get { return Y + Diameter / 2; } set { Y = value - Diameter / 2; RaisePropertyChanged(() => Y); } }
+
+        public double Diameter
+        {
+            get { return Node.diameter; }
+            set { Node.diameter = value; }
+        }
+
+        public string VisualText
+        {
+            get { return Node.VisualText; }
+            set { Node.VisualText = value; }
         }
 
         public Brush Color
@@ -75,87 +92,11 @@ namespace AlgoTreeDraw.ViewModel
             get { return Node.Color; }
             set { Node.Color = value; }
         }
-        private void MouseUpNode(MouseButtonEventArgs e)
+
+        public Brush PreColor
         {
-
-            var node = TargetShape(e);
-
-            e.MouseDevice.Target.ReleaseMouseCapture();
-
-
-            if (node.X < 0 || node.Y < 0)
-            {
-                MessageBox.Show("wtf");
-                node.X = initialNodePosition.X;
-                node.Y = initialNodePosition.Y;
-                moved = false;
-            }
-            if (moved && initialNodePosition.X == node.initialX && initialNodePosition.Y == node.initialY)
-            {
-                AddNode(node);
-            }
-            moved = true;
-
-            if (isAddingLine)
-            {
-                if (LineFrom == null) { LineFrom = node; LineFrom.Color = Brushes.Blue; }
-                else if (!Object.ReferenceEquals(LineFrom, node)) { AddLine(node); }
-
-            }
-
+            get { return Node.PreColor; }
+            set { Node.PreColor = value; }
         }
-
-        private void MouseDownNode(MouseButtonEventArgs e)
-        {
-            var node = TargetShape(e);
-            var mousePosition = RelativeMousePosition(e);
-
-            initialMousePosition = mousePosition;
-            initialNodePosition = new Point(node.X, node.Y);
-
-            e.MouseDevice.Target.CaptureMouse();
-
-        }
-
-
-        private void MouseMoveNode(MouseEventArgs e)
-        {
-            if (Mouse.Captured != null)
-            {
-
-                var node = TargetShape(e);
-
-                var mousePosition = RelativeMousePosition(e);
-
-                var tempX = initialNodePosition.X + (mousePosition.X - initialMousePosition.X);
-                var tempY = initialNodePosition.Y + (mousePosition.Y - initialMousePosition.Y);
-                if ((initialNodePosition.X == node.initialX && initialNodePosition.Y == node.initialY) || !(tempX < 0 || tempY < 0))
-                {
-                    node.X = tempX;
-                    node.Y = tempY;
-                }
-            }
-        }
-
-        //Non important functions
-        private Node TargetShape(MouseEventArgs e)
-        {
-            var nodeVisualElement = (FrameworkElement)e.MouseDevice.Target;
-            return (Node)nodeVisualElement.DataContext;
-        }
-
-        private Point RelativeMousePosition(MouseEventArgs e)
-        {
-            var shapeVisualElement = (FrameworkElement)e.MouseDevice.Target;
-            var canvas = FindParentOfType<Canvas>(shapeVisualElement);
-            return Mouse.GetPosition(canvas);
-        }
-
-        private static T FindParentOfType<T>(DependencyObject o)
-        {
-            dynamic parent = VisualTreeHelper.GetParent(o);
-            return parent.GetType().IsAssignableFrom(typeof(T)) ? parent : FindParentOfType<T>(parent);
-        }
-
     }
 }
