@@ -16,18 +16,13 @@ using System.Windows.Shapes;
 namespace AlgoTreeDraw.View
 {
     /// <summary>
-    /// Interaction logic for MainWindow.xaml
+    /// Interaction logic for Test.xaml
     /// </summary>
-    public partial class MainWindow : Window
+    public partial class Test : UserControl
     {
-        public MainWindow()
+        public Test()
         {
             InitializeComponent();
-        }
-
-        private void Grid_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
-        {
-
         }
     }
 }

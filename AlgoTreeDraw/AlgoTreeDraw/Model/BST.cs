@@ -11,7 +11,11 @@ namespace AlgoTreeDraw.Model
     public class BST : Node
     {
 
-        
+        public BST()
+        {
+            color = Brushes.White;
+            preColor = Brushes.White;
+        }
 
         public override Node NewNode()
         {

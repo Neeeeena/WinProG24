@@ -9,11 +9,11 @@ namespace AlgoTreeDraw.Model
 {
     public class T234 : Node
     {
-        //public T234()
-        //{
-        //    initialX = -225;
-        //    initialY = 20;
-        //}
+        public T234()
+        {
+            color = Brushes.White;
+            preColor = Brushes.White;
+        }
     
 
         public override Node NewNode()

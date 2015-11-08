@@ -11,41 +11,33 @@
         mc:Ignorable="d"
         Title="MainWindow" Height="600" Width="900"
         DataContext="{Binding Source={StaticResource Locator}, Path=Main}">
-
-    <i:Interaction.Triggers>
-        <i:EventTrigger EventName="MouseLeftButtonDown">
-            <cmd:EventToCommand Command="{Binding MouseDownCanvasCommand}" PassEventArgsToCommand="True"/>
-        </i:EventTrigger>
-        <i:EventTrigger EventName="MouseMove">
-            <cmd:EventToCommand Command="{Binding MouseMoveCanvasCommand}" PassEventArgsToCommand="True"/>
-        </i:EventTrigger>
-        <i:EventTrigger EventName="MouseLeftButtonUp">
-            <cmd:EventToCommand Command="{Binding MouseUpCanvasCommand}" PassEventArgsToCommand="True"/>
-        </i:EventTrigger>
-    </i:Interaction.Triggers>
-
+    
+   
+    
     <DockPanel>
-
-        
         <View:MenuBar DockPanel.Dock="Top"/>
         <!-- Draw Menu bar -->
         <View:SidePanel DockPanel.Dock="Left"/> <!-- Draw sidepanel -->
         <!-- Draw lines -->
-        <Grid>
-            
-            <Grid.LayoutTransform>
-                <ScaleTransform CenterX="0" CenterY="0" ScaleX="{Binding ElementName=zoomSlider, Path=Value}" ScaleY="{Binding ElementName=zoomSlider, Path=Value}"/>
-            </Grid.LayoutTransform>
-            
-            
+
+        <Grid Background="#00000000"> <!-- Skal være Transparent! -->
+            <i:Interaction.Triggers>
+                <i:EventTrigger EventName="MouseLeftButtonDown">
+                    <cmd:EventToCommand Command="{Binding MouseDownCanvasCommand}" PassEventArgsToCommand="True"/>
+                </i:EventTrigger>
+                <i:EventTrigger EventName="MouseMove">
+                    <cmd:EventToCommand Command="{Binding MouseMoveCanvasCommand}" PassEventArgsToCommand="True"/>
+                </i:EventTrigger>
+                <i:EventTrigger EventName="MouseLeftButtonUp">
+                    <cmd:EventToCommand Command="{Binding MouseUpCanvasCommand}" PassEventArgsToCommand="True"/>
+                </i:EventTrigger>
+            </i:Interaction.Triggers>
             <ItemsControl ItemsSource="{Binding Lines}"/>
             <ItemsControl ItemsSource="{Binding Nodes}"/>
-            
-            <Canvas>
-                
+            <Canvas >
                 <Border Canvas.Left="{Binding SelectionBoxX}" Canvas.Top="{Binding SelectionBoxY}" Width="{Binding SelectionBoxWidth}" Height="{Binding SelectionBoxHeight}"
-                        BorderBrush="Black" BorderThickness="2">
-                    <Rectangle Fill="Blue" Opacity=".2"/>
+                        BorderBrush="Black" BorderThickness="1">
+                    <Rectangle Fill="SteelBlue" Opacity=".15"/>
                 </Border>
             </Canvas>
         </Grid>

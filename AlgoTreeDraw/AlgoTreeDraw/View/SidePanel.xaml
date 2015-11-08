@@ -14,8 +14,8 @@
 
         <StackPanel.Background>
             <LinearGradientBrush StartPoint="0,0.5" EndPoint="1,0.5">
-                <GradientStop Color="BurlyWood" Offset="0.0" />
-                <GradientStop Color="BurlyWood" Offset="2.0" />
+                <GradientStop Color="SteelBlue"  Offset="0.0" />
+                <GradientStop Color="SteelBlue" Offset="2.0" />
             </LinearGradientBrush>
         </StackPanel.Background>
 
@@ -38,15 +38,15 @@
                 <RowDefinition />
                 <RowDefinition/>
             </Grid.RowDefinitions>
-            <Button Command="{Binding AddLineCommand}" Grid.Row="0" Grid.Column="0" Content="Add line"  Margin="3" />
-            <Button Grid.Row="0" Grid.Column="1" Content="Remove Node(s)"  Margin="3" />
-            <Button Grid.Row="1" Grid.Column="0" Content="Copy Marked"  Margin="3" />
-            <Button Grid.Row="1" Grid.Column="1" Content="Balance Marked"  Margin="3" />
-            <Button Grid.Row="2" Grid.Column="0" Content="Grid On"  Margin="3" />
-            <Button Grid.Row="2" Grid.Column="1" Content="Clean Marked"  Margin="3" />
+            <Button Command="{Binding AddLineCommand}" Grid.Row="0" Grid.Column="0" Content="Line"  Margin="3" />
+            <Button Command="{Binding SelectCommand}" Grid.Row="0" Grid.Column="1" Content="Select"  Margin="3" />
+            <Button Grid.Row="1" Grid.Column="0" Content="Move"  Margin="3" /> <!-- Indstillinger: Flyt kun linjer, flyt kun Noder.. -->
+            <Button Grid.Row="1" Grid.Column="1" Content="Paint"  Margin="3" /> <!-- Indstillinger: Farv alle linjer, Farv alle Noder, osv.-->
+            <Button Grid.Row="2" Grid.Column="0" Content="Transform"  Margin="3" /> <!-- Indstillinger: Ændre størrelse på Noder, Roter.. -->
+            <Button Grid.Row="2" Grid.Column="1" Content="Copy"  Margin="3" /> <!-- Indstillinger: Kopier Kun Linjer, Kun Noder, Uden Værdier, Nyt Canvas.. -->
         </Grid>
 
-        <TextBlock Margin="0,5,0,0" FontSize="15" HorizontalAlignment="Center" Text="Color" />
+        <TextBlock Margin="0,5,0,0" FontSize="15" HorizontalAlignment="Center" Text="Options for selected Tool" />
         <xctk:ColorPicker SelectedColor="Black" DisplayColorAndName="True" Margin="0,10,0,0" />
         <Grid Margin="0,10,0,0">
             <Grid.ColumnDefinitions>

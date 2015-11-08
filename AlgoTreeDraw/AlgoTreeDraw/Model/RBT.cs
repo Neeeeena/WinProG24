@@ -12,11 +12,10 @@ namespace AlgoTreeDraw.Model
 
         public RBT ()
         {
+            color = Brushes.Red;
+            preColor = Brushes.Red;
 
-        initialX = -145;
-        initialY = 20;
-
-       }
+        }
        
         public override Node NewNode()
         {
