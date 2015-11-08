@@ -8,8 +8,7 @@ using System.Windows.Media;
 namespace AlgoTreeDraw.Model
 {
     public abstract class Node {
-        public int initialX;
-        public int initialY;
+
         private int x = 200;
         private int y = 200;
         public double X { get { return x; } set { x = (int)value; } }
@@ -30,7 +29,7 @@ namespace AlgoTreeDraw.Model
        
         
         
-        public Brush Color { get; set; } = Brushes.White;
-        public Brush PreColor { get; set; } = Brushes.Blue;
+        public Brush color { get; set; }
+        public Brush preColor { get; set; }
     }
 }

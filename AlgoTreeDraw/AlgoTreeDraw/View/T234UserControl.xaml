@@ -20,9 +20,6 @@
         <i:EventTrigger EventName="MouseLeftButtonUp">
             <cmd:EventToCommand Command="{Binding DataContext.MouseLeftButtonUp, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type Grid}}}" PassEventArgsToCommand="True"/>
         </i:EventTrigger>
-        <i:EventTrigger EventName="MouseRightButtonDown">
-            <cmd:EventToCommand Command="{Binding DataContext.MouseRightButtonDown, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type Grid}}}" PassEventArgsToCommand="True"/>
-        </i:EventTrigger>
     </i:Interaction.Triggers>
 
     <UserControl.ContextMenu>
@@ -35,15 +32,15 @@
 
     <StackPanel Orientation="Horizontal">
         <Grid Visibility="{Binding ShowNode1}">
-            <Rectangle Width="{Binding Diameter}" Stroke="Black" Fill="White"></Rectangle>
+            <Rectangle Width="{Binding Diameter}" Stroke="Black" Fill="{Binding Color}"></Rectangle>
             <TextBlock HorizontalAlignment="Center" VerticalAlignment="Center" Text="1" />
         </Grid>
         <Grid Visibility="{Binding ShowNode2}">
-            <Rectangle Width="{Binding Diameter}" Stroke="Black" Fill="White"></Rectangle>
+            <Rectangle Width="{Binding Diameter}" Stroke="Black" Fill="{Binding Color}"></Rectangle>
             <TextBlock HorizontalAlignment="Center" VerticalAlignment="Center" Text="1" />
         </Grid>
         <Grid Visibility="{Binding ShowNode3}">
-            <Rectangle Width="{Binding Diameter}" Stroke="Black" Fill="White"></Rectangle>
+            <Rectangle Width="{Binding Diameter}" Stroke="Black" Fill="{Binding Color}"></Rectangle>
             <TextBlock HorizontalAlignment="Center" VerticalAlignment="Center" Text="1" />
         </Grid>
     </StackPanel>

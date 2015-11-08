@@ -77,9 +77,23 @@ namespace AlgoTreeDraw.ViewModel
             }
             else
             {
-                return new T234ViewModel(new T234(),1);
+                return new T234ViewModel(new T234() {diameter =30},1);
             }
             
         }
+        //public void MouseDoubleClickNode(MouseButtonEventArgs e)
+        //{
+        //    var node = TargetShape(e);
+        //    if (!(node.isTextBoxVisible == Visibility.Visible))
+        //    {
+
+        //        node.isTextBoxVisible = Visibility.Visible;
+        //    }
+        //    else
+        //    {
+        //        node.isTextBoxVisible = Visibility.Hidden;
+        //    }
+        //    MessageBox.Show("lol");
+        //}
     }
 }
