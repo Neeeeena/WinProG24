@@ -13,7 +13,7 @@ namespace AlgoTreeDraw.Model
         public RBT ()
         {
 
-        initialX = -145;
+        initialX = -144;
         initialY = 20;
 
        }
