@@ -69,15 +69,15 @@ namespace AlgoTreeDraw.ViewModel
         {
             if(this.ShowNode3 == Visibility.Visible)
             {
-                return new T234ViewModel(new T234(),3);
+                return new T234ViewModel(new T234() { diameter = this.Diameter }, 3);
             }
             else if(this.ShowNode2 == Visibility.Visible)
             {
-                return new T234ViewModel(new T234(), 2);
+                return new T234ViewModel(new T234() { diameter = this.Diameter }, 2);
             }
             else
             {
-                return new T234ViewModel(new T234() {diameter =30},1);
+                return new T234ViewModel(new T234() {diameter = this.Diameter},1);
             }
             
         }

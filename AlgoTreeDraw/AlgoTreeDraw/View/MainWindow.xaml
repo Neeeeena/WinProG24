@@ -20,7 +20,6 @@
         <View:SidePanel DockPanel.Dock="Left"/> <!-- Draw sidepanel -->
         <!-- Draw lines -->
 
-
         <Grid Background="#00000000"> <!-- Skal være Transparent! -->
             <i:Interaction.Triggers>
                 <i:EventTrigger EventName="MouseLeftButtonDown">
