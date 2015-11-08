@@ -6,19 +6,42 @@
         xmlns:local="clr-namespace:AlgoTreeDraw"
         xmlns:View="clr-namespace:AlgoTreeDraw.View"
         xmlns:ViewModel="clr-namespace:AlgoTreeDraw.ViewModel"
+        xmlns:i="clr-namespace:System.Windows.Interactivity;assembly=System.Windows.Interactivity"
+        xmlns:cmd="clr-namespace:GalaSoft.MvvmLight.Command;assembly=GalaSoft.MvvmLight.Platform"
         mc:Ignorable="d"
         Title="MainWindow" Height="600" Width="900"
         DataContext="{Binding Source={StaticResource Locator}, Path=Main}">
+    
+   
     
     <DockPanel>
         <View:MenuBar DockPanel.Dock="Top"/>
         <!-- Draw Menu bar -->
         <View:SidePanel DockPanel.Dock="Left"/> <!-- Draw sidepanel -->
         <!-- Draw lines -->
-        <Grid>
+
+        
+
+        <Grid Background="White">
+            <i:Interaction.Triggers>
+                <i:EventTrigger EventName="MouseLeftButtonDown">
+                    <cmd:EventToCommand Command="{Binding MouseDownCanvasCommand}" PassEventArgsToCommand="True"/>
+                </i:EventTrigger>
+                <i:EventTrigger EventName="MouseMove">
+                    <cmd:EventToCommand Command="{Binding MouseMoveCanvasCommand}" PassEventArgsToCommand="True"/>
+                </i:EventTrigger>
+                <i:EventTrigger EventName="MouseLeftButtonUp">
+                    <cmd:EventToCommand Command="{Binding MouseUpCanvasCommand}" PassEventArgsToCommand="True"/>
+                </i:EventTrigger>
+            </i:Interaction.Triggers>
             <ItemsControl ItemsSource="{Binding Lines}"/>
             <ItemsControl ItemsSource="{Binding Nodes}"/>
-            
+            <Canvas>
+                <Border Canvas.Left="{Binding SelectionBoxX}" Canvas.Top="{Binding SelectionBoxY}" Width="{Binding SelectionBoxWidth}" Height="{Binding SelectionBoxHeight}"
+                        BorderBrush="Black" BorderThickness="1">
+                    <Rectangle Fill="SteelBlue" Opacity=".15"/>
+                </Border>
+            </Canvas>
         </Grid>
         <!--<View:BstViewUserControl  />  Draw Bst nodes -->
     </DockPanel>

@@ -67,6 +67,9 @@ namespace AlgoTreeDraw.ViewModel
         public double CanvasCenterX { get { return X + Diameter / 2; } set { X = value - Diameter / 2; RaisePropertyChanged(() => X); } }
         public double CanvasCenterY { get { return Y + Diameter / 2; } set { Y = value - Diameter / 2; RaisePropertyChanged(() => Y); } }
 
+        private bool isMoveSelected;
+        public bool IsMoveSelected { get { return isMoveSelected; } set { isMoveSelected = value; RaisePropertyChanged(); } }
+
         public double Diameter
         {
             get { return Node.diameter; }
