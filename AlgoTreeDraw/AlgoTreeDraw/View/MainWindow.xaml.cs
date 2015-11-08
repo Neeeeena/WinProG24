@@ -25,5 +25,9 @@ namespace AlgoTreeDraw.View
             InitializeComponent();
         }
 
+        private void Grid_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
+        {
+
+        }
     }
 }
