@@ -21,16 +21,6 @@ namespace AlgoTreeDraw.ViewModel
 {
     public abstract class MainViewModelBase : ViewModelBase
     {
-        // Select box
-
-        private Point SelectionBoxStart;
-
-        public double SelectionBoxX { get; set; }
-        public double SelectionBoxY { get; set; }
-        public double SelectionBoxWidth { get; set; }
-        public double SelectionBoxHeight { get; set; }
-
-        // end select box
         public static ObservableCollection<NodeViewModel> Nodes { get; set; } 
         public static ObservableCollection<LineViewModel> Lines { get; set; }
         public static NodeViewModel fromNode { get; set; }
@@ -53,11 +43,6 @@ namespace AlgoTreeDraw.ViewModel
             //MouseDoubleClick = new RelayCommand<MouseButtonEventArgs>(e => Debug.WriteLine(e));
             Mdc = new RelayCommand<MouseButtonEventArgs>(e => Debug.WriteLine(e));
 
-            // Select box
-            MouseDownCanvasCommand = new RelayCommand<MouseButtonEventArgs>(MouseDownCanvas);
-            MouseMoveCanvasCommand = new RelayCommand<MouseEventArgs>(MouseMoveCanvas);
-            MouseUpCanvasCommand = new RelayCommand<MouseButtonEventArgs>(MouseUpCanvas);
-
         }
 
         //Commands
@@ -67,59 +52,6 @@ namespace AlgoTreeDraw.ViewModel
         public ICommand MouseLeftButtonUp { get; }
         public ICommand Mdc { get; }
 
-        // Select box
-        public ICommand MouseDownCanvasCommand { get; }
-        public ICommand MouseMoveCanvasCommand { get; }
-        public ICommand MouseUpCanvasCommand { get; }
-
-        private void MouseDownCanvas(MouseButtonEventArgs e)
-        {
-            //if (!isAddingLine)
-            //{
-            Console.Write("blaa");
-            Console.WriteLine(e.MouseDevice.Target);
-            SelectionBoxStart = Mouse.GetPosition(e.MouseDevice.Target);
-            SelectionBoxStart.X -= SidePanelViewModel.WIDTH;    
-            e.MouseDevice.Target.CaptureMouse();
-            //}
-        }
-
-        private void MouseMoveCanvas(MouseEventArgs e)
-        {
-            if (Mouse.Captured != null && !isAddingLine)
-            {
-                var SelectionBoxNow = Mouse.GetPosition(e.MouseDevice.Target);
-                SelectionBoxX = Math.Min(SelectionBoxStart.X, SelectionBoxNow.X);
-                SelectionBoxY = Math.Min(SelectionBoxStart.Y, SelectionBoxNow.Y);
-                SelectionBoxWidth = Math.Abs(SelectionBoxNow.X - SelectionBoxStart.X);
-                SelectionBoxHeight = Math.Abs(SelectionBoxNow.Y - SelectionBoxStart.Y);
-                RaisePropertyChanged(() => SelectionBoxX);
-                RaisePropertyChanged(() => SelectionBoxY);
-                RaisePropertyChanged(() => SelectionBoxWidth);
-                RaisePropertyChanged(() => SelectionBoxHeight);
-            }
-        }
-
-        private void MouseUpCanvas(MouseButtonEventArgs e)
-        {
-            if (!isAddingLine)
-            {
-                var SelectionBoxEnd = Mouse.GetPosition(e.MouseDevice.Target);
-                var smallX = Math.Min(SelectionBoxStart.X, SelectionBoxEnd.X);
-                var smallY = Math.Min(SelectionBoxStart.Y, SelectionBoxEnd.Y);
-                var largeX = Math.Max(SelectionBoxStart.X, SelectionBoxEnd.X);
-                var largeY = Math.Max(SelectionBoxStart.Y, SelectionBoxEnd.Y);
-                //foreach (var s in Shapes)
-                //    s.IsMoveSelected = s.CanvasCenterX > smallX && s.CanvasCenterX < largeX && s.CanvasCenterY > smallY && s.CanvasCenterY < largeY;
-
-                SelectionBoxX = SelectionBoxY = SelectionBoxWidth = SelectionBoxHeight = 0;
-                RaisePropertyChanged(() => SelectionBoxX);
-                RaisePropertyChanged(() => SelectionBoxY);
-                RaisePropertyChanged(() => SelectionBoxWidth);
-                RaisePropertyChanged(() => SelectionBoxHeight);
-                e.MouseDevice.Target.ReleaseMouseCapture();
-            }
-        }
 
 
         public void AddLine( NodeViewModel to)
