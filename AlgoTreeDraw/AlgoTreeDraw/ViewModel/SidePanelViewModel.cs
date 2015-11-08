@@ -49,6 +49,7 @@ namespace AlgoTreeDraw.ViewModel
         public new void MouseUpNode(MouseButtonEventArgs e)
         {
             var node = MouseUpNodeSP2(e);
+
             if(node.X > WIDTH)
             {
                 NodeViewModel tempNode = node.newNodeViewModel();
@@ -56,15 +57,11 @@ namespace AlgoTreeDraw.ViewModel
                 tempNode.Y = node.Y + NODEHEIGHT;
                 tempNode.Diameter = node.Diameter;
                 AddNode(tempNode);
-
             }
             node.X = initialNodePosition.X;
             node.Y = initialNodePosition.Y;
-
-
-            e.MouseDevice.Target.ReleaseMouseCapture();
-
-
+            
+            
         }
 
 
