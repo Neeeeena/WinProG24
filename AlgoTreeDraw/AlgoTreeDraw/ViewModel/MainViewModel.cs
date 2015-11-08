@@ -59,27 +59,37 @@ namespace AlgoTreeDraw.ViewModel
 
         private void MouseDownCanvas(MouseButtonEventArgs e)
         {
-            //if (!isAddingLine)
-            //{
-                SelectionBoxStart = Mouse.GetPosition(e.MouseDevice.Target);
-                e.MouseDevice.Target.CaptureMouse();
-            
-            //}
+            if (isMarking)
+            {
+                if(!hasmarkedSomething) { 
+                    SelectionBoxStart = Mouse.GetPosition(e.MouseDevice.Target);
+                    e.MouseDevice.Target.CaptureMouse();
+                } else
+                {
+                    var SelectionBoxNow = Mouse.GetPosition(e.MouseDevice.Target);
+                    SelectionBoxX = SelectionBoxY = SelectionBoxWidth = SelectionBoxHeight = 0;
+                    hasmarkedSomething = false;
+                }
+            }
         }
 
         private void MouseMoveCanvas(MouseEventArgs e)
         {
             if (Mouse.Captured != null)
             {
-                var SelectionBoxNow = Mouse.GetPosition(e.MouseDevice.Target);
-                SelectionBoxX = Math.Min(SelectionBoxStart.X, SelectionBoxNow.X);
-                SelectionBoxY = Math.Min(SelectionBoxStart.Y, SelectionBoxNow.Y);
-                SelectionBoxWidth = Math.Abs(SelectionBoxNow.X - SelectionBoxStart.X);
-                SelectionBoxHeight = Math.Abs(SelectionBoxNow.Y - SelectionBoxStart.Y);
-                RaisePropertyChanged(() => SelectionBoxX);
-                RaisePropertyChanged(() => SelectionBoxY);
-                RaisePropertyChanged(() => SelectionBoxWidth);
-                RaisePropertyChanged(() => SelectionBoxHeight);
+                if(isMarking)
+                {
+                    var SelectionBoxNow = Mouse.GetPosition(e.MouseDevice.Target);
+                    SelectionBoxX = Math.Min(SelectionBoxStart.X, SelectionBoxNow.X);
+                    SelectionBoxY = Math.Min(SelectionBoxStart.Y, SelectionBoxNow.Y);
+                    SelectionBoxWidth = Math.Abs(SelectionBoxNow.X - SelectionBoxStart.X);
+                    SelectionBoxHeight = Math.Abs(SelectionBoxNow.Y - SelectionBoxStart.Y);
+                    RaisePropertyChanged(() => SelectionBoxX);
+                    RaisePropertyChanged(() => SelectionBoxY);
+                    RaisePropertyChanged(() => SelectionBoxWidth);
+                    RaisePropertyChanged(() => SelectionBoxHeight);
+                    hasmarkedSomething = true;
+                }
             }
         }
 
@@ -95,7 +105,7 @@ namespace AlgoTreeDraw.ViewModel
                 foreach (var s in Nodes)
                     s.IsMoveSelected = s.CanvasCenterX > smallX && s.CanvasCenterX < largeX && s.CanvasCenterY > smallY && s.CanvasCenterY < largeY;
 
-                SelectionBoxX = SelectionBoxY = SelectionBoxWidth = SelectionBoxHeight = 0;
+                //SelectionBoxX = SelectionBoxY = SelectionBoxWidth = SelectionBoxHeight = 0;
                 RaisePropertyChanged(() => SelectionBoxX);
                 RaisePropertyChanged(() => SelectionBoxY);
                 RaisePropertyChanged(() => SelectionBoxWidth);

@@ -22,7 +22,8 @@ namespace AlgoTreeDraw.ViewModel
         public new ICommand MouseLeftButtonUp { get; }
         Brush _background;
         public ICommand AddLineCommand { get; }
-        
+        public ICommand SelectCommand { get; }
+
         public int NODEHEIGHT { get; set; } = 13;
         //sidepanel width
         public static int WIDTH { get; set; } = 240;
@@ -35,11 +36,17 @@ namespace AlgoTreeDraw.ViewModel
                  new T234ViewModel(new T234() { X = WIDTH-WIDTH/3+(240-(WIDTH-WIDTH/3+50))/2-30, Y = 0, diameter = 30 },1)
             };
         
-        
         public  SidePanelViewModel()
         {
             MouseLeftButtonUp = new RelayCommand<MouseButtonEventArgs>(MouseUpNode);
             AddLineCommand = new RelayCommand<MouseButtonEventArgs>(AddLineClicked);
+            SelectCommand = new RelayCommand(Select);
+        }
+
+        private void Select()
+        {
+            isMarking = !isMarking;
+            //Reset
         }
 
         private void AddLineClicked(MouseButtonEventArgs e)

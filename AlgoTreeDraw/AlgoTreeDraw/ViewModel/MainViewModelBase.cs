@@ -24,7 +24,6 @@ namespace AlgoTreeDraw.ViewModel
 
         public static ObservableCollection<NodeViewModel> Nodes { get; set; } 
         public static ObservableCollection<LineViewModel> Lines { get; set; }
-        public static bool isAddingLine { get; set; }
         public static NodeViewModel fromNode { get; set; }
 
         public static Point initialMousePosition { get; set; }
@@ -32,7 +31,10 @@ namespace AlgoTreeDraw.ViewModel
 
         private static Boolean moved = true;
 
-        
+        //Tools
+        public static bool isAddingLine { get; set; }
+        public static bool isMarking { get; set; }
+        public static bool hasmarkedSomething { get; set; }
 
         public MainViewModelBase()
         {
