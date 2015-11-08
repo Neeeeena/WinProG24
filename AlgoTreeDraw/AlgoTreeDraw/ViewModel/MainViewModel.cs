@@ -1,4 +1,13 @@
+using AlgoTreeDraw.Model;
 using GalaSoft.MvvmLight;
+using GalaSoft.MvvmLight.CommandWpf;
+using System;
+using System.Collections.ObjectModel;
+using System.Diagnostics;
+using System.Windows;
+using System.Windows.Controls;
+using System.Windows.Input;
+using System.Windows.Media;
 
 namespace AlgoTreeDraw.ViewModel
 {
@@ -14,26 +23,32 @@ namespace AlgoTreeDraw.ViewModel
     /// See http://www.galasoft.ch/mvvm
     /// </para>
     /// </summary>
-    public class MainViewModel : ViewModelBase
+    public class MainViewModel : MainViewModelBase
     {
         //public SidePanelViewModel SidePanelViewModel { get; set; }
         /// <summary>
         /// Initializes a new instance of the MainViewModel class.
         /// </summary>
-        public MainViewModel()
-        {
-            //NodeViewModel = new BstViewModel();
-            //LineViewModel = new LineViewModel();
-            //SidePanelViewModel = new SidePanelViewModel();
+        /// 
 
-            ////if (IsInDesignMode)
-            ////{
-            ////    // Code runs in Blend --> create design time data.
-            ////}
-            ////else
-            ////{
-            ////    // Code runs "for real"
-            ////}
+        public MainViewModel() 
+        {
+            Nodes = new ObservableCollection<NodeViewModel>()
+            {
+                new BSTViewModel(new BST() { X = 10, Y = 10, diameter = 50 }),
+                new BSTViewModel(new BST() { X = 100, Y = 100, diameter = 50 })
+            };
+
+            Lines = new ObservableCollection<LineViewModel>();
+
+
+            
+
+
         }
+
+
+
+     
     }
 }

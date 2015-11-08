@@ -13,37 +13,30 @@ namespace AlgoTreeDraw.ViewModel
 {
     public class LineViewModel : MainViewModelBase
     {
-
-        public LineViewModel()
-        {
-        }
-
-        //Commands
-
+        NodeViewModel to;
+        NodeViewModel from;
         Line _line;
 
-        public Line Line
+        public LineViewModel(Line line) : base()
         {
-            get
-            {
-                return _line;
-            }
-            set
-            {
-                _line = value;
-            }
+            _line = line;
         }
 
-        public Node To
+
+        public Line Line { get; set; }
+
+        public NodeViewModel To
         {
-            get { return Line.To; }
-            set { Line.To = value; }
+            get { return to; }
+            set { to = value; RaisePropertyChanged(); }
         }
-        public Node From
+        public NodeViewModel From
         {
-            get { return Line.From; }
-            set { Line.From = value; }
+            get { return from; }
+            set { from = value; RaisePropertyChanged(); }
         }
+
+
 
     }
 

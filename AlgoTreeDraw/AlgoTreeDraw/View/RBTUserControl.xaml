@@ -8,16 +8,17 @@
              xmlns:local="clr-namespace:AlgoTreeDraw.ViewModel"
              mc:Ignorable="d" 
              d:DesignHeight="100" d:DesignWidth="100"
-             Canvas.Left="{Binding X}" Canvas.Top="{Binding Y}" Width="{Binding diameter}" Height="{Binding diameter}">
+             Canvas.Left="{Binding X}" Canvas.Top="{Binding Y}" Width="{Binding Diameter}" Height="{Binding Diameter}">
+   
     <i:Interaction.Triggers>
         <i:EventTrigger EventName="MouseDown">
-            <cmd:EventToCommand Command="{Binding DataContext.NodeViewModel.MouseDownNodeCommand, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type Window}}}" PassEventArgsToCommand="True"/>
+            <cmd:EventToCommand Command="{Binding DataContext.MouseDownNodeCommand, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type Grid}}}" PassEventArgsToCommand="True"/>
         </i:EventTrigger>
         <i:EventTrigger EventName="MouseMove">
-            <cmd:EventToCommand Command="{Binding DataContext.NodeViewModel.MouseMoveNodeCommand, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type Window}}}" PassEventArgsToCommand="True"/>
+            <cmd:EventToCommand Command="{Binding DataContext.MouseMoveNodeCommand, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type Grid}}}" PassEventArgsToCommand="True"/>
         </i:EventTrigger>
         <i:EventTrigger EventName="MouseUp">
-            <cmd:EventToCommand Command="{Binding DataContext.NodeViewModel.MouseUpNodeCommand, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type Window}}}" PassEventArgsToCommand="True"/>
+            <cmd:EventToCommand Command="{Binding DataContext.MouseUpNodeCommand, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type Grid}}}" PassEventArgsToCommand="True"/>
         </i:EventTrigger>
     </i:Interaction.Triggers>
 

@@ -26,6 +26,11 @@
                 <View:T234UserControl/>
             </Canvas>
         </DataTemplate>
+        <DataTemplate DataType="{x:Type ViewModel:LineViewModel}">
+            <Canvas>
+                <View:LineViewUserControl/>
+            </Canvas>
+        </DataTemplate>
         
     </Application.Resources>
     
