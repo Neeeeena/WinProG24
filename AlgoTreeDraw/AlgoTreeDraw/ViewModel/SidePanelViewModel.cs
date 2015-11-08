@@ -22,14 +22,17 @@ namespace AlgoTreeDraw.ViewModel
         public new ICommand MouseLeftButtonUp { get; }
         Brush _background;
         public ICommand AddLineCommand { get; }
-        public static int WIDTH { get; set; } = 240;
+        
         public int NODEHEIGHT { get; set; } = 13;
+        //sidepanel width
+        public static int WIDTH { get; set; } = 240;
         public static ObservableCollection<NodeViewModel> NodesSP{ get; set; } 
             = new ObservableCollection<NodeViewModel>
             {
                  new BSTViewModel(new BST() { X = WIDTH/3-WIDTH/3+(240-(WIDTH-WIDTH/3+50))/2, Y = 0, diameter = 50 }),
-                 new RBTViewModel(new RBT() { X = WIDTH/3*2-WIDTH/3+(240-(WIDTH-WIDTH/3+50))/2, Y = 0, diameter = 50 }),
-                 new T234ViewModel(new T234() { X = WIDTH-WIDTH/3+(240-(WIDTH-WIDTH/3+50))/2, Y = 0, diameter = 50 },1)
+                 new RBTViewModel(new RBT() { X = WIDTH/3*2-WIDTH/3+(240-(WIDTH-WIDTH/3+50))/2-15, Y = 0, diameter = 50 }),
+                 //hvis man sætter y = 10, ser det væsentligt bedre ud, men så hopper de når man dragger..
+                 new T234ViewModel(new T234() { X = WIDTH-WIDTH/3+(240-(WIDTH-WIDTH/3+50))/2-30, Y = 0, diameter = 30 },1)
             };
         
         
@@ -54,7 +57,6 @@ namespace AlgoTreeDraw.ViewModel
                 NodeViewModel tempNode = node.newNodeViewModel();
                 tempNode.X = node.X - WIDTH;
                 tempNode.Y = node.Y + NODEHEIGHT;
-                tempNode.Diameter = node.Diameter;
                 AddNode(tempNode);
 
             }

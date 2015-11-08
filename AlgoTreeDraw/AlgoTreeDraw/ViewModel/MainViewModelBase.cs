@@ -32,6 +32,8 @@ namespace AlgoTreeDraw.ViewModel
 
         private static Boolean moved = true;
 
+        
+
         public MainViewModelBase()
         {
             MouseLeftButtonDown = new RelayCommand<MouseButtonEventArgs>(MouseDownNode);

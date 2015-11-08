@@ -22,8 +22,15 @@
         </i:EventTrigger>
     </i:Interaction.Triggers>
 
+    <UserControl.ContextMenu>
+        <ContextMenu>
+            <MenuItem Command="{Binding SwitchToBlack}" Header="Black" />
+            <MenuItem Command="{Binding SwitchToRed}" Header="Red" />
+        </ContextMenu>
+    </UserControl.ContextMenu>
+
     <Grid>
-        <Ellipse Fill="Red" Stroke="Black" StrokeThickness="1">
+        <Ellipse Fill="{Binding Color}" Stroke="Black" StrokeThickness="1">
         </Ellipse>
 
         <Grid>
