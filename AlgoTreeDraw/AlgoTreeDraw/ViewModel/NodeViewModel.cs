@@ -98,12 +98,7 @@ namespace AlgoTreeDraw.ViewModel
 
 
         public LinkedList<Node> neighbours = new LinkedList<Node>();
-        public int key;
-        public void setKey(int _key)
-        {
-            key = _key;
-            VisualText = "" + key;
-        }
+
 
         //returns true if tree is valid after add
         public bool addNeighbour(Node node)

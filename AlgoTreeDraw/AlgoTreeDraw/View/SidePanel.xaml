@@ -55,11 +55,16 @@
             </Grid.ColumnDefinitions>
             <Grid.RowDefinitions>
                 <RowDefinition />
+                <RowDefinition />
+                <RowDefinition />
             </Grid.RowDefinitions>
             <Button Grid.Row="0" Grid.Column="0" Content="Color Text"  Margin="3" />
             <Button Grid.Row="0" Grid.Column="1" Content="Color Node"  Margin="3" />
+            <Button Grid.Row="1" Grid.Column="0" Content="Detect DS"  Margin="3" />  <!-- For viewing and setting the datastructure of the current marked area. If multiple trees are marked, it will be unknown.. dropdown? -->
+            <Button Grid.Row="1" Grid.Column="1" Content="Unknown DS"  Margin="3" />
+            <Button Grid.Row="2" Grid.Column="0" Content="Add"  Margin="3" />       <!-- addBST or other, based on currenct DS of the function -->
+            <TextBox Grid.Row="2" Grid.Column="1" Margin="3" Text="0" TextAlignment="Center"/>
         </Grid>
-        
 
     </StackPanel>
     <!--
