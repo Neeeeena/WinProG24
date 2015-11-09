@@ -6,6 +6,7 @@ using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
+using System.Diagnostics;
 using System.Linq;
 using System.Linq.Expressions;
 using System.Text;
@@ -50,8 +51,8 @@ namespace AlgoTreeDraw.ViewModel
             AddLineCommand = new RelayCommand<MouseButtonEventArgs>(AddLineClicked);
             SelectCommand = new RelayCommand(Select);
             ChangeColor = new RelayCommand(ChangeColorClicked);
-            SelColorChanged = new RelayCommand<ColorPicker>(ColorChanged);
-            ChosenColor = Brushes.Black;
+            SelColorChanged = new RelayCommand<RoutedPropertyChangedEventArgs<Color>>(ColorChanged);
+            //ChosenColor = Brushes.Black;
         }
 
         private void Select()
@@ -87,13 +88,14 @@ namespace AlgoTreeDraw.ViewModel
         private void ChangeColorClicked()
         {
             isChangingColor = !isChangingColor;
+            Debug.Write(ChosenColor.ToString());
         }
 
 
-        private void ColorChanged(ColorPicker sender)
+        private void ColorChanged(RoutedPropertyChangedEventArgs<Color> e)
         {
-            Color temp = (Color)sender.SelectedColor;
-            ChosenColor = new SolidColorBrush(temp);
+            //Color temp = (Color)sender.SelectedColor;
+           // ChosenColor = new SolidColorBrush(temp);
         }
 
 
