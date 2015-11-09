@@ -93,5 +93,78 @@ namespace AlgoTreeDraw.ViewModel
             get { return Node.preColor; }
             set { Node.preColor = value; }
         }
+
+
+
+
+        public LinkedList<Node> neighbours = new LinkedList<Node>();
+        public int key;
+        public void setKey(int _key)
+        {
+            key = _key;
+            VisualText = "" + key;
+        }
+
+        //returns true if tree is valid after add
+        public bool addNeighbour(Node node)
+        {
+            return Node.addNeighbour(node);
+        }
+
+        //returns true if tree is valid after remove
+        public bool removeNeighbour(Node node)
+        {
+            return Node.removeNeighbour(node);
+        }
+
+        public bool isChild(Node node)
+        {
+            return Node.isChild(node);
+        }
+
+        //Returns true if node has maximum of one parent
+        public bool isValid()
+        {
+            return Node.isValid();
+        }
+
+
+        public LinkedList<Node> getChildren()
+        {
+            return Node.getChildren();
+        }
+
+        public bool isRoot()
+        {
+            return Node.isRoot();
+        }
+
+        public Node getRoot()
+        {
+            return Node.getRoot();
+        }
+
+        public int childrenCount()
+        {
+            return Node.childrenCount();
+        }
+
+        //USE ON ROOT
+        public bool isBST()
+        {
+            return Node.isBST();
+        }
+
+        //USE ON ROOT //KIG MERE HER (visuelle del)
+        public bool autoAddBST(int _key)
+        {
+            return Node.autoAddBST(_key);
+        }
+
+        public Node getNode()
+        {
+            return Node;
+        }
+
     }
 }

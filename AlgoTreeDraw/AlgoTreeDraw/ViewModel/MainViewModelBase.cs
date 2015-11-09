@@ -59,6 +59,7 @@ namespace AlgoTreeDraw.ViewModel
             fromNode.Color = fromNode.PreColor;
             isAddingLine = false;
             Lines.Add(new LineViewModel(new Line()) { From = fromNode, To = to });
+            fromNode.addNeighbour(to.getNode());                                        //DataStructure add node
             fromNode = null;
         }
 
