@@ -131,9 +131,7 @@ namespace AlgoTreeDraw.ViewModel
 
         private void MouseDownNode(MouseButtonEventArgs e)
         {
-            if (e.ClickCount == 2 && e.LeftButton == MouseButtonState.Pressed) {
-                //System.Windows.MessageBox.Show("Jeg sagde jo det virkede Carl ;)");
-            }
+
 
             var node = TargetShape(e);
             var mousePosition = RelativeMousePosition(e);
@@ -143,6 +141,10 @@ namespace AlgoTreeDraw.ViewModel
 
             e.MouseDevice.Target.CaptureMouse();
             
+            if (e.ClickCount == 2 && e.LeftButton == MouseButtonState.Pressed)
+            {
+                System.Windows.MessageBox.Show("Jeg sagde jo det virkede Carl ;)");
+            }
 
         }
 
