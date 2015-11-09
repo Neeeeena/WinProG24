@@ -115,7 +115,7 @@ namespace AlgoTreeDraw.ViewModel
             //moved = true;
             if (isChangingColor)
             {
-                node.Color = ChosenColor;
+                node.Color = new SolidColorBrush(ChosenColor);
             }
 
             if (isAddingLine)

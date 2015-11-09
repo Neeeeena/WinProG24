@@ -52,7 +52,7 @@ namespace AlgoTreeDraw.ViewModel
             SelectCommand = new RelayCommand(Select);
             ChangeColor = new RelayCommand(ChangeColorClicked);
             SelColorChanged = new RelayCommand<RoutedPropertyChangedEventArgs<Color>>(ColorChanged);
-            //ChosenColor = Brushes.Black;
+            ChosenColor = Color.FromRgb(0,0,0);
         }
 
         private void Select()
