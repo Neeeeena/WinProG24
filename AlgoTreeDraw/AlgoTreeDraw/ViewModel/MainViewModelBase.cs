@@ -16,6 +16,7 @@ using AlgoTreeDraw.Command;
 using GalaSoft.MvvmLight.Messaging;
 using System.ComponentModel;
 using System.Diagnostics;
+using Xceed.Wpf.Toolkit;
 
 namespace AlgoTreeDraw.ViewModel
 {
@@ -24,6 +25,7 @@ namespace AlgoTreeDraw.ViewModel
         public static ObservableCollection<NodeViewModel> Nodes { get; set; } 
         public static ObservableCollection<LineViewModel> Lines { get; set; }
         public static NodeViewModel fromNode { get; set; }
+        public static Brush ChosenColor { get; set; }
 
         public static Point initialMousePosition { get; set; }
         public static Point initialNodePosition { get; set; }
@@ -32,6 +34,8 @@ namespace AlgoTreeDraw.ViewModel
 
         //Tools
         public static bool isAddingLine { get; set; }
+
+        public static bool isChangingColor { get; set; }
         public static bool isMarking { get; set; }
         public static bool hasmarkedSomething { get; set; }
 
@@ -77,7 +81,7 @@ namespace AlgoTreeDraw.ViewModel
             {
                 node.isTextBoxVisible = Visibility.Hidden;
             }
-            MessageBox.Show("lol");
+            System.Windows.MessageBox.Show("lol");
         }
 
         public NodeViewModel MouseUpNodeSP2(MouseButtonEventArgs e)
@@ -109,6 +113,10 @@ namespace AlgoTreeDraw.ViewModel
             //      AddNode(node);
             // }
             //moved = true;
+            if (isChangingColor)
+            {
+                node.Color = ChosenColor;
+            }
 
             if (isAddingLine)
             {

@@ -14,6 +14,7 @@ using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
 using System.Windows.Media;
+using Xceed.Wpf.Toolkit;
 
 namespace AlgoTreeDraw.ViewModel
 {
@@ -21,12 +22,19 @@ namespace AlgoTreeDraw.ViewModel
     {
         public new ICommand MouseLeftButtonUp { get; }
         Brush _background;
+        
+        public ICommand SelColorChanged { get; }
+        
         public ICommand AddLineCommand { get; }
         public ICommand SelectCommand { get; }
+
+        public ICommand ChangeColor { get; }
 
         public int NODEHEIGHT { get; set; } = 13;
         //sidepanel width
         public static int WIDTH { get; set; } = 240;
+
+
         public static ObservableCollection<NodeViewModel> NodesSP{ get; set; } 
             = new ObservableCollection<NodeViewModel>
             {
@@ -41,6 +49,9 @@ namespace AlgoTreeDraw.ViewModel
             MouseLeftButtonUp = new RelayCommand<MouseButtonEventArgs>(MouseUpNode);
             AddLineCommand = new RelayCommand<MouseButtonEventArgs>(AddLineClicked);
             SelectCommand = new RelayCommand(Select);
+            ChangeColor = new RelayCommand(ChangeColorClicked);
+            SelColorChanged = new RelayCommand<ColorPicker>(ColorChanged);
+            ChosenColor = Brushes.Black;
         }
 
         private void Select()
@@ -73,8 +84,18 @@ namespace AlgoTreeDraw.ViewModel
             
         }
 
+        private void ChangeColorClicked()
+        {
+            isChangingColor = !isChangingColor;
+        }
 
-        
+
+        private void ColorChanged(ColorPicker sender)
+        {
+            Color temp = (Color)sender.SelectedColor;
+            ChosenColor = new SolidColorBrush(temp);
+        }
+
 
         public bool isNodeOutSideSidePanel(NodeViewModel node) {
             return node.X > WIDTH;
