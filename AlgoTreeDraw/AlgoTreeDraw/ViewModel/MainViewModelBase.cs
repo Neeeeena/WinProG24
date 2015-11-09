@@ -128,6 +128,9 @@ namespace AlgoTreeDraw.ViewModel
 
         private void MouseDownNode(MouseButtonEventArgs e)
         {
+            if (e.ClickCount == 2) {
+                System.Windows.MessageBox.Show("Jeg sagde jo det virkede Carl ;)");
+            }
 
                 var node = TargetShape(e);
                 var mousePosition = RelativeMousePosition(e);
