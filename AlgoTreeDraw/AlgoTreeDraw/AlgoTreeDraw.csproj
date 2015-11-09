@@ -139,6 +139,7 @@
     </ApplicationDefinition>
     <Compile Include="Command\IUndoRedoCommand.cs" />
     <Compile Include="Command\MoveNodeCommand.cs" />
+    <Compile Include="Command\UndoRedo.cs" />
     <Compile Include="Model\BST.cs" />
     <Compile Include="Model\Line.cs" />
     <Compile Include="Model\RBT.cs" />

@@ -128,17 +128,18 @@ namespace AlgoTreeDraw.ViewModel
 
         private void MouseDownNode(MouseButtonEventArgs e)
         {
-            if (e.ClickCount == 2) {
+            if (e.ClickCount == 2 && e.LeftButton == MouseButtonState.Pressed) {
                 System.Windows.MessageBox.Show("Jeg sagde jo det virkede Carl ;)");
             }
 
-                var node = TargetShape(e);
-                var mousePosition = RelativeMousePosition(e);
+            var node = TargetShape(e);
+            var mousePosition = RelativeMousePosition(e);
 
-                initialMousePosition = mousePosition;
-                initialNodePosition = new Point(node.X, node.Y);
+            initialMousePosition = mousePosition;
+            initialNodePosition = new Point(node.X, node.Y);
 
-                e.MouseDevice.Target.CaptureMouse();
+            e.MouseDevice.Target.CaptureMouse();
+            
 
         }
 
