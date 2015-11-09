@@ -148,6 +148,7 @@
     <Compile Include="Model\T234.cs" />
     <Compile Include="ViewModel\BSTViewModel.cs" />
     <Compile Include="ViewModel\MainViewModelBase.cs" />
+    <Compile Include="ViewModel\MenuViewModel.cs" />
     <Compile Include="ViewModel\NodeViewModel.cs" />
     <Compile Include="ViewModel\LineViewModel.cs" />
     <Compile Include="ViewModel\MainViewModel.cs" />

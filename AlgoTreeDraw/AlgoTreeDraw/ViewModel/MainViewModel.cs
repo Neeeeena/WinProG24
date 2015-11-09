@@ -61,10 +61,12 @@ namespace AlgoTreeDraw.ViewModel
         {
             if (isMarking)
             {
-                if(!hasmarkedSomething) { 
+                if (!hasmarkedSomething)
+                {
                     SelectionBoxStart = Mouse.GetPosition(e.MouseDevice.Target);
                     e.MouseDevice.Target.CaptureMouse();
-                } else
+                }
+                else
                 {
                     var SelectionBoxNow = Mouse.GetPosition(e.MouseDevice.Target);
                     SelectionBoxX = SelectionBoxY = SelectionBoxWidth = SelectionBoxHeight = 0;
@@ -77,7 +79,7 @@ namespace AlgoTreeDraw.ViewModel
         {
             if (Mouse.Captured != null)
             {
-                if(isMarking)
+                if (isMarking)
                 {
                     var SelectionBoxNow = Mouse.GetPosition(e.MouseDevice.Target);
                     SelectionBoxX = Math.Min(SelectionBoxStart.X, SelectionBoxNow.X);

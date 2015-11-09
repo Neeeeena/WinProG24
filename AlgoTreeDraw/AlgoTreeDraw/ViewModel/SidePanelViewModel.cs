@@ -24,7 +24,6 @@ namespace AlgoTreeDraw.ViewModel
         public new ICommand MouseLeftButtonUp { get; }
         Brush _background;
         
-        public ICommand SelColorChanged { get; }
         
         public ICommand AddLineCommand { get; }
         public ICommand SelectCommand { get; }
@@ -51,7 +50,6 @@ namespace AlgoTreeDraw.ViewModel
             AddLineCommand = new RelayCommand<MouseButtonEventArgs>(AddLineClicked);
             SelectCommand = new RelayCommand(Select);
             ChangeColor = new RelayCommand(ChangeColorClicked);
-            SelColorChanged = new RelayCommand<RoutedPropertyChangedEventArgs<Color>>(ColorChanged);
             ChosenColor = Color.FromRgb(0,0,0);
         }
 
@@ -89,13 +87,6 @@ namespace AlgoTreeDraw.ViewModel
         {
             isChangingColor = !isChangingColor;
             Debug.Write(ChosenColor.ToString());
-        }
-
-
-        private void ColorChanged(RoutedPropertyChangedEventArgs<Color> e)
-        {
-            //Color temp = (Color)sender.SelectedColor;
-           // ChosenColor = new SolidColorBrush(temp);
         }
 
 

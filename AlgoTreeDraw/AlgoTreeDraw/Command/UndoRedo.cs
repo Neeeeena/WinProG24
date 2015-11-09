@@ -8,6 +8,8 @@ namespace AlgoTreeDraw.Command
 {
     public class UndoRedo
     {
+
+        public static UndoRedo Instance { get; } = new UndoRedo();
         private Stack<IUndoRedoCommand> _undoCommands = new Stack<IUndoRedoCommand>();
         private Stack<IUndoRedoCommand> _redoCommands = new Stack<IUndoRedoCommand>();
 
@@ -18,11 +20,11 @@ namespace AlgoTreeDraw.Command
             command.Execute();
         }
 
-        public bool canRedo(int levels)
+        public bool CanRedo(int levels)
         {
             return levels <= _undoCommands.Count;
         }
-        public bool canUndo(int levels)
+        public bool CanUndo(int levels)
         {
             return levels <= _redoCommands.Count;
         }
@@ -30,7 +32,7 @@ namespace AlgoTreeDraw.Command
         {
             for(int i= 0;i< levels; i++)
             {
-                if (canRedo(i))
+                if (CanRedo(i))
                 {
                     IUndoRedoCommand command = _redoCommands.Pop();
                     command.Execute();
@@ -43,7 +45,7 @@ namespace AlgoTreeDraw.Command
         {
             for (int i = 0; i < levels; i++)
             {
-                if (canUndo(i))
+                if (CanUndo(i))
                 {
                     IUndoRedoCommand command = _undoCommands.Pop();
                     command.UnExecute();
