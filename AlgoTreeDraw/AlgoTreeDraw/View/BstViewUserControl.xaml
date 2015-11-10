@@ -28,9 +28,10 @@
         <Ellipse Fill="{Binding Color}" Stroke="Black" StrokeThickness="1" />
         
         <!--<TextBox Name="BSTValue" Visibility="Visible" Text="{Binding VisualText}" VerticalAlignment="Center"></TextBox>-->
-         <TextBlock Text="{Binding VisualText}" Grid.Row="1" HorizontalAlignment="Center" VerticalAlignment="Center" Foreground="Black"/> 
-        
-        </Grid>
+        <TextBlock Text="{Binding VisualText}" Visibility="{Binding IsNotEditing}" Grid.Row="1" HorizontalAlignment="Center" VerticalAlignment="Center" Foreground="Black"/>
+        <TextBox Text="{Binding VisualText}" Visibility="{Binding IsEditing}" Grid.Row="1" HorizontalAlignment="Center" VerticalAlignment="Center" Foreground="Black"/>
+
+    </Grid>
     
 
 

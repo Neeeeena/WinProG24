@@ -21,9 +21,11 @@ namespace AlgoTreeDraw.ViewModel
 {
     public abstract class NodeViewModel : MainViewModelBase
     {
-        
-        private Visibility _isTextBoxVisible = Visibility.Visible;
-        public Visibility isTextBoxVisible { get { return _isTextBoxVisible; } set { _isTextBoxVisible = value; RaisePropertyChanged(); RaisePropertyChanged(() => isTextBoxVisible); } }
+
+        private Visibility isEditing = Visibility.Hidden;
+        private Visibility isNotEditing = Visibility.Visible;
+        public Visibility IsEditing { get { return isEditing; } set { isEditing = value; RaisePropertyChanged(); } }
+        public Visibility IsNotEditing { get { return isNotEditing; } set { isNotEditing = value; RaisePropertyChanged(); } }
 
         public NodeViewModel(Node node)
         {
@@ -79,7 +81,7 @@ namespace AlgoTreeDraw.ViewModel
         public string VisualText
         {
             get { return Node.VisualText; }
-            set { Node.VisualText = value; }
+            set { Node.VisualText = value; RaisePropertyChanged(); }
         }
 
         public Brush Color

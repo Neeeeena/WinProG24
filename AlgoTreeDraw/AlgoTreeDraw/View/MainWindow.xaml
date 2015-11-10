@@ -11,13 +11,17 @@
         mc:Ignorable="d"
         Title="MainWindow" Height="600" Width="900"
         DataContext="{Binding Source={StaticResource Locator}, Path=Main}">
-    
-   
-    
+    <Window.InputBindings>
+        <KeyBinding Command="{Binding DoneEditing}" Gesture="ENTER"/>
+    </Window.InputBindings>
+
+
     <DockPanel>
         <View:MenuBar DockPanel.Dock="Top"/>
         <!-- Draw Menu bar -->
+        <Border BorderBrush="AliceBlue" BorderThickness="3">
         <View:SidePanel DockPanel.Dock="Left"/> <!-- Draw sidepanel -->
+        </Border>
         <!-- Draw lines -->
 
         <Grid Background="#00000000"> <!-- Skal være Transparent! -->
