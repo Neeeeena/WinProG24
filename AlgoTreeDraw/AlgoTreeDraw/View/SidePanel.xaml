@@ -56,9 +56,12 @@
             </Grid.ColumnDefinitions>
             <Grid.RowDefinitions>
                 <RowDefinition />
+                <RowDefinition />
             </Grid.RowDefinitions>
             <Button Command="{Binding ChangeColor}" Grid.Row="0" Grid.Column="0" Content="Color Node"  Margin="3" />
             <Button Grid.Row="0" Grid.Column="1" Content="Color Text"  Margin="3" />
+            <Button Command="{Binding MakePrettyCommand}" Grid.Row="1" Grid.Column="0" Content="Make Pretty"  Margin="3" />
+            <Button Grid.Row="1" Grid.Column="1" Content="Nice Oh Yea"  Margin="3" />
         </Grid>
         
 

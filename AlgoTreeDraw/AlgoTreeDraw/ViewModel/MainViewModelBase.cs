@@ -71,6 +71,10 @@ namespace AlgoTreeDraw.ViewModel
 
         }
 
+        public void makePretty()
+        {
+            Console.WriteLine("hihi");
+        }
 
         public void _DoneEditing()
         {
@@ -90,7 +94,8 @@ namespace AlgoTreeDraw.ViewModel
 
         public void AddNode(NodeViewModel node)
         {
-            Nodes.Add(node);
+            //Nodes.Add(node);
+            undoRedo.InsertInUndoRedo(new AddNodeCommand(Nodes, node));
         }
                 
         public NodeViewModel MouseUpNodeSP2(MouseButtonEventArgs e)
@@ -107,7 +112,6 @@ namespace AlgoTreeDraw.ViewModel
 
             var node = TargetShape(e);
 
-
             var mousePosition = RelativeMousePosition(e);
 
             node.X = initialNodePosition.X;
@@ -122,7 +126,7 @@ namespace AlgoTreeDraw.ViewModel
 
             if (isChangingColor)
             {
-                undoRedo.InsertInUndoRedo(new ChangeColorCommand(node,new SolidColorBrush(ChosenColor),node.Color));
+                undoRedo.InsertInUndoRedo(new ChangeColorCommand(node, new SolidColorBrush(ChosenColor),node.Color));
                 //node.Color = new SolidColorBrush(ChosenColor);
             }
 
