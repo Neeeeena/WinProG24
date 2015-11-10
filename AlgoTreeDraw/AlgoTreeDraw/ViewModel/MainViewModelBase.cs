@@ -125,7 +125,8 @@ namespace AlgoTreeDraw.ViewModel
 
             if (isChangingColor)
             {
-                node.Color = new SolidColorBrush(ChosenColor);
+                undoRedo.InsertInUndoRedo(new ChangeColorCommand(node,new SolidColorBrush(ChosenColor),node.Color));
+                //node.Color = new SolidColorBrush(ChosenColor);
             }
 
             if (isAddingLine)
