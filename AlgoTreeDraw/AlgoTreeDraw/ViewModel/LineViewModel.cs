@@ -35,10 +35,6 @@ namespace AlgoTreeDraw.ViewModel
             get { return from; }
             set { from = value; RaisePropertyChanged(); }
         }
-
-
-
     }
-
 }
 

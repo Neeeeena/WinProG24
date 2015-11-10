@@ -69,7 +69,8 @@ namespace AlgoTreeDraw.ViewModel
         {
             fromNode.Color = fromNode.PreColor;
             isAddingLine = false;
-            Lines.Add(new LineViewModel(new Line()) { From = fromNode, To = to });
+            LineViewModel tempLine = new LineViewModel(new Line()) { From = fromNode, To = to };
+            undoRedo.InsertInUndoRedo(new AddLineCommand(Lines,tempLine));
             fromNode = null;
         }
 
@@ -88,7 +89,7 @@ namespace AlgoTreeDraw.ViewModel
             {
                 node.isTextBoxVisible = Visibility.Hidden;
             }
-            System.Windows.MessageBox.Show("lol");
+            
         }
 
         public NodeViewModel MouseUpNodeSP2(MouseButtonEventArgs e)
@@ -127,6 +128,7 @@ namespace AlgoTreeDraw.ViewModel
             {
                 if (fromNode == null) { fromNode = node; fromNode.Color = Brushes.Blue; }
                 else if (!Object.ReferenceEquals(fromNode, node)) { AddLine(node); }
+                
             }
         }
 

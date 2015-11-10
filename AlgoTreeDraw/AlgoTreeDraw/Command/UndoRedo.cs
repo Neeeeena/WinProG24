@@ -36,7 +36,6 @@ namespace AlgoTreeDraw.Command
                  IUndoRedoCommand command = _redoCommands.Pop();
                  command.Execute();
                  _undoCommands.Push(command);
-
             }
         }
         public void Undo(int levels)
@@ -44,15 +43,11 @@ namespace AlgoTreeDraw.Command
             if (!CanUndo(levels)) throw new InvalidOperationException();
             for (int i = 0; i <= levels; i++)
             {
-
                 IUndoRedoCommand command = _undoCommands.Pop();
                 command.UnExecute();
                 _redoCommands.Push(command);
 
             }
-
         }
-
-
     }
 }
