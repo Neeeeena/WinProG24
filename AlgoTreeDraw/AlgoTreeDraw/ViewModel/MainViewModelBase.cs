@@ -39,10 +39,13 @@ namespace AlgoTreeDraw.ViewModel
         public ICommand Mdc { get; }
         public ICommand UndoCommand { get; }
         public ICommand RedoCommand { get; }
+        public ICommand DoneEditing { get; }
         public static Point initialMousePosition { get; set; }
         public static Point initialNodePosition { get; set; }
 
         private static Boolean moved = true;
+        private NodeViewModel editNode { get; set; }
+        private bool hasEdited { get; set; }
 
         //Tools
         public static bool isAddingLine { get; set; }
@@ -51,7 +54,9 @@ namespace AlgoTreeDraw.ViewModel
         public static bool isMarking { get; set; }
         public static bool hasmarkedSomething { get; set; }
 
-        
+
+
+
 
         public MainViewModelBase()
         {
@@ -62,11 +67,16 @@ namespace AlgoTreeDraw.ViewModel
             Mdc = new RelayCommand<MouseButtonEventArgs>(e => Debug.WriteLine(e));
             UndoCommand = new RelayCommand<int>(undoRedo.Undo, undoRedo.CanUndo);
             RedoCommand = new RelayCommand<int>(undoRedo.Redo, undoRedo.CanRedo);
+            DoneEditing = new RelayCommand(_DoneEditing);
 
         }
 
 
-
+        public void _DoneEditing()
+        {
+            editNode.IsEditing = Visibility.Hidden;
+            editNode.IsNotEditing = Visibility.Visible;
+        }
 
 
         public void AddLine( NodeViewModel to)
@@ -80,19 +90,6 @@ namespace AlgoTreeDraw.ViewModel
         public void AddNode(NodeViewModel node)
         {
             Nodes.Add(node);
-        }
-        public void MouseDoubleClickNode(MouseButtonEventArgs e)
-        {
-            var node = TargetShape(e);
-            if(!(node.isTextBoxVisible == Visibility.Visible))
-            {
-                
-                node.isTextBoxVisible = Visibility.Visible;
-            } else
-            {
-                node.isTextBoxVisible = Visibility.Hidden;
-            }
-            System.Windows.MessageBox.Show("lol");
         }
 
         public NodeViewModel MouseUpNodeSP2(MouseButtonEventArgs e)
@@ -138,7 +135,6 @@ namespace AlgoTreeDraw.ViewModel
         private void MouseDownNode(MouseButtonEventArgs e)
         {
 
-
             var node = TargetShape(e);
             var mousePosition = RelativeMousePosition(e);
 
@@ -146,10 +142,11 @@ namespace AlgoTreeDraw.ViewModel
             initialNodePosition = new Point(node.X, node.Y);
 
             e.MouseDevice.Target.CaptureMouse();
-            
             if (e.ClickCount == 2 && e.LeftButton == MouseButtonState.Pressed)
             {
-                System.Windows.MessageBox.Show("Jeg sagde jo det virkede Carl ;)");
+                node.IsEditing = Visibility.Visible;
+                node.IsNotEditing = Visibility.Hidden;
+                editNode = node;
             }
 
         }
