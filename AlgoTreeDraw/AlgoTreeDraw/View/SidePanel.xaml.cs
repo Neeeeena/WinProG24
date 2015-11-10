@@ -25,6 +25,5 @@ namespace AlgoTreeDraw.View
             InitializeComponent();
         }
 
-
     }
 }
