@@ -8,7 +8,10 @@ namespace AlgoTreeDraw.ViewModel
 {
     public class MenuViewModel : MainViewModelBase
     {
-//Denne klasse giver mening senere når vi tilføjer new, open,save
+        //Kun for test
+        public int undoRedoParam = 1;
+
+        //Denne klasse giver mening senere når vi tilføjer new, open,save
 
     }
 }

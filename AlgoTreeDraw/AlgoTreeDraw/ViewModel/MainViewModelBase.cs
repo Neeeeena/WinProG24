@@ -47,6 +47,8 @@ namespace AlgoTreeDraw.ViewModel
         public static bool isMarking { get; set; }
         public static bool hasmarkedSomething { get; set; }
 
+        
+
         public MainViewModelBase()
         {
             MouseLeftButtonDown = new RelayCommand<MouseButtonEventArgs>(MouseDownNode);
