@@ -73,7 +73,7 @@ namespace AlgoTreeDraw.ViewModel
 
         public void makePretty()
         {
-            Console.WriteLine("hihi");
+            Nodes.ElementAt(0).makePretty();
         }
 
         public void _DoneEditing()

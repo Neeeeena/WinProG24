@@ -168,9 +168,9 @@ namespace AlgoTreeDraw.Model
                 return children[1].insertBST(newnode);
         }
 
-        private static int X_OFFSET = 10;
-        private static int Y_OFFSET = 15;
-        private static int X_ONSET = 7;
+        private static int X_OFFSET = 40;
+        private static int Y_OFFSET = 60;
+        private static int X_ONSET = 35;
         //Use on root
         public bool makePretty()
         {
@@ -186,12 +186,12 @@ namespace AlgoTreeDraw.Model
                 if(children[0].key < key)
                 {
                     children[0].x = x + X_OFFSET;
-                    children[0].y = x - Y_OFFSET;
+                    children[0].y = y - Y_OFFSET;
                 }
                 else
                 {
                     children[0].x = x + X_OFFSET;
-                    children[0].y = x + Y_OFFSET;
+                    children[0].y = y + Y_OFFSET;
                 }
                 ca = checkAncestors(children[0].x, children[0].key);
                 if (ca[0] != -1)
@@ -205,7 +205,7 @@ namespace AlgoTreeDraw.Model
             else
             {
                 children[0].x = x + X_OFFSET;
-                children[0].y = x - Y_OFFSET;
+                children[0].y = y - Y_OFFSET;
                 ca = checkAncestors(children[0].x, children[0].key);
                 if (ca[0] != -1)
                 {
@@ -214,8 +214,8 @@ namespace AlgoTreeDraw.Model
 
                 }
                 children[1].x = x + X_OFFSET;
-                children[1].y = x + Y_OFFSET;
-                ca = checkAncestors(children[1].x, children[2].key);
+                children[1].y = y + Y_OFFSET;
+                ca = checkAncestors(children[0].x, children[1].key);
                 if (ca[0] != -1) {
                     children[1].x = ca[1];
                     moveParent(ca[0] == 0);
@@ -243,15 +243,18 @@ namespace AlgoTreeDraw.Model
 
         private Node getParent()
         {
+
             foreach (Node neighbour in neighbours)
                 if (neighbour.y < y) return neighbour;
             return null;
         }
 
-        private void moveParent(bool left)
+        private bool moveParent(bool left)
         {
             Node parent = getParent();
-            if (left && parent.x < x)
+            if (parent == null)
+                return false;
+            else if (left && parent.x < x)
             {
                 parent.x -= X_ONSET;
                 parent.moveParent(left);
@@ -261,6 +264,7 @@ namespace AlgoTreeDraw.Model
                 parent.x += X_ONSET;
                 parent.moveParent(left);
             }
+            return true;
         }
     }
 }
