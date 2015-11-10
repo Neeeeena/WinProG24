@@ -107,7 +107,6 @@ namespace AlgoTreeDraw.ViewModel
 
             var node = TargetShape(e);
 
-
             var mousePosition = RelativeMousePosition(e);
 
             node.X = initialNodePosition.X;
@@ -122,7 +121,7 @@ namespace AlgoTreeDraw.ViewModel
 
             if (isChangingColor)
             {
-                undoRedo.InsertInUndoRedo(new ChangeColorCommand(node,new SolidColorBrush(ChosenColor),node.Color));
+                undoRedo.InsertInUndoRedo(new ChangeColorCommand(node, node.Color,new SolidColorBrush(ChosenColor)));
                 //node.Color = new SolidColorBrush(ChosenColor);
             }
 

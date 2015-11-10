@@ -29,7 +29,7 @@ namespace AlgoTreeDraw.Command
 
         public void UnExecute()
         {
-            _node.PreColor = _preColor;
+            _node.Color = _preColor;
         }
     }
 }
