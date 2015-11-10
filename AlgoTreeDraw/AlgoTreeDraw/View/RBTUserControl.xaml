@@ -9,7 +9,6 @@
              mc:Ignorable="d" 
              d:DesignHeight="100" d:DesignWidth="100"
              Canvas.Left="{Binding X}" Canvas.Top="{Binding Y}" Width="{Binding Diameter}" Height="{Binding Diameter}">
-   
     <i:Interaction.Triggers>
         <i:EventTrigger EventName="MouseLeftButtonDown">
             <cmd:EventToCommand Command="{Binding DataContext.MouseLeftButtonDown, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type Grid}}}" PassEventArgsToCommand="True"/>

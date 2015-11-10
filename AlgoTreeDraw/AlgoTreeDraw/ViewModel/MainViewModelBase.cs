@@ -16,15 +16,25 @@ using AlgoTreeDraw.Command;
 using GalaSoft.MvvmLight.Messaging;
 using System.ComponentModel;
 using System.Diagnostics;
+using Xceed.Wpf.Toolkit;
 
 namespace AlgoTreeDraw.ViewModel
 {
     public abstract class MainViewModelBase : ViewModelBase
     {
+        protected UndoRedo undoRedo = UndoRedo.Instance;
         public static ObservableCollection<NodeViewModel> Nodes { get; set; } 
         public static ObservableCollection<LineViewModel> Lines { get; set; }
         public static NodeViewModel fromNode { get; set; }
+        public static Color ChosenColor { get; set; }
+        //Commands
 
+        public ICommand MouseLeftButtonDown { get; }
+        public ICommand MouseMoveNodeCommand { get; }
+        public ICommand MouseLeftButtonUp { get; }
+        public ICommand Mdc { get; }
+        public ICommand UndoCommand { get; }
+        public ICommand RedoCommand { get; }
         public static Point initialMousePosition { get; set; }
         public static Point initialNodePosition { get; set; }
 
@@ -32,6 +42,8 @@ namespace AlgoTreeDraw.ViewModel
 
         //Tools
         public static bool isAddingLine { get; set; }
+
+        public static bool isChangingColor { get; set; }
         public static bool isMarking { get; set; }
         public static bool hasmarkedSomething { get; set; }
 
@@ -42,15 +54,12 @@ namespace AlgoTreeDraw.ViewModel
             MouseLeftButtonUp = new RelayCommand<MouseButtonEventArgs>(MouseUpNode);
             //MouseDoubleClick = new RelayCommand<MouseButtonEventArgs>(e => Debug.WriteLine(e));
             Mdc = new RelayCommand<MouseButtonEventArgs>(e => Debug.WriteLine(e));
+            UndoCommand = new RelayCommand<int>(undoRedo.Undo, undoRedo.CanUndo);
+            RedoCommand = new RelayCommand<int>(undoRedo.Redo, undoRedo.CanRedo);
 
         }
 
-        //Commands
 
-        public ICommand MouseLeftButtonDown { get; }
-        public ICommand MouseMoveNodeCommand { get; }
-        public ICommand MouseLeftButtonUp { get; }
-        public ICommand Mdc { get; }
 
 
 
@@ -78,7 +87,7 @@ namespace AlgoTreeDraw.ViewModel
             {
                 node.isTextBoxVisible = Visibility.Hidden;
             }
-            MessageBox.Show("lol");
+            System.Windows.MessageBox.Show("lol");
         }
 
         public NodeViewModel MouseUpNodeSP2(MouseButtonEventArgs e)
@@ -95,21 +104,23 @@ namespace AlgoTreeDraw.ViewModel
 
             var node = TargetShape(e);
 
+
+            var mousePosition = RelativeMousePosition(e);
+
+            node.X = initialNodePosition.X;
+            node.Y = initialNodePosition.Y;
+
+            //Later we want to move many selected nodes
+            var temp = new List<NodeViewModel>() { node};
+
+            undoRedo.InsertInUndoRedo(new MoveNodeCommand(temp, mousePosition.X - initialMousePosition.X, mousePosition.Y - initialMousePosition.Y));
+
             e.MouseDevice.Target.ReleaseMouseCapture();
 
-
-            //if (node.X < 0 || node.Y < 0)
-            //{
-
-            //                node.X = initialNodePosition.X;
-            //              node.Y = initialNodePosition.Y;
-            //            moved = false;
-            //         }
-            //if (moved && initialNodePosition.X == node.initialX && initialNodePosition.Y == node.initialY)
-            //{
-            //      AddNode(node);
-            // }
-            //moved = true;
+            if (isChangingColor)
+            {
+                node.Color = new SolidColorBrush(ChosenColor);
+            }
 
             if (isAddingLine)
             {
@@ -122,19 +133,25 @@ namespace AlgoTreeDraw.ViewModel
         private void MouseDownNode(MouseButtonEventArgs e)
         {
 
-                var node = TargetShape(e);
-                var mousePosition = RelativeMousePosition(e);
 
-                initialMousePosition = mousePosition;
-                initialNodePosition = new Point(node.X, node.Y);
+            var node = TargetShape(e);
+            var mousePosition = RelativeMousePosition(e);
 
-                e.MouseDevice.Target.CaptureMouse();
+            initialMousePosition = mousePosition;
+            initialNodePosition = new Point(node.X, node.Y);
+
+            e.MouseDevice.Target.CaptureMouse();
+            
+            if (e.ClickCount == 2 && e.LeftButton == MouseButtonState.Pressed)
+            {
+                System.Windows.MessageBox.Show("Jeg sagde jo det virkede Carl ;)");
+            }
 
         }
 
         private void MouseMoveNode(MouseEventArgs e)
         {
-            if (Mouse.Captured != null)
+            if (Mouse.Captured != null && !isAddingLine)
             {
 
                 var node = TargetShape(e);

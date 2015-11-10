@@ -5,7 +5,9 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:AlgoTreeDraw.View"
              mc:Ignorable="d" 
-             d:DesignHeight="300" d:DesignWidth="300">
+             d:DesignHeight="300" d:DesignWidth="300"
+             xmlns:ViewModel="clr-namespace:AlgoTreeDraw.ViewModel"
+             DataContext="{Binding Source={StaticResource Locator}, Path=Menu}">
     <Grid>
         <Menu>
             <MenuItem Header="File">
@@ -14,8 +16,8 @@
                 <MenuItem Header="Save"/>
             </MenuItem>
             <MenuItem Header="Edit">
-                <MenuItem Header="Undo"/>
-                <MenuItem Header="Redo"/>
+                <MenuItem Header="Undo" Command="{Binding UndoCommand}" CommandParameter="1"/>
+                <MenuItem Header="Redo" Command="{Binding RedoCommand}" CommandParameter="1"/>
             </MenuItem>
             <MenuItem Header="View">
                 <MenuItem Header="Zoom out"/>
