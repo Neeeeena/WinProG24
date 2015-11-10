@@ -54,7 +54,7 @@ namespace AlgoTreeDraw.ViewModel
         public static bool isMarking { get; set; }
         public static bool hasmarkedSomething { get; set; }
 
-
+        
 
 
 
@@ -83,7 +83,8 @@ namespace AlgoTreeDraw.ViewModel
         {
             fromNode.Color = fromNode.PreColor;
             isAddingLine = false;
-            Lines.Add(new LineViewModel(new Line()) { From = fromNode, To = to });
+            LineViewModel tempLine = new LineViewModel(new Line()) { From = fromNode, To = to };
+            undoRedo.InsertInUndoRedo(new AddLineCommand(Lines,tempLine));
             fromNode = null;
         }
 
@@ -91,7 +92,7 @@ namespace AlgoTreeDraw.ViewModel
         {
             Nodes.Add(node);
         }
-
+                
         public NodeViewModel MouseUpNodeSP2(MouseButtonEventArgs e)
         {
             var node = TargetShape(e);
@@ -128,6 +129,7 @@ namespace AlgoTreeDraw.ViewModel
             {
                 if (fromNode == null) { fromNode = node; fromNode.Color = Brushes.Blue; }
                 else if (!Object.ReferenceEquals(fromNode, node)) { AddLine(node); }
+                
             }
         }
 
