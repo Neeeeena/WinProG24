@@ -1,6 +1,7 @@
 ﻿using AlgoTreeDraw.ViewModel;
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -15,11 +16,12 @@ namespace AlgoTreeDraw.Command
         private Brush _preColor {get; set;}
         private Brush _color { get; set; }
 
-        public ChangeColorCommand(NodeViewModel node, Brush preColor, Brush color)
+        public ChangeColorCommand(NodeViewModel node, Brush color, Brush preColor)
         {
             _node = node;
             _preColor = preColor;
             _color = color;
+            
         }
 
         public void Execute()
@@ -29,7 +31,7 @@ namespace AlgoTreeDraw.Command
 
         public void UnExecute()
         {
-            _node.PreColor = _preColor;
+            _node.Color = _preColor;
         }
     }
 }

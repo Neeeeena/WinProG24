@@ -122,7 +122,7 @@ namespace AlgoTreeDraw.ViewModel
 
             if (isChangingColor)
             {
-                undoRedo.InsertInUndoRedo(new ChangeColorCommand(node,new SolidColorBrush(ChosenColor),node.Color));
+                undoRedo.InsertInUndoRedo(new ChangeColorCommand(node,new SolidColorBrush(ChosenColor),new SolidColorBrush()));
                 //node.Color = new SolidColorBrush(ChosenColor);
             }
 

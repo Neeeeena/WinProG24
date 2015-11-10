@@ -87,7 +87,7 @@ namespace AlgoTreeDraw.ViewModel
         public Brush Color
         {
             get { return Node.color; }
-            set { Node.color = value; RaisePropertyChanged(); }
+            set { Debug.Write(Node.color.ToString()); Node.color = value; RaisePropertyChanged(); }
         }
 
         public Brush PreColor
