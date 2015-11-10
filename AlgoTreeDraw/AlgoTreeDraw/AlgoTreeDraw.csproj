@@ -138,6 +138,7 @@
       <SubType>Designer</SubType>
     </ApplicationDefinition>
     <Compile Include="Command\AddLineCommand.cs" />
+    <Compile Include="Command\AddNodeCommand.cs" />
     <Compile Include="Command\ChangeColorCommand.cs" />
     <Compile Include="Command\IUndoRedoCommand.cs" />
     <Compile Include="Command\MoveNodeCommand.cs" />

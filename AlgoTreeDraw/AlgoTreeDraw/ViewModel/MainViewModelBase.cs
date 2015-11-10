@@ -90,7 +90,8 @@ namespace AlgoTreeDraw.ViewModel
 
         public void AddNode(NodeViewModel node)
         {
-            Nodes.Add(node);
+            //Nodes.Add(node);
+            undoRedo.InsertInUndoRedo(new AddNodeCommand(Nodes, node));
         }
                 
         public NodeViewModel MouseUpNodeSP2(MouseButtonEventArgs e)
