@@ -21,7 +21,6 @@ namespace AlgoTreeDraw.Command
             _node = node;
             _preColor = preColor;
             _color = color;
-            
         }
 
         public void Execute()
