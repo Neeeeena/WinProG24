@@ -168,8 +168,99 @@ namespace AlgoTreeDraw.Model
                 return children[1].insertBST(newnode);
         }
 
+        private static int X_OFFSET = 10;
+        private static int Y_OFFSET = 15;
+        private static int X_ONSET = 7;
+        //Use on root
+        public bool makePretty()
+        {
+            Node[] children = getChildren();
+            int[] ca = { -3, -3 };
 
+            if(children[0] == null)
+            {
 
+            }
+            else if(children[1] == null)
+            {
+                if(children[0].key < key)
+                {
+                    children[0].x = x + X_OFFSET;
+                    children[0].y = x - Y_OFFSET;
+                }
+                else
+                {
+                    children[0].x = x + X_OFFSET;
+                    children[0].y = x + Y_OFFSET;
+                }
+                ca = checkAncestors(children[0].x, children[0].key);
+                if (ca[0] != -1)
+                {
+                    children[0].x = ca[1];
+                    moveParent(ca[0] == 0);
+                }
+                children[0].makePretty();
+            }
+                
+            else
+            {
+                children[0].x = x + X_OFFSET;
+                children[0].y = x - Y_OFFSET;
+                ca = checkAncestors(children[0].x, children[0].key);
+                if (ca[0] != -1)
+                {
+                    children[0].x = ca[1];
+                    moveParent(ca[0] == 0);
 
+                }
+                children[1].x = x + X_OFFSET;
+                children[1].y = x + Y_OFFSET;
+                ca = checkAncestors(children[1].x, children[2].key);
+                if (ca[0] != -1) {
+                    children[1].x = ca[1];
+                    moveParent(ca[0] == 0);
+                }
+                children[0].makePretty();
+                children[1].makePretty();
+            }
+            
+            return true;
+        }
+
+        private int[] checkAncestors(int xcoord, int key)
+        {
+            Node parent = getParent();
+            if (parent == null)
+                return new int[2] { -1, -1 };
+            if (parent.x < xcoord + X_ONSET &&
+                parent.x > xcoord - X_ONSET)
+                if (parent.key < key)
+                    return new int[2] { 0, xcoord + X_ONSET};
+                else
+                    return new int[2] { 1, xcoord - X_ONSET };
+            return checkAncestors(xcoord, key);
+        }
+
+        private Node getParent()
+        {
+            foreach (Node neighbour in neighbours)
+                if (neighbour.y < y) return neighbour;
+            return null;
+        }
+
+        private void moveParent(bool left)
+        {
+            Node parent = getParent();
+            if (left && parent.x < x)
+            {
+                parent.x -= X_ONSET;
+                parent.moveParent(left);
+            }
+            else if (!left && parent.x > x)
+            {
+                parent.x += X_ONSET;
+                parent.moveParent(left);
+            }
+        }
     }
 }
