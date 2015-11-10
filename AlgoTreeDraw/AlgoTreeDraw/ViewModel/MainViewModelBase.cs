@@ -22,12 +22,16 @@ namespace AlgoTreeDraw.ViewModel
 {
     public abstract class MainViewModelBase : ViewModelBase
     {
-        protected UndoRedo undoRedo = UndoRedo.Instance;
+        public UndoRedo undoRedo
+        {
+            get; set;
+        } = UndoRedo.Instance;
         public static ObservableCollection<NodeViewModel> Nodes { get; set; } 
         public static ObservableCollection<LineViewModel> Lines { get; set; }
         public static NodeViewModel fromNode { get; set; }
         public static Color ChosenColor { get; set; }
         //Commands
+
 
         public ICommand MouseLeftButtonDown { get; }
         public ICommand MouseMoveNodeCommand { get; }

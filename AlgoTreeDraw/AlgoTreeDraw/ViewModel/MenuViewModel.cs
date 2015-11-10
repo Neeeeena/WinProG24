@@ -11,6 +11,7 @@ namespace AlgoTreeDraw.ViewModel
         //Kun for test
         public int undoRedoParam = 1;
 
+
         //Denne klasse giver mening senere når vi tilføjer new, open,save
 
     }
