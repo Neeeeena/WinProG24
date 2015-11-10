@@ -71,6 +71,10 @@ namespace AlgoTreeDraw.ViewModel
 
         }
 
+        public void makePretty()
+        {
+
+        }
 
         public void _DoneEditing()
         {
