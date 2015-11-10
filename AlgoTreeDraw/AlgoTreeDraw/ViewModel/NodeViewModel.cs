@@ -124,10 +124,6 @@ namespace AlgoTreeDraw.ViewModel
         }
 
 
-        public LinkedList<Node> getChildren()
-        {
-            return Node.getChildren();
-        }
 
         public bool isRoot()
         {
@@ -145,16 +141,12 @@ namespace AlgoTreeDraw.ViewModel
         }
 
         //USE ON ROOT
-        public bool isBST()
-        {
-            return Node.isBST();
-        }
 
         //USE ON ROOT //KIG MERE HER (visuelle del)
-        public bool autoAddBST(int _key)
-        {
-            return Node.autoAddBST(_key);
-        }
+        //public bool autoAddBST(int _key)
+        //{
+        //    return Node.autoAddBST(_key);
+        //}
 
         public Node getNode()
         {

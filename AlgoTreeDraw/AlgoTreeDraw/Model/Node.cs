@@ -80,13 +80,24 @@ namespace AlgoTreeDraw.Model
             return count <= 1;
         }
 
-
-        public LinkedList<Node> getChildren()
+        //Move this to BST only.
+        public Node[] getChildren()
         {
-            LinkedList<Node> children = new LinkedList<Node>();
+            Node[] children = new Node[2];
+            int i = 0;
             foreach (Node neighbour in neighbours)
                 if (neighbour.y > y)
-                    children.AddLast(neighbour);
+                {
+                    children[i] = neighbour;
+                    i++;
+                }
+
+            if(i == 2 && children[0].x > children[1].x)
+            {
+                Node temp = children[0];
+                children[0] = children[1];
+                children[1] = temp;
+            }    
             return children;
         }
 
@@ -113,39 +124,49 @@ namespace AlgoTreeDraw.Model
         }
 
         //USE ON ROOT
-        public bool isBST()
+        public bool isValidBST()
         {
-            int left = 0;
-            int right = 0;
+            Node[] children = getChildren();
             if (isValid() && childrenCount() <= 2)
             {
-                foreach (Node child in getChildren())
-                {
-                    if (child.x < x) left++; else right++;
-                    if (!child.isBST()) return false;
-                }
-                if (left > 1 || right > 1)
-                    return false;
+                foreach (Node child in children)
+                    if (child != null)
+                        if (!child.isValidBST()) return false;
+                if(children[1] != null) return children[0].key < children[1].key;
             }
-            else
-                return false;
+            else return false;
             return true;
         }
 
+        //use on valid bst
         //USE ON ROOT //KIG MERE HER (visuelle del)
-        public bool autoAddBST(int _key)
+        public Node insertBST(Node newnode)
         {
-            foreach (Node neighbour in neighbours)
+            Node[] children = getChildren();
+
+
+            if (children[0] == null)
             {
-                if (neighbour.y > y && neighbour.x < x && _key < key)
-                    neighbour.autoAddBST(_key);
-                else if (neighbour.y > y && neighbour.x > x && _key > key)
-                    neighbour.autoAddBST(_key);
-
+                addNeighbour(newnode);
+                return this;
             }
-
-            return true;
+            else if (children[1] == null)
+                if ((key < newnode.key && children[0].key < newnode.key) ||
+                    (key >= newnode.key && children[0].key >= newnode.key))
+                    return children[0].insertBST(newnode);
+                else
+                {
+                    addNeighbour(newnode);
+                    return this;
+                }
+                   
+            else if (key < newnode.key)
+                return children[0].insertBST(newnode);
+            else
+                return children[1].insertBST(newnode);
         }
+
+
 
 
     }
