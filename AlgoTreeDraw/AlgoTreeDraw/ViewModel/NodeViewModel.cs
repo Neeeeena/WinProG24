@@ -93,7 +93,7 @@ namespace AlgoTreeDraw.ViewModel
         public Brush PreColor
         {
             get { return Node.preColor; }
-            set { Node.preColor = value; }
+            set { Node.preColor = value; RaisePropertyChanged(); }
         }
     }
 }

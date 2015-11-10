@@ -26,10 +26,11 @@ namespace AlgoTreeDraw.Model
 
         public double CanvasCenterY { get { return Y + diameter / 2; } set { Y = value - diameter / 2; } }
 
-       
+
+        private Brush _color;
+        private Brush _preColor;
         
-        
-        public Brush color { get; set; }
-        public Brush preColor { get; set; }
+        public Brush color { get { return _color; } set { _color = value; } }
+        public Brush preColor { get { return _preColor; } set { _preColor = value; } }
     }
 }
