@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -30,6 +31,7 @@ namespace AlgoTreeDraw.Command
         }
         public void Redo(int levels)
         {
+            
             for(int i= 0;i< levels; i++)
             {
                 if (CanRedo(i))
