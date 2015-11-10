@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Diagnostics;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -31,29 +30,25 @@ namespace AlgoTreeDraw.Command
         }
         public void Redo(int levels)
         {
-            
-            for(int i= 0;i< levels; i++)
+            if (!CanRedo(levels)) throw new InvalidOperationException();
+            for(int i= 0;i<= levels; i++)
             {
-                if (CanRedo(i))
-                {
-                    IUndoRedoCommand command = _redoCommands.Pop();
-                    command.Execute();
-                    _undoCommands.Push(command);
-                }
-                else return;
+                 IUndoRedoCommand command = _redoCommands.Pop();
+                 command.Execute();
+                 _undoCommands.Push(command);
+
             }
         }
         public void Undo(int levels)
         {
-            for (int i = 0; i < levels; i++)
+            if (!CanUndo(levels)) throw new InvalidOperationException();
+            for (int i = 0; i <= levels; i++)
             {
-                if (CanUndo(i))
-                {
-                    IUndoRedoCommand command = _undoCommands.Pop();
-                    command.UnExecute();
-                    _redoCommands.Push(command);
-                }
-                else return;
+
+                IUndoRedoCommand command = _undoCommands.Pop();
+                command.UnExecute();
+                _redoCommands.Push(command);
+
             }
 
         }
