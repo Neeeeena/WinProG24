@@ -155,5 +155,10 @@ namespace AlgoTreeDraw.ViewModel
             return Node;
         }
 
+        public void makePretty()
+        {
+            Node.getRoot().makePretty();
+        }
+
     }
 }

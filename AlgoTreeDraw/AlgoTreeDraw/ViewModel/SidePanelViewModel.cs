@@ -30,6 +30,8 @@ namespace AlgoTreeDraw.ViewModel
 
         public ICommand ChangeColor { get; }
 
+        public ICommand MakePrettyCommand { get; }
+
         public int NODEHEIGHT { get; set; } = 13;
         //sidepanel width
         public static int WIDTH { get; set; } = 240;
@@ -50,9 +52,14 @@ namespace AlgoTreeDraw.ViewModel
             AddLineCommand = new RelayCommand<MouseButtonEventArgs>(AddLineClicked);
             SelectCommand = new RelayCommand(Select);
             ChangeColor = new RelayCommand(ChangeColorClicked);
+            MakePrettyCommand = new RelayCommand(CallMakePretty);
             ChosenColor = Color.FromRgb(0,0,0);
         }
 
+        private void CallMakePretty()
+        {
+            makePretty();
+        }
         private void Select()
         {
             isMarking = !isMarking;

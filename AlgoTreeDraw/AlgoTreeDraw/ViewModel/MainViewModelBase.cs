@@ -71,6 +71,10 @@ namespace AlgoTreeDraw.ViewModel
 
         }
 
+        public void makePretty()
+        {
+            Nodes.ElementAt(0).makePretty();
+        }
 
         public void _DoneEditing()
         {
@@ -85,6 +89,7 @@ namespace AlgoTreeDraw.ViewModel
             isAddingLine = false;
             LineViewModel tempLine = new LineViewModel(new Line()) { From = fromNode, To = to };
             undoRedo.InsertInUndoRedo(new AddLineCommand(Lines,tempLine));
+            fromNode.addNeighbour(to.Node);
             fromNode = null;
         }
 
