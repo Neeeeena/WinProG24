@@ -100,6 +100,7 @@
                                         </LinearGradientBrush>
                                     </Setter.Value>
                                 </Setter>
+
                                 <Setter TargetName="content" Property="RenderTransform" >
                                     <Setter.Value>
                                         <TranslateTransform Y="1.0" />
@@ -117,6 +118,7 @@
                                 <Setter TargetName="border" Property="Opacity" Value="0.7" />
                                 <Setter Property="Foreground" Value="Gray" />
                             </Trigger>
+
 
                         </ControlTemplate.Triggers>
                     </ControlTemplate>

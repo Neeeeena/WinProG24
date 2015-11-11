@@ -15,37 +15,41 @@
         <KeyBinding Command="{Binding DoneEditing}" Gesture="ENTER"/>
     </Window.InputBindings>
 
+    <ScrollViewer HorizontalScrollBarVisibility="Visible" VerticalScrollBarVisibility="Visible" Margin="5" >
+        <DockPanel>
+            <View:MenuBar DockPanel.Dock="Top"/>
+            <!-- Draw Menu bar -->
+            <Border BorderBrush="AliceBlue" BorderThickness="3">
+                <View:SidePanel DockPanel.Dock="Left"/>
+                <!-- Draw sidepanel -->
+            </Border>
+            <!-- Draw lines -->
 
-    <DockPanel>
-        <View:MenuBar DockPanel.Dock="Top"/>
-        <!-- Draw Menu bar -->
-        <Border BorderBrush="AliceBlue" BorderThickness="3">
-        <View:SidePanel DockPanel.Dock="Left"/> <!-- Draw sidepanel -->
-        </Border>
-        <!-- Draw lines -->
-
-        <Grid Background="#00000000"> <!-- Skal være Transparent! -->
-            <i:Interaction.Triggers>
-                <i:EventTrigger EventName="MouseLeftButtonDown">
-                    <cmd:EventToCommand Command="{Binding MouseDownCanvasCommand}" PassEventArgsToCommand="True"/>
-                </i:EventTrigger>
-                <i:EventTrigger EventName="MouseMove">
-                    <cmd:EventToCommand Command="{Binding MouseMoveCanvasCommand}" PassEventArgsToCommand="True"/>
-                </i:EventTrigger>
-                <i:EventTrigger EventName="MouseLeftButtonUp">
-                    <cmd:EventToCommand Command="{Binding MouseUpCanvasCommand}" PassEventArgsToCommand="True"/>
-                </i:EventTrigger>
-            </i:Interaction.Triggers>
-            <ItemsControl ItemsSource="{Binding Lines}"/>
-            <ItemsControl ItemsSource="{Binding Nodes}"/>
-            <Canvas >
-                <Border Canvas.Left="{Binding SelectionBoxX}" Canvas.Top="{Binding SelectionBoxY}" Width="{Binding SelectionBoxWidth}" Height="{Binding SelectionBoxHeight}"
+            <Grid Background="#00000000">
+                <!-- Skal være Transparent! -->
+                <i:Interaction.Triggers>
+                    <i:EventTrigger EventName="MouseLeftButtonDown">
+                        <cmd:EventToCommand Command="{Binding MouseDownCanvasCommand}" PassEventArgsToCommand="True"/>
+                    </i:EventTrigger>
+                    <i:EventTrigger EventName="MouseMove">
+                        <cmd:EventToCommand Command="{Binding MouseMoveCanvasCommand}" PassEventArgsToCommand="True"/>
+                    </i:EventTrigger>
+                    <i:EventTrigger EventName="MouseLeftButtonUp">
+                        <cmd:EventToCommand Command="{Binding MouseUpCanvasCommand}" PassEventArgsToCommand="True"/>
+                    </i:EventTrigger>
+                </i:Interaction.Triggers>
+                <ItemsControl ItemsSource="{Binding Lines}"/>
+                <ItemsControl ItemsSource="{Binding Nodes}"/>
+                <Canvas >
+                    <Border Canvas.Left="{Binding SelectionBoxX}" Canvas.Top="{Binding SelectionBoxY}" Width="{Binding SelectionBoxWidth}" Height="{Binding SelectionBoxHeight}"
                         BorderBrush="Black" BorderThickness="1">
-                    <Rectangle Fill="SteelBlue" Opacity=".15"/>
-                </Border>
-            </Canvas>
-        </Grid>
-        <!--<View:BstViewUserControl  />  Draw Bst nodes -->
-    </DockPanel>
+                        <Rectangle Fill="SteelBlue" Opacity=".15"/>
+                    </Border>
+                </Canvas>
+            </Grid>
+
+            <!--<View:BstViewUserControl  />  Draw Bst nodes -->
+        </DockPanel>
+    </ScrollViewer>
 </Window>
     
