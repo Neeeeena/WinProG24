@@ -14,6 +14,8 @@ namespace AlgoTreeDraw.Model
         {
             color = Brushes.Red;
             preColor = Brushes.Red;
+            borderColor = Brushes.Black;
+            borderThickness = 1;
 
         }
        

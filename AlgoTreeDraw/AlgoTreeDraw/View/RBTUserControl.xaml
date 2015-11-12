@@ -29,7 +29,7 @@
     </UserControl.ContextMenu>
 
     <Grid>
-        <Ellipse Fill="{Binding Color}" Stroke="Black" StrokeThickness="1">
+        <Ellipse Fill="{Binding Color}" Stroke="{Binding borderColor}" StrokeThickness="{Binding borderThickness}">
         </Ellipse>
 
         <Grid>

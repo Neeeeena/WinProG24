@@ -27,6 +27,9 @@ namespace AlgoTreeDraw.ViewModel
         public Visibility IsEditing { get { return isEditing; } set { isEditing = value; RaisePropertyChanged(); } }
         public Visibility IsNotEditing { get { return isNotEditing; } set { isNotEditing = value; RaisePropertyChanged(); } }
 
+        // Select
+        public Point initialNodePosition = new Point();
+
         public NodeViewModel(Node node)
         {
             _node = node;
@@ -69,8 +72,8 @@ namespace AlgoTreeDraw.ViewModel
         public double CanvasCenterX { get { return X + Diameter / 2; } set { X = value - Diameter / 2; RaisePropertyChanged(() => X); } }
         public double CanvasCenterY { get { return Y + Diameter / 2; } set { Y = value - Diameter / 2; RaisePropertyChanged(() => Y); } }
 
-        private bool isMoveSelected;
-        public bool IsMoveSelected { get { return isMoveSelected; } set { isMoveSelected = value; RaisePropertyChanged(); } }
+        private bool isSelected;
+        public bool IsSelected { get { return isSelected; } set { isSelected = value; RaisePropertyChanged(); } }
 
         public double Diameter
         {
@@ -96,8 +99,17 @@ namespace AlgoTreeDraw.ViewModel
             set { Node.preColor = value; RaisePropertyChanged(); }
         }
 
+        public Brush borderColor
+        {
+            get { return Node.borderColor; }
+            set { Node.borderColor = value; RaisePropertyChanged(); }
+        }
 
-
+        public double borderThickness
+        {
+            get { return Node.borderThickness; }
+            set { Node.borderThickness = value;  RaisePropertyChanged(); }
+        }
 
         public LinkedList<Node> neighbours = new LinkedList<Node>();
 

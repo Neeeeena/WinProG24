@@ -35,7 +35,11 @@ namespace AlgoTreeDraw.Model
        
         private Brush _color;
         private Brush _preColor;
+
+
+        public Brush borderColor { get; set; }
         
+        public double borderThickness { get; set; }
         
         public Brush color { get; set; }
         public Brush preColor { get; set; }

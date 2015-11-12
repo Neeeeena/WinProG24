@@ -40,7 +40,7 @@
                 <RowDefinition/>
             </Grid.RowDefinitions>
             <Button Command="{Binding AddLineCommand}" Grid.Row="0" Grid.Column="0" Content="Line"  Margin="3" />
-            <Button Command="{Binding SelectCommand}" Grid.Row="0" Grid.Column="1" Content="Select"  Margin="3" />
+            <Button Grid.Row="0" Grid.Column="1" Content="sel Removed pt"  Margin="3" /> <!-- ="{Binding SelectCommand}" -->
             <Button Grid.Row="1" Grid.Column="0" Content="Move"  Margin="3" /> <!-- Indstillinger: Flyt kun linjer, flyt kun Noder.. -->
             <Button Grid.Row="1" Grid.Column="1" Content="Paint"  Margin="3" /> <!-- Indstillinger: Farv alle linjer, Farv alle Noder, osv.-->
             <Button Grid.Row="2" Grid.Column="0" Content="Transform"  Margin="3" /> <!-- Indstillinger: Ændre størrelse på Noder, Roter.. -->

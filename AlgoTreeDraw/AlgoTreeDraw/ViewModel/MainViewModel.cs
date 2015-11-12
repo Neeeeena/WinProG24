@@ -39,6 +39,8 @@ namespace AlgoTreeDraw.ViewModel
         public double SelectionBoxWidth { get; set; }
         public double SelectionBoxHeight { get; set; }
 
+        public bool MouseDownCanvasCalled = false;
+
         public ICommand MouseDownCanvasCommand { get; }
         public ICommand MouseMoveCanvasCommand { get; }
         public ICommand MouseUpCanvasCommand { get; }
@@ -59,55 +61,52 @@ namespace AlgoTreeDraw.ViewModel
 
         private void MouseDownCanvas(MouseButtonEventArgs e)
         {
-            if (isMarking)
+            if(!nodeClicked)
             {
-                if (!hasmarkedSomething)
-                {
-                    SelectionBoxStart = Mouse.GetPosition(e.MouseDevice.Target);
-                    e.MouseDevice.Target.CaptureMouse();
-                }
-                else
-                {
-                    var SelectionBoxNow = Mouse.GetPosition(e.MouseDevice.Target);
-                    SelectionBoxX = SelectionBoxY = SelectionBoxWidth = SelectionBoxHeight = 0;
-                    hasmarkedSomething = false;
-                }
+                Console.WriteLine("MDCanvas called");
+                clearSelectedNodes();
+                SelectionBoxStart = Mouse.GetPosition(e.MouseDevice.Target);
+                e.MouseDevice.Target.CaptureMouse();
+                MouseDownCanvasCalled = true;
             }
         }
 
         private void MouseMoveCanvas(MouseEventArgs e)
         {
-            if (Mouse.Captured != null)
+            if (Mouse.Captured != null && MouseDownCanvasCalled)
             {
-                if (isMarking)
-                {
-                    var SelectionBoxNow = Mouse.GetPosition(e.MouseDevice.Target);
-                    SelectionBoxX = Math.Min(SelectionBoxStart.X, SelectionBoxNow.X);
-                    SelectionBoxY = Math.Min(SelectionBoxStart.Y, SelectionBoxNow.Y);
-                    SelectionBoxWidth = Math.Abs(SelectionBoxNow.X - SelectionBoxStart.X);
-                    SelectionBoxHeight = Math.Abs(SelectionBoxNow.Y - SelectionBoxStart.Y);
-                    RaisePropertyChanged(() => SelectionBoxX);
-                    RaisePropertyChanged(() => SelectionBoxY);
-                    RaisePropertyChanged(() => SelectionBoxWidth);
-                    RaisePropertyChanged(() => SelectionBoxHeight);
-                    hasmarkedSomething = true;
-                }
+                var SelectionBoxNow = Mouse.GetPosition(e.MouseDevice.Target);
+                SelectionBoxX = Math.Min(SelectionBoxStart.X, SelectionBoxNow.X);
+                SelectionBoxY = Math.Min(SelectionBoxStart.Y, SelectionBoxNow.Y);
+                SelectionBoxWidth = Math.Abs(SelectionBoxNow.X - SelectionBoxStart.X);
+                SelectionBoxHeight = Math.Abs(SelectionBoxNow.Y - SelectionBoxStart.Y);
+                RaisePropertyChanged(() => SelectionBoxX);
+                RaisePropertyChanged(() => SelectionBoxY);
+                RaisePropertyChanged(() => SelectionBoxWidth);
+                RaisePropertyChanged(() => SelectionBoxHeight);
+
             }
         }
 
         private void MouseUpCanvas(MouseButtonEventArgs e)
         {
-            if (!isAddingLine)
+            if (!isAddingLine && MouseDownCanvasCalled)
             {
+                Console.WriteLine("Inside");
+                MouseDownCanvasCalled = false;
                 var SelectionBoxEnd = Mouse.GetPosition(e.MouseDevice.Target);
                 var smallX = Math.Min(SelectionBoxStart.X, SelectionBoxEnd.X);
                 var smallY = Math.Min(SelectionBoxStart.Y, SelectionBoxEnd.Y);
                 var largeX = Math.Max(SelectionBoxStart.X, SelectionBoxEnd.X);
                 var largeY = Math.Max(SelectionBoxStart.Y, SelectionBoxEnd.Y);
-                foreach (var s in Nodes)
-                    s.IsMoveSelected = s.CanvasCenterX > smallX && s.CanvasCenterX < largeX && s.CanvasCenterY > smallY && s.CanvasCenterY < largeY;
+                foreach (NodeViewModel n in Nodes)
+                    if(n.CanvasCenterX > smallX && n.CanvasCenterX < largeX && n.CanvasCenterY > smallY
+                        && n.CanvasCenterY < largeY)
+                    {
+                        addToSelectedNodes(n);
+                    }
 
-                //SelectionBoxX = SelectionBoxY = SelectionBoxWidth = SelectionBoxHeight = 0;
+                SelectionBoxX = SelectionBoxY = SelectionBoxWidth = SelectionBoxHeight = 0;
                 RaisePropertyChanged(() => SelectionBoxX);
                 RaisePropertyChanged(() => SelectionBoxY);
                 RaisePropertyChanged(() => SelectionBoxWidth);

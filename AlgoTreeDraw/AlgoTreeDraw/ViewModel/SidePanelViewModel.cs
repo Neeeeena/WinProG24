@@ -84,9 +84,11 @@ namespace AlgoTreeDraw.ViewModel
                 tempNode.Y = node.Y + NODEHEIGHT;
                 AddNode(tempNode);
             }
-            node.X = initialNodePosition.X;
-            node.Y = initialNodePosition.Y;
-            
+            node.X = node.initialNodePosition.X;
+            node.Y = node.initialNodePosition.Y;
+            node.borderColor = Brushes.Black;
+            node.borderThickness = 1;
+            selectedNodes.Remove(node);            
             
         }
 

@@ -30,9 +30,11 @@ namespace AlgoTreeDraw.ViewModel
         public static ObservableCollection<LineViewModel> Lines { get; set; }
         public static NodeViewModel fromNode { get; set; }
         public static Color ChosenColor { get; set; }
+
+        public static List<NodeViewModel> selectedNodes = new List<NodeViewModel>();
         //Commands
 
-
+            
         public ICommand MouseLeftButtonDown { get; }
         public ICommand MouseMoveNodeCommand { get; }
         public ICommand MouseLeftButtonUp { get; }
@@ -42,6 +44,9 @@ namespace AlgoTreeDraw.ViewModel
         public ICommand DoneEditing { get; }
         public static Point initialMousePosition { get; set; }
         public static Point initialNodePosition { get; set; }
+
+        //select
+        public bool nodeClicked = false;
 
         private static Boolean moved = true;
         private NodeViewModel editNode { get; set; }
@@ -69,6 +74,25 @@ namespace AlgoTreeDraw.ViewModel
             RedoCommand = new RelayCommand<int>(undoRedo.Redo, undoRedo.CanRedo);
             DoneEditing = new RelayCommand(_DoneEditing);
 
+        }
+
+        //Select
+        public void addToSelectedNodes(NodeViewModel n)
+        {
+            selectedNodes.Add(n);
+            
+            n.borderColor = Brushes.DarkBlue;
+            n.borderThickness = 4;
+        }
+
+        public void clearSelectedNodes()
+        {
+            foreach(NodeViewModel n in selectedNodes)
+            {
+                n.borderColor = Brushes.Black;
+                n.borderThickness = 1;
+            }
+            selectedNodes.Clear();
         }
 
         public void makePretty()
@@ -109,13 +133,18 @@ namespace AlgoTreeDraw.ViewModel
 
         public void MouseUpNode(MouseButtonEventArgs e)
         {
+            Console.WriteLine("MUNode called");
 
+            nodeClicked = false;
             var node = TargetShape(e);
-
+            
             var mousePosition = RelativeMousePosition(e);
-
-            node.X = initialNodePosition.X;
-            node.Y = initialNodePosition.Y;
+            
+            foreach(NodeViewModel n in selectedNodes)
+            {
+                n.X = n.initialNodePosition.X;
+                n.Y = n.initialNodePosition.Y;
+            }
 
             //Later we want to move many selected nodes
             var temp = new List<NodeViewModel>() { node};
@@ -141,12 +170,27 @@ namespace AlgoTreeDraw.ViewModel
 
         private void MouseDownNode(MouseButtonEventArgs e)
         {
-
+            nodeClicked = true;
+            Console.WriteLine("MDNode called");
             var node = TargetShape(e);
             var mousePosition = RelativeMousePosition(e);
 
             initialMousePosition = mousePosition;
-            initialNodePosition = new Point(node.X, node.Y);
+            //initialNodePosition = new Point(node.X, node.Y);
+
+            if(!selectedNodes.Contains(node))
+            {
+                clearSelectedNodes();
+                addToSelectedNodes(node);
+            }
+
+            foreach (NodeViewModel n in selectedNodes)
+            {
+                n.initialNodePosition.X = n.X;
+                n.initialNodePosition.Y = n.Y;
+                Console.WriteLine("initialX = " + n.initialNodePosition.X);
+                Console.WriteLine("initialX = " + n.initialNodePosition.X);
+            }
 
             e.MouseDevice.Target.CaptureMouse();
             if (e.ClickCount == 2 && e.LeftButton == MouseButtonState.Pressed)
@@ -163,18 +207,21 @@ namespace AlgoTreeDraw.ViewModel
             if (Mouse.Captured != null && !isAddingLine)
             {
 
-                var node = TargetShape(e);
-
                 var mousePosition = RelativeMousePosition(e);
 
-                var tempX = initialNodePosition.X + (mousePosition.X - initialMousePosition.X);
-                var tempY = initialNodePosition.Y + (mousePosition.Y - initialMousePosition.Y);
-                if ( !(tempX < 0 || tempY < 0))
+                double tempX;
+                double tempY;
+
+                foreach(NodeViewModel n in selectedNodes)
                 {
-                    node.X = tempX;
-                    node.Y = tempY;
-                }
-                
+                    tempX = n.initialNodePosition.X + (mousePosition.X - initialMousePosition.X);
+                    tempY = n.initialNodePosition.Y + (mousePosition.Y - initialMousePosition.Y);
+                    if (!(tempX < 0 || tempY < 0))
+                    {
+                        n.X = tempX;
+                        n.Y = tempY;
+                    }
+                }               
             }
         }
 

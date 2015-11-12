@@ -15,11 +15,14 @@ namespace AlgoTreeDraw.Model
         {
             color = Brushes.White;
             preColor = Brushes.White;
+            borderColor = Brushes.Black;
+            borderThickness = 1;
         }
 
         public override Node NewNode()
         {
             return new BST() { X = -225, Y = 20, diameter = 50 };
         }
+
     }
 }
