@@ -34,7 +34,7 @@ namespace AlgoTreeDraw.ViewModel
         public static List<NodeViewModel> selectedNodes = new List<NodeViewModel>();
         //Commands
 
-            
+
         public ICommand MouseLeftButtonDown { get; }
         public ICommand MouseMoveNodeCommand { get; }
         public ICommand MouseLeftButtonUp { get; }
@@ -97,7 +97,7 @@ namespace AlgoTreeDraw.ViewModel
 
         public void makePretty()
         {
-            Console.WriteLine("hihi");
+            Nodes.ElementAt(0).makePretty();
         }
 
         public void _DoneEditing()
@@ -113,12 +113,12 @@ namespace AlgoTreeDraw.ViewModel
             isAddingLine = false;
             LineViewModel tempLine = new LineViewModel(new Line()) { From = fromNode, To = to };
             undoRedo.InsertInUndoRedo(new AddLineCommand(Lines,tempLine));
+            fromNode.addNeighbour(to.Node);
             fromNode = null;
         }
 
         public void AddNode(NodeViewModel node)
         {
-            //Nodes.Add(node);
             undoRedo.InsertInUndoRedo(new AddNodeCommand(Nodes, node));
         }
                 
@@ -137,7 +137,7 @@ namespace AlgoTreeDraw.ViewModel
 
             nodeClicked = false;
             var node = TargetShape(e);
-            
+
             var mousePosition = RelativeMousePosition(e);
             
             foreach(NodeViewModel n in selectedNodes)
@@ -149,14 +149,10 @@ namespace AlgoTreeDraw.ViewModel
             //Later we want to move many selected nodes
             var temp = new List<NodeViewModel>() { node};
 
-            undoRedo.InsertInUndoRedo(new MoveNodeCommand(temp, mousePosition.X - initialMousePosition.X, mousePosition.Y - initialMousePosition.Y));
-
-            e.MouseDevice.Target.ReleaseMouseCapture();
 
             if (isChangingColor)
             {
                 undoRedo.InsertInUndoRedo(new ChangeColorCommand(node, new SolidColorBrush(ChosenColor),node.Color));
-                //node.Color = new SolidColorBrush(ChosenColor);
             }
 
             if (isAddingLine)
@@ -165,6 +161,18 @@ namespace AlgoTreeDraw.ViewModel
                 else if (!Object.ReferenceEquals(fromNode, node)) { AddLine(node); }
                 
             }
+                var mousePosition = RelativeMousePosition(e);
+
+                node.X = initialNodePosition.X;
+                node.Y = initialNodePosition.Y;
+
+                //Later we want to move many selected nodes
+                var temp = new List<NodeViewModel>() { node };
+
+                undoRedo.InsertInUndoRedo(new MoveNodeCommand(temp, mousePosition.X - initialMousePosition.X, mousePosition.Y - initialMousePosition.Y));
+
+                e.MouseDevice.Target.ReleaseMouseCapture();
+            
         }
 
 
@@ -217,11 +225,11 @@ namespace AlgoTreeDraw.ViewModel
                     tempX = n.initialNodePosition.X + (mousePosition.X - initialMousePosition.X);
                     tempY = n.initialNodePosition.Y + (mousePosition.Y - initialMousePosition.Y);
                     if (!(tempX < 0 || tempY < 0))
-                    {
+                {
                         n.X = tempX;
                         n.Y = tempY;
                     }
-                }               
+                }
             }
         }
 
