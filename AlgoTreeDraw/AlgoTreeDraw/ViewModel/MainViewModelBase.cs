@@ -137,18 +137,12 @@ namespace AlgoTreeDraw.ViewModel
 
             nodeClicked = false;
             var node = TargetShape(e);
-
-            var mousePosition = RelativeMousePosition(e);
-            
+  
             foreach(NodeViewModel n in selectedNodes)
             {
                 n.X = n.initialNodePosition.X;
                 n.Y = n.initialNodePosition.Y;
             }
-
-            //Later we want to move many selected nodes
-            var temp = new List<NodeViewModel>() { node};
-
 
             if (isChangingColor)
             {
@@ -163,8 +157,8 @@ namespace AlgoTreeDraw.ViewModel
             }
                 var mousePosition = RelativeMousePosition(e);
 
-                node.X = initialNodePosition.X;
-                node.Y = initialNodePosition.Y;
+                //node.X = initialNodePosition.X;
+                //node.Y = initialNodePosition.Y;
 
                 //Later we want to move many selected nodes
                 var temp = new List<NodeViewModel>() { node };
