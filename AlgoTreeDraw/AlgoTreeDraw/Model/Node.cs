@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Media;
+using System.Diagnostics;
 
 namespace AlgoTreeDraw.Model
 {
@@ -173,57 +174,57 @@ namespace AlgoTreeDraw.Model
         }
 
         private static int X_OFFSET = 40;
-        private static int Y_OFFSET = 60;
-        private static int X_ONSET = 35;
+        private static int Y_OFFSET = 50;
+        private static int X_ONSET = 28;
         //Use on root
         public bool makePretty()
         {
             Node[] children = getChildren();
-            int[] ca = { -3, -3 };
+            int dir = -1;
 
             if(children[0] == null)
             {
 
             }
-            else if(children[1] == null)
+            else if(children[1] == null)    //One child
             {
                 if(children[0].key < key)
-                {
-                    children[0].x = x - X_OFFSET;
-                    children[0].y = y + Y_OFFSET;
-                }
+                    moveOffset(children[0], LEFT);
                 else
-                {
-                    children[0].x = x + X_OFFSET;
-                    children[0].y = y + Y_OFFSET;
-                }
-                ca = checkAncestors(children[0].x, children[0].key);
-                if (ca[0] != -1)
-                {
-                    children[0].x = ca[1];
-                    moveParent(ca[0] == 0);
-                }
+                    moveOffset(children[0], RIGHT);
+                dir = checkAncestors(children[0]);
+                children[0].pushParents(dir);
+                //if (ca[0] != -1)
+                //{
+                //    children[0].x = ca[1];
+                //    moveParent(ca[0] == 0);
+                //}
                 children[0].makePretty();
             }
-                
+               //TWO CHILDREN 
             else
             {
-                children[0].x = x - X_OFFSET;
-                children[0].y = y + Y_OFFSET;
-                ca = checkAncestors(children[0].x, children[0].key);
-                if (ca[0] != -1)
-                {
-                    children[0].x = ca[1];
-                    moveParent(ca[0] == 0);
+                //children[0].x = x - X_OFFSET;
+                //children[0].y = y + Y_OFFSET;
+                moveOffset(children[LEFT], LEFT);
 
-                }
-                children[1].x = x + X_OFFSET;
-                children[1].y = y + Y_OFFSET;
-                ca = checkAncestors(children[1].x, children[1].key);
-                if (ca[0] != -1) {
-                    children[1].x = ca[1];
-                    moveParent(ca[0] == 0);
-                }
+                dir = checkAncestors(children[0]);
+                children[LEFT].pushParents(dir);
+                //if (ca[0] != -1)
+                //{
+                //    children[0].x = ca[1];
+                //    moveParent(ca[0] == 0);
+
+                //}
+                //children[1].x = x + X_OFFSET;
+                //children[1].y = y + Y_OFFSET;
+                moveOffset(children[RIGHT], RIGHT);
+                dir = checkAncestors(children[1]);
+                children[RIGHT].pushParents(dir);
+                //if (ca[0] != -1) {
+                //    children[1].x = ca[1];
+                //    moveParent(ca[0] == 0);
+                //}
                 children[0].makePretty();
                 children[1].makePretty();
             }
@@ -231,18 +232,26 @@ namespace AlgoTreeDraw.Model
             return true;
         }
 
-        private int[] checkAncestors(int xcoord, int key)
+        private int checkAncestors(Node orig)
         {
             Node parent = getParent();
             if (parent == null)
-                return new int[2] { -1, -1 };
-            if (parent.x < xcoord + X_ONSET &&
-                parent.x > xcoord - X_ONSET)
-                if (parent.x < x)
-                    return new int[2] { 0, xcoord + X_ONSET};
+                return NOMOVE;
+            if (parent.x < orig.x + X_ONSET &&
+                parent.x > orig.x - X_ONSET)
+            {
+                if (parent.getChildren()[0] == this)
+                {
+                    orig.moveOnset(LEFT);
+                    return LEFT;
+                }
                 else
-                    return new int[2] { 1, xcoord - X_ONSET };
-            return parent.checkAncestors(xcoord, key);
+                {
+                    orig.moveOnset(RIGHT);
+                    return RIGHT;
+                }
+            }
+            return parent.checkAncestors(orig);
         }
 
         private Node getParent()
@@ -253,21 +262,95 @@ namespace AlgoTreeDraw.Model
             return null;
         }
 
-        private bool moveParent(bool left)
+        //private bool moveParent(bool left)
+        //{
+        //    Node parent = getParent();
+        //    if (parent == null)
+        //        return false;
+        //    else if (left && parent.x < x)
+        //    {
+        //        parent.x -= X_ONSET;
+        //        parent.moveParent(left);
+        //    }
+        //    else if (!left && parent.x > x)
+        //    {
+        //        parent.x += X_ONSET;
+        //        parent.moveParent(left);
+        //    }
+        //    return true;
+        //}
+
+        public static int LEFT = 0;
+        public static int RIGHT = 1;
+        public static int NOMOVE = -1;
+
+        private bool moveOffset(Node child, int direction)
         {
+            if (LEFT == direction)
+                child.x = x - X_OFFSET;
+            else
+                child.x = x + X_OFFSET;
+            child.y = y + Y_OFFSET;
+            return true;
+        }
+
+        private bool moveOnset(int direction)
+        {
+            if (LEFT == direction)
+                x = x - X_ONSET;
+            else
+                x = x + X_ONSET;
+            return true;
+        }
+
+        private bool pushParents(int direction)
+        {
+            Debug.WriteLine("Started pushParents()");
             Node parent = getParent();
             if (parent == null)
                 return false;
-            else if (left && parent.x < x)
+            else if (parent.x < x && direction == LEFT)
             {
-                parent.x -= X_ONSET;
-                parent.moveParent(left);
+                //if (parent.getParent() != null &&
+                //    parent.getParent().pushParents(direction) == false)
+                //    parent.pushParents(direction);
+                parent.moveOnset(LEFT);
+                Debug.WriteLine("Parent pushed left");
+                //parent.pushParents(LEFT);
+                parent.pushChildren();
+                return true;
             }
-            else if (!left && parent.x > x)
+
+            else if (parent.x > x && direction == RIGHT)
             {
-                parent.x += X_ONSET;
-                parent.moveParent(left);
+                parent.moveOnset(RIGHT);
+                Debug.WriteLine("Parent pushed righty");
+                //parent.pushParents(RIGHT);
+                parent.pushChildren();
+                return true;
             }
+
+
+            return false;
+        }
+
+        private bool pushChildren()
+        {
+            Node[] children = getChildren();
+            
+            if(children[RIGHT] != null)
+            {
+                moveOffset(children[LEFT],LEFT);
+                moveOffset(children[RIGHT], RIGHT);
+                children[LEFT].pushChildren();
+                children[RIGHT].pushChildren();
+            }
+            else if (children[LEFT] != null)
+                if (children[0].key < key)
+                    moveOffset(children[0], LEFT);
+                else
+                    moveOffset(children[0], RIGHT);
+
             return true;
         }
     }
