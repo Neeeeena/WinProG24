@@ -40,7 +40,7 @@
                 </i:Interaction.Triggers>
                 <ItemsControl ItemsSource="{Binding Lines}"/>
                 <ItemsControl ItemsSource="{Binding Nodes}"/>
-                <Canvas >
+                <Canvas>
                     <Border Canvas.Left="{Binding SelectionBoxX}" Canvas.Top="{Binding SelectionBoxY}" Width="{Binding SelectionBoxWidth}" Height="{Binding SelectionBoxHeight}"
                         BorderBrush="Black" BorderThickness="1">
                         <Rectangle Fill="SteelBlue" Opacity=".15"/>
