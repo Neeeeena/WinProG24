@@ -33,6 +33,7 @@ namespace AlgoTreeDraw.ViewModel
         public NodeViewModel(Node node)
         {
             _node = node;
+            Offset = 47;
 
         }
 
@@ -59,6 +60,7 @@ namespace AlgoTreeDraw.ViewModel
             set { Node.X = value; RaisePropertyChanged(); RaisePropertyChanged(() => CanvasCenterX); }
         }
 
+        public int Offset { get; set; }  
 
 
         public double Y

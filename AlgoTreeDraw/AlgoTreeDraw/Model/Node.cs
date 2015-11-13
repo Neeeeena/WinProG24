@@ -5,9 +5,13 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Media;
 using System.Diagnostics;
+using System.Xml.Serialization;
 
 namespace AlgoTreeDraw.Model
 {
+    [XmlInclude(typeof(BST))]
+    [XmlInclude(typeof(RBT))]
+    [XmlInclude(typeof(T234))]
     public abstract class Node {
 
         private int x = 200;

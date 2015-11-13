@@ -11,9 +11,9 @@
     <Grid>
         <Menu>
             <MenuItem Header="File">
-                <MenuItem Header="New"/>
-                <MenuItem Header="Open"/>
-                <MenuItem Header="Save"/>
+                <MenuItem Header="New" Command="{Binding NewDiagramCommand}"/>
+                <MenuItem Header="Open" Command="{Binding OpenDiagramCommand}"/>
+                <MenuItem Header="Save" Command="{Binding SaveDiagramCommand}"/>
             </MenuItem>
             <MenuItem Header="Edit">
                 <MenuItem Header="Undo" Command="{Binding UndoCommand}" IsEnabled="{Binding Path=undoRedo.EnableUndo}" CommandParameter="{Binding undoRedoParam}"/>

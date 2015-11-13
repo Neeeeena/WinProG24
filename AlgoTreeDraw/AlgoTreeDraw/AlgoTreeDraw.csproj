@@ -144,12 +144,15 @@
     <Compile Include="Command\MoveNodeCommand.cs" />
     <Compile Include="Command\UndoRedo.cs" />
     <Compile Include="Model\BST.cs" />
+    <Compile Include="Model\Diagram.cs" />
     <Compile Include="Model\Line.cs" />
     <Compile Include="Model\RBT.cs" />
     <Compile Include="Model\NotifyBase.cs" />
     <Compile Include="Model\Node.cs" />
     <Compile Include="Model\T234.cs" />
+    <Compile Include="Serialization\XMLserializer.cs" />
     <Compile Include="ViewModel\BSTViewModel.cs" />
+    <Compile Include="ViewModel\DialogBox.cs" />
     <Compile Include="ViewModel\MainViewModelBase.cs" />
     <Compile Include="ViewModel\MenuViewModel.cs" />
     <Compile Include="ViewModel\NodeViewModel.cs" />
