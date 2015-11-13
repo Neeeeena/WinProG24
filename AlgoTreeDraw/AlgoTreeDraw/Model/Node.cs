@@ -189,8 +189,8 @@ namespace AlgoTreeDraw.Model
             {
                 if(children[0].key < key)
                 {
-                    children[0].x = x + X_OFFSET;
-                    children[0].y = y - Y_OFFSET;
+                    children[0].x = x - X_OFFSET;
+                    children[0].y = y + Y_OFFSET;
                 }
                 else
                 {
@@ -208,8 +208,8 @@ namespace AlgoTreeDraw.Model
                 
             else
             {
-                children[0].x = x + X_OFFSET;
-                children[0].y = y - Y_OFFSET;
+                children[0].x = x - X_OFFSET;
+                children[0].y = y + Y_OFFSET;
                 ca = checkAncestors(children[0].x, children[0].key);
                 if (ca[0] != -1)
                 {
@@ -219,7 +219,7 @@ namespace AlgoTreeDraw.Model
                 }
                 children[1].x = x + X_OFFSET;
                 children[1].y = y + Y_OFFSET;
-                ca = checkAncestors(children[0].x, children[1].key);
+                ca = checkAncestors(children[1].x, children[1].key);
                 if (ca[0] != -1) {
                     children[1].x = ca[1];
                     moveParent(ca[0] == 0);
@@ -238,11 +238,11 @@ namespace AlgoTreeDraw.Model
                 return new int[2] { -1, -1 };
             if (parent.x < xcoord + X_ONSET &&
                 parent.x > xcoord - X_ONSET)
-                if (parent.key < key)
+                if (parent.x < x)
                     return new int[2] { 0, xcoord + X_ONSET};
                 else
                     return new int[2] { 1, xcoord - X_ONSET };
-            return checkAncestors(xcoord, key);
+            return parent.checkAncestors(xcoord, key);
         }
 
         private Node getParent()
