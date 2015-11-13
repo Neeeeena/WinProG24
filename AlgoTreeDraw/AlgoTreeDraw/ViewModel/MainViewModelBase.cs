@@ -157,13 +157,8 @@ namespace AlgoTreeDraw.ViewModel
             }
                 var mousePosition = RelativeMousePosition(e);
 
-                //node.X = initialNodePosition.X;
-                //node.Y = initialNodePosition.Y;
 
-                //Later we want to move many selected nodes
-                var temp = new List<NodeViewModel>() { node };
-
-                undoRedo.InsertInUndoRedo(new MoveNodeCommand(temp, mousePosition.X - initialMousePosition.X, mousePosition.Y - initialMousePosition.Y));
+                undoRedo.InsertInUndoRedo(new MoveNodeCommand(selectedNodes, mousePosition.X - initialMousePosition.X, mousePosition.Y - initialMousePosition.Y));
 
                 e.MouseDevice.Target.ReleaseMouseCapture();
             
