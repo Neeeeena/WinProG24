@@ -13,8 +13,9 @@
         DataContext="{Binding Source={StaticResource Locator}, Path=Main}">
     <Window.InputBindings>
         <KeyBinding Command="{Binding DoneEditing}" Gesture="ENTER"/>
+        <KeyBinding Command="{Binding DeleteKeyPressed}" Key="Delete"/>
     </Window.InputBindings>
-
+    
     <ScrollViewer HorizontalScrollBarVisibility="Visible" VerticalScrollBarVisibility="Visible" Margin="5" >
         <DockPanel>
             <View:MenuBar DockPanel.Dock="Top"/>

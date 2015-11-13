@@ -6,7 +6,7 @@
              xmlns:local="clr-namespace:AlgoTreeDraw.View"
              xmlns:xctk="http://schemas.xceed.com/wpf/xaml/toolkit"
              mc:Ignorable="d" 
-             d:DesignHeight="350" d:DesignWidth="240"
+             d:DesignHeight="500" d:DesignWidth="240"
              xmlns:ViewModel="clr-namespace:AlgoTreeDraw.ViewModel"
              DataContext="{Binding Source={StaticResource Locator}, Path=SidePanel}">
 
@@ -57,11 +57,20 @@
             <Grid.RowDefinitions>
                 <RowDefinition />
                 <RowDefinition />
+                <RowDefinition />
+                <RowDefinition />
             </Grid.RowDefinitions>
             <Button Command="{Binding ChangeColor}" Grid.Row="0" Grid.Column="0" Content="Color Node"  Margin="3" />
             <Button Grid.Row="0" Grid.Column="1" Content="Color Text"  Margin="3" />
             <Button Command="{Binding MakePrettyCommand}" Grid.Row="1" Grid.Column="0" Content="Make Pretty"  Margin="3" />
-            <Button Grid.Row="1" Grid.Column="1" Content="Nice Oh Yea"  Margin="3" />
+            <Button Grid.Row="1" Grid.Column="1" Content="Delete from tree"  Margin="3" />
+            <Button Grid.Row="2" Grid.Column="0" Content ="Make Correct" Margin="3" />
+            <Button Grid.Row="2" Grid.Column="1" Content="Add to tree"  Margin="3" />
+            <TextBox Grid.Row="3" Grid.Column="0" Text="Bind her!" VerticalAlignment="Center" Margin="3" />
+            <Button Grid.Row="3" Grid.Column="1" Content="Add node to tree"  Margin="3" />
+            
+
+
         </Grid>
         
 

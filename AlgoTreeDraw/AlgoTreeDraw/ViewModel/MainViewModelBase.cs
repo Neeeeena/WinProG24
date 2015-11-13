@@ -42,8 +42,9 @@ namespace AlgoTreeDraw.ViewModel
         public ICommand UndoCommand { get; }
         public ICommand RedoCommand { get; }
         public ICommand DoneEditing { get; }
+        public ICommand DeleteKeyPressed { get; }
         public static Point initialMousePosition { get; set; }
-        public static Point initialNodePosition { get; set; }
+        //public static Point initialNodePosition { get; set; }
 
         //select
         public bool nodeClicked = false;
@@ -74,6 +75,18 @@ namespace AlgoTreeDraw.ViewModel
             RedoCommand = new RelayCommand<int>(undoRedo.Redo, undoRedo.CanRedo);
             DoneEditing = new RelayCommand(_DoneEditing);
 
+            DeleteKeyPressed = new RelayCommand<KeyEventArgs>(RemoveNodeKeybordDelete);
+
+        }
+
+        public void RemoveNodeKeybordDelete(KeyEventArgs e)
+        {
+            Console.WriteLine("RemoveNodeCalled");
+            foreach(NodeViewModel n in selectedNodes)
+            {
+                if (Nodes.Contains(n)) Nodes.Remove(n);
+            }
+            
         }
 
         //Select
@@ -214,7 +227,7 @@ namespace AlgoTreeDraw.ViewModel
                     tempX = n.initialNodePosition.X + (mousePosition.X - initialMousePosition.X);
                     tempY = n.initialNodePosition.Y + (mousePosition.Y - initialMousePosition.Y);
                     if (!(tempX < 0 || tempY < 0))
-                {
+                    {
                         n.X = tempX;
                         n.Y = tempY;
                     }

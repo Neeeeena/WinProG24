@@ -61,7 +61,7 @@ namespace AlgoTreeDraw.ViewModel
 
         private void MouseDownCanvas(MouseButtonEventArgs e)
         {
-            if(!nodeClicked)
+            if(!nodeClicked && !isAddingLine)
             {
                 Console.WriteLine("MDCanvas called");
                 clearSelectedNodes();
@@ -100,8 +100,7 @@ namespace AlgoTreeDraw.ViewModel
                 var largeX = Math.Max(SelectionBoxStart.X, SelectionBoxEnd.X);
                 var largeY = Math.Max(SelectionBoxStart.Y, SelectionBoxEnd.Y);
                 foreach (NodeViewModel n in Nodes)
-                    if(n.CanvasCenterX > smallX && n.CanvasCenterX < largeX && n.CanvasCenterY > smallY
-                        && n.CanvasCenterY < largeY)
+                    if(!(n.X > largeX || n.X+n.Diameter < smallX || n.Y > largeY || n.Y+n.Diameter < smallY))
                     {
                         addToSelectedNodes(n);
                     }
