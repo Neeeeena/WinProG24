@@ -17,7 +17,7 @@ namespace AlgoTreeDraw.ViewModel
         NodeViewModel from;
         Line _line;
 
-        public LineViewModel(Line line) : base()
+        public LineViewModel(Line line)
         {
             _line = line;
         }
