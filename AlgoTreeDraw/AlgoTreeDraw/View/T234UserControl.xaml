@@ -27,6 +27,7 @@
             <MenuItem Command="{Binding ShowOneT234}" Header="2-Node" />
             <MenuItem Command="{Binding ShowTwoT234}" Header="3-Node" />
             <MenuItem Command="{Binding ShowThreeT234}" Header="4-Node" />
+            <MenuItem Command="{Binding DeleteCommand}" Header="Delete" />
         </ContextMenu>
     </UserControl.ContextMenu>
 

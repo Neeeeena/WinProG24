@@ -21,6 +21,7 @@ namespace AlgoTreeDraw.ViewModel
 {
     public abstract class NodeViewModel : MainViewModelBase
     {
+        public ICommand DeleteCommand { get; }
 
         private Visibility isEditing = Visibility.Hidden;
         private Visibility isNotEditing = Visibility.Visible;
@@ -34,12 +35,29 @@ namespace AlgoTreeDraw.ViewModel
         {
             _node = node;
             Offset = 47;
+            DeleteCommand = new RelayCommand<MouseButtonEventArgs>(deleteNode);
 
         }
 
         //View databinds to the following
         Node _node;
 
+        public void deleteNode(MouseButtonEventArgs e)
+        {
+            Console.WriteLine("Delete Kaldt");
+            if (selectedNodes.Contains(this))
+            {
+                undoRedo.InsertInUndoRedo(new DeleteNodeCommand(Nodes, selectedNodes, Lines));
+            }
+            else
+            {
+                clearSelectedNodes();
+                selectedNodes.Add(this);
+                undoRedo.InsertInUndoRedo(new DeleteNodeCommand(Nodes, selectedNodes, Lines));
+                selectedNodes.Clear();
+            }
+        }
+        
         public Node Node
         {
             get

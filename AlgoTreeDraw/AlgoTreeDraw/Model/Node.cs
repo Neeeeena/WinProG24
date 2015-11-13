@@ -14,10 +14,10 @@ namespace AlgoTreeDraw.Model
     [XmlInclude(typeof(T234))]
     public abstract class Node {
 
-        private int x = 200;
-        private int y = 200;
-        public double X { get { return x; } set { x = (int)value; } }
-        public double Y { get { return y; } set { y = (int)value;  } }
+        private double x = 200;
+        private double y = 200;
+        public double X { get { return x; } set { x = value; } }
+        public double Y { get { return y; } set { y = value;  } }
 
         public double diameter {get; set; } // Tilføj Notify hvis Diameter skal ændres
 
@@ -38,8 +38,8 @@ namespace AlgoTreeDraw.Model
         public double CanvasCenterY { get { return Y + diameter / 2; } set { Y = value - diameter / 2; } }
 
        
-        private Brush _color;
-        private Brush _preColor;
+        //private Brush _color;
+        //private Brush _preColor;
 
 
         public Brush borderColor { get; set; }
