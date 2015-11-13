@@ -81,12 +81,7 @@ namespace AlgoTreeDraw.ViewModel
 
         public void RemoveNodeKeybordDelete(KeyEventArgs e)
         {
-            Console.WriteLine("RemoveNodeCalled");
-            foreach(NodeViewModel n in selectedNodes)
-            {
-                if (Nodes.Contains(n)) Nodes.Remove(n);
-            }
-            
+            undoRedo.InsertInUndoRedo(new DeleteNodeCommand(Nodes, selectedNodes, Lines));
         }
 
         //Select

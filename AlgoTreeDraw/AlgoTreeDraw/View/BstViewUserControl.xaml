@@ -24,6 +24,13 @@
         </i:EventTrigger>
     </i:Interaction.Triggers>
 
+    <UserControl.ContextMenu>
+        <ContextMenu>
+            <MenuItem Command="{Binding DeleteCommand}" Header="Delete" />
+        </ContextMenu>
+    </UserControl.ContextMenu>
+
+
     <Grid>
         <Ellipse Fill="{Binding Color}" Stroke="{Binding borderColor}" StrokeThickness="{Binding borderThickness}" />
         
