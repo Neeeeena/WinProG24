@@ -72,7 +72,7 @@ namespace AlgoTreeDraw.ViewModel
                 }
             }
         }
-
+        //commandd to save diagram
         private void SaveDiagram()
         {
             string path = dialogVM.ShowSave();
