@@ -34,10 +34,10 @@
             <Button Command="{Binding SaveDiagramCommand}" ToolTip="Save">
                 <Image Source="/Images/save.png"/>
             </Button>
-            <Button Command="{Binding UndoCommand}" ToolTip="Undo">
+            <Button Name="undo" Command="{Binding UndoCommand}" ToolTip="Undo">
                 <Image Source="/Images/undo.png"/>
             </Button>
-            <Button Command="{Binding RedoCommand}" ToolTip="Redo">
+            <Button Name="redo" Command="{Binding RedoCommand}" ToolTip="Redo">
                 <Image Source="/Images/redo.png"/>
             </Button>
             <Button Command="{Binding CopyCommand}" ToolTip="Copy">
@@ -48,5 +48,26 @@
             </Button>
             
         </ToolBar>
+
+        <Popup IsOpen="True" PlacementTarget="{Binding ElementName=undo}">
+            <StackPanel Orientation="Vertical">
+                <Button Content="SomeCommand" Command="{Binding CopyCommand}" ToolTip="Copy">
+                </Button>
+                <Button Content="SomeCommand" Command="{Binding CopyCommand}" ToolTip="Copy">
+                </Button>
+                <Button Content="SomeCommand" Command="{Binding CopyCommand}" ToolTip="Copy">
+                </Button>
+            </StackPanel>
+        </Popup>
+        <Popup IsOpen="True" PlacementTarget="{Binding ElementName=redo}">
+            <StackPanel Orientation="Vertical">
+                <Button Content="SomeCommand" Command="{Binding CopyCommand}" ToolTip="Copy">
+                </Button>
+                <Button Content="SomeCommand" Command="{Binding CopyCommand}" ToolTip="Copy">
+                </Button>
+                <Button Content="SomeCommand" Command="{Binding CopyCommand}" ToolTip="Copy">
+                </Button>
+            </StackPanel>
+        </Popup>
     </StackPanel>
 </UserControl>
