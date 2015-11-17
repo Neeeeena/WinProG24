@@ -56,15 +56,13 @@ namespace AlgoTreeDraw.ViewModel
         public double X
         {
             get { return Node.X; }
-            set { Node.X = value; RaisePropertyChanged(); RaisePropertyChanged(() => CanvasCenterX); }
+            set { Node.X = value; RaisePropertyChanged(); RaisePropertyChanged(() => CanvasCenterX);  if (value > 10) WIDTH = 1500; RaisePropertyChanged(() => WIDTH); Debug.Write(value + "\n" + "lol:" + WIDTH + "\n"); }
         }
-
-
 
         public double Y
         {
             get { return Node.Y; }
-            set { Node.Y = value; RaisePropertyChanged(); RaisePropertyChanged(() => CanvasCenterY); }
+            set { Node.Y = value; RaisePropertyChanged(); RaisePropertyChanged(() => CanvasCenterY); if (value > HEIGHT) HEIGHT = (int)value; RaisePropertyChanged(() => HEIGHT); }
         }
 
 
@@ -74,6 +72,13 @@ namespace AlgoTreeDraw.ViewModel
 
         private bool isSelected;
         public bool IsSelected { get { return isSelected; } set { isSelected = value; RaisePropertyChanged(); } }
+
+        public Brush _ColorOfText = Brushes.White;
+
+        public Brush ColorOfText { get { return _ColorOfText; } set { _ColorOfText = value; RaisePropertyChanged(); } }
+
+        public Brush _PreColorOfText = Brushes.White;
+        public Brush PreColorOfText { get { return _PreColorOfText; } set { _PreColorOfText = value; RaisePropertyChanged(); } }
 
         public double Diameter
         {

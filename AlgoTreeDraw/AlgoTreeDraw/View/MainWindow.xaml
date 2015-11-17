@@ -16,17 +16,18 @@
         <KeyBinding Command="{Binding DeleteKeyPressed}" Key="Delete"/>
     </Window.InputBindings>
     
-    <ScrollViewer HorizontalScrollBarVisibility="Visible" VerticalScrollBarVisibility="Visible" Margin="5" >
+    <!-- <ScrollViewer HorizontalScrollBarVisibility="Visible" VerticalScrollBarVisibility="Visible" Margin="5" > -->
         <DockPanel>
-            <View:MenuBar DockPanel.Dock="Top"/>
-            <!-- Draw Menu bar -->
-            <Border BorderBrush="AliceBlue" BorderThickness="3">
-                <View:SidePanel DockPanel.Dock="Left"/>
-                <!-- Draw sidepanel -->
-            </Border>
-            <!-- Draw lines -->
+        <View:MenuBar DockPanel.Dock="Top"/>
+        <!-- Draw Menu bar -->
+        <Border BorderBrush="AliceBlue" BorderThickness="3">
+            <View:SidePanel DockPanel.Dock="Left"/>
+            <!-- Draw sidepanel -->
+        </Border>
+        <!-- Draw lines -->
 
-            <Grid Background="#00000000">
+        <ScrollViewer HorizontalScrollBarVisibility="Visible" VerticalScrollBarVisibility="Visible" Margin="5" >
+            <Grid Background="{Binding TEST}"  Height="auto" Width="auto" HorizontalAlignment="Left" VerticalAlignment="Top">
                 <!-- Skal være Transparent! -->
                 <i:Interaction.Triggers>
                     <i:EventTrigger EventName="MouseLeftButtonDown">
@@ -39,7 +40,7 @@
                         <cmd:EventToCommand Command="{Binding MouseUpCanvasCommand}" PassEventArgsToCommand="True"/>
                     </i:EventTrigger>
                 </i:Interaction.Triggers>
-                <ItemsControl ItemsSource="{Binding Lines}"/>
+                <ItemsControl Height="auto" Width="auto" ItemsSource="{Binding Lines}"/>
                 <ItemsControl ItemsSource="{Binding Nodes}"/>
                 <Canvas>
                     <Border Canvas.Left="{Binding SelectionBoxX}" Canvas.Top="{Binding SelectionBoxY}" Width="{Binding SelectionBoxWidth}" Height="{Binding SelectionBoxHeight}"
@@ -48,9 +49,10 @@
                     </Border>
                 </Canvas>
             </Grid>
-
-            <!--<View:BstViewUserControl  />  Draw Bst nodes -->
-        </DockPanel>
-    </ScrollViewer>
+        </ScrollViewer >
+        <!--<View:BstViewUserControl  />  Draw Bst nodes -->
+    </DockPanel>
+        
+        <!-- </ScrollViewer> -->
 </Window>
     

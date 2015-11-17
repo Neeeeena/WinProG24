@@ -32,6 +32,8 @@ namespace AlgoTreeDraw.ViewModel
         public static Color ChosenColor { get; set; }
 
         public static List<NodeViewModel> selectedNodes = new List<NodeViewModel>();
+        public static List<NodeViewModel> copiedNodes = new List<NodeViewModel>();
+        public static List<LineViewModel> copiedLines = new List<LineViewModel>();
         //Commands
 
 
@@ -43,7 +45,19 @@ namespace AlgoTreeDraw.ViewModel
         public ICommand RedoCommand { get; }
         public ICommand DoneEditing { get; }
         public ICommand DeleteKeyPressed { get; }
+        public ICommand Copy { get; }
+
         public static Point initialMousePosition { get; set; }
+
+        private int _HEIGHT = 1000;
+        private int _WIDTH = 1000;
+
+        private Brush _TEST = Brushes.Black;
+        public Brush TEST { get { return _TEST; } set { _TEST = value; RaisePropertyChanged(); } }
+    
+        public int HEIGHT { get { return _HEIGHT; } set { _HEIGHT = value; RaisePropertyChanged(); RaisePropertyChanged(() => TEST); } }
+        public int WIDTH { get { return _WIDTH; } set { _WIDTH = value; RaisePropertyChanged(); RaisePropertyChanged(() => TEST); } }
+
         //public static Point initialNodePosition { get; set; }
 
         //select
@@ -57,6 +71,7 @@ namespace AlgoTreeDraw.ViewModel
         public static bool isAddingLine { get; set; }
 
         public static bool isChangingColor { get; set; }
+        public static bool isChangingColorText { get; set; }
         public static bool isMarking { get; set; }
         public static bool hasmarkedSomething { get; set; }
 
@@ -74,9 +89,29 @@ namespace AlgoTreeDraw.ViewModel
             UndoCommand = new RelayCommand<int>(undoRedo.Undo, undoRedo.CanUndo);
             RedoCommand = new RelayCommand<int>(undoRedo.Redo, undoRedo.CanRedo);
             DoneEditing = new RelayCommand(_DoneEditing);
+            Copy = new RelayCommand(copyClicked);
 
             DeleteKeyPressed = new RelayCommand<KeyEventArgs>(RemoveNodeKeybordDelete);
 
+        }
+
+        public void copyClicked()
+        {
+            copiedNodes.Clear();
+            copiedLines.Clear();
+            foreach (var n in selectedNodes)
+            {
+                copiedNodes.Add(n);
+            }
+        }
+
+        public void pasteClicked()
+        {
+            foreach(var n in selectedNodes)
+            {
+                Nodes.Add(n);
+            }
+            
         }
 
         public void RemoveNodeKeybordDelete(KeyEventArgs e)
@@ -115,8 +150,12 @@ namespace AlgoTreeDraw.ViewModel
 
         public void _DoneEditing()
         {
-            editNode.IsEditing = Visibility.Hidden;
-            editNode.IsNotEditing = Visibility.Visible;
+            if(editNode != null)
+            {
+                editNode.IsEditing = Visibility.Hidden;
+                editNode.IsNotEditing = Visibility.Visible;
+            }
+            
         }
 
 
@@ -162,12 +201,20 @@ namespace AlgoTreeDraw.ViewModel
                 undoRedo.InsertInUndoRedo(new ChangeColorCommand(node, new SolidColorBrush(ChosenColor),node.Color));
             }
 
+            if(isChangingColorText)
+            {
+                undoRedo.InsertInUndoRedo(new ChangeColorTextCommand(node, new SolidColorBrush(ChosenColor), node.PreColorOfText));
+            }
+
             if (isAddingLine)
             {
                 if (fromNode == null) { fromNode = node; fromNode.Color = Brushes.Blue; }
                 else if (!Object.ReferenceEquals(fromNode, node)) { AddLine(node); }
                 
             }
+
+
+
                 var mousePosition = RelativeMousePosition(e);
 
 
@@ -208,6 +255,7 @@ namespace AlgoTreeDraw.ViewModel
                 node.IsEditing = Visibility.Visible;
                 node.IsNotEditing = Visibility.Hidden;
                 editNode = node;
+                Debug.Write(editNode.Diameter.ToString());
             }
 
         }

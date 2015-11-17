@@ -21,6 +21,7 @@ namespace AlgoTreeDraw.ViewModel
 {
     public class SidePanelViewModel : MainViewModelBase
     {
+
         public new ICommand MouseLeftButtonUp { get; }
         Brush _background;
         
@@ -29,21 +30,23 @@ namespace AlgoTreeDraw.ViewModel
         public ICommand SelectCommand { get; }
 
         public ICommand ChangeColor { get; }
+        public ICommand ChangeColorOfText { get; }
+        
 
         public ICommand MakePrettyCommand { get; }
 
         public int NODEHEIGHT { get; set; } = 13;
-        //sidepanel width
-        public static int WIDTH { get; set; } = 240;
+        //sidepanel WIDTHS
+        public static int WIDTHS { get; set; } = 240;
 
 
         public static ObservableCollection<NodeViewModel> NodesSP{ get; set; } 
             = new ObservableCollection<NodeViewModel>
             {
-                 new BSTViewModel(new BST() { X = WIDTH/3-WIDTH/3+(240-(WIDTH-WIDTH/3+50))/2, Y = 0, diameter = 50 }),
-                 new RBTViewModel(new RBT() { X = WIDTH/3*2-WIDTH/3+(240-(WIDTH-WIDTH/3+50))/2-15, Y = 0, diameter = 50 }),
+                 new BSTViewModel(new BST() { X = WIDTHS/3-WIDTHS/3+(240-(WIDTHS-WIDTHS/3+50))/2, Y = 0, diameter = 50 }),
+                 new RBTViewModel(new RBT() { X = WIDTHS/3*2-WIDTHS/3+(240-(WIDTHS-WIDTHS/3+50))/2-15, Y = 0, diameter = 50 }),
                  //hvis man sætter y = 10, ser det væsentligt bedre ud, men så hopper de når man dragger..
-                 new T234ViewModel(new T234() { X = WIDTH-WIDTH/3+(240-(WIDTH-WIDTH/3+50))/2-30, Y = 0, diameter = 30 },1)
+                 new T234ViewModel(new T234() { X = WIDTHS-WIDTHS/3+(240-(WIDTHS-WIDTHS/3+50))/2-30, Y = 0, diameter = 30 },1)
             };
         
         public  SidePanelViewModel()
@@ -52,6 +55,7 @@ namespace AlgoTreeDraw.ViewModel
             AddLineCommand = new RelayCommand<MouseButtonEventArgs>(AddLineClicked);
             SelectCommand = new RelayCommand(Select);
             ChangeColor = new RelayCommand(ChangeColorClicked);
+            ChangeColorOfText = new RelayCommand(ChangeColorTextClicked);
             MakePrettyCommand = new RelayCommand(CallMakePretty);
             ChosenColor = Color.FromRgb(0,0,0);
         }
@@ -77,11 +81,12 @@ namespace AlgoTreeDraw.ViewModel
         {
             var node = MouseUpNodeSP2(e);
 
-            if(node.X > WIDTH)
+            if(node.X > WIDTHS)
             {
                 NodeViewModel tempNode = node.newNodeViewModel();
-                tempNode.X = node.X - WIDTH;
+                tempNode.X = node.X - WIDTHS;
                 tempNode.Y = node.Y + NODEHEIGHT;
+                tempNode.VisualText = node.VisualText;
                 AddNode(tempNode);
             }
             node.X = node.initialNodePosition.X;
@@ -95,12 +100,16 @@ namespace AlgoTreeDraw.ViewModel
         private void ChangeColorClicked()
         {
             isChangingColor = !isChangingColor;
-            Debug.Write(ChosenColor.ToString());
+        }
+
+        private void ChangeColorTextClicked()
+        {
+            isChangingColorText = !isChangingColorText;
         }
 
 
         public bool isNodeOutSideSidePanel(NodeViewModel node) {
-            return node.X > WIDTH;
+            return node.X > WIDTHS;
         }
 
 
