@@ -91,8 +91,8 @@ namespace AlgoTreeDraw.ViewModel
             }
             node.X = node.initialNodePosition.X;
             node.Y = node.initialNodePosition.Y;
-            node.borderColor = Brushes.Black;
-            node.borderThickness = 1;
+            node.BorderColor = Brushes.Black;
+            node.BorderThickness = 1;
             selectedNodes.Remove(node);            
             
         }

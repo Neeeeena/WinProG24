@@ -26,16 +26,27 @@
         </Menu>
         <ToolBar>
             <Button Command="{Binding NewDiagramCommand}" ToolTip="Open new file">
-                <Image Source="/Images/undo_mini.png" />
+                <Image Source="/Images/new.png" />
             </Button>
-            <Button Command="{Binding OpenDiagramCommand}" Content="Open"/>
-            <Button Command="{Binding SaveDiagramCommand}" Content="Save"/>
+            <Button Command="{Binding OpenDiagramCommand}" ToolTip="Open a saved fïle">
+                <Image Source="/Images/open.png"/>
+            </Button>
+            <Button Command="{Binding SaveDiagramCommand}" ToolTip="Save">
+                <Image Source="/Images/save.png"/>
+            </Button>
             <Button Command="{Binding UndoCommand}" ToolTip="Undo">
-                <Image Source="/Images/undo_mini.png"/>
+                <Image Source="/Images/undo.png"/>
             </Button>
-            <Button Command="{Binding RedoCommand}" Content="Redo"/>
-            <Button Command="{Binding CopyCommand}" Content="Copy"/>
-            <Button Command="{Binding PasteCommand}" Content="Paste"/>
+            <Button Command="{Binding RedoCommand}" ToolTip="Redo">
+                <Image Source="/Images/redo.png"/>
+            </Button>
+            <Button Command="{Binding CopyCommand}" ToolTip="Copy">
+                <Image Source="/Images/copy.png"/>
+            </Button>
+            <Button Command="{Binding PasteCommand}" ToolTip="Paste">
+                <Image Source="/Images/paste.png"/>
+            </Button>
+            
         </ToolBar>
     </StackPanel>
 </UserControl>

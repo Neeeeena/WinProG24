@@ -67,8 +67,8 @@ namespace AlgoTreeDraw.ViewModel
                 // Reconstruct object graph.
                 foreach (LineViewModel line in Lines)
                 {
-                    line.From = Nodes.Single(n => n.Node == line.Line.From);
-                    line.To = Nodes.Single(n => n.Node == line.Line.To);
+                    line.From = Nodes.Single(n => line.Line.From.X == n.Node.X && line.Line.From.Y == n.Node.Y);
+                    line.To = Nodes.Single(n => line.Line.To.X == n.Node.X && line.Line.To.Y == n.Node.Y);
                 }
             }
         }

@@ -12,10 +12,14 @@ namespace AlgoTreeDraw.Model
 
         public RBT ()
         {
-            color = Brushes.Red;
-            preColor = Brushes.Red;
-            borderColor = Brushes.Black;
-            borderThickness = 1;
+            color.R = 255;
+            color.G = 0;
+            color.B = 0;
+
+            preColor.R = 255;
+            preColor.G = 0;
+            preColor.B = 0;
+
 
         }
        

@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using System.Windows.Media;
 using System.Diagnostics;
 using System.Xml.Serialization;
 
@@ -13,6 +12,22 @@ namespace AlgoTreeDraw.Model
     [XmlInclude(typeof(RBT))]
     [XmlInclude(typeof(T234))]
     public abstract class Node {
+
+
+        public _color color;
+        public _color preColor;
+
+        public Node()
+        {
+        }
+
+        public struct _color
+        {
+            public byte R { get; set; }
+            public byte B { get; set; }
+            public byte G { get; set; }
+
+        }
 
         private double x = 200;
         private double y = 200;
@@ -38,16 +53,6 @@ namespace AlgoTreeDraw.Model
         public double CanvasCenterY { get { return Y + diameter / 2; } set { Y = value - diameter / 2; } }
 
        
-        //private Brush _color;
-        //private Brush _preColor;
-
-
-        public Brush borderColor { get; set; }
-        
-        public double borderThickness { get; set; }
-        
-        public Brush color { get; set; }
-        public Brush preColor { get; set; }
 
 
         //For adding data structure
@@ -56,7 +61,7 @@ namespace AlgoTreeDraw.Model
         //{
         //    key = _key;
         //}
-
+        [XmlIgnore]
         public LinkedList<Node> neighbours = new LinkedList<Node>();
 
         //returns true if tree is valid after add
