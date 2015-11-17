@@ -34,6 +34,7 @@ namespace AlgoTreeDraw.ViewModel
         public static List<NodeViewModel> selectedNodes = new List<NodeViewModel>();
         public static List<NodeViewModel> copiedNodes = new List<NodeViewModel>();
         public static List<LineViewModel> copiedLines = new List<LineViewModel>();
+        public static List<NodeViewModel> mostRecentPastedNodes = new List<NodeViewModel>();
         //Commands
 
 
@@ -45,7 +46,8 @@ namespace AlgoTreeDraw.ViewModel
         public ICommand RedoCommand { get; }
         public ICommand DoneEditing { get; }
         public ICommand DeleteKeyPressed { get; }
-        public ICommand Copy { get; }
+        public ICommand CopyCommand { get; }
+        public ICommand PasteCommand { get; }
 
         public static Point initialMousePosition { get; set; }
 
@@ -89,7 +91,8 @@ namespace AlgoTreeDraw.ViewModel
             UndoCommand = new RelayCommand<int>(undoRedo.Undo, undoRedo.CanUndo);
             RedoCommand = new RelayCommand<int>(undoRedo.Redo, undoRedo.CanRedo);
             DoneEditing = new RelayCommand(_DoneEditing);
-            Copy = new RelayCommand(copyClicked);
+            CopyCommand = new RelayCommand(copyClicked);
+            PasteCommand = new RelayCommand(pasteClicked);
 
             DeleteKeyPressed = new RelayCommand<KeyEventArgs>(RemoveNodeKeybordDelete);
 
@@ -98,30 +101,22 @@ namespace AlgoTreeDraw.ViewModel
         public void copyClicked()
         {
             copiedNodes.Clear();
-            copiedLines.Clear();
-            foreach (var n in selectedNodes)
+            foreach (NodeViewModel n in selectedNodes)
             {
-                copiedNodes.Add(n);
+                NodeViewModel node = n.newNodeViewModel();
+                copiedNodes.Add(node);
             }
+           
         }
 
         public void pasteClicked()
         {
-            foreach(var n in selectedNodes)
-            {
-                Nodes.Add(n);
-            }
-            
+            undoRedo.InsertInUndoRedo(new PasteCommand(Nodes, copiedNodes, selectedNodes, mostRecentPastedNodes));
         }
 
         public void RemoveNodeKeybordDelete(KeyEventArgs e)
         {
-            Console.WriteLine("RemoveNodeCalled");
-            foreach(NodeViewModel n in selectedNodes)
-            {
-                if (Nodes.Contains(n)) Nodes.Remove(n);
-            }
-            
+            undoRedo.InsertInUndoRedo(new DeleteNodeCommand(Nodes, selectedNodes, Lines));
         }
 
         //Select
@@ -199,6 +194,7 @@ namespace AlgoTreeDraw.ViewModel
             if (isChangingColor)
             {
                 undoRedo.InsertInUndoRedo(new ChangeColorCommand(node, new SolidColorBrush(ChosenColor),node.Color));
+                isChangingColor = false;
             }
 
             if(isChangingColorText)
@@ -262,7 +258,7 @@ namespace AlgoTreeDraw.ViewModel
 
         private void MouseMoveNode(MouseEventArgs e)
         {
-            if (Mouse.Captured != null && !isAddingLine)
+            if (Mouse.Captured != null && !isAddingLine && !isChangingColor)
             {
 
                 var mousePosition = RelativeMousePosition(e);

@@ -11,7 +11,6 @@
              d:DesignHeight="300" d:DesignWidth="300"
              Canvas.Left="{Binding X}" Canvas.Top="{Binding Y}" Width="{Binding Diameter}" Height="{Binding Diameter}" 
              >
-
     <i:Interaction.Triggers>
         <i:EventTrigger EventName="MouseLeftButtonDown">
             <cmd:EventToCommand Command="{Binding DataContext.MouseLeftButtonDown, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type Grid}}}" PassEventArgsToCommand="True"/>
@@ -23,6 +22,13 @@
             <cmd:EventToCommand Command="{Binding DataContext.MouseLeftButtonUp, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type Grid}}}" PassEventArgsToCommand="True"/>
         </i:EventTrigger>
     </i:Interaction.Triggers>
+
+    <UserControl.ContextMenu>
+        <ContextMenu>
+            <MenuItem Command="{Binding DeleteCommand}" Header="Delete" />
+        </ContextMenu>
+    </UserControl.ContextMenu>
+
 
     <Grid>
         <Ellipse Fill="{Binding Color}" Stroke="{Binding borderColor}" StrokeThickness="{Binding borderThickness}" />

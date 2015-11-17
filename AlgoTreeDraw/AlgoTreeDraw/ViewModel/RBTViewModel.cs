@@ -14,14 +14,17 @@ namespace AlgoTreeDraw.ViewModel
     {
         public ICommand SwitchToBlack { get; }
         public ICommand SwitchToRed { get; }
+
         public RBTViewModel(Node _node) : base(_node) {
             SwitchToBlack = new RelayCommand<MouseButtonEventArgs>(ToBlack);
             SwitchToRed = new RelayCommand<MouseButtonEventArgs>(ToRed);
+            _ColorOfText = Brushes.White;
         }
 
         public override NodeViewModel newNodeViewModel()
         {
-            return new RBTViewModel(new RBT() { diameter = 50, color=Color, preColor = PreColor});
+
+            return new RBTViewModel(new RBT() { X = this.X, Y = this.Y, diameter = this.Diameter });
         }
 
         public void ToBlack(MouseButtonEventArgs e)

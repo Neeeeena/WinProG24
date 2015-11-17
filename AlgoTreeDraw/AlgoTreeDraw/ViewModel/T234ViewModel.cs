@@ -7,6 +7,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Input;
+using System.Windows.Media;
 
 namespace AlgoTreeDraw.ViewModel
 {
@@ -28,6 +29,7 @@ namespace AlgoTreeDraw.ViewModel
                     ShowThreeT234Node(null);
                     break;
             }
+            _ColorOfText = Brushes.Black;
         }
 
         public ICommand ShowOneT234 { get; }
@@ -69,15 +71,15 @@ namespace AlgoTreeDraw.ViewModel
         {
             if(this.ShowNode3 == Visibility.Visible)
             {
-                return new T234ViewModel(new T234() { diameter = this.Diameter }, 3);
+                return new T234ViewModel(new T234() { X = this.X, Y = this.Y, diameter = this.Diameter }, 3);
             }
             else if(this.ShowNode2 == Visibility.Visible)
             {
-                return new T234ViewModel(new T234() { diameter = this.Diameter }, 2);
+                return new T234ViewModel(new T234() { X = this.X, Y = this.Y, diameter = this.Diameter }, 2);
             }
             else
             {
-                return new T234ViewModel(new T234() {diameter = this.Diameter},1);
+                return new T234ViewModel(new T234() {X = this.X, Y = this.Y, diameter = this.Diameter},1);
             }
             
         }

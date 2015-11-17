@@ -16,19 +16,26 @@
         <KeyBinding Command="{Binding DeleteKeyPressed}" Key="Delete"/>
     </Window.InputBindings>
     
-    <!-- <ScrollViewer HorizontalScrollBarVisibility="Visible" VerticalScrollBarVisibility="Visible" Margin="5" > -->
+    <ScrollViewer HorizontalScrollBarVisibility="Visible" VerticalScrollBarVisibility="Visible" Margin="5" >
         <DockPanel>
-        <View:MenuBar DockPanel.Dock="Top"/>
-        <!-- Draw Menu bar -->
-        <Border BorderBrush="AliceBlue" BorderThickness="3">
-            <View:SidePanel DockPanel.Dock="Left"/>
-            <!-- Draw sidepanel -->
-        </Border>
-        <!-- Draw lines -->
+            <View:MenuBar DockPanel.Dock="Top"/>
+            <!-- Draw Menu bar -->
+            <Border BorderBrush="AliceBlue" BorderThickness="3">
+                <View:SidePanel DockPanel.Dock="Left"/>
+                <!-- Draw sidepanel -->
+            </Border>
+            <StackPanel DockPanel.Dock="Bottom">
+                <Slider x:Name="zoomSlider" ToolTip="Zoom" Value="1" Minimum="0.1" Maximum="10"/>
+            </StackPanel>
+            <!-- Draw lines -->
 
-        <ScrollViewer HorizontalScrollBarVisibility="Visible" VerticalScrollBarVisibility="Visible" Margin="5" >
-            <Grid Background="{Binding TEST}"  Height="auto" Width="auto" HorizontalAlignment="Left" VerticalAlignment="Top">
+        <!-- <ScrollViewer HorizontalContentAlignment="Stretch" VerticalContentAlignment="Stretch" HorizontalScrollBarVisibility="Auto"  VerticalScrollBarVisibility="Auto" Margin="5" > -->
+
+            <Grid Background="#00000000">
                 <!-- Skal være Transparent! -->
+                <Grid.LayoutTransform>
+                    <ScaleTransform CenterX="0" CenterY="0" ScaleX="{Binding ElementName=zoomSlider, Path=Value}" ScaleY="{Binding ElementName=zoomSlider, Path=Value}"/>
+                </Grid.LayoutTransform>
                 <i:Interaction.Triggers>
                     <i:EventTrigger EventName="MouseLeftButtonDown">
                         <cmd:EventToCommand Command="{Binding MouseDownCanvasCommand}" PassEventArgsToCommand="True"/>
@@ -40,7 +47,7 @@
                         <cmd:EventToCommand Command="{Binding MouseUpCanvasCommand}" PassEventArgsToCommand="True"/>
                     </i:EventTrigger>
                 </i:Interaction.Triggers>
-                <ItemsControl Height="auto" Width="auto" ItemsSource="{Binding Lines}"/>
+                <ItemsControl ItemsSource="{Binding Lines}" />
                 <ItemsControl ItemsSource="{Binding Nodes}"/>
                 <Canvas>
                     <Border Canvas.Left="{Binding SelectionBoxX}" Canvas.Top="{Binding SelectionBoxY}" Width="{Binding SelectionBoxWidth}" Height="{Binding SelectionBoxHeight}"
@@ -49,10 +56,11 @@
                     </Border>
                 </Canvas>
             </Grid>
-        </ScrollViewer >
-        <!--<View:BstViewUserControl  />  Draw Bst nodes -->
-    </DockPanel>
+
         
-        <!-- </ScrollViewer> -->
+            <!--<View:BstViewUserControl  />  Draw Bst nodes -->
+        </DockPanel>
+    </ScrollViewer>
+
 </Window>
     

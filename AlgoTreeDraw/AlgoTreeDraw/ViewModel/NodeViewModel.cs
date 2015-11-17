@@ -21,6 +21,7 @@ namespace AlgoTreeDraw.ViewModel
 {
     public abstract class NodeViewModel : MainViewModelBase
     {
+        public ICommand DeleteCommand { get; }
 
         private Visibility isEditing = Visibility.Hidden;
         private Visibility isNotEditing = Visibility.Visible;
@@ -33,12 +34,30 @@ namespace AlgoTreeDraw.ViewModel
         public NodeViewModel(Node node)
         {
             _node = node;
+            Offset = 47;
+            DeleteCommand = new RelayCommand<MouseButtonEventArgs>(deleteNode);
 
         }
 
         //View databinds to the following
         Node _node;
 
+        public void deleteNode(MouseButtonEventArgs e)
+        {
+            Console.WriteLine("Delete Kaldt");
+            if (selectedNodes.Contains(this))
+            {
+                undoRedo.InsertInUndoRedo(new DeleteNodeCommand(Nodes, selectedNodes, Lines));
+            }
+            else
+            {
+                clearSelectedNodes();
+                selectedNodes.Add(this);
+                undoRedo.InsertInUndoRedo(new DeleteNodeCommand(Nodes, selectedNodes, Lines));
+                selectedNodes.Clear();
+            }
+        }
+        
         public Node Node
         {
             get
@@ -59,6 +78,9 @@ namespace AlgoTreeDraw.ViewModel
             set { Node.X = value; RaisePropertyChanged(); RaisePropertyChanged(() => CanvasCenterX);  if (value > 10) WIDTH = 1500; RaisePropertyChanged(() => WIDTH); Debug.Write(value + "\n" + "lol:" + WIDTH + "\n"); }
         }
 
+        public int Offset { get; set; }  
+
+
         public double Y
         {
             get { return Node.Y; }
@@ -73,11 +95,11 @@ namespace AlgoTreeDraw.ViewModel
         private bool isSelected;
         public bool IsSelected { get { return isSelected; } set { isSelected = value; RaisePropertyChanged(); } }
 
-        public Brush _ColorOfText = Brushes.White;
+        public Brush _ColorOfText;
 
         public Brush ColorOfText { get { return _ColorOfText; } set { _ColorOfText = value; RaisePropertyChanged(); } }
 
-        public Brush _PreColorOfText = Brushes.White;
+        public Brush _PreColorOfText = Brushes.Black;
         public Brush PreColorOfText { get { return _PreColorOfText; } set { _PreColorOfText = value; RaisePropertyChanged(); } }
 
         public double Diameter

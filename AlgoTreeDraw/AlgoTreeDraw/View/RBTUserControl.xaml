@@ -25,6 +25,7 @@
         <ContextMenu>
             <MenuItem Command="{Binding SwitchToBlack}" Header="Black" />
             <MenuItem Command="{Binding SwitchToRed}" Header="Red" />
+            <MenuItem Command="{Binding DeleteCommand}" Header="Delete" />
         </ContextMenu>
     </UserControl.ContextMenu>
 

@@ -17,13 +17,13 @@ namespace AlgoTreeDraw.ViewModel
         NodeViewModel from;
         Line _line;
 
-        public LineViewModel(Line line) : base()
+        public LineViewModel(Line line)
         {
             _line = line;
         }
 
 
-        public Line Line { get; set; }
+        public Line Line { get { return _line; } set { _line = value; } }
 
         public NodeViewModel To
         {

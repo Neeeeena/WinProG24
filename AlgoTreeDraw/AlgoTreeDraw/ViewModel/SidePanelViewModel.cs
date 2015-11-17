@@ -31,7 +31,7 @@ namespace AlgoTreeDraw.ViewModel
 
         public ICommand ChangeColor { get; }
         public ICommand ChangeColorOfText { get; }
-        
+
 
         public ICommand MakePrettyCommand { get; }
 
