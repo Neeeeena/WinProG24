@@ -155,6 +155,7 @@ namespace AlgoTreeDraw.ViewModel
             if (isChangingColor)
             {
                 undoRedo.InsertInUndoRedo(new ChangeColorCommand(node, new SolidColorBrush(ChosenColor),node.Color));
+                isChangingColor = false;
             }
 
             if (isAddingLine)
@@ -209,7 +210,7 @@ namespace AlgoTreeDraw.ViewModel
 
         private void MouseMoveNode(MouseEventArgs e)
         {
-            if (Mouse.Captured != null && !isAddingLine)
+            if (Mouse.Captured != null && !isAddingLine && !isChangingColor)
             {
 
                 var mousePosition = RelativeMousePosition(e);

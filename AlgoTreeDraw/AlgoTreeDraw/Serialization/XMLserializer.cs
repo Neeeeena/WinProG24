@@ -45,28 +45,28 @@ namespace AlgoTreeDraw.Serialization
             }
         }
 
-        public Task<string> AsyncSerializeToString(Diagram diagram)
-        {
-            return Task.Run(() => SerializeToString(diagram));
-        }
+        //public Task<string> AsyncSerializeToString(Diagram diagram)
+        //{
+        //    return Task.Run(() => SerializeToString(diagram));
+        //}
 
-        private string SerializeToString(Diagram diagram)
-        {
-            var stringBuilder = new StringBuilder();
+        //private string SerializeToString(Diagram diagram)
+        //{
+        //    var stringBuilder = new StringBuilder();
 
-            using (TextWriter stream = new StringWriter(stringBuilder))
-            {
-                XmlSerializer serializer = new XmlSerializer(typeof(Diagram));
-                serializer.Serialize(stream, diagram);
-            }
+        //    using (TextWriter stream = new StringWriter(stringBuilder))
+        //    {
+        //        XmlSerializer serializer = new XmlSerializer(typeof(Diagram));
+        //        serializer.Serialize(stream, diagram);
+        //    }
 
-            return stringBuilder.ToString();
-        }
+        //    return stringBuilder.ToString();
+        //}
 
-        public Task<Diagram> AsyncDeserializeFromString(string xml)
-        {
-            return Task.Run(() => DeserializeFromString(xml));
-        }
+        //public Task<Diagram> AsyncDeserializeFromString(string xml)
+        //{
+        //    return Task.Run(() => DeserializeFromString(xml));
+        //}
 
         private Diagram DeserializeFromString(string xml)
         {

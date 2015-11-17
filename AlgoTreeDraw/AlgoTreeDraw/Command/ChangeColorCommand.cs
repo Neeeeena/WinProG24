@@ -26,11 +26,13 @@ namespace AlgoTreeDraw.Command
         public void Execute()
         {
             _node.Color = _color;
+            _node.PreColor = _color;
         }
 
         public void UnExecute()
         {
             _node.Color = _preColor;
+            _node.PreColor = _preColor;
         }
     }
 }
