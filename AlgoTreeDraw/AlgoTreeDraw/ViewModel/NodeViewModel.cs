@@ -30,12 +30,40 @@ namespace AlgoTreeDraw.ViewModel
 
         // Select
         public Point initialNodePosition = new Point();
+        private Brush color;
+        private Brush preColor;
+
+        public Brush Color
+        {
+            get { return color; }
+            set { color = value; setNodeColor(value); RaisePropertyChanged(); }
+        }
+
+        public Brush PreColor
+        {
+            get { return preColor; }
+            set { preColor = value; setNodePreColor(value); RaisePropertyChanged(); }
+        }
+
+        private Brush borderColor;
+
+        public Brush BorderColor
+        {
+            get { return borderColor; }
+            set { borderColor = value; RaisePropertyChanged(); }
+        }
+
+        private double borderThickness;
 
         public NodeViewModel(Node node)
         {
+            color = new SolidColorBrush(System.Windows.Media.Color.FromArgb(255, node.color.R, node.color.G, node.color.B));
+            preColor = new SolidColorBrush(System.Windows.Media.Color.FromArgb(255, node.preColor.R, node.preColor.G, node.preColor.B));
             _node = node;
             Offset = 47;
             DeleteCommand = new RelayCommand<MouseButtonEventArgs>(deleteNode);
+            borderColor = Brushes.Black;
+            borderThickness = 1;
 
         }
 
@@ -107,28 +135,31 @@ namespace AlgoTreeDraw.ViewModel
             set { Node.VisualText = value; RaisePropertyChanged(); }
         }
 
-        public Brush Color
+        public void setNodeColor(Brush _color)
         {
-            get { return Node.color; }
-            set { Debug.Write(Node.color.ToString()); Node.color = value; RaisePropertyChanged(); }
+            byte r = ((Color)_color.GetValue(SolidColorBrush.ColorProperty)).R;
+            byte b = ((Color)_color.GetValue(SolidColorBrush.ColorProperty)).B;
+            byte g = ((Color)_color.GetValue(SolidColorBrush.ColorProperty)).G;
+            Node.color.R = r;
+            Node.color.B = b;
+            Node.color.G = g;
         }
 
-        public Brush PreColor
+        public void setNodePreColor(Brush _color)
         {
-            get { return Node.preColor; }
-            set { Node.preColor = value; RaisePropertyChanged(); }
+            byte r = ((Color)_color.GetValue(SolidColorBrush.ColorProperty)).R;
+            byte b = ((Color)_color.GetValue(SolidColorBrush.ColorProperty)).B;
+            byte g = ((Color)_color.GetValue(SolidColorBrush.ColorProperty)).G;
+            Node.preColor.R = r;
+            Node.preColor.B = b;
+            Node.preColor.G = g;
         }
 
-        public Brush borderColor
-        {
-            get { return Node.borderColor; }
-            set { Node.borderColor = value; RaisePropertyChanged(); }
-        }
 
-        public double borderThickness
+        public double BorderThickness
         {
-            get { return Node.borderThickness; }
-            set { Node.borderThickness = value;  RaisePropertyChanged(); }
+            get { return borderThickness; }
+            set { borderThickness = value;  RaisePropertyChanged(); }
         }
 
         public LinkedList<Node> neighbours = new LinkedList<Node>();

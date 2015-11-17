@@ -89,16 +89,16 @@ namespace AlgoTreeDraw.ViewModel
         {
             selectedNodes.Add(n);
             
-            n.borderColor = Brushes.DarkBlue;
-            n.borderThickness = 4;
+            n.BorderColor = Brushes.DarkBlue;
+            n.BorderThickness = 4;
         }
 
         public void clearSelectedNodes()
         {
             foreach(NodeViewModel n in selectedNodes)
             {
-                n.borderColor = Brushes.Black;
-                n.borderThickness = 1;
+                n.BorderColor = Brushes.Black;
+                n.BorderThickness = 1;
             }
             selectedNodes.Clear();
         }

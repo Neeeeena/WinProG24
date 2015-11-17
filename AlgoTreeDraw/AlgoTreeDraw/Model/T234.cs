@@ -11,10 +11,13 @@ namespace AlgoTreeDraw.Model
     {
         public T234()
         {
-            color = Brushes.White;
-            preColor = Brushes.White;
-            borderColor = Brushes.Black;
-            borderThickness = 1;
+            color.R = 255;
+            color.G = 255;
+            color.B = 255;
+
+            preColor.R = 255;
+            preColor.G = 255;
+            preColor.B = 255;
         }
     
 

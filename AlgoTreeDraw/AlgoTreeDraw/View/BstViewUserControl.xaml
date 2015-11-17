@@ -31,7 +31,7 @@
 
 
     <Grid>
-        <Ellipse Fill="{Binding Color}" Stroke="{Binding borderColor}" StrokeThickness="{Binding borderThickness}" />
+        <Ellipse Fill="{Binding Color}" Stroke="{Binding BorderColor}" StrokeThickness="{Binding BorderThickness}" />
         
         <!--<TextBox Name="BSTValue" Visibility="Visible" Text="{Binding VisualText}" VerticalAlignment="Center"></TextBox>-->
         <TextBlock Text="{Binding VisualText}" Visibility="{Binding IsNotEditing}" Grid.Row="1" HorizontalAlignment="Center" VerticalAlignment="Center" Foreground="Black"/>

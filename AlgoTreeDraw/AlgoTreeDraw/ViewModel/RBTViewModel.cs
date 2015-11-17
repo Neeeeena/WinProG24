@@ -21,7 +21,7 @@ namespace AlgoTreeDraw.ViewModel
 
         public override NodeViewModel newNodeViewModel()
         {
-            return new RBTViewModel(new RBT() { diameter = 50, color=Color, preColor = PreColor});
+            return new RBTViewModel(new RBT() { diameter = 50 }); //{ Color = Color, PreColor = PreColor };
         }
 
         public void ToBlack(MouseButtonEventArgs e)
