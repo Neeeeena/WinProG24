@@ -136,10 +136,10 @@ namespace AlgoTreeDraw.ViewModel
             set { Node.diameter = value; }
         }
 
-        public string VisualText
+        public string Key
         {
-            get { return Node.VisualText; }
-            set { Node.VisualText = value; RaisePropertyChanged(); }
+            get { return Node.Key; }
+            set { Node.Key = value; RaisePropertyChanged(); }
         }
 
         public void setNodeColor(Brush _color)
@@ -169,47 +169,106 @@ namespace AlgoTreeDraw.ViewModel
             set { borderThickness = value;  RaisePropertyChanged(); }
         }
 
-        public LinkedList<Node> neighbours = new LinkedList<Node>();
+        List<NodeViewModel> neighbours;
 
+        // CONSTANTS
+        const int LEFT = 0;
+        const int RIGHT = 1;
 
         //returns true if tree is valid after add
-        public bool addNeighbour(Node node)
+        public void addNeighbour(NodeViewModel NVM)
         {
-            return Node.addNeighbour(node);
+            // ViewModel
+            neighbours.Add(NVM);
+            NVM.neighbours.Add(this);
+
+            // Model
+            Node.neighbours.Add(NVM.Node);
+            NVM.Node.neighbours.Add(Node);
         }
 
         //returns true if tree is valid after remove
-        public bool removeNeighbour(Node node)
+        public void removeNeighbour(NodeViewModel NVM)
         {
-            return Node.removeNeighbour(node);
+            //ViewModel
+            neighbours.Remove(NVM);
+            NVM.neighbours.Remove(this);
+
+            //Model
+            Node.neighbours.Remove(NVM.Node);
+            NVM.Node.neighbours.Remove(Node);
         }
 
-        public bool isChild(Node node)
+        public bool isChild(NodeViewModel NVM)
         {
-            return Node.isChild(node);
+            return NVM.Y > Y;
         }
 
         //Returns true if node has maximum of one parent
         public bool isValid()
         {
-            return Node.isValid();
+            int count = 0;
+            foreach (NodeViewModel neighbour in neighbours)
+                if (neighbour.Y < Y) count++;
+
+            return count <= 1 && neighbours.Count < 3;
         }
 
+        public NodeViewModel[] getChildren()
+        {
+            NodeViewModel[] children = new NodeViewModel[3];
+            int i = 0;
+            foreach (NodeViewModel neighbour in neighbours)
+                if (neighbour.Y > Y)
+                {
+                    children[i] = neighbour;
+                    i++;
+                }
 
+            if (i == 2 && children[0].X > children[1].X)
+            {
+                NodeViewModel temp = children[0];
+                children[0] = children[1];
+                children[1] = temp;
+            }
+            return children;
+        }
 
         public bool isRoot()
         {
-            return Node.isRoot();
+            foreach (NodeViewModel neighbour in neighbours)
+                if (neighbour.Y < Y) return false;
+            return true;
         }
 
-        public Node getRoot()
+        public NodeViewModel getRoot()
         {
-            return Node.getRoot();
+            foreach (NodeViewModel neighbour in neighbours)
+                if (neighbour.Y < Y) return neighbour.getRoot();
+            return this;
         }
 
         public int childrenCount()
         {
-            return Node.childrenCount();
+            int children = 0;
+            foreach (NodeViewModel neighbour in neighbours)
+                if (neighbour.Y > Y) children++;
+            return children;
+        }
+
+        public bool isValidBST()
+        {
+            // DER ER PROBLEM HER
+            if (isValid() && childrenCount() <= 2)
+            {
+                NodeViewModel[] children = getChildren();
+                foreach (NodeViewModel child in children)
+                    if (child != null)
+                        if (!child.isValidBST()) return false;
+                if (children[RIGHT] != null) return int.Parse(children[LEFT].Key) <= int.Parse(children[RIGHT].Key);
+            }
+            else return false;
+            return true;
         }
 
         //USE ON ROOT
@@ -229,6 +288,32 @@ namespace AlgoTreeDraw.ViewModel
         {
             Node.getRoot().makePretty();
         }
+
+        public void autoBalance()
+        {
+            // if markedNodesConnected
+            // and isValidBst
+            // new list - sort all nodes in bst -> List<NodeViewModel> SortedList = nodesList.OrderBy(n=>n.Key).ToList();
+            // eller objListOrder.Sort((x, y) => x.OrderDate.CompareTo(y.OrderDate));
+            // fjern alle linjer
+            // Midterste element er rod - midterst til højre er højre barn ligeså med venstre osv osv. 
+            // Brug insert i denne rækkefølge - sørg for at der også bliver tegnet linjer imellem dem
+        }
+
+        /*public bool isMarkedNodesConnected()
+        {
+            List<NodeViewModel> markedNodes = new List<NodeViewModel>();
+
+        }
+
+        public void markNodeAndNeighbours(NodeViewModel n, List<NodeViewModel> markedNodes)
+        {
+            if(!markedNodes.Contains(n))
+            {
+                markedNodes.Add(n);
+                foreach
+            }
+        }*/
 
     }
 }

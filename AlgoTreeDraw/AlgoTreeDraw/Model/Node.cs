@@ -39,14 +39,8 @@ namespace AlgoTreeDraw.Model
 
         public double diameter {get; set; } // Tilføj Notify hvis Diameter skal ændres
 
-        private string visualText = "1";
-        private int key = 1;
-        public string VisualText { get { return visualText; } set { visualText = value; } }
-        public int Key
-        {
-            get { return key; }
-            set { key = value; VisualText = "" + key; }
-        }
+        private string key = "1";
+        public string Key { get { return key; } set { key = value; } }
 
         public abstract Node NewNode();
 
@@ -65,13 +59,13 @@ namespace AlgoTreeDraw.Model
         //    key = _key;
         //}
         [XmlIgnore]
-        public LinkedList<Node> neighbours = new LinkedList<Node>();
+        public List<Node> neighbours = new List<Node>();
 
         //returns true if tree is valid after add
         public bool addNeighbour(Node node)
         {
-            neighbours.AddLast(node);
-            node.neighbours.AddLast(this);
+            neighbours.Add(node);
+            node.neighbours.Add(this);
             return isValid() && node.isValid();
         }
 
@@ -96,7 +90,7 @@ namespace AlgoTreeDraw.Model
                 if (neighbour.y < y) count++;
 
             //if (count > 1) return false; return true;
-            return count <= 1;
+            return count <= 1 && neighbours.Count < 4;
         }
 
         //Move this to BST only.
@@ -156,7 +150,7 @@ namespace AlgoTreeDraw.Model
             else return false;
             return true;
         }
-
+        // HER MATHIAS
         public bool isBST()
         {
             Node[] children = getChildren();
@@ -197,6 +191,8 @@ namespace AlgoTreeDraw.Model
             else
                 return children[1].insertBST(newnode);
         }
+
+        
 
         private static int X_OFFSET = 40;
         private static int Y_OFFSET = 50;

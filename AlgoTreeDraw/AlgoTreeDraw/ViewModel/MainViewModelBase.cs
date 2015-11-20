@@ -160,7 +160,7 @@ namespace AlgoTreeDraw.ViewModel
             isAddingLine = false;
             LineViewModel tempLine = new LineViewModel(new Line()) { From = fromNode, To = to };
             undoRedo.InsertInUndoRedo(new AddLineCommand(Lines,tempLine));
-            fromNode.addNeighbour(to.Node);
+            fromNode.addNeighbour(to);
             fromNode = null;
         }
 
@@ -229,7 +229,6 @@ namespace AlgoTreeDraw.ViewModel
             var mousePosition = RelativeMousePosition(e);
 
             initialMousePosition = mousePosition;
-            //initialNodePosition = new Point(node.X, node.Y);
 
             if(!selectedNodes.Contains(node))
             {
