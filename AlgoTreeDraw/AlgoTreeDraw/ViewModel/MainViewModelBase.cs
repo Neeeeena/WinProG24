@@ -209,21 +209,23 @@ namespace AlgoTreeDraw.ViewModel
 
             if (isChangingColor)
             {
-                undoRedo.InsertInUndoRedo(new ChangeColorCommand(node, new SolidColorBrush(ChosenColor),node.Color));
+                undoRedo.InsertInUndoRedo(new ChangeColorCommand(node, new SolidColorBrush(ChosenColor), node.Color));
                 isChangingColor = false;
             }
 
-            if(isChangingColorText)
+            else if (isChangingColorText)
             {
                 undoRedo.InsertInUndoRedo(new ChangeColorTextCommand(node, new SolidColorBrush(ChosenColor), node.PreColorOfText));
             }
 
-            if (isAddingLine)
+            else if (isAddingLine)
             {
                 if (fromNode == null) { fromNode = node; fromNode.Color = Brushes.Blue; }
                 else if (!Object.ReferenceEquals(fromNode, node)) { AddLine(node); }
-                
+
             }
+            else
+            {
 
 
 
@@ -233,6 +235,7 @@ namespace AlgoTreeDraw.ViewModel
                 undoRedo.InsertInUndoRedo(new MoveNodeCommand(selectedNodes, mousePosition.X - initialMousePosition.X, mousePosition.Y - initialMousePosition.Y));
 
                 e.MouseDevice.Target.ReleaseMouseCapture();
+            }
             
         }
 
@@ -274,7 +277,7 @@ namespace AlgoTreeDraw.ViewModel
 
         private void MouseMoveNode(MouseEventArgs e)
         {
-            if (Mouse.Captured != null && !isAddingLine && !isChangingColor)
+            if (Mouse.Captured != null && !isAddingLine && !isChangingColor && !isChangingColorText)
             {
 
                 var mousePosition = RelativeMousePosition(e);

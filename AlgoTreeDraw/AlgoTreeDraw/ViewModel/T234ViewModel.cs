@@ -13,6 +13,10 @@ namespace AlgoTreeDraw.ViewModel
 {
     class T234ViewModel : NodeViewModel
     {
+        public string TxtOne { get{ return ((T234)Node).TextOne; }set{ ((T234)Node).TextOne = value; RaisePropertyChanged(); } }
+        public string TxtTwo { get { return ((T234)Node).TextTwo; } set { ((T234)Node).TextTwo = value; RaisePropertyChanged(); } }
+        public string TxtThree { get { return ((T234)Node).TextThree; } set { ((T234)Node).TextThree = value; RaisePropertyChanged(); } }
+
         public T234ViewModel(T234 _node) : base(_node)
         {
             ShowOneT234 = new RelayCommand(ChangeTo2Node);
@@ -20,6 +24,8 @@ namespace AlgoTreeDraw.ViewModel
             ShowThreeT234 = new RelayCommand(ChangeTo4Node);
             ShowCorrectNode();
             _ColorOfText = Brushes.Black;
+
+
         }
 
         public ICommand ShowOneT234 { get; }

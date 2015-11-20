@@ -25,6 +25,10 @@ namespace AlgoTreeDraw.Model
             preColor.R = 255;
             preColor.G = 255;
             preColor.B = 255;
+
+            TextOne = "1";
+            TextTwo = "1";
+            TextThree = "1";
         }
     
 
