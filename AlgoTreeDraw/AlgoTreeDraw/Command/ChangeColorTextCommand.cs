@@ -21,6 +21,11 @@ namespace AlgoTreeDraw.Command
             _color = color;
         }
 
+        public override String ToString()
+        {
+            return "Color text";
+        }
+
         public void Execute()
         {
             _node.ColorOfText = _color;

@@ -25,6 +25,12 @@ namespace AlgoTreeDraw.Command
                 
             lines = _lines;
         }
+
+        public override String ToString()
+        {
+            return "Delete node";
+        }
+
         public void Execute()
         {
             foreach (NodeViewModel n in selectedNodes)

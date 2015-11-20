@@ -98,6 +98,22 @@ namespace AlgoTreeDraw.ViewModel
 
         }
 
+        public List<UndoRedoItem> RedoCommands
+        {
+            get
+            {
+                List<UndoRedoItem> ret = new List<UndoRedoItem>();
+                if (undoRedo.redoList.Length != 0)
+                {
+                    foreach (var c in undoRedo.redoList)
+                    {
+                        ret.Add(new UndoRedoItem(c.ToString(), RedoCommand));
+                    }
+                }
+                return ret;
+            }
+        }
+
         public void copyClicked()
         {
             copiedNodes.Clear();

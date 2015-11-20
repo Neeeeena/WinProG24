@@ -18,13 +18,16 @@ namespace AlgoTreeDraw.Command
         // The 'offsetY' field holds the offset (difference) between the original and final Y coordinate.
         private double offsetY;
 
-
-
         public MoveNodeCommand(List<NodeViewModel> _nodes, double _offsetX, double _offsetY) 
         {
             nodes = _nodes;
             offsetX = _offsetX;
             offsetY = _offsetY;
+        }
+
+        public override String ToString()
+        {
+            return "Move node";
         }
 
         public void Execute()
