@@ -32,12 +32,15 @@ namespace AlgoTreeDraw.Model
         private double x = 200;
         private double y = 200;
         public double X { get { return x; } set { x = value; } }
+
+
+
         public double Y { get { return y; } set { y = value;  } }
 
         public double diameter {get; set; } // Tilføj Notify hvis Diameter skal ændres
 
         private string visualText = "1";
-        private int key;
+        private int key = 1;
         public string VisualText { get { return visualText; } set { visualText = value; } }
         public int Key
         {
@@ -99,7 +102,7 @@ namespace AlgoTreeDraw.Model
         //Move this to BST only.
         public Node[] getChildren()
         {
-            Node[] children = new Node[2];
+            Node[] children = new Node[3];
             int i = 0;
             foreach (Node neighbour in neighbours)
                 if (neighbour.y > y)
@@ -148,7 +151,20 @@ namespace AlgoTreeDraw.Model
                 foreach (Node child in children)
                     if (child != null)
                         if (!child.isValidBST()) return false;
-                if(children[1] != null) return children[0].key < children[1].key;
+                if(children[RIGHT] != null) return children[LEFT].key <= children[RIGHT].key;
+            }
+            else return false;
+            return true;
+        }
+
+        public bool isBST()
+        {
+            Node[] children = getChildren();
+            if (isValid() && childrenCount() <= 2)
+            {
+                foreach (Node child in children)
+                    if (child != null)
+                        if (!child.isBST()) return false;
             }
             else return false;
             return true;
@@ -185,182 +201,172 @@ namespace AlgoTreeDraw.Model
         private static int X_OFFSET = 40;
         private static int Y_OFFSET = 50;
         private static int X_ONSET = 28;
+        private bool isLeftChild = false;
+        private Node[] childrenFromList;
+        private static int NOMOVE = -1;
+        private static int ONLY = 0;
+        private static int LEFT = 0;
+        private static int RIGHT = 1;
+        private static int NONE = -1;
+        private List<Node> allNodes = new List<Node>();
+
+        public Node[] IsLeftChild { get { return childrenFromList; } }
+        public List<Node> AllNodes { get { return allNodes; } }
         //Use on root
+
+
+
         public bool makePretty()
         {
-            Node[] children = getChildren();
-            int dir = -1;
+            updateList(); //Updating the nodes in allNodes, to run the tree through breadth-first
+            if (!isValidBST())
+                return false;
 
-            if(children[0] == null)
-            {
+            foreach (Node node in allNodes)
+            { 
+                
+                if (node.childrenFromList[0] == null) //IF THERE IS NO CHILDREN
+                {
 
-            }
-            else if(children[1] == null)    //One child
-            {
-                if(children[0].key < key)
-                    moveOffset(children[0], LEFT);
+                }
+                else if (node.childrenFromList[RIGHT] == null)    //One child
+                {
+                    if (node.childrenFromList[ONLY].isLeftChild)
+                        node.moveOffset(node.childrenFromList[ONLY], LEFT);
+                    else
+                        node.moveOffset(node.childrenFromList[ONLY], RIGHT);
+                    node.pushAncenstors(node.childrenFromList[ONLY]);
+                }
                 else
-                    moveOffset(children[0], RIGHT);
-                dir = checkAncestors(children[0]);
-                children[0].pushParents(dir);
-                //if (ca[0] != -1)
-                //{
-                //    children[0].x = ca[1];
-                //    moveParent(ca[0] == 0);
-                //}
-                children[0].makePretty();
-            }
-               //TWO CHILDREN 
-            else
-            {
-                //children[0].x = x - X_OFFSET;
-                //children[0].y = y + Y_OFFSET;
-                moveOffset(children[LEFT], LEFT);
+                {
+                    node.moveOffset(node.childrenFromList[LEFT], LEFT);
+                    node.moveOffset(node.childrenFromList[RIGHT], RIGHT);
 
-                dir = checkAncestors(children[0]);
-                children[LEFT].pushParents(dir);
-                //if (ca[0] != -1)
-                //{
-                //    children[0].x = ca[1];
-                //    moveParent(ca[0] == 0);
-
-                //}
-                //children[1].x = x + X_OFFSET;
-                //children[1].y = y + Y_OFFSET;
-                moveOffset(children[RIGHT], RIGHT);
-                dir = checkAncestors(children[1]);
-                children[RIGHT].pushParents(dir);
-                //if (ca[0] != -1) {
-                //    children[1].x = ca[1];
-                //    moveParent(ca[0] == 0);
-                //}
-                children[0].makePretty();
-                children[1].makePretty();
+                    node.pushAncenstors(node.childrenFromList[LEFT]);
+                    node.pushAncenstors(node.childrenFromList[RIGHT]);
+                }      
             }
-            
             return true;
         }
 
-        private int checkAncestors(Node orig)
+        private bool pushAncenstors(Node orig)
         {
             Node parent = getParent();
             if (parent == null)
-                return NOMOVE;
-            if (parent.x < orig.x + X_ONSET &&
-                parent.x > orig.x - X_ONSET)
             {
-                if (parent.getChildren()[0] == this)
+                return false;
+            }
+
+            if (parent.x + X_ONSET-1 > orig.x && parent.x - X_ONSET+1 < orig.x)
+            {
+                if(x < parent.x)
                 {
-                    orig.moveOnset(LEFT);
-                    return LEFT;
+                    getRoot().pushTree(LEFT, parent.x, orig, X_ONSET + (orig.x - parent.x) );                   
+                    orig.move(LEFT, X_ONSET + (orig.x - parent.x));                    
                 }
                 else
                 {
-                    orig.moveOnset(RIGHT);
-                    return RIGHT;
+                    getRoot().pushTree(RIGHT, parent.x, orig, X_ONSET + (parent.x - orig.x) );
+                    orig.move(RIGHT, X_ONSET + (parent.x - orig.x) );                  
                 }
+
             }
-            return parent.checkAncestors(orig);
+            return parent.pushAncenstors(orig);
+        }
+
+        private bool pushTree(int direction, double threshold, Node orig, double offset)
+        {
+            Node[] children = getChildren();
+            if(this == orig)
+                return true;
+            if (direction == LEFT && x < threshold)
+                move(LEFT, offset);
+            else
+            if (direction == RIGHT && threshold < x)
+                move(RIGHT, offset);
+
+            int i = 0;
+            while (children[i] != null)
+            {
+                children[i].pushTree(direction, threshold, orig, offset);
+                i++;
+            }
+            return true;
+        }
+
+        private bool isSingleChildLeft()
+        {
+            Node parent = getParent();
+            if (parent == null)
+                return false;
+            if (parent.key < key)
+                return false;
+            else if (parent.key > key)
+                return true;
+            else if (parent.x < x)
+                return false;
+            else
+                return true;
         }
 
         private Node getParent()
         {
-
             foreach (Node neighbour in neighbours)
                 if (neighbour.y < y) return neighbour;
             return null;
         }
 
-        //private bool moveParent(bool left)
-        //{
-        //    Node parent = getParent();
-        //    if (parent == null)
-        //        return false;
-        //    else if (left && parent.x < x)
-        //    {
-        //        parent.x -= X_ONSET;
-        //        parent.moveParent(left);
-        //    }
-        //    else if (!left && parent.x > x)
-        //    {
-        //        parent.x += X_ONSET;
-        //        parent.moveParent(left);
-        //    }
-        //    return true;
-        //}
-
-        public static int LEFT = 0;
-        public static int RIGHT = 1;
-        public static int NOMOVE = -1;
+        
 
         private bool moveOffset(Node child, int direction)
         {
             if (LEFT == direction)
-                child.x = x - X_OFFSET;
+                child.X = x - X_OFFSET;
             else
-                child.x = x + X_OFFSET;
-            child.y = y + Y_OFFSET;
+                child.X = x + X_OFFSET;
+            child.Y = y + Y_OFFSET;
             return true;
         }
 
-        private bool moveOnset(int direction)
+        private bool move(int direction, double offset)
         {
             if (LEFT == direction)
-                x = x - X_ONSET;
+                X = x - offset;
             else
-                x = x + X_ONSET;
+                X = x + offset;
             return true;
         }
 
-        private bool pushParents(int direction)
+        private static LinkedList<Node> queue = new LinkedList<Node>();
+        private void updateList()
         {
-            Debug.WriteLine("Started pushParents()");
-            Node parent = getParent();
-            if (parent == null)
-                return false;
-            else if (parent.x < x && direction == LEFT)
+            allNodes = new List<Node>();
+            int i = 0;
+            Node node = getRoot();
+            queue.Clear();
+            queue.AddLast(getRoot());
+            queue.First();
+            for (;;)
             {
-                //if (parent.getParent() != null &&
-                //    parent.getParent().pushParents(direction) == false)
-                //    parent.pushParents(direction);
-                parent.moveOnset(LEFT);
-                Debug.WriteLine("Parent pushed left");
-                //parent.pushParents(LEFT);
-                parent.pushChildren();
-                return true;
+                node.childrenFromList = node.getChildren();
+                allNodes.Add(node);
+                i = 0;
+                foreach(Node child in node.childrenFromList) 
+                    if(child != null)
+                    {
+                        queue.AddLast(node.childrenFromList[i]);
+                        i++;
+                    }
+                if(i==1)
+                    node.childrenFromList[LEFT].isLeftChild = node.childrenFromList[LEFT].isSingleChildLeft();
+
+                if (queue.First() == queue.Last())
+                    break;
+                queue.RemoveFirst();
+                node = queue.First();
             }
 
-            else if (parent.x > x && direction == RIGHT)
-            {
-                parent.moveOnset(RIGHT);
-                Debug.WriteLine("Parent pushed righty");
-                //parent.pushParents(RIGHT);
-                parent.pushChildren();
-                return true;
-            }
-
-
-            return false;
         }
 
-        private bool pushChildren()
-        {
-            Node[] children = getChildren();
-            
-            if(children[RIGHT] != null)
-            {
-                moveOffset(children[LEFT],LEFT);
-                moveOffset(children[RIGHT], RIGHT);
-                children[LEFT].pushChildren();
-                children[RIGHT].pushChildren();
-            }
-            else if (children[LEFT] != null)
-                if (children[0].key < key)
-                    moveOffset(children[0], LEFT);
-                else
-                    moveOffset(children[0], RIGHT);
-
-            return true;
-        }
     }
 }
