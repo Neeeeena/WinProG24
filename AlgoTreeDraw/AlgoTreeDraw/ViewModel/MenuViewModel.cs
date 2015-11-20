@@ -65,7 +65,7 @@ namespace AlgoTreeDraw.ViewModel
                     }
                     else
                     {
-                        Nodes.Add(new T234ViewModel(n, 1));
+                        Nodes.Add(new T234ViewModel((T234)n));
                     }
                 }
                 Lines.Clear();

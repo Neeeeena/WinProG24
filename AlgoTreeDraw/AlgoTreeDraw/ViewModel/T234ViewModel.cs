@@ -13,22 +13,12 @@ namespace AlgoTreeDraw.ViewModel
 {
     class T234ViewModel : NodeViewModel
     {
-        public T234ViewModel(Node _node,int n) : base(_node)
+        public T234ViewModel(T234 _node) : base(_node)
         {
-            ShowOneT234 = new RelayCommand<MouseButtonEventArgs>(ShowOneT234Node);
-            ShowTwoT234 = new RelayCommand<MouseButtonEventArgs>(ShowTwoT234Node);
-            ShowThreeT234 = new RelayCommand<MouseButtonEventArgs>(ShowThreeT234Node);
-            switch (n) {
-                case 1:
-                    ShowOneT234Node(null);
-                    break;
-                case 2:
-                    ShowTwoT234Node(null);
-                    break;
-                default:
-                    ShowThreeT234Node(null);
-                    break;
-            }
+            ShowOneT234 = new RelayCommand(ChangeTo2Node);
+            ShowTwoT234 = new RelayCommand(ChangeTo3Node);
+            ShowThreeT234 = new RelayCommand(ChangeTo4Node);
+            ShowCorrectNode();
             _ColorOfText = Brushes.Black;
         }
 
@@ -45,14 +35,54 @@ namespace AlgoTreeDraw.ViewModel
         public Visibility ShowNode2 { get { return _ShowNode2; } set { _ShowNode2 = value; RaisePropertyChanged(); } }
         public Visibility ShowNode3 { get { return _ShowNode3; } set { _ShowNode3 = value; RaisePropertyChanged(); } }
 
-        public void ShowOneT234Node(MouseButtonEventArgs e)
+        public void ShowCorrectNode()
+        {
+            if (((T234)Node).IsTwoNode)
+            {
+                ShowOneT234Node();
+            }
+            else if (((T234)Node).IsThreeNode)
+            {
+                ShowTwoT234Node();
+            }
+            else
+            {
+                ShowThreeT234Node();
+            }
+        }
+
+        public void ChangeTo2Node()
+        {
+            ((T234)Node).IsTwoNode = true;
+            ((T234)Node).IsThreeNode = false;
+            ((T234)Node).IsFourNode = false;
+            ShowCorrectNode();
+        }
+
+        public void ChangeTo3Node()
+        {
+            ((T234)Node).IsTwoNode = false;
+            ((T234)Node).IsThreeNode = true;
+            ((T234)Node).IsFourNode = false;
+            ShowCorrectNode();
+        }
+        public void ChangeTo4Node()
+        {
+            ((T234)Node).IsTwoNode = false;
+            ((T234)Node).IsThreeNode = false;
+            ((T234)Node).IsFourNode = true;
+            ShowCorrectNode();
+        }
+
+
+        public void ShowOneT234Node()
         {
             this.ShowNode1 = Visibility.Visible;
             this.ShowNode2 = Visibility.Hidden;
             this.ShowNode3 = Visibility.Hidden;
         }
 
-        public void ShowTwoT234Node(MouseButtonEventArgs e)
+        public void ShowTwoT234Node()
         {
 
             this.ShowNode1 = Visibility.Visible;
@@ -60,7 +90,7 @@ namespace AlgoTreeDraw.ViewModel
             this.ShowNode3 = Visibility.Hidden;
         }
 
-        public void ShowThreeT234Node(MouseButtonEventArgs e)
+        public void ShowThreeT234Node()
         {
             this.ShowNode1 = Visibility.Visible;
             this.ShowNode2 = Visibility.Visible;
@@ -69,17 +99,17 @@ namespace AlgoTreeDraw.ViewModel
 
         public override NodeViewModel newNodeViewModel()
         {
-            if(this.ShowNode3 == Visibility.Visible)
+            if (((T234)Node).IsThreeNode)
             {
-                return new T234ViewModel(new T234() { X = this.X, Y = this.Y, diameter = this.Diameter }, 3);
+                return new T234ViewModel(new T234() { X = this.X, Y = this.Y, diameter = this.Diameter, IsThreeNode = true});
             }
-            else if(this.ShowNode2 == Visibility.Visible)
+            else if(((T234)Node).IsTwoNode)
             {
-                return new T234ViewModel(new T234() { X = this.X, Y = this.Y, diameter = this.Diameter }, 2);
+                return new T234ViewModel(new T234() { X = this.X, Y = this.Y, diameter = this.Diameter, IsTwoNode = true });
             }
             else
             {
-                return new T234ViewModel(new T234() {X = this.X, Y = this.Y, diameter = this.Diameter},1);
+                return new T234ViewModel(new T234() { X = this.X, Y = this.Y, diameter = this.Diameter, IsFourNode = true });
             }
             
         }
