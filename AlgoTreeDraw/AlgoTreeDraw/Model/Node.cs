@@ -60,7 +60,8 @@ namespace AlgoTreeDraw.Model
         //{
         //    key = _key;
         //}
-        [XmlIgnore]
+        //Hvad fuck er det her?
+        //[XmlIgnore]
 
         //returns true if tree is valid after add
         //public bool addNeighbour(Node node)
