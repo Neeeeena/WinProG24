@@ -260,8 +260,6 @@ namespace AlgoTreeDraw.ViewModel
             {
                 n.initialNodePosition.X = n.X;
                 n.initialNodePosition.Y = n.Y;
-                Console.WriteLine("initialX = " + n.initialNodePosition.X);
-                Console.WriteLine("initialX = " + n.initialNodePosition.X);
             }
 
             e.MouseDevice.Target.CaptureMouse();
@@ -270,7 +268,7 @@ namespace AlgoTreeDraw.ViewModel
                 node.IsEditing = Visibility.Visible;
                 node.IsNotEditing = Visibility.Hidden;
                 editNode = node;
-                Debug.Write(editNode.Diameter.ToString());
+                
             }
 
         }
