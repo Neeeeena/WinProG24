@@ -46,7 +46,7 @@ namespace AlgoTreeDraw.ViewModel
                  new BSTViewModel(new BST() { X = WIDTHS/3-WIDTHS/3+(240-(WIDTHS-WIDTHS/3+50))/2, Y = 0, diameter = 50 }),
                  new RBTViewModel(new RBT() { X = WIDTHS/3*2-WIDTHS/3+(240-(WIDTHS-WIDTHS/3+50))/2-15, Y = 0, diameter = 50 }),
                  //hvis man sætter y = 10, ser det væsentligt bedre ud, men så hopper de når man dragger..
-                 new T234ViewModel(new T234() { X = WIDTHS-WIDTHS/3+(240-(WIDTHS-WIDTHS/3+50))/2-30, Y = 0, diameter = 30, IsTwoNode=true })
+                 new T234ViewModel(new T234() { X = WIDTHS-WIDTHS/3+(240-(WIDTHS-WIDTHS/3+50))/2-30, Y = 0, diameter = 30 },1)
             };
         
         public  SidePanelViewModel()
@@ -86,7 +86,7 @@ namespace AlgoTreeDraw.ViewModel
                 NodeViewModel tempNode = node.newNodeViewModel();
                 tempNode.X = node.X - WIDTHS;
                 tempNode.Y = node.Y + NODEHEIGHT;
-                tempNode.VisualText = node.VisualText;
+                tempNode.Key = node.Key;
                 AddNode(tempNode);
             }
             node.X = node.initialNodePosition.X;

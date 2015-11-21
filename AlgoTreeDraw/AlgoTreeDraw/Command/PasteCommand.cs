@@ -24,11 +24,6 @@ namespace AlgoTreeDraw.Command
             this.copiedNodes = copiedNodes;
         }
 
-        public override String ToString()
-        {
-            return "Paste";
-        }
-
         public void Execute()
         {
             clearSelectedNodes();

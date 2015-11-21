@@ -20,10 +20,6 @@ namespace AlgoTreeDraw.Command
             line = _line;
         }
 
-        public override String ToString()
-        {
-            return "Add line";
-        }
         public void Execute()
         {
             lines.Add(line);

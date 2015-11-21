@@ -1,13 +1,13 @@
-﻿using System;
+﻿using AlgoTreeDraw2.Model;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace AlgoTreeDraw.Command
+namespace AlgoTreeDraw2.Model
 {
-    class MathiasErEnRøv
+    class T234 : Node
     {
-        //Nu kan jeg committe ;) 
     }
 }

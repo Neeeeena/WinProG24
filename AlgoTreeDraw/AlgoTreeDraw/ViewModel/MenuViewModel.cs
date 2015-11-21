@@ -8,7 +8,6 @@ using GalaSoft.MvvmLight.Command;
 using System.Windows.Input;
 using AlgoTreeDraw.Model;
 using AlgoTreeDraw.Serialization;
-using System.Windows;
 
 namespace AlgoTreeDraw.ViewModel
 {
@@ -28,14 +27,8 @@ namespace AlgoTreeDraw.ViewModel
             dialogVM = new DialogBox();
 
         }
-
-        public int one = 1;
-        public int two = 2;
-        public int three = 3;
-        public int four = 4;
-        public int five = 5;
-
-
+        //Kun for test
+        public int undoRedoParam = 1;
         private void NewDiagram()
         {
             if (dialogVM.ShowNew())
@@ -65,7 +58,7 @@ namespace AlgoTreeDraw.ViewModel
                     }
                     else
                     {
-                        Nodes.Add(new T234ViewModel((T234)n));
+                        Nodes.Add(new T234ViewModel(n, 1));
                     }
                 }
                 Lines.Clear();
