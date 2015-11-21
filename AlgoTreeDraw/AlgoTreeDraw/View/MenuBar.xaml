@@ -6,6 +6,7 @@
              xmlns:local="clr-namespace:AlgoTreeDraw.View"
              mc:Ignorable="d" 
              d:DesignHeight="300" d:DesignWidth="300"
+             xmlns:xctk="http://schemas.xceed.com/wpf/xaml/toolkit"
              xmlns:ViewModel="clr-namespace:AlgoTreeDraw.ViewModel"
     DataContext="{Binding Source={StaticResource Locator}, Path=Menu}">
     <StackPanel>
@@ -34,40 +35,48 @@
             <Button Command="{Binding SaveDiagramCommand}" ToolTip="Save">
                 <Image Source="/Images/save.png"/>
             </Button>
+            <xctk:SplitButton Command="{Binding UndoCommand}" Background="Transparent">
+                <xctk:SplitButton.Content>
+                    <Image Source="/Images/undo.png"/>
+                </xctk:SplitButton.Content>
+                <xctk:SplitButton.DropDownContent>
+                    <StackPanel Orientation="Vertical">
+                        <Button Command="{Binding PasteCommand}" ToolTip="Paste" Content="Some command" />
+                        <Button Command="{Binding PasteCommand}" ToolTip="Paste" Content="Some command" />
+                        <Button Command="{Binding PasteCommand}" ToolTip="Paste" Content="Some command" />
+                    </StackPanel>
+                </xctk:SplitButton.DropDownContent>
+            </xctk:SplitButton>
+
+            <xctk:SplitButton Command="{Binding RedoCommand}" Background="Transparent">
+                <xctk:SplitButton.Content>
+                    <Image Source="/Images/redo.png"/>
+                </xctk:SplitButton.Content>
+                <xctk:SplitButton.DropDownContent>
+                    <StackPanel Orientation="Vertical">
+                        <Button Command="{Binding PasteCommand}" ToolTip="Paste" Content="Some command" />
+                        <Button Command="{Binding PasteCommand}" ToolTip="Paste" Content="Some command" />
+                        <Button Command="{Binding PasteCommand}" ToolTip="Paste" Content="Some command" />
+                    </StackPanel>
+                </xctk:SplitButton.DropDownContent>
+            </xctk:SplitButton>
+            <!--
             <Button Name="undo" Command="{Binding UndoCommand}" ToolTip="Undo">
                 <Image Source="/Images/undo.png"/>
             </Button>
             <Button Name="redo" Command="{Binding RedoCommand}" ToolTip="Redo">
                 <Image Source="/Images/redo.png"/>
-            </Button>
+            </Button> -->
             <Button Command="{Binding CopyCommand}" ToolTip="Copy">
                 <Image Source="/Images/copy.png"/>
             </Button>
             <Button Command="{Binding PasteCommand}" ToolTip="Paste">
                 <Image Source="/Images/paste.png"/>
             </Button>
+
             
+
         </ToolBar>
 
-        <Popup IsOpen="True" PlacementTarget="{Binding ElementName=undo}">
-            <StackPanel Orientation="Vertical">
-                <Button Content="SomeCommand" Command="{Binding CopyCommand}" ToolTip="Copy">
-                </Button>
-                <Button Content="SomeCommand" Command="{Binding CopyCommand}" ToolTip="Copy">
-                </Button>
-                <Button Content="SomeCommand" Command="{Binding CopyCommand}" ToolTip="Copy">
-                </Button>
-            </StackPanel>
-        </Popup>
-        <Popup IsOpen="True" PlacementTarget="{Binding ElementName=redo}">
-            <StackPanel Orientation="Vertical">
-                <Button Content="SomeCommand" Command="{Binding CopyCommand}" ToolTip="Copy">
-                </Button>
-                <Button Content="SomeCommand" Command="{Binding CopyCommand}" ToolTip="Copy">
-                </Button>
-                <Button Content="SomeCommand" Command="{Binding CopyCommand}" ToolTip="Copy">
-                </Button>
-            </StackPanel>
-        </Popup>
     </StackPanel>
 </UserControl>
