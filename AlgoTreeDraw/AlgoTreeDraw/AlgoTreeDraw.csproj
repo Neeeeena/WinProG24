@@ -166,6 +166,7 @@
     <Compile Include="ViewModel\SidePanelViewModel.cs" />
     <Compile Include="ViewModel\T234ViewModel.cs" />
     <Compile Include="ViewModel\ThreeViewModel.cs" />
+    <Compile Include="ViewModel\Tree.cs" />
     <Compile Include="ViewModel\ViewModelLocator.cs" />
     <Compile Include="View\BstViewUserControl.xaml.cs">
       <DependentUpon>BstViewUserControl.xaml</DependentUpon>

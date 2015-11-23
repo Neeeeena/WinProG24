@@ -116,11 +116,16 @@ namespace AlgoTreeDraw.ViewModel
             set { Node.Y = value; RaisePropertyChanged(); RaisePropertyChanged(() => CanvasCenterY); if (value > HEIGHT) HEIGHT = (int)value; RaisePropertyChanged(() => HEIGHT); }
         }
 
-
+        public int ID
+        {
+            get { return Node.ID; }
+            set { Node.ID = value; RaisePropertyChanged(); }
+        }
 
         public double CanvasCenterX { get { return X + Diameter / 2; } set { X = value - Diameter / 2; RaisePropertyChanged(() => X); } }
         public double CanvasCenterY { get { return Y + Diameter / 2; } set { Y = value - Diameter / 2; RaisePropertyChanged(() => Y); } }
 
+        // Unused
         private bool isSelected;
         public bool IsSelected { get { return isSelected; } set { isSelected = value; RaisePropertyChanged(); } }
 
@@ -142,6 +147,8 @@ namespace AlgoTreeDraw.ViewModel
             get { return Node.Key; }
             set { Node.Key = value; RaisePropertyChanged(); }
         }
+
+        public bool hasBeenFound { get; set; }
 
         public void setNodeColor(Brush _color)
         {
@@ -183,7 +190,7 @@ namespace AlgoTreeDraw.ViewModel
 
         
 
-        private List<NodeViewModel> neighbours = new List<NodeViewModel>();
+        public List<NodeViewModel> neighbours = new List<NodeViewModel>();
 
         private LinkedList<NodeViewModel> queue = new LinkedList<NodeViewModel>();
         private bool isLeftChild = false;
@@ -293,17 +300,7 @@ namespace AlgoTreeDraw.ViewModel
         ////}
 
 
-        public void autoBalance()
-        {
-            // if markedNodesConnected
-            // and isValidBst
-            // new list - sort all nodes in bst -> List<NodeViewModel> SortedList = nodesList.OrderBy(n=>n.Key).ToList();
-            // eller objListOrder.Sort((x, y) => x.OrderDate.CompareTo(y.OrderDate));
-            // fjern alle linjer
-            // Midterste element er rod - midterst til højre er højre barn ligeså med venstre osv osv. 
-            // Brug insert i denne rækkefølge - sørg for at der også bliver tegnet linjer imellem dem
-        }
-
+        
         /*public bool isMarkedNodesConnected()
         {
 

@@ -138,9 +138,16 @@ namespace AlgoTreeDraw.ViewModel
             selectedNodes.Clear();
         }
 
+        // WHYYYY det skulle jo være alle selected nodes
         public void makePretty()
         {
             Nodes.ElementAt(0).makePretty();
+        }
+
+        public void autoBalance()
+        {
+            Tree selTree = new Tree(selectedNodes);
+            selTree.tAutoBalance();
         }
 
         public void _DoneEditing()

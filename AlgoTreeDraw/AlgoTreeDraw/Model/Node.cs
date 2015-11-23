@@ -39,7 +39,7 @@ namespace AlgoTreeDraw.Model
 
         public double diameter {get; set; } // Tilføj Notify hvis Diameter skal ændres
 
-        private string key = "1";
+        private string key = "0";
         public string Key { get { return key; } set { key = value; } }
 
         public abstract Node NewNode();
@@ -51,6 +51,8 @@ namespace AlgoTreeDraw.Model
 
         const int LEFT = 0;
         const int RIGHT = 1;
+
+        public int ID = 0;
 
         public List<Node> neighbours = new List<Node>();
 
