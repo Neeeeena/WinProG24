@@ -16,7 +16,7 @@
         <KeyBinding Command="{Binding DeleteKeyPressed}" Key="Delete"/>
     </Window.InputBindings>
     
-    <ScrollViewer HorizontalScrollBarVisibility="Visible" VerticalScrollBarVisibility="Visible" Margin="5" >
+    
         <DockPanel Background="Beige">
             <View:MenuBar DockPanel.Dock="Top"/>
             <!-- Draw Menu bar -->
@@ -30,6 +30,7 @@
             <!-- Draw lines -->
 
         <!-- <ScrollViewer HorizontalContentAlignment="Stretch" VerticalContentAlignment="Stretch" HorizontalScrollBarVisibility="Auto"  VerticalScrollBarVisibility="Auto" Margin="5" > -->
+        <ScrollViewer HorizontalScrollBarVisibility="Visible" VerticalScrollBarVisibility="Visible" Margin="5" >
             <Border BorderBrush="Black" BorderThickness="0,0,1,1" Height="{Binding CanvasHeight}" Width="{Binding CanvasWidth}" HorizontalAlignment="Left" VerticalAlignment="Top">
                 <Border.LayoutTransform>
                     <ScaleTransform CenterX="0" CenterY="0" ScaleX="{Binding ElementName=zoomSlider, Path=Value}" ScaleY="{Binding ElementName=zoomSlider, Path=Value}"/>
@@ -58,9 +59,10 @@
                     </Canvas>
                 </Grid>
             </Border>
-            <!--<View:BstViewUserControl  />  Draw Bst nodes -->
+        </ScrollViewer>
+        <!--<View:BstViewUserControl  />  Draw Bst nodes -->
         </DockPanel>
-    </ScrollViewer>
+    
 
 </Window>
     
