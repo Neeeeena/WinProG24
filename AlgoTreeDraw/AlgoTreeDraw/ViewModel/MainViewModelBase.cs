@@ -113,7 +113,6 @@ namespace AlgoTreeDraw.ViewModel
                 return ret;
             }
         }
-
         public void copyClicked()
         {
             copiedNodes.Clear();
@@ -176,7 +175,7 @@ namespace AlgoTreeDraw.ViewModel
             isAddingLine = false;
             LineViewModel tempLine = new LineViewModel(new Line()) { From = fromNode, To = to };
             undoRedo.InsertInUndoRedo(new AddLineCommand(Lines,tempLine));
-            fromNode.addNeighbour(to.Node);
+            fromNode.addNeighbour(to);
             fromNode = null;
         }
 
@@ -209,23 +208,21 @@ namespace AlgoTreeDraw.ViewModel
 
             if (isChangingColor)
             {
-                undoRedo.InsertInUndoRedo(new ChangeColorCommand(node, new SolidColorBrush(ChosenColor), node.Color));
+                undoRedo.InsertInUndoRedo(new ChangeColorCommand(node, new SolidColorBrush(ChosenColor),node.Color));
                 isChangingColor = false;
             }
 
-            else if (isChangingColorText)
+            if(isChangingColorText)
             {
                 undoRedo.InsertInUndoRedo(new ChangeColorTextCommand(node, new SolidColorBrush(ChosenColor), node.PreColorOfText));
             }
 
-            else if (isAddingLine)
+            if (isAddingLine)
             {
                 if (fromNode == null) { fromNode = node; fromNode.Color = Brushes.Blue; }
                 else if (!Object.ReferenceEquals(fromNode, node)) { AddLine(node); }
-
+                
             }
-            else
-            {
 
 
 
@@ -235,7 +232,6 @@ namespace AlgoTreeDraw.ViewModel
                 undoRedo.InsertInUndoRedo(new MoveNodeCommand(selectedNodes, mousePosition.X - initialMousePosition.X, mousePosition.Y - initialMousePosition.Y));
 
                 e.MouseDevice.Target.ReleaseMouseCapture();
-            }
             
         }
 
@@ -248,7 +244,6 @@ namespace AlgoTreeDraw.ViewModel
             var mousePosition = RelativeMousePosition(e);
 
             initialMousePosition = mousePosition;
-            //initialNodePosition = new Point(node.X, node.Y);
 
             if(!selectedNodes.Contains(node))
             {
