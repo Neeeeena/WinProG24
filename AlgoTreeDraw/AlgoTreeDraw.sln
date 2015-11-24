@@ -5,8 +5,6 @@ VisualStudioVersion = 14.0.23107.0
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AlgoTreeDraw", "AlgoTreeDraw\AlgoTreeDraw.csproj", "{DAC8CAD0-8DBC-4D55-A0E9-ABA02FFA9AFA}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SplitButton", "..\..\..\..\Documents\Visual Studio 2015\Projects\SplitButton\SplitButton\SplitButton.csproj", "{A75FA431-B3D7-4AC6-8033-CDE76FA98C97}"
-EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -17,10 +15,6 @@ Global
 		{DAC8CAD0-8DBC-4D55-A0E9-ABA02FFA9AFA}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{DAC8CAD0-8DBC-4D55-A0E9-ABA02FFA9AFA}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{DAC8CAD0-8DBC-4D55-A0E9-ABA02FFA9AFA}.Release|Any CPU.Build.0 = Release|Any CPU
-		{A75FA431-B3D7-4AC6-8033-CDE76FA98C97}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{A75FA431-B3D7-4AC6-8033-CDE76FA98C97}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{A75FA431-B3D7-4AC6-8033-CDE76FA98C97}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{A75FA431-B3D7-4AC6-8033-CDE76FA98C97}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
