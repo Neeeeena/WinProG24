@@ -36,7 +36,7 @@ namespace AlgoTreeDraw.ViewModel
         private int canvasHeight = 500;
         public int CanvasWidth { get { return canvasWidth; } set { canvasWidth = value; RaisePropertyChanged(); } }
         public int CanvasHeight { get { return canvasHeight; } set { canvasHeight = value; RaisePropertyChanged(); } }
-        public bool isPullingCanvas { get; set; }
+        private PullCanvas pullCanvas { get; set; }
 
         private Point SelectionBoxStart;
 
@@ -69,10 +69,19 @@ namespace AlgoTreeDraw.ViewModel
         private void MouseDownCanvas(MouseButtonEventArgs e)
         {
             Point CurrentMousePosition = Mouse.GetPosition(e.MouseDevice.Target);
-            if (CurrentMousePosition.X <= CanvasWidth + 10 && CurrentMousePosition.X >= CanvasWidth - 10 || CurrentMousePosition.Y <= CanvasHeight + 10 && CurrentMousePosition.Y >= CanvasHeight - 10)
+            if (CurrentMousePosition.X <= CanvasWidth + 10 && CurrentMousePosition.X >= CanvasWidth - 10 && CurrentMousePosition.Y <= CanvasHeight + 10 && CurrentMousePosition.Y >= CanvasHeight - 10)
             {
-                isPullingCanvas = true;
-            } else
+                pullCanvas = new PullCanvas(true,true,true);
+            }
+            else if(CurrentMousePosition.X <= CanvasWidth + 10 && CurrentMousePosition.X >= CanvasWidth - 10)
+            {
+                pullCanvas = new PullCanvas(true, true, false);
+            }
+            else if(CurrentMousePosition.Y <= CanvasHeight + 10 && CurrentMousePosition.Y >= CanvasHeight - 10)
+            {
+                pullCanvas = new PullCanvas(true, false, true);
+            }
+            else
             {
                 if (!nodeClicked && !isAddingLine)
                 {
@@ -102,11 +111,12 @@ namespace AlgoTreeDraw.ViewModel
 
             if(Mouse.Captured != null)
             {
-                if(isPullingCanvas)
+                if(pullCanvas.isPullingCanvas)
                 {
                     Point CurrentMousePosition = Mouse.GetPosition(e.MouseDevice.Target);
-                    CanvasWidth = (int)CurrentMousePosition.X;
-                    CanvasHeight = (int)CurrentMousePosition.Y;
+                    if(pullCanvas.isPullingWidth) CanvasWidth = (int)CurrentMousePosition.X;
+                    if (pullCanvas.isPullingHeight) CanvasHeight = (int)CurrentMousePosition.Y;
+
                 }
             }
         }
@@ -137,22 +147,33 @@ namespace AlgoTreeDraw.ViewModel
                 
             }
 
-            if(isPullingCanvas)
+            if(pullCanvas.isPullingCanvas)
             {
-                Func<NodeViewModel,bool> isInsideCanvasWidth = n => n.X < canvasWidth && n.X > 0;
-                Func<NodeViewModel, bool> isInsideCanvasHeight = n => n.Y < canvasHeight && n.Y > 0;
+                Func<NodeViewModel,bool> isInsideCanvasWidth = n => n.X + n.Diameter < canvasWidth && n.X > 0;
+                Func<NodeViewModel, bool> isInsideCanvasHeight = n => n.Y + n.Diameter < canvasHeight && n.Y > 0;
                 foreach (var n in Nodes)
                 {
                     if (!isInsideCanvasWidth(n)) CanvasWidth = (int)n.X + (int)n.Diameter;
                     if (!isInsideCanvasHeight(n)) CanvasHeight = (int)n.Y + (int)n.Diameter;
                 }
                 if (CanvasHeight < 0) CanvasHeight = 100;
-                if (CanvasWidth < 0) CanvasWidth = 100; 
-                isPullingCanvas = false;
+                if (CanvasWidth < 0) CanvasWidth = 100;
+                pullCanvas = new PullCanvas(false,false,false);
             }
             e.MouseDevice.Target.ReleaseMouseCapture();
         }
 
+        class PullCanvas {
+            public bool isPullingCanvas { get; }
+            public bool isPullingWidth { get; }
+            public bool isPullingHeight { get; }
+            public PullCanvas(bool isPullingCanvas, bool isPullingWidth, bool isPullingHeight)
+            {
+                this.isPullingCanvas = isPullingCanvas;
+                this.isPullingWidth = isPullingWidth;
+                this.isPullingHeight = isPullingHeight;
+            }
+        }
         
     }
 }
