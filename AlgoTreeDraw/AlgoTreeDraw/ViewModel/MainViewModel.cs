@@ -1,4 +1,5 @@
 using AlgoTreeDraw.Model;
+using AlgoTreeDraw.ViewModel;
 using GalaSoft.MvvmLight;
 using GalaSoft.MvvmLight.CommandWpf;
 using System;

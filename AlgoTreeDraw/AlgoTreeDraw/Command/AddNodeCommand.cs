@@ -18,7 +18,6 @@ namespace AlgoTreeDraw.Command
             nodes = _nodes;
             node = _node;
         }
-
         public override String ToString()
         {
             return "Add node";

@@ -94,8 +94,6 @@ namespace AlgoTreeDraw.ViewModel
 
         }
 
-
-
         public void copyClicked()
         {
             copiedNodes.Clear();
@@ -260,7 +258,7 @@ namespace AlgoTreeDraw.ViewModel
 
         private void MouseMoveNode(MouseEventArgs e)
         {
-            if (Mouse.Captured != null && !isAddingLine && !isChangingColor)
+            if (Mouse.Captured != null && !isAddingLine && !isChangingColor && !isChangingColorText)
             {
 
                 var mousePosition = RelativeMousePosition(e);
