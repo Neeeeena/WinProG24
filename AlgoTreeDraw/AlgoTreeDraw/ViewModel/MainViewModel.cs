@@ -134,9 +134,23 @@ namespace AlgoTreeDraw.ViewModel
                 RaisePropertyChanged(() => SelectionBoxY);
                 RaisePropertyChanged(() => SelectionBoxWidth);
                 RaisePropertyChanged(() => SelectionBoxHeight);
-                e.MouseDevice.Target.ReleaseMouseCapture();
+                
             }
-            isPullingCanvas = false;
+
+            if(isPullingCanvas)
+            {
+                Func<NodeViewModel,bool> isInsideCanvasWidth = n => n.X < canvasWidth && n.X > 0;
+                Func<NodeViewModel, bool> isInsideCanvasHeight = n => n.Y < canvasHeight && n.Y > 0;
+                foreach (var n in Nodes)
+                {
+                    if (!isInsideCanvasWidth(n)) CanvasWidth = (int)n.X + (int)n.Diameter;
+                    if (!isInsideCanvasHeight(n)) CanvasHeight = (int)n.Y + (int)n.Diameter;
+                }
+                if (CanvasHeight < 0) CanvasHeight = 100;
+                if (CanvasWidth < 0) CanvasWidth = 100; 
+                isPullingCanvas = false;
+            }
+            e.MouseDevice.Target.ReleaseMouseCapture();
         }
 
         

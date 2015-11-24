@@ -28,9 +28,8 @@
             <MenuItem Command="{Binding DeleteCommand}" Header="Delete" />
         </ContextMenu>
     </UserControl.ContextMenu>
-
-
     <Grid>
+
         <Ellipse Fill="{Binding Color}" Stroke="{Binding BorderColor}" StrokeThickness="{Binding BorderThickness}" />
         
         <!--<TextBox Name="BSTValue" Visibility="Visible" Text="{Binding VisualText}" VerticalAlignment="Center"></TextBox>-->

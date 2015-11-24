@@ -214,12 +214,13 @@ namespace AlgoTreeDraw.ViewModel
 
 
 
-                var mousePosition = RelativeMousePosition(e);
+           var mousePosition = RelativeMousePosition(e);
 
-
+            if(!(initialMousePosition.X == mousePosition.X && initialMousePosition.Y == mousePosition.Y)) //Only when it actually moves
+            {
                 undoRedo.InsertInUndoRedo(new MoveNodeCommand(selectedNodes, mousePosition.X - initialMousePosition.X, mousePosition.Y - initialMousePosition.Y));
-
-                e.MouseDevice.Target.ReleaseMouseCapture();
+            }
+            e.MouseDevice.Target.ReleaseMouseCapture();
             
         }
 
@@ -251,7 +252,7 @@ namespace AlgoTreeDraw.ViewModel
                 node.IsEditing = Visibility.Visible;
                 node.IsNotEditing = Visibility.Hidden;
                 editNode = node;
-                
+
             }
 
         }

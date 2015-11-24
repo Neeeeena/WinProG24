@@ -10,7 +10,8 @@
         xmlns:cmd="clr-namespace:GalaSoft.MvvmLight.Command;assembly=GalaSoft.MvvmLight.Platform"
         mc:Ignorable="d"
         Title="MainWindow" Height="600" Width="900"
-        DataContext="{Binding Source={StaticResource Locator}, Path=Main}">
+        DataContext="{Binding Source={StaticResource Locator}, Path=Main}"
+        >
     <Window.InputBindings>
         <KeyBinding Command="{Binding DoneEditing}" Gesture="ENTER"/>
         <KeyBinding Command="{Binding DeleteKeyPressed}" Key="Delete"/>
@@ -18,6 +19,7 @@
     
     
         <DockPanel Background="Beige">
+            
             <View:MenuBar DockPanel.Dock="Top"/>
             <!-- Draw Menu bar -->
             <Border BorderBrush="AliceBlue" BorderThickness="3">
@@ -25,7 +27,7 @@
                 <!-- Draw sidepanel -->
             </Border>
             <StackPanel DockPanel.Dock="Bottom">
-                <Slider x:Name="zoomSlider" ToolTip="Zoom" Value="1" Minimum="0.1" Maximum="10"/>
+                <Slider x:Name="zoomSlider" ToolTip="Zoom" Value="1" Minimum="0.1" Maximum="100"/>
             </StackPanel>
             <!-- Draw lines -->
 
@@ -33,10 +35,9 @@
         <ScrollViewer HorizontalScrollBarVisibility="Visible" VerticalScrollBarVisibility="Visible" Margin="0">
             <Border BorderBrush="Black" BorderThickness="0,0,1,1" Height="{Binding CanvasHeight}" Width="{Binding CanvasWidth}" HorizontalAlignment="Left" VerticalAlignment="Top">
                 <Border.LayoutTransform>
-                    <ScaleTransform CenterX="0" CenterY="0" ScaleX="{Binding ElementName=zoomSlider, Path=Value}" ScaleY="{Binding ElementName=zoomSlider, Path=Value}"/>
+                    <ScaleTransform CenterX="1000" CenterY="1000" ScaleX="{Binding ElementName=zoomSlider, Path=Value}" ScaleY="{Binding ElementName=zoomSlider, Path=Value}"/>
                 </Border.LayoutTransform>
                 <Grid Background="White" >
-                    <!-- -->
                     <!-- Skal være Transparent! -->
                     <i:Interaction.Triggers>
                         <i:EventTrigger EventName="MouseLeftButtonDown">
