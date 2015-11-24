@@ -8,6 +8,8 @@ using GalaSoft.MvvmLight.Command;
 using System.Windows.Input;
 using AlgoTreeDraw.Model;
 using AlgoTreeDraw.Serialization;
+using System.Collections.ObjectModel;
+using System.Diagnostics;
 
 namespace AlgoTreeDraw.ViewModel
 {
@@ -18,15 +20,89 @@ namespace AlgoTreeDraw.ViewModel
         public ICommand OpenDiagramCommand { get; }
         public ICommand SaveDiagramCommand { get; }
         public DialogBox dialogVM { get; set; }
+        public ICommand UndoCommand { get; }
+        public ICommand RedoCommand { get; }
         public MenuViewModel()
         {
             NewDiagramCommand = new RelayCommand(NewDiagram);
             OpenDiagramCommand = new RelayCommand(OpenDiagram);
             SaveDiagramCommand = new RelayCommand(SaveDiagram);
-
             dialogVM = new DialogBox();
+            UndoCommand = new RelayCommand<int>(undoClicked);
+            RedoCommand = new RelayCommand<int>(redoClicked);
+        }
+
+        private Boolean _isUndoOpen;
+        public Boolean isUndoOpen { get { return _isUndoOpen; }
+            set { _isUndoOpen = value; RaisePropertyChanged(); RaisePropertyChanged(() => UndoCommands); Debug.Write(_isUndoOpen); } }
+
+        private Boolean _isRedoOpen;
+        public Boolean isRedoOpen { get { return _isRedoOpen; } set { _isRedoOpen = value; RaisePropertyChanged(() => RedoCommands); RaisePropertyChanged(); } }
+
+        public void undoClicked(int level)
+        {
+            undoRedo.Undo(level);
+            isUndoOpen = false;
+            RaisePropertyChanged(() => RedoCommands);
+            RaisePropertyChanged(() => UndoCommands);
+            RaisePropertyChanged(() => isUndoOpen);
+        }
+
+        public void redoClicked(int level)
+        {
+            undoRedo.Redo(level);
+            isRedoOpen = false;
+            RaisePropertyChanged(() => RedoCommands);
+            RaisePropertyChanged(() => UndoCommands);
+            RaisePropertyChanged(() => isRedoOpen);
+        }
+
+        public ObservableCollection<UndoRedoItem> _RedoCommands { get; set; } = new ObservableCollection<UndoRedoItem>();
+        public ObservableCollection<UndoRedoItem> _UndoCommands { get; set; } = new ObservableCollection<UndoRedoItem>();
+
+        public ObservableCollection<UndoRedoItem> RedoCommands
+        {
+
+            get
+            {
+                _RedoCommands.Clear();
+                if (undoRedo.redoList.Length != 0)
+                {
+                    int level = 0;
+                    foreach (var c in undoRedo.redoList)
+                    {
+                        _RedoCommands.Add(new UndoRedoItem(c.ToString(), level, c));
+                        level++;
+                    }
+                }
+
+                return _RedoCommands;
+            }
 
         }
+
+        public ObservableCollection<UndoRedoItem> UndoCommands
+        {
+
+            get
+            {
+                _UndoCommands.Clear();
+                if (undoRedo.undoList.Length != 0)
+                {
+                    int level = 0;
+                    foreach (var c in undoRedo.undoList)
+                    {
+                        _UndoCommands.Add(new UndoRedoItem(c.ToString(), level, c));
+                        level++;
+                    }
+                }
+                return _UndoCommands;
+            }
+
+
+            /* get { return _RedoCommands; } set { _RedoCommands = value; Debug.Write("Heeeeey"); } */
+        }
+
         //Kun for test
         public int undoRedoParam = 1;
         private void NewDiagram()

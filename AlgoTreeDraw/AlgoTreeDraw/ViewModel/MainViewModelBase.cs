@@ -42,8 +42,6 @@ namespace AlgoTreeDraw.ViewModel
         public ICommand MouseMoveNodeCommand { get; }
         public ICommand MouseLeftButtonUp { get; }
         public ICommand Mdc { get; }
-        public ICommand UndoCommand { get; }
-        public ICommand RedoCommand { get; }
         public ICommand DoneEditing { get; }
         public ICommand DeleteKeyPressed { get; }
         public ICommand CopyCommand { get; }
@@ -88,8 +86,6 @@ namespace AlgoTreeDraw.ViewModel
             MouseLeftButtonUp = new RelayCommand<MouseButtonEventArgs>(MouseUpNode);
             //MouseDoubleClick = new RelayCommand<MouseButtonEventArgs>(e => Debug.WriteLine(e));
             Mdc = new RelayCommand<MouseButtonEventArgs>(e => Debug.WriteLine(e));
-            UndoCommand = new RelayCommand<int>(undoRedo.Undo, undoRedo.CanUndo);
-            RedoCommand = new RelayCommand<int>(undoRedo.Redo, undoRedo.CanRedo);
             DoneEditing = new RelayCommand(_DoneEditing);
             CopyCommand = new RelayCommand(copyClicked);
             PasteCommand = new RelayCommand(pasteClicked);
@@ -97,6 +93,8 @@ namespace AlgoTreeDraw.ViewModel
             DeleteKeyPressed = new RelayCommand<KeyEventArgs>(RemoveNodeKeybordDelete);
 
         }
+
+
 
         public void copyClicked()
         {

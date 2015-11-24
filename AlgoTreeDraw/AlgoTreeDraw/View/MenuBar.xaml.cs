@@ -12,6 +12,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using Xceed.Wpf.Toolkit;
 
 namespace AlgoTreeDraw.View
 {
@@ -23,6 +24,16 @@ namespace AlgoTreeDraw.View
         public MenuBar()
         {
             InitializeComponent();
+        }
+
+        private void Button_Click(object sender, RoutedEventArgs e)
+        {
+            UndoBtn.IsOpen = false;
+        }
+
+        private void Button_Click2(object sender, RoutedEventArgs e)
+        {
+            UndoBtn2.IsOpen = false;
         }
     }
 }
