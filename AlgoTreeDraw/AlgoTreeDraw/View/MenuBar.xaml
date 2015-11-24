@@ -45,58 +45,6 @@
             <Button Command="{Binding SaveDiagramCommand}" ToolTip="Save">
                 <Image Source="/Images/save.png"/>
             </Button>
-            <!-- <m:SplitButton
-                        Style="{DynamicResource {x:Static m:SplitButtonResources.VistaSplitButtonStyleKey}}"
-						Grid.Row="0" Grid.Column="2" 
-						VerticalAlignment="Center" 
-						HorizontalAlignment="Center" 
-						Mode="Split"
-                        Command="{Binding UndoCommand}"
-						Placement="Bottom"
-                        ToolTip="Undo"
-						>
-                <m:SplitButton.Content>
-                    <StackPanel Orientation="Horizontal">
-                        <Image Source="/Images/undo.png"/>
-                    </StackPanel>
-                </m:SplitButton.Content> 
-
-                <MenuItem Header="{Binding Path=undoRedo.undoOne}" Command="{Binding UndoCommand}" CommandParameter="one"/>
-                <MenuItem Header="{Binding Path=undoRedo.undoTwo}" Command="{Binding UndoCommand}" CommandParameter="two"/>
-                <MenuItem Header="{Binding Path=undoRedo.undoThree}" Command="{Binding UndoCommand}" CommandParameter="three"/>
-                <MenuItem Header="{Binding Path=undoRedo.undoFour}" Command="{Binding UndoCommand}" CommandParameter="four"/>
-                <MenuItem Header="{Binding Path=undoRedo.undoFive}" Command="{Binding UndoCommand}" CommandParameter="five"/>
-            </m:SplitButton>
-            <m:SplitButton
-                        x:Name="RedoButton"
-                		Style="{DynamicResource {x:Static m:SplitButtonResources.VistaSplitButtonStyleKey}}"
-						Grid.Row="0" Grid.Column="2" 
-						VerticalAlignment="Center" 
-						HorizontalAlignment="Center" 
-						Mode="Split"
-                        Command="{Binding RedoCommand}"
-						Placement="Bottom"
-                        ToolTip="Redo"
-						>
-
-                <m:SplitButton.Content>
-                    <StackPanel Orientation="Horizontal">
-                        <Image Source="/Images/redo.png"/>
-                    </StackPanel>
-                </m:SplitButton.Content>
-                <m:SplitButton.ContextMenu>
-                    <ContextMenu ItemsSource="{Binding RedoCommands}" ItemContainerStyle="{StaticResource ContextMenuItemStyle}">
-                    </ContextMenu>
-
-                </m:SplitButton.ContextMenu>
-                
-                <MenuItem Header="{Binding Path=undoRedo.redoOne}" Command="{Binding RedoCommand}" CommandParameter="one"/>
-                <MenuItem Header="{Binding Path=undoRedo.redoTwo}" Command="{Binding RedoCommand}" CommandParameter="two"/>
-                <MenuItem Header="{Binding Path=undoRedo.redoThree}" Command="{Binding RedoCommand}" CommandParameter="three"/>
-                <MenuItem Header="{Binding Path=undoRedo.redoFour}" Command="{Binding RedoCommand}" CommandParameter="four"/>
-                <MenuItem Header="{Binding Path=undoRedo.redoFive}" Command="{Binding RedoCommand}" CommandParameter="five"/>
-
-            </m:SplitButton> -->
 
             <xctk:SplitButton BorderThickness="0,0,0,0" IsOpen="{Binding isUndoOpen, Mode=TwoWay}" Command="{Binding UndoCommand}" Background="Transparent" Name="UndoBtn">
                 <xctk:SplitButton.Content >
@@ -107,7 +55,7 @@
                     <ListBox ItemsSource="{Binding UndoCommands}" >
                         <ListBox.ItemTemplate>
                             <DataTemplate>
-                                <Button Command="{Binding undo}" Content="{Binding Text}" Click="Button_Click">
+                                <Button Command="{Binding undo}" Content="{Binding Text}" Click="Button_Click" Style="{StaticResource DropDownEle}">
                                 </Button>
                             </DataTemplate>
                         </ListBox.ItemTemplate>
@@ -115,7 +63,7 @@
                 </xctk:SplitButton.DropDownContent>
             </xctk:SplitButton>
 
-            <xctk:SplitButton IsOpen="{Binding isRedoOpen, Mode=TwoWay}" Command="{Binding RedoCommand}" Background="Transparent" Name="UndoBtn2" >
+            <xctk:SplitButton IsOpen="{Binding isRedoOpen, Mode=TwoWay}" Command="{Binding RedoCommand}" Background="Transparent" Name="UndoBtn2">
                 <xctk:SplitButton.Content>
                     <Image Source="/Images/redo.png"/>
                 </xctk:SplitButton.Content>
@@ -124,7 +72,7 @@
                     <ListBox ItemsSource="{Binding RedoCommands}" >
                         <ListBox.ItemTemplate>
                             <DataTemplate>
-                                <Button Command="{Binding redo}" Content="{Binding Text}" Click="Button_Click2" />
+                                <Button Command="{Binding redo}" Content="{Binding Text}" Click="Button_Click2" Style="{StaticResource DropDownEle}"/>
                             </DataTemplate>
                         </ListBox.ItemTemplate>
                     </ListBox>
@@ -137,28 +85,7 @@
                 <Image Source="/Images/paste.png"/>
             </Button>
         </ToolBar>
-        <!--
-        <Popup IsOpen="True" PlacementTarget="{Binding ElementName=undo}">
-            <StackPanel Orientation="Vertical">
-                <Button Content="SomeCommand" Command="{Binding CopyCommand}" ToolTip="Copy">
-                </Button>
-                <Button Content="SomeCommand" Command="{Binding CopyCommand}" ToolTip="Copy">
-                </Button>
-                <Button Content="SomeCommand" Command="{Binding CopyCommand}" ToolTip="Copy">
-                </Button>
-            </StackPanel>
-        </Popup>
-        <Popup IsOpen="True" PlacementTarget="{Binding ElementName=redo}">
-            <StackPanel Orientation="Vertical">
-                <Button Content="SomeCommand" Command="{Binding CopyCommand}" ToolTip="Copy">
-                </Button>
-                <Button Content="SomeCommand" Command="{Binding CopyCommand}" ToolTip="Copy">
-                </Button>
-                <Button Content="SomeCommand" Command="{Binding CopyCommand}" ToolTip="Copy">
-                </Button>
-            </StackPanel>
-        </Popup>
-        -->
+
     </StackPanel>
 
 </UserControl>
