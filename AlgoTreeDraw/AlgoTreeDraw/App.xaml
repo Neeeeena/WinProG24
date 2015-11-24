@@ -31,6 +31,11 @@
                 <View:LineViewUserControl/>
             </Canvas>
         </DataTemplate>
+        <DataTemplate DataType="{x:Type ViewModel:UndoRedoItem}">
+            <Canvas>
+                <View:RedoUserControl/>
+            </Canvas>
+        </DataTemplate>
 
         <Style x:Key="MyFocusVisual">
             <Setter Property="Control.Template">

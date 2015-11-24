@@ -16,24 +16,13 @@ using System.Windows.Shapes;
 namespace AlgoTreeDraw.View
 {
     /// <summary>
-    /// Interaction logic for MenuBar.xaml
+    /// Interaction logic for RedoUserControl.xaml
     /// </summary>
-    public partial class MenuBar : UserControl
+    public partial class RedoUserControl : UserControl
     {
-        public MenuBar()
+        public RedoUserControl()
         {
             InitializeComponent();
-
-        }
-
-        private void SplitButton_Opened(object sender, RoutedEventArgs e)
-        {
-
-        }
-
-        private void SplitButton_Click(object sender, RoutedEventArgs e)
-        {
-
         }
     }
 }

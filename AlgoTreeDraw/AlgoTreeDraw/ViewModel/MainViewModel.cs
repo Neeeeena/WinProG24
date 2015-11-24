@@ -63,7 +63,7 @@ namespace AlgoTreeDraw.ViewModel
         {
             if(!nodeClicked && !isAddingLine)
             {
-                Console.WriteLine("MDCanvas called");
+                
                 clearSelectedNodes();
                 SelectionBoxStart = Mouse.GetPosition(e.MouseDevice.Target);
                 e.MouseDevice.Target.CaptureMouse();
@@ -92,7 +92,7 @@ namespace AlgoTreeDraw.ViewModel
         {
             if (!isAddingLine && MouseDownCanvasCalled)
             {
-                Console.WriteLine("Inside");
+                
                 MouseDownCanvasCalled = false;
                 var SelectionBoxEnd = Mouse.GetPosition(e.MouseDevice.Target);
                 var smallX = Math.Min(SelectionBoxStart.X, SelectionBoxEnd.X);

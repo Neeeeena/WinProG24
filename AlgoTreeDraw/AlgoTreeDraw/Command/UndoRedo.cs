@@ -91,6 +91,7 @@ namespace AlgoTreeDraw.Command
             EnableUndo = CanUndo(1);
             RaisePropertyChanged(nameof(EnableUndo));
             RaisePropertyChanged(nameof(EnableRedo));
+
         }
 
         public bool CanRedo(int levels)

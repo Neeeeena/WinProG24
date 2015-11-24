@@ -178,6 +178,9 @@
     <Compile Include="View\LineViewUserControl.xaml.cs">
       <DependentUpon>LineViewUserControl.xaml</DependentUpon>
     </Compile>
+    <Compile Include="View\RedoUserControl.xaml.cs">
+      <DependentUpon>RedoUserControl.xaml</DependentUpon>
+    </Compile>
     <Compile Include="View\SidePanel.xaml.cs">
       <DependentUpon>SidePanel.xaml</DependentUpon>
     </Compile>
@@ -210,6 +213,10 @@
       <DependentUpon>MainWindow.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
+    <Page Include="View\RedoUserControl.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="View\SidePanel.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>

@@ -4,8 +4,8 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:AlgoTreeDraw.View"
-             xmlns:m="clr-namespace:Wpf.Controls;assembly=Wpf.SplitButton"
              xmlns:System="clr-namespace:System;assembly=mscorlib"
+             xmlns:xctk="http://schemas.xceed.com/wpf/xaml/toolkit"
              mc:Ignorable="d" 
              d:DesignHeight="300" d:DesignWidth="300"
              xmlns:ViewModel="clr-namespace:AlgoTreeDraw.ViewModel"
@@ -45,7 +45,7 @@
             <Button Command="{Binding SaveDiagramCommand}" ToolTip="Save">
                 <Image Source="/Images/save.png"/>
             </Button>
-            <m:SplitButton
+            <!-- <m:SplitButton
                         Style="{DynamicResource {x:Static m:SplitButtonResources.VistaSplitButtonStyleKey}}"
 						Grid.Row="0" Grid.Column="2" 
 						VerticalAlignment="Center" 
@@ -59,7 +59,7 @@
                     <StackPanel Orientation="Horizontal">
                         <Image Source="/Images/undo.png"/>
                     </StackPanel>
-                </m:SplitButton.Content>
+                </m:SplitButton.Content> 
 
                 <MenuItem Header="{Binding Path=undoRedo.undoOne}" Command="{Binding UndoCommand}" CommandParameter="one"/>
                 <MenuItem Header="{Binding Path=undoRedo.undoTwo}" Command="{Binding UndoCommand}" CommandParameter="two"/>
@@ -89,15 +89,47 @@
                     </ContextMenu>
 
                 </m:SplitButton.ContextMenu>
-                <!--
+                
                 <MenuItem Header="{Binding Path=undoRedo.redoOne}" Command="{Binding RedoCommand}" CommandParameter="one"/>
                 <MenuItem Header="{Binding Path=undoRedo.redoTwo}" Command="{Binding RedoCommand}" CommandParameter="two"/>
                 <MenuItem Header="{Binding Path=undoRedo.redoThree}" Command="{Binding RedoCommand}" CommandParameter="three"/>
                 <MenuItem Header="{Binding Path=undoRedo.redoFour}" Command="{Binding RedoCommand}" CommandParameter="four"/>
-                <MenuItem Header="{Binding Path=undoRedo.redoFive}" Command="{Binding RedoCommand}" CommandParameter="five"/>-->
+                <MenuItem Header="{Binding Path=undoRedo.redoFive}" Command="{Binding RedoCommand}" CommandParameter="five"/>
 
-            </m:SplitButton>
-            <Button Command="{Binding CopyCommand}" ToolTip="Copy">
+            </m:SplitButton> -->
+
+            <xctk:SplitButton IsOpen="{Binding isUndoOpen, Mode=TwoWay}" Command="{Binding UndoCommand}" Background="Transparent" >
+                <xctk:SplitButton.Content>
+                    <Image Source="/Images/undo.png"/>
+                </xctk:SplitButton.Content>
+
+                <xctk:SplitButton.DropDownContent>
+                    <ListBox ItemsSource="{Binding UndoCommands}" >
+                        <ListBox.ItemTemplate>
+                            <DataTemplate>
+                                <Button Command="{Binding undo}" Content="Command" />
+                            </DataTemplate>
+                        </ListBox.ItemTemplate>
+                    </ListBox>
+                </xctk:SplitButton.DropDownContent>
+            </xctk:SplitButton>
+
+            <xctk:SplitButton IsOpen="{Binding isRedoOpen, Mode=TwoWay}" Command="{Binding RedoCommand}" Background="Transparent" >
+                <xctk:SplitButton.Content>
+                    <Image Source="/Images/redo.png"/>
+                </xctk:SplitButton.Content>
+            
+            <xctk:SplitButton.DropDownContent>
+                    <ListBox ItemsSource="{Binding RedoCommands}" >
+                        <ListBox.ItemTemplate>
+                            <DataTemplate>
+                                <Button Command="{Binding redo}" Content="Command" />
+                            </DataTemplate>
+                        </ListBox.ItemTemplate>
+                    </ListBox>
+                </xctk:SplitButton.DropDownContent>
+            </xctk:SplitButton>
+                <Button Command="{Binding CopyCommand}" ToolTip="Copy">
                 <Image Source="/Images/copy.png"/>
             </Button>
             <Button Command="{Binding PasteCommand}" ToolTip="Paste">
