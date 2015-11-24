@@ -143,6 +143,9 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="App.xaml.cs">
+      <DependentUpon>App.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Command\AddLineCommand.cs" />
     <Compile Include="Command\AddNodeCommand.cs" />
     <Compile Include="Command\ChangeColorCommand.cs" />
@@ -171,6 +174,7 @@
     <Compile Include="ViewModel\RBTViewModel.cs" />
     <Compile Include="ViewModel\SidePanelViewModel.cs" />
     <Compile Include="ViewModel\T234ViewModel.cs" />
+    <Compile Include="ViewModel\Tree.cs" />
     <Compile Include="ViewModel\UndoRedoItem.cs" />
     <Compile Include="ViewModel\ViewModelLocator.cs" />
     <Compile Include="View\BstViewUserControl.xaml.cs">
@@ -203,10 +207,6 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
-    <Compile Include="App.xaml.cs">
-      <DependentUpon>App.xaml</DependentUpon>
-      <SubType>Code</SubType>
-    </Compile>
     <Compile Include="View\MainWindow.xaml.cs">
       <DependentUpon>MainWindow.xaml</DependentUpon>
       <SubType>Code</SubType>

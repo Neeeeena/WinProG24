@@ -1,4 +1,5 @@
 using AlgoTreeDraw.Model;
+using AlgoTreeDraw.ViewModel;
 using GalaSoft.MvvmLight;
 using GalaSoft.MvvmLight.CommandWpf;
 using System;
@@ -47,6 +48,7 @@ namespace AlgoTreeDraw.ViewModel
 
         public MainViewModel() 
         {
+            // Wat?
             Nodes = new ObservableCollection<NodeViewModel>()
             {
 
@@ -104,6 +106,7 @@ namespace AlgoTreeDraw.ViewModel
                     {
                         addToSelectedNodes(n);
                     }
+                Tree yolo = new Tree(selectedNodes);
 
                 SelectionBoxX = SelectionBoxY = SelectionBoxWidth = SelectionBoxHeight = 0;
                 RaisePropertyChanged(() => SelectionBoxX);
