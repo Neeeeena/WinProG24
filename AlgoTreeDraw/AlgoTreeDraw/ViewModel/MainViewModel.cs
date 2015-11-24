@@ -53,13 +53,7 @@ namespace AlgoTreeDraw.ViewModel
 
         public MainViewModel() 
         {
-            // Wat?
-            Nodes = new ObservableCollection<NodeViewModel>()
-            {
-
-            };
-
-            Lines = new ObservableCollection<LineViewModel>();
+            pullCanvas = new PullCanvas(false, false, false);
 
             MouseDownCanvasCommand = new RelayCommand<MouseButtonEventArgs>(MouseDownCanvas);
             MouseMoveCanvasCommand = new RelayCommand<MouseEventArgs>(MouseMoveCanvas);

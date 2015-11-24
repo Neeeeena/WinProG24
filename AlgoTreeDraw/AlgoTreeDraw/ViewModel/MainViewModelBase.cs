@@ -26,8 +26,8 @@ namespace AlgoTreeDraw.ViewModel
         {
             get; set;
         } = UndoRedo.Instance;
-        public static ObservableCollection<NodeViewModel> Nodes { get; set; } 
-        public static ObservableCollection<LineViewModel> Lines { get; set; }
+        public static ObservableCollection<NodeViewModel> Nodes { get; set; } = new ObservableCollection<NodeViewModel>();
+        public static ObservableCollection<LineViewModel> Lines { get; set; } = new ObservableCollection<LineViewModel>();
         public static NodeViewModel fromNode { get; set; }
         public static Color ChosenColor { get; set; }
 
