@@ -150,7 +150,6 @@
     <Compile Include="Command\AddNodeCommand.cs" />
     <Compile Include="Command\ChangeColorCommand.cs" />
     <Compile Include="Command\ChangeColorTextCommand.cs" />
-    <Compile Include="Command\MathiasErEnRøv.cs" />
     <Compile Include="Command\PasteCommand.cs" />
     <Compile Include="Command\DeleteNodeCommand.cs" />
     <Compile Include="Command\IUndoRedoCommand.cs" />
