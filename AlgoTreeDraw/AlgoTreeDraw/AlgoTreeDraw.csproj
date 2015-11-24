@@ -259,7 +259,9 @@
   <ItemGroup>
     <WCFMetadata Include="Service References\" />
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <Content Include="Wpf.SplitButton.dll" />
+  </ItemGroup>
   <ItemGroup>
     <Resource Include="Images\copy.png" />
     <Resource Include="Images\new.png" />
