@@ -15,6 +15,7 @@
     <WarningLevel>4</WarningLevel>
     <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
     <TargetFrameworkProfile />
+    <DontImportPostSharp>True</DontImportPostSharp>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <PlatformTarget>AnyCPU</PlatformTarget>
@@ -108,6 +109,10 @@
     <Reference Include="WindowsBase" />
     <Reference Include="PresentationCore" />
     <Reference Include="PresentationFramework" />
+    <Reference Include="Wpf.SplitButton, Version=1.1.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\..\..\Documents\Visual Studio 2015\Projects\SplitButton\SplitButton\obj\Debug\Wpf.SplitButton.dll</HintPath>
+    </Reference>
     <Reference Include="Xceed.Wpf.AvalonDock, Version=2.5.0.0, Culture=neutral, PublicKeyToken=3e4669d2f30244f4, processorArchitecture=MSIL">
       <HintPath>..\packages\Extended.Wpf.Toolkit.2.5\lib\net40\Xceed.Wpf.AvalonDock.dll</HintPath>
       <Private>True</Private>
@@ -138,6 +143,9 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="App.xaml.cs">
+      <DependentUpon>App.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Command\AddLineCommand.cs" />
     <Compile Include="Command\AddNodeCommand.cs" />
     <Compile Include="Command\ChangeColorCommand.cs" />
@@ -165,13 +173,17 @@
     <Compile Include="ViewModel\RBTViewModel.cs" />
     <Compile Include="ViewModel\SidePanelViewModel.cs" />
     <Compile Include="ViewModel\T234ViewModel.cs" />
-    <Compile Include="ViewModel\ThreeViewModel.cs" />
+    <Compile Include="ViewModel\Tree.cs" />
+    <Compile Include="ViewModel\UndoRedoItem.cs" />
     <Compile Include="ViewModel\ViewModelLocator.cs" />
     <Compile Include="View\BstViewUserControl.xaml.cs">
       <DependentUpon>BstViewUserControl.xaml</DependentUpon>
     </Compile>
     <Compile Include="View\LineViewUserControl.xaml.cs">
       <DependentUpon>LineViewUserControl.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="View\RedoUserControl.xaml.cs">
+      <DependentUpon>RedoUserControl.xaml</DependentUpon>
     </Compile>
     <Compile Include="View\SidePanel.xaml.cs">
       <DependentUpon>SidePanel.xaml</DependentUpon>
@@ -197,14 +209,14 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
-    <Compile Include="App.xaml.cs">
-      <DependentUpon>App.xaml</DependentUpon>
-      <SubType>Code</SubType>
-    </Compile>
     <Compile Include="View\MainWindow.xaml.cs">
       <DependentUpon>MainWindow.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
+    <Page Include="View\RedoUserControl.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="View\SidePanel.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
@@ -253,7 +265,9 @@
   <ItemGroup>
     <WCFMetadata Include="Service References\" />
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <Content Include="Wpf.SplitButton.dll" />
+  </ItemGroup>
   <ItemGroup>
     <Resource Include="Images\copy.png" />
     <Resource Include="Images\new.png" />
@@ -265,6 +279,11 @@
     <Resource Include="Images\undo.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <Import Project="..\packages\PostSharp.4.1.30\tools\PostSharp.targets" Condition="Exists('..\packages\PostSharp.4.1.30\tools\PostSharp.targets')" />
+  <Target Name="EnsurePostSharpImported" BeforeTargets="BeforeBuild" Condition="'$(PostSharp30Imported)' == ''">
+    <Error Condition="!Exists('..\packages\PostSharp.4.1.30\tools\PostSharp.targets')" Text="This project references NuGet package(s) that are missing on this computer. Enable NuGet Package Restore to download them.  For more information, see http://www.postsharp.net/links/nuget-restore." />
+    <Error Condition="Exists('..\packages\PostSharp.4.1.30\tools\PostSharp.targets')" Text="The build restored NuGet packages. Build the project again to include these packages in the build. For more information, see http://www.postsharp.net/links/nuget-restore." />
+  </Target>
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.
   <Target Name="BeforeBuild">

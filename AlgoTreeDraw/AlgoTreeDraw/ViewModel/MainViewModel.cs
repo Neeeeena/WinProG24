@@ -1,4 +1,5 @@
 using AlgoTreeDraw.Model;
+using AlgoTreeDraw.ViewModel;
 using GalaSoft.MvvmLight;
 using GalaSoft.MvvmLight.CommandWpf;
 using System;
@@ -31,7 +32,12 @@ namespace AlgoTreeDraw.ViewModel
         /// </summary>
         /// 
 
-        
+        private int canvasWidth = 500;
+        private int canvasHeight = 500;
+        public int CanvasWidth { get { return canvasWidth; } set { canvasWidth = value; RaisePropertyChanged(); } }
+        public int CanvasHeight { get { return canvasHeight; } set { canvasHeight = value; RaisePropertyChanged(); } }
+        public bool isPullingCanvas { get; set; }
+
         private Point SelectionBoxStart;
 
         public double SelectionBoxX { get; set; }
@@ -47,6 +53,7 @@ namespace AlgoTreeDraw.ViewModel
 
         public MainViewModel() 
         {
+            // Wat?
             Nodes = new ObservableCollection<NodeViewModel>()
             {
 
@@ -61,14 +68,20 @@ namespace AlgoTreeDraw.ViewModel
 
         private void MouseDownCanvas(MouseButtonEventArgs e)
         {
-            if(!nodeClicked && !isAddingLine)
+            Point CurrentMousePosition = Mouse.GetPosition(e.MouseDevice.Target);
+            if (CurrentMousePosition.X <= CanvasWidth + 10 && CurrentMousePosition.X >= CanvasWidth - 10 || CurrentMousePosition.Y <= CanvasHeight + 10 && CurrentMousePosition.Y >= CanvasHeight - 10)
             {
-                Console.WriteLine("MDCanvas called");
-                clearSelectedNodes();
-                SelectionBoxStart = Mouse.GetPosition(e.MouseDevice.Target);
-                e.MouseDevice.Target.CaptureMouse();
-                MouseDownCanvasCalled = true;
+                isPullingCanvas = true;
+            } else
+            {
+                if (!nodeClicked && !isAddingLine)
+                {
+                    clearSelectedNodes();
+                    SelectionBoxStart = Mouse.GetPosition(e.MouseDevice.Target);
+                    MouseDownCanvasCalled = true;
+                }
             }
+            e.MouseDevice.Target.CaptureMouse();
         }
 
         private void MouseMoveCanvas(MouseEventArgs e)
@@ -85,6 +98,16 @@ namespace AlgoTreeDraw.ViewModel
                 RaisePropertyChanged(() => SelectionBoxWidth);
                 RaisePropertyChanged(() => SelectionBoxHeight);
 
+            }
+
+            if(Mouse.Captured != null)
+            {
+                if(isPullingCanvas)
+                {
+                    Point CurrentMousePosition = Mouse.GetPosition(e.MouseDevice.Target);
+                    CanvasWidth = (int)CurrentMousePosition.X;
+                    CanvasHeight = (int)CurrentMousePosition.Y;
+                }
             }
         }
 
@@ -104,6 +127,7 @@ namespace AlgoTreeDraw.ViewModel
                     {
                         addToSelectedNodes(n);
                     }
+                Tree yolo = new Tree(selectedNodes);
 
                 SelectionBoxX = SelectionBoxY = SelectionBoxWidth = SelectionBoxHeight = 0;
                 RaisePropertyChanged(() => SelectionBoxX);
@@ -112,8 +136,9 @@ namespace AlgoTreeDraw.ViewModel
                 RaisePropertyChanged(() => SelectionBoxHeight);
                 e.MouseDevice.Target.ReleaseMouseCapture();
             }
+            isPullingCanvas = false;
         }
 
-
+        
     }
 }

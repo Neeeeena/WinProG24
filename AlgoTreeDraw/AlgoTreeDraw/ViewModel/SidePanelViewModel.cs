@@ -35,6 +35,8 @@ namespace AlgoTreeDraw.ViewModel
 
         public ICommand MakePrettyCommand { get; }
 
+        public ICommand AutoBalanceCommand { get; }
+
         public int NODEHEIGHT { get; set; } = 13;
         //sidepanel WIDTHS
         public static int WIDTHS { get; set; } = 240;
@@ -46,7 +48,7 @@ namespace AlgoTreeDraw.ViewModel
                  new BSTViewModel(new BST() { X = WIDTHS/3-WIDTHS/3+(240-(WIDTHS-WIDTHS/3+50))/2, Y = 0, diameter = 50 }),
                  new RBTViewModel(new RBT() { X = WIDTHS/3*2-WIDTHS/3+(240-(WIDTHS-WIDTHS/3+50))/2-15, Y = 0, diameter = 50 }),
                  //hvis man sætter y = 10, ser det væsentligt bedre ud, men så hopper de når man dragger..
-                 new T234ViewModel(new T234() { X = WIDTHS-WIDTHS/3+(240-(WIDTHS-WIDTHS/3+50))/2-30, Y = 0, diameter = 30 },1)
+                 new T234ViewModel(new T234() { X = WIDTHS-WIDTHS/3+(240-(WIDTHS-WIDTHS/3+50))/2-30, Y = 0, diameter = 30, IsTwoNode=true })
             };
         
         public  SidePanelViewModel()
@@ -57,9 +59,14 @@ namespace AlgoTreeDraw.ViewModel
             ChangeColor = new RelayCommand(ChangeColorClicked);
             ChangeColorOfText = new RelayCommand(ChangeColorTextClicked);
             MakePrettyCommand = new RelayCommand(CallMakePretty);
+            AutoBalanceCommand = new RelayCommand(CallAutoBalance);
             ChosenColor = Color.FromRgb(0,0,0);
         }
 
+        private void CallAutoBalance()
+        {
+            autoBalance();
+        }
         private void CallMakePretty()
         {
             makePretty();
@@ -86,15 +93,16 @@ namespace AlgoTreeDraw.ViewModel
                 NodeViewModel tempNode = node.newNodeViewModel();
                 tempNode.X = node.X - WIDTHS;
                 tempNode.Y = node.Y + NODEHEIGHT;
-                tempNode.Key = node.Key;
+                tempNode.Key = node.ID.ToString();
                 AddNode(tempNode);
             }
             node.X = node.initialNodePosition.X;
             node.Y = node.initialNodePosition.Y;
             node.BorderColor = Brushes.Black;
             node.BorderThickness = 1;
-            selectedNodes.Remove(node);            
-            
+            selectedNodes.Remove(node);
+            node.ID++;
+            node.Key = node.ID.ToString();   
         }
 
         private void ChangeColorClicked()

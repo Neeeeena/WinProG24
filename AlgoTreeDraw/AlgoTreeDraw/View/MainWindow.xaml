@@ -17,7 +17,7 @@
     </Window.InputBindings>
     
     <ScrollViewer HorizontalScrollBarVisibility="Visible" VerticalScrollBarVisibility="Visible" Margin="5" >
-        <DockPanel>
+        <DockPanel Background="Beige">
             <View:MenuBar DockPanel.Dock="Top"/>
             <!-- Draw Menu bar -->
             <Border BorderBrush="AliceBlue" BorderThickness="3">
@@ -30,34 +30,34 @@
             <!-- Draw lines -->
 
         <!-- <ScrollViewer HorizontalContentAlignment="Stretch" VerticalContentAlignment="Stretch" HorizontalScrollBarVisibility="Auto"  VerticalScrollBarVisibility="Auto" Margin="5" > -->
-
-            <Grid Background="#00000000">
-                <!-- Skal være Transparent! -->
-                <Grid.LayoutTransform>
+            <Border BorderBrush="Black" BorderThickness="0,0,1,1" Height="{Binding CanvasHeight}" Width="{Binding CanvasWidth}" HorizontalAlignment="Left" VerticalAlignment="Top">
+                <Border.LayoutTransform>
                     <ScaleTransform CenterX="0" CenterY="0" ScaleX="{Binding ElementName=zoomSlider, Path=Value}" ScaleY="{Binding ElementName=zoomSlider, Path=Value}"/>
-                </Grid.LayoutTransform>
-                <i:Interaction.Triggers>
-                    <i:EventTrigger EventName="MouseLeftButtonDown">
-                        <cmd:EventToCommand Command="{Binding MouseDownCanvasCommand}" PassEventArgsToCommand="True"/>
-                    </i:EventTrigger>
-                    <i:EventTrigger EventName="MouseMove">
-                        <cmd:EventToCommand Command="{Binding MouseMoveCanvasCommand}" PassEventArgsToCommand="True"/>
-                    </i:EventTrigger>
-                    <i:EventTrigger EventName="MouseLeftButtonUp">
-                        <cmd:EventToCommand Command="{Binding MouseUpCanvasCommand}" PassEventArgsToCommand="True"/>
-                    </i:EventTrigger>
-                </i:Interaction.Triggers>
-                <ItemsControl ItemsSource="{Binding Lines}" />
-                <ItemsControl ItemsSource="{Binding Nodes}"/>
-                <Canvas>
-                    <Border Canvas.Left="{Binding SelectionBoxX}" Canvas.Top="{Binding SelectionBoxY}" Width="{Binding SelectionBoxWidth}" Height="{Binding SelectionBoxHeight}"
-                        BorderBrush="Black" BorderThickness="1">
-                        <Rectangle Fill="SteelBlue" Opacity=".15"/>
-                    </Border>
-                </Canvas>
-            </Grid>
-
-        
+                </Border.LayoutTransform>
+                <Grid Background="White" >
+                    <!-- -->
+                    <!-- Skal være Transparent! -->
+                    <i:Interaction.Triggers>
+                        <i:EventTrigger EventName="MouseLeftButtonDown">
+                            <cmd:EventToCommand Command="{Binding MouseDownCanvasCommand}" PassEventArgsToCommand="True"/>
+                        </i:EventTrigger>
+                        <i:EventTrigger EventName="MouseMove">
+                            <cmd:EventToCommand Command="{Binding MouseMoveCanvasCommand}" PassEventArgsToCommand="True"/>
+                        </i:EventTrigger>
+                        <i:EventTrigger EventName="MouseLeftButtonUp">
+                            <cmd:EventToCommand Command="{Binding MouseUpCanvasCommand}" PassEventArgsToCommand="True"/>
+                        </i:EventTrigger>
+                    </i:Interaction.Triggers>
+                    <ItemsControl ItemsSource="{Binding Lines}" />
+                    <ItemsControl ItemsSource="{Binding Nodes}"/>
+                    <Canvas>
+                        <Border Canvas.Left="{Binding SelectionBoxX}" Canvas.Top="{Binding SelectionBoxY}" Width="{Binding SelectionBoxWidth}" Height="{Binding SelectionBoxHeight}"
+                                BorderBrush="Black" BorderThickness="1">
+                            <Rectangle Fill="SteelBlue" Opacity=".15"/>
+                        </Border>
+                    </Canvas>
+                </Grid>
+            </Border>
             <!--<View:BstViewUserControl  />  Draw Bst nodes -->
         </DockPanel>
     </ScrollViewer>
