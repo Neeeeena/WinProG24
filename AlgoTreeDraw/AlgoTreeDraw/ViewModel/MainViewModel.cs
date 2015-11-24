@@ -31,11 +31,6 @@ namespace AlgoTreeDraw.ViewModel
         /// Initializes a new instance of the MainViewModel class.
         /// </summary>
         /// 
-
-        private int canvasWidth = 500;
-        private int canvasHeight = 500;
-        public int CanvasWidth { get { return canvasWidth; } set { canvasWidth = value; RaisePropertyChanged(); } }
-        public int CanvasHeight { get { return canvasHeight; } set { canvasHeight = value; RaisePropertyChanged(); } }
         private PullCanvas pullCanvas { get; set; }
 
         private Point SelectionBoxStart;
@@ -117,44 +112,49 @@ namespace AlgoTreeDraw.ViewModel
 
         private void MouseUpCanvas(MouseButtonEventArgs e)
         {
-            if (!isAddingLine && MouseDownCanvasCalled)
+            if(Mouse.Captured != null)
             {
-                Console.WriteLine("Inside");
-                MouseDownCanvasCalled = false;
-                var SelectionBoxEnd = Mouse.GetPosition(e.MouseDevice.Target);
-                var smallX = Math.Min(SelectionBoxStart.X, SelectionBoxEnd.X);
-                var smallY = Math.Min(SelectionBoxStart.Y, SelectionBoxEnd.Y);
-                var largeX = Math.Max(SelectionBoxStart.X, SelectionBoxEnd.X);
-                var largeY = Math.Max(SelectionBoxStart.Y, SelectionBoxEnd.Y);
-                foreach (NodeViewModel n in Nodes)
-                    if(!(n.X > largeX || n.X+n.Diameter < smallX || n.Y > largeY || n.Y+n.Diameter < smallY))
-                    {
-                        addToSelectedNodes(n);
-                    }
-                Tree yolo = new Tree(selectedNodes);
-
-                SelectionBoxX = SelectionBoxY = SelectionBoxWidth = SelectionBoxHeight = 0;
-                RaisePropertyChanged(() => SelectionBoxX);
-                RaisePropertyChanged(() => SelectionBoxY);
-                RaisePropertyChanged(() => SelectionBoxWidth);
-                RaisePropertyChanged(() => SelectionBoxHeight);
-                
-            }
-
-            if(pullCanvas.isPullingCanvas)
-            {
-                Func<NodeViewModel,bool> isInsideCanvasWidth = n => n.X + n.Diameter < canvasWidth && n.X > 0;
-                Func<NodeViewModel, bool> isInsideCanvasHeight = n => n.Y + n.Diameter < canvasHeight && n.Y > 0;
-                foreach (var n in Nodes)
+                if (!isAddingLine && MouseDownCanvasCalled)
                 {
-                    if (!isInsideCanvasWidth(n)) CanvasWidth = (int)n.X + (int)n.Diameter;
-                    if (!isInsideCanvasHeight(n)) CanvasHeight = (int)n.Y + (int)n.Diameter;
+                    Console.WriteLine("Inside");
+                    MouseDownCanvasCalled = false;
+                    var SelectionBoxEnd = Mouse.GetPosition(e.MouseDevice.Target);
+                    var smallX = Math.Min(SelectionBoxStart.X, SelectionBoxEnd.X);
+                    var smallY = Math.Min(SelectionBoxStart.Y, SelectionBoxEnd.Y);
+                    var largeX = Math.Max(SelectionBoxStart.X, SelectionBoxEnd.X);
+                    var largeY = Math.Max(SelectionBoxStart.Y, SelectionBoxEnd.Y);
+                    foreach (NodeViewModel n in Nodes)
+                        if (!(n.X > largeX || n.X + n.Diameter < smallX || n.Y > largeY || n.Y + n.Diameter < smallY))
+                        {
+                            addToSelectedNodes(n);
+                        }
+                    Tree yolo = new Tree(selectedNodes);
+
+                    SelectionBoxX = SelectionBoxY = SelectionBoxWidth = SelectionBoxHeight = 0;
+                    RaisePropertyChanged(() => SelectionBoxX);
+                    RaisePropertyChanged(() => SelectionBoxY);
+                    RaisePropertyChanged(() => SelectionBoxWidth);
+                    RaisePropertyChanged(() => SelectionBoxHeight);
+
                 }
-                if (CanvasHeight < 0) CanvasHeight = 100;
-                if (CanvasWidth < 0) CanvasWidth = 100;
-                pullCanvas = new PullCanvas(false,false,false);
+
+                if (pullCanvas.isPullingCanvas)
+                {
+                    Func<NodeViewModel, bool> isInsideCanvasWidth = n => n.X + n.Diameter < CanvasWidth && n.X > 0;
+                    Func<NodeViewModel, bool> isInsideCanvasHeight = n => n.Y + n.Diameter < CanvasHeight && n.Y > 0;
+                    foreach (var n in Nodes)
+                    {
+                        if (!isInsideCanvasWidth(n)) CanvasWidth = (int)n.X + (int)n.Diameter;
+                        if (!isInsideCanvasHeight(n)) CanvasHeight = (int)n.Y + (int)n.Diameter;
+                    }
+                    if (CanvasHeight < 0) CanvasHeight = 100;
+                    if (CanvasWidth < 0) CanvasWidth = 100;
+                    pullCanvas = new PullCanvas(false, false, false);
+                }
+                e.MouseDevice.Target.ReleaseMouseCapture();
             }
-            e.MouseDevice.Target.ReleaseMouseCapture();
+            
+            
         }
 
         class PullCanvas {

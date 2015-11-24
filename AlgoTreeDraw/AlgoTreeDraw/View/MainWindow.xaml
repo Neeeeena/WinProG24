@@ -27,7 +27,7 @@
                 <!-- Draw sidepanel -->
             </Border>
             <StackPanel DockPanel.Dock="Bottom">
-                <Slider x:Name="zoomSlider" ToolTip="Zoom" Value="1" Minimum="0.1" Maximum="100"/>
+                <Slider x:Name="zoomSlider" ToolTip="Zoom" Value="1" Minimum="0.1" Maximum="10"/>
             </StackPanel>
             <!-- Draw lines -->
 
