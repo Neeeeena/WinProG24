@@ -1,4 +1,5 @@
-﻿using AlgoTreeDraw.Model;
+﻿using AlgoTreeDraw.Command;
+using AlgoTreeDraw.Model;
 using GalaSoft.MvvmLight;
 using GalaSoft.MvvmLight.CommandWpf;
 using GalaSoft.MvvmLight.Messaging;
@@ -65,7 +66,7 @@ namespace AlgoTreeDraw.ViewModel
 
         private void CallAutoBalance()
         {
-            autoBalance();
+            undoRedo.InsertInUndoRedo(new AutoBalanceCommand(Nodes, selectedNodes, Lines));
         }
         private void CallMakePretty()
         {

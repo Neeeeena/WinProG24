@@ -215,15 +215,12 @@ namespace AlgoTreeDraw.ViewModel
                 else if (!Object.ReferenceEquals(fromNode, node)) { AddLine(node); }
                 
             }
+            
+            var mousePosition = RelativeMousePosition(e);
+            
+            undoRedo.InsertInUndoRedo(new MoveNodeCommand(selectedNodes, mousePosition.X - initialMousePosition.X, mousePosition.Y - initialMousePosition.Y));
 
-
-
-                var mousePosition = RelativeMousePosition(e);
-
-
-                undoRedo.InsertInUndoRedo(new MoveNodeCommand(selectedNodes, mousePosition.X - initialMousePosition.X, mousePosition.Y - initialMousePosition.Y));
-
-                e.MouseDevice.Target.ReleaseMouseCapture();
+            e.MouseDevice.Target.ReleaseMouseCapture();
             
         }
 
