@@ -30,6 +30,11 @@ namespace AlgoTreeDraw.Command
             offsetY = _offsetY;
         }
 
+        public override String ToString()
+        {
+            return "Move node";
+        }
+
         public void Execute()
         {
             foreach (var node in selNodes)

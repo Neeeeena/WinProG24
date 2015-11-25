@@ -1,4 +1,5 @@
 using AlgoTreeDraw.Model;
+using AlgoTreeDraw.ViewModel;
 using GalaSoft.MvvmLight;
 using GalaSoft.MvvmLight.CommandWpf;
 using System;
@@ -30,8 +31,8 @@ namespace AlgoTreeDraw.ViewModel
         /// Initializes a new instance of the MainViewModel class.
         /// </summary>
         /// 
+        private PullCanvas pullCanvas { get; set; }
 
-        
         private Point SelectionBoxStart;
 
         public double SelectionBoxX { get; set; }
@@ -47,13 +48,7 @@ namespace AlgoTreeDraw.ViewModel
 
         public MainViewModel() 
         {
-            // Wat?
-            Nodes = new ObservableCollection<NodeViewModel>()
-            {
-
-            };
-
-            Lines = new ObservableCollection<LineViewModel>();
+            pullCanvas = new PullCanvas(false, false, false);
 
             MouseDownCanvasCommand = new RelayCommand<MouseButtonEventArgs>(MouseDownCanvas);
             MouseMoveCanvasCommand = new RelayCommand<MouseEventArgs>(MouseMoveCanvas);
@@ -62,14 +57,29 @@ namespace AlgoTreeDraw.ViewModel
 
         private void MouseDownCanvas(MouseButtonEventArgs e)
         {
-            if(!nodeClicked && !isAddingLine)
+            Point CurrentMousePosition = Mouse.GetPosition(e.MouseDevice.Target);
+            if (CurrentMousePosition.X <= CanvasWidth + 10 && CurrentMousePosition.X >= CanvasWidth - 10 && CurrentMousePosition.Y <= CanvasHeight + 10 && CurrentMousePosition.Y >= CanvasHeight - 10)
             {
-                Console.WriteLine("MDCanvas called");
-                clearSelectedNodes();
-                SelectionBoxStart = Mouse.GetPosition(e.MouseDevice.Target);
-                e.MouseDevice.Target.CaptureMouse();
-                MouseDownCanvasCalled = true;
+                pullCanvas = new PullCanvas(true,true,true);
             }
+            else if(CurrentMousePosition.X <= CanvasWidth + 10 && CurrentMousePosition.X >= CanvasWidth - 10)
+            {
+                pullCanvas = new PullCanvas(true, true, false);
+            }
+            else if(CurrentMousePosition.Y <= CanvasHeight + 10 && CurrentMousePosition.Y >= CanvasHeight - 10)
+            {
+                pullCanvas = new PullCanvas(true, false, true);
+            }
+            else
+            {
+                if (!nodeClicked && !isAddingLine)
+                {
+                    clearSelectedNodes();
+                    SelectionBoxStart = Mouse.GetPosition(e.MouseDevice.Target);
+                    MouseDownCanvasCalled = true;
+                }
+            }
+            e.MouseDevice.Target.CaptureMouse();
         }
 
         private void MouseMoveCanvas(MouseEventArgs e)
@@ -87,35 +97,77 @@ namespace AlgoTreeDraw.ViewModel
                 RaisePropertyChanged(() => SelectionBoxHeight);
 
             }
+
+            if(Mouse.Captured != null)
+            {
+                if(pullCanvas.isPullingCanvas)
+                {
+                    Point CurrentMousePosition = Mouse.GetPosition(e.MouseDevice.Target);
+                    if(pullCanvas.isPullingWidth) CanvasWidth = (int)CurrentMousePosition.X;
+                    if (pullCanvas.isPullingHeight) CanvasHeight = (int)CurrentMousePosition.Y;
+
+                }
+            }
         }
 
         private void MouseUpCanvas(MouseButtonEventArgs e)
         {
-            if (!isAddingLine && MouseDownCanvasCalled)
+            if(Mouse.Captured != null)
             {
-                Console.WriteLine("Inside");
-                MouseDownCanvasCalled = false;
-                var SelectionBoxEnd = Mouse.GetPosition(e.MouseDevice.Target);
-                var smallX = Math.Min(SelectionBoxStart.X, SelectionBoxEnd.X);
-                var smallY = Math.Min(SelectionBoxStart.Y, SelectionBoxEnd.Y);
-                var largeX = Math.Max(SelectionBoxStart.X, SelectionBoxEnd.X);
-                var largeY = Math.Max(SelectionBoxStart.Y, SelectionBoxEnd.Y);
-                foreach (NodeViewModel n in Nodes)
-                    if(!(n.X > largeX || n.X+n.Diameter < smallX || n.Y > largeY || n.Y+n.Diameter < smallY))
-                    {
-                        addToSelectedNodes(n);
-                    }
-                Tree yolo = new Tree(selectedNodes);
+                if (!isAddingLine && MouseDownCanvasCalled)
+                {
+                    Console.WriteLine("Inside");
+                    MouseDownCanvasCalled = false;
+                    var SelectionBoxEnd = Mouse.GetPosition(e.MouseDevice.Target);
+                    var smallX = Math.Min(SelectionBoxStart.X, SelectionBoxEnd.X);
+                    var smallY = Math.Min(SelectionBoxStart.Y, SelectionBoxEnd.Y);
+                    var largeX = Math.Max(SelectionBoxStart.X, SelectionBoxEnd.X);
+                    var largeY = Math.Max(SelectionBoxStart.Y, SelectionBoxEnd.Y);
+                    foreach (NodeViewModel n in Nodes)
+                        if (!(n.X > largeX || n.X + n.Diameter < smallX || n.Y > largeY || n.Y + n.Diameter < smallY))
+                        {
+                            addToSelectedNodes(n);
+                        }
+                    Tree yolo = new Tree(selectedNodes);
 
-                SelectionBoxX = SelectionBoxY = SelectionBoxWidth = SelectionBoxHeight = 0;
-                RaisePropertyChanged(() => SelectionBoxX);
-                RaisePropertyChanged(() => SelectionBoxY);
-                RaisePropertyChanged(() => SelectionBoxWidth);
-                RaisePropertyChanged(() => SelectionBoxHeight);
+                    SelectionBoxX = SelectionBoxY = SelectionBoxWidth = SelectionBoxHeight = 0;
+                    RaisePropertyChanged(() => SelectionBoxX);
+                    RaisePropertyChanged(() => SelectionBoxY);
+                    RaisePropertyChanged(() => SelectionBoxWidth);
+                    RaisePropertyChanged(() => SelectionBoxHeight);
+
+                }
+
+                if (pullCanvas.isPullingCanvas)
+                {
+                    Func<NodeViewModel, bool> isInsideCanvasWidth = n => n.X + n.Diameter < CanvasWidth && n.X > 0;
+                    Func<NodeViewModel, bool> isInsideCanvasHeight = n => n.Y + n.Diameter < CanvasHeight && n.Y > 0;
+                    foreach (var n in Nodes)
+                    {
+                        if (!isInsideCanvasWidth(n)) CanvasWidth = (int)n.X + (int)n.Diameter;
+                        if (!isInsideCanvasHeight(n)) CanvasHeight = (int)n.Y + (int)n.Diameter;
+                    }
+                    if (CanvasHeight < 0) CanvasHeight = 100;
+                    if (CanvasWidth < 0) CanvasWidth = 100;
+                    pullCanvas = new PullCanvas(false, false, false);
+                }
                 e.MouseDevice.Target.ReleaseMouseCapture();
             }
+            
+            
         }
 
-
+        class PullCanvas {
+            public bool isPullingCanvas { get; }
+            public bool isPullingWidth { get; }
+            public bool isPullingHeight { get; }
+            public PullCanvas(bool isPullingCanvas, bool isPullingWidth, bool isPullingHeight)
+            {
+                this.isPullingCanvas = isPullingCanvas;
+                this.isPullingWidth = isPullingWidth;
+                this.isPullingHeight = isPullingHeight;
+            }
+        }
+        
     }
 }
