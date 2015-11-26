@@ -167,14 +167,7 @@ namespace AlgoTreeDraw.ViewModel
 
         public void AddNode(NodeViewModel node)
         {
-            
-            undoRedo.InsertInUndoRedo(new AddNodeCommand(Nodes, node));
-            /*
-            if (node.X + node.Diameter > CanvasWidth)
-                CanvasWidth = (int)(node.X + node.Diameter);
-            if (node.Y + node.Diameter > CanvasHeight)
-                CanvasHeight = (int)(node.Y + node.Diameter);
-                */
+            if (!(node.X + node.Diameter > CanvasWidth || node.Y + node.Diameter > CanvasHeight)) undoRedo.InsertInUndoRedo(new AddNodeCommand(Nodes, node));
         }
                 
         public NodeViewModel MouseUpNodeSP2(MouseButtonEventArgs e)
