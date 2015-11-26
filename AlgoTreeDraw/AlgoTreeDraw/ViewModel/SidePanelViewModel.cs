@@ -95,6 +95,7 @@ namespace AlgoTreeDraw.ViewModel
                 tempNode.X = node.X - WIDTHS;
                 tempNode.Y = node.Y + NODEHEIGHT;
                 tempNode.Key = node.ID.ToString();
+                tempNode.ID = node.ID;
                 AddNode(tempNode);
             }
             node.X = node.initialNodePosition.X;
