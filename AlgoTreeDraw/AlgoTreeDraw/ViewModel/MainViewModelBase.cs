@@ -92,11 +92,6 @@ namespace AlgoTreeDraw.ViewModel
 
         }
 
-        public void message()
-        {
-
-        }
-
         public void copyClicked()
         {
             copiedNodes.Clear();
@@ -168,7 +163,6 @@ namespace AlgoTreeDraw.ViewModel
             undoRedo.InsertInUndoRedo(new AddLineCommand(Lines,tempLine));
             fromNode.addNeighbour(to);
             fromNode = null;
-
         }
 
         public void AddNode(NodeViewModel node)
@@ -194,6 +188,7 @@ namespace AlgoTreeDraw.ViewModel
 
         public void MouseUpNode(MouseButtonEventArgs e)
         {
+            Console.WriteLine("MUNode called");
 
             nodeClicked = false;
             var node = TargetShape(e);
@@ -221,8 +216,6 @@ namespace AlgoTreeDraw.ViewModel
                 else if (!Object.ReferenceEquals(fromNode, node)) { AddLine(node); }
                 
             }
-
-
 
            var mousePosition = RelativeMousePosition(e);
 

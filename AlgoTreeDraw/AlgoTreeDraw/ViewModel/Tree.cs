@@ -14,6 +14,8 @@ namespace AlgoTreeDraw.ViewModel
         public List<NodeViewModel> hasBeenInsertedList = new List<NodeViewModel>();
         public List<int> subFromIndex = new List<int>();
 
+        public List<LineViewModel> addedLinesAutoBalance = new List<LineViewModel>();
+
         // Temporary prolly
         const int X_OFFSET = 70;
         const int Y_OFFSET = 50;
@@ -145,7 +147,7 @@ namespace AlgoTreeDraw.ViewModel
             return pCount == 1 && nvm.neighbours.Count <= 3;
         }
 
-        public void tAutoBalance()
+        public List<LineViewModel> tAutoBalance()
         {
             if (nodes != null && allNodesIntKeys() && allNodesBST() && allNodesConnected() && allNodesOneParentAndLessThanTwoChildren())
             {
@@ -164,8 +166,10 @@ namespace AlgoTreeDraw.ViewModel
                         insertBST(n, root);
                     }
                 }
+                return addedLinesAutoBalance;
 
             }
+            return null;
             
             // if markedNodesConnected
             // and isValidBst
@@ -244,7 +248,9 @@ namespace AlgoTreeDraw.ViewModel
         public void addNeighbourAndLineAndUpdatePosition(NodeViewModel n1, NodeViewModel n2)
         {
             n1.addNeighbour(n2);
-            Lines.Add(new LineViewModel(new Line()) { From = n1, To = n2 });
+            LineViewModel temp = new LineViewModel(new Line()) { From = n1, To = n2 };
+            Lines.Add(temp);
+            addedLinesAutoBalance.Add(temp);
             if(int.Parse(n1.Key) > int.Parse(n2.Key))
             {
                 n1.X = n2.X + X_OFFSET;
@@ -255,7 +261,7 @@ namespace AlgoTreeDraw.ViewModel
                 n1.X = n2.X - X_OFFSET;
                 n1.Y = n2.Y + Y_OFFSET;
             }
-            
+                        
         }
 
         public NodeViewModel[] getChildren(NodeViewModel nvm)

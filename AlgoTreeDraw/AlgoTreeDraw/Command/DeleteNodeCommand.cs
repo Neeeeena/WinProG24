@@ -37,7 +37,11 @@ namespace AlgoTreeDraw.Command
             {
                 foreach (LineViewModel l in lines)
                 {
-                    if ((l.From == n || l.To == n) && lines.Contains(l)) removedLines.Add(l);
+                    if ((l.From == n || l.To == n) && !removedLines.Contains(l))
+                    {
+                        removedLines.Add(l);
+                        l.From.removeNeighbour(l.To);
+                    }
                 }
                 nodes.Remove(n);
             }
@@ -56,6 +60,7 @@ namespace AlgoTreeDraw.Command
             foreach (LineViewModel l in removedLines)
             {
                 lines.Add(l);
+                l.From.addNeighbour(l.To);
             }
         }
     }

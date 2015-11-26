@@ -11,16 +11,21 @@ namespace AlgoTreeDraw.Command
     public class MoveNodeCommand : IUndoRedoCommand
     {
 
-        private List<NodeViewModel> nodes;
+        private List<NodeViewModel> selNodes = new List<NodeViewModel>();
 
         // The 'offsetX' field holds the offset (difference) between the original and final X coordinate.
         private double offsetX;
         // The 'offsetY' field holds the offset (difference) between the original and final Y coordinate.
         private double offsetY;
 
-        public MoveNodeCommand(List<NodeViewModel> _nodes, double _offsetX, double _offsetY) 
+
+
+        public MoveNodeCommand(List<NodeViewModel> selectedNodes, double _offsetX, double _offsetY) 
         {
-            nodes = _nodes;
+            foreach(NodeViewModel n in selectedNodes)
+            {
+                selNodes.Add(n);
+            }
             offsetX = _offsetX;
             offsetY = _offsetY;
         }
@@ -32,7 +37,7 @@ namespace AlgoTreeDraw.Command
 
         public void Execute()
         {
-            foreach (var node in nodes)
+            foreach (var node in selNodes)
             {
                 node.CanvasCenterX += offsetX;
                 node.CanvasCenterY += offsetY;
@@ -41,7 +46,7 @@ namespace AlgoTreeDraw.Command
 
         public void UnExecute()
         {
-            foreach(var node in nodes)
+            foreach(var node in selNodes)
             {
                 node.CanvasCenterX -= offsetX;
                 node.CanvasCenterY -= offsetY;
