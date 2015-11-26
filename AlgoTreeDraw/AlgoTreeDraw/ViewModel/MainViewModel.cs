@@ -57,6 +57,7 @@ namespace AlgoTreeDraw.ViewModel
 
         private void MouseDownCanvas(MouseButtonEventArgs e)
         {
+
             Point CurrentMousePosition = Mouse.GetPosition(e.MouseDevice.Target);
             if (CurrentMousePosition.X <= CanvasWidth + 10 && CurrentMousePosition.X >= CanvasWidth - 10 && CurrentMousePosition.Y <= CanvasHeight + 10 && CurrentMousePosition.Y >= CanvasHeight - 10)
             {
@@ -77,6 +78,8 @@ namespace AlgoTreeDraw.ViewModel
                     clearSelectedNodes();
                     SelectionBoxStart = Mouse.GetPosition(e.MouseDevice.Target);
                     MouseDownCanvasCalled = true;
+                    _DoneEditing();
+
                 }
             }
             e.MouseDevice.Target.CaptureMouse();

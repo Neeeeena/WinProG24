@@ -43,6 +43,8 @@ namespace AlgoTreeDraw.ViewModel
         public static int WIDTHS { get; set; } = 240;
 
 
+
+
         public static ObservableCollection<NodeViewModel> NodesSP{ get; set; } 
             = new ObservableCollection<NodeViewModel>
             {
@@ -62,6 +64,7 @@ namespace AlgoTreeDraw.ViewModel
             MakePrettyCommand = new RelayCommand(CallMakePretty);
             AutoBalanceCommand = new RelayCommand(CallAutoBalance);
             ChosenColor = Color.FromRgb(0,0,0);
+
         }
 
         private void CallAutoBalance()
@@ -94,7 +97,7 @@ namespace AlgoTreeDraw.ViewModel
                 NodeViewModel tempNode = node.newNodeViewModel();
                 tempNode.X = node.X - WIDTHS;
                 tempNode.Y = node.Y + NODEHEIGHT;
-                tempNode.Key = node.ID.ToString();
+                tempNode.ID = Node.IDCounter;
                 AddNode(tempNode);
             }
             node.X = node.initialNodePosition.X;
@@ -102,8 +105,7 @@ namespace AlgoTreeDraw.ViewModel
             node.BorderColor = Brushes.Black;
             node.BorderThickness = 1;
             selectedNodes.Remove(node);
-            node.ID++;
-            node.Key = node.ID.ToString();   
+            Node.IDCounter++;
         }
 
         private void ChangeColorClicked()

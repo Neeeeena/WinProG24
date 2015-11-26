@@ -29,7 +29,7 @@ namespace AlgoTreeDraw.ViewModel
             SaveDiagramCommand = new RelayCommand(SaveDiagram);
             dialogVM = new DialogBox();
             UndoCommand = new RelayCommand<int>(undoClicked);
-            RedoCommand = new RelayCommand<int>(redoClicked);
+            RedoCommand = new RelayCommand<int>(redoClicked,undoRedo.CanRedo);
         }
 
         private Boolean _isUndoOpen;
@@ -105,10 +105,7 @@ namespace AlgoTreeDraw.ViewModel
 
         //Kun for test
         public int one = 1;
-        public int two = 2;
-        public int three = 3;
-        public int four = 4;
-        public int five = 5;
+
         private void NewDiagram()
         {
             if (dialogVM.ShowNew())
@@ -147,12 +144,12 @@ namespace AlgoTreeDraw.ViewModel
                 // Reconstruct object graph.
                 foreach (LineViewModel line in Lines)
                 {
-                    line.From = Nodes.Single(n => line.Line.From.X == n.Node.X && line.Line.From.Y == n.Node.Y);
-                    line.To = Nodes.Single(n => line.Line.To.X == n.Node.X && line.Line.To.Y == n.Node.Y);
+                    line.From = Nodes.Single(n => line.Line.From.ID == n.Node.ID);
+                    line.To = Nodes.Single(n => line.Line.To.ID == n.Node.ID);
                 }
             }
         }
-        //commandd to save diagram
+        //command to save diagram
         private void SaveDiagram()
         {
             string path = dialogVM.ShowSave();
