@@ -181,38 +181,45 @@ namespace AlgoTreeDraw.ViewModel
 
         public void MouseUpNode(MouseButtonEventArgs e)
         {
-            Console.WriteLine("MUNode called");
 
             nodeClicked = false;
             var node = TargetShape(e);
   
-            foreach(NodeViewModel n in selectedNodes)
-            {
-                n.X = n.initialNodePosition.X;
-                n.Y = n.initialNodePosition.Y;
-            }
+
 
             if (isChangingColor)
             {
-                undoRedo.InsertInUndoRedo(new ChangeColorCommand(node, new SolidColorBrush(ChosenColor),node.Color));
+                undoRedo.InsertInUndoRedo(new ChangeColorCommand(node, new SolidColorBrush(ChosenColor), node.Color));
                 isChangingColor = false;
             }
 
-            if(isChangingColorText)
+            else if (isChangingColorText)
             {
                 undoRedo.InsertInUndoRedo(new ChangeColorTextCommand(node, new SolidColorBrush(ChosenColor), node.PreColorOfText));
             }
 
-            if (isAddingLine)
+            else if (isAddingLine)
             {
                 if (fromNode == null) { fromNode = node; fromNode.Color = Brushes.Blue; }
                 else if (!Object.ReferenceEquals(fromNode, node)) { AddLine(node); }
                 
             }
+            else if (node==editNode)
+            {
 
-           var mousePosition = RelativeMousePosition(e);
+            }
+            else
+            {
 
-            if(!(initialMousePosition.X == mousePosition.X && initialMousePosition.Y == mousePosition.Y)) //Only when it actually moves
+                var mousePosition = RelativeMousePosition(e);
+
+                foreach (NodeViewModel n in selectedNodes)
+                {
+                    n.X = n.initialNodePosition.X;
+                    n.Y = n.initialNodePosition.Y;
+                }
+
+                if (!(initialMousePosition.X == mousePosition.X && initialMousePosition.Y == mousePosition.Y)) //Only when it actually moves
             {
                 undoRedo.InsertInUndoRedo(new MoveNodeCommand(selectedNodes, mousePosition.X - initialMousePosition.X, mousePosition.Y - initialMousePosition.Y));
                 foreach (var n in selectedNodes)
@@ -222,9 +229,11 @@ namespace AlgoTreeDraw.ViewModel
                     if (n.Y + n.Diameter > CanvasHeight)
                         CanvasHeight = (int)(n.Y + n.Diameter);
                 }
-                
+
             }
-            e.MouseDevice.Target.ReleaseMouseCapture();
+            }
+                e.MouseDevice.Target.ReleaseMouseCapture();
+            
         }
 
 
@@ -254,14 +263,15 @@ namespace AlgoTreeDraw.ViewModel
                 node.IsEditing = Visibility.Visible;
                 node.IsNotEditing = Visibility.Hidden;
                 editNode = node;
-
+                
             }
 
         }
 
         private void MouseMoveNode(MouseEventArgs e)
         {
-            if (Mouse.Captured != null && !isAddingLine && !isChangingColor && !isChangingColorText)
+            var node = TargetShape(e);
+            if (Mouse.Captured != null && !isAddingLine && !isChangingColor && !isChangingColorText && node!=editNode)
             {
 
                 var mousePosition = RelativeMousePosition(e);

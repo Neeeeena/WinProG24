@@ -63,7 +63,7 @@
                 </xctk:SplitButton.DropDownContent>
             </xctk:SplitButton>
 
-            <xctk:SplitButton IsOpen="{Binding isRedoOpen, Mode=TwoWay}" Command="{Binding RedoCommand}" Background="Transparent" Name="UndoBtn2">
+            <xctk:SplitButton IsOpen="{Binding isRedoOpen, Mode=TwoWay}"  Command="{Binding RedoCommand}" Background="Transparent" Name="UndoBtn2">
                 <xctk:SplitButton.Content>
                     <Image Source="/Images/redo.png"/>
                 </xctk:SplitButton.Content>
