@@ -84,6 +84,9 @@
             <Button Command="{Binding PasteCommand}" ToolTip="Paste">
                 <Image Source="/Images/paste.png"/>
             </Button>
+            <Button Command="{Binding CutCommand}" ToolTip="Paste">
+                <Image Source="/Images/cut.png"/>
+            </Button>
         </ToolBar>
 
     </StackPanel>
