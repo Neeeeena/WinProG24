@@ -88,7 +88,7 @@ namespace AlgoTreeDraw.ViewModel
             RaisePropertyChanged("BackgroundAddLine");
         }
 
-        public new void MouseUpNode(MouseButtonEventArgs e)
+        public void MouseUpNode(MouseButtonEventArgs e)
         {
             var node = MouseUpNodeSP2(e);
 

@@ -50,8 +50,7 @@ namespace AlgoTreeDraw.ViewModel
         private int _WIDTH = 1000;
         private static int canvasWidth = 500;
         private static int canvasHeight = 500;
-        public int CanvasWidth { get { return canvasWidth; } set { canvasWidth = value; RaisePropertyChanged();
-                } }
+        public int CanvasWidth { get { return canvasWidth; } set { canvasWidth = value; RaisePropertyChanged();} }
         public int CanvasHeight { get { return canvasHeight; } set { canvasHeight = value; RaisePropertyChanged(); } }
 
 
@@ -77,10 +76,6 @@ namespace AlgoTreeDraw.ViewModel
         public static bool isChangingColorText { get; set; }
         public static bool isMarking { get; set; }
         public static bool hasmarkedSomething { get; set; }
-
-        
-
-
 
         public MainViewModelBase()
         {
@@ -174,10 +169,12 @@ namespace AlgoTreeDraw.ViewModel
         {
             
             undoRedo.InsertInUndoRedo(new AddNodeCommand(Nodes, node));
+            /*
             if (node.X + node.Diameter > CanvasWidth)
                 CanvasWidth = (int)(node.X + node.Diameter);
             if (node.Y + node.Diameter > CanvasHeight)
                 CanvasHeight = (int)(node.Y + node.Diameter);
+                */
         }
                 
         public NodeViewModel MouseUpNodeSP2(MouseButtonEventArgs e)
@@ -195,7 +192,7 @@ namespace AlgoTreeDraw.ViewModel
             nodeClicked = false;
             var node = TargetShape(e);
   
-            
+
 
             if (isChangingColor)
             {
@@ -212,7 +209,7 @@ namespace AlgoTreeDraw.ViewModel
             {
                 if (fromNode == null) { fromNode = node; fromNode.Color = Brushes.Blue; }
                 else if (!Object.ReferenceEquals(fromNode, node)) { AddLine(node); }
-
+                
             }
             else if (node==editNode)
             {
@@ -230,17 +227,17 @@ namespace AlgoTreeDraw.ViewModel
                 }
 
                 if (!(initialMousePosition.X == mousePosition.X && initialMousePosition.Y == mousePosition.Y)) //Only when it actually moves
+            {
+                undoRedo.InsertInUndoRedo(new MoveNodeCommand(selectedNodes, mousePosition.X - initialMousePosition.X, mousePosition.Y - initialMousePosition.Y));
+                foreach (var n in selectedNodes)
                 {
-                    undoRedo.InsertInUndoRedo(new MoveNodeCommand(selectedNodes, mousePosition.X - initialMousePosition.X, mousePosition.Y - initialMousePosition.Y));
-                    foreach (var n in selectedNodes)
-                    {
-                        if (n.X + n.Diameter > CanvasWidth)
-                            CanvasWidth = (int)(n.X + n.Diameter);
-                        if (n.Y + n.Diameter > CanvasHeight)
-                            CanvasHeight = (int)(n.Y + n.Diameter);
-                    }
-
+                    if (n.X + n.Diameter > CanvasWidth)
+                        CanvasWidth = (int)(n.X + n.Diameter);
+                    if (n.Y + n.Diameter > CanvasHeight)
+                        CanvasHeight = (int)(n.Y + n.Diameter);
                 }
+
+            }
             }
                 e.MouseDevice.Target.ReleaseMouseCapture();
             
@@ -250,7 +247,6 @@ namespace AlgoTreeDraw.ViewModel
         private void MouseDownNode(MouseButtonEventArgs e)
         {
             nodeClicked = true;
-            Console.WriteLine("MDNode called");
             var node = TargetShape(e);
             var mousePosition = RelativeMousePosition(e);
 
