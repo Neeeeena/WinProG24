@@ -73,12 +73,14 @@ namespace AlgoTreeDraw.ViewModel
             }
             else
             {
-                if (!nodeClicked && !isAddingLine)
+                if (!nodeClicked)
                 {
                     clearSelectedNodes();
                     SelectionBoxStart = Mouse.GetPosition(e.MouseDevice.Target);
                     MouseDownCanvasCalled = true;
                     _DoneEditing();
+                    isAddingLine = false;
+                    if (fromNode != null) { fromNode.Color = fromNode.PreColor; fromNode = null; }
 
                 }
             }
