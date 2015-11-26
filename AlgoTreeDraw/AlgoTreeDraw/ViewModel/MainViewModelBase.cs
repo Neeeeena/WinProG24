@@ -50,8 +50,7 @@ namespace AlgoTreeDraw.ViewModel
         private int _WIDTH = 1000;
         private static int canvasWidth = 500;
         private static int canvasHeight = 500;
-        public int CanvasWidth { get { return canvasWidth; } set { canvasWidth = value; RaisePropertyChanged();
-                } }
+        public int CanvasWidth { get { return canvasWidth; } set { canvasWidth = value; RaisePropertyChanged();} }
         public int CanvasHeight { get { return canvasHeight; } set { canvasHeight = value; RaisePropertyChanged(); } }
 
 
@@ -78,10 +77,6 @@ namespace AlgoTreeDraw.ViewModel
         public static bool isMarking { get; set; }
         public static bool hasmarkedSomething { get; set; }
 
-        
-
-
-
         public MainViewModelBase()
         {
             MouseLeftButtonDown = new RelayCommand<MouseButtonEventArgs>(MouseDownNode);
@@ -94,6 +89,11 @@ namespace AlgoTreeDraw.ViewModel
             PasteCommand = new RelayCommand(pasteClicked);
 
             DeleteKeyPressed = new RelayCommand<KeyEventArgs>(RemoveNodeKeybordDelete);
+
+        }
+
+        public void message()
+        {
 
         }
 
@@ -168,16 +168,19 @@ namespace AlgoTreeDraw.ViewModel
             undoRedo.InsertInUndoRedo(new AddLineCommand(Lines,tempLine));
             fromNode.addNeighbour(to);
             fromNode = null;
+
         }
 
         public void AddNode(NodeViewModel node)
         {
             
             undoRedo.InsertInUndoRedo(new AddNodeCommand(Nodes, node));
+            /*
             if (node.X + node.Diameter > CanvasWidth)
                 CanvasWidth = (int)(node.X + node.Diameter);
             if (node.Y + node.Diameter > CanvasHeight)
                 CanvasHeight = (int)(node.Y + node.Diameter);
+                */
         }
                 
         public NodeViewModel MouseUpNodeSP2(MouseButtonEventArgs e)
@@ -191,7 +194,6 @@ namespace AlgoTreeDraw.ViewModel
 
         public void MouseUpNode(MouseButtonEventArgs e)
         {
-            Console.WriteLine("MUNode called");
 
             nodeClicked = false;
             var node = TargetShape(e);
@@ -237,14 +239,12 @@ namespace AlgoTreeDraw.ViewModel
                 
             }
             e.MouseDevice.Target.ReleaseMouseCapture();
-            
         }
 
 
         private void MouseDownNode(MouseButtonEventArgs e)
         {
             nodeClicked = true;
-            Console.WriteLine("MDNode called");
             var node = TargetShape(e);
             var mousePosition = RelativeMousePosition(e);
 
