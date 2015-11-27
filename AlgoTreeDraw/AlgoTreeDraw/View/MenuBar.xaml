@@ -17,7 +17,6 @@
         </Style>
     </UserControl.Resources>
 
-
     <StackPanel>
         <Menu>
             <MenuItem Header="File">
