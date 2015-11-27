@@ -33,6 +33,7 @@ namespace AlgoTreeDraw.ViewModel
         private Brush color;
         private Brush preColor;
 
+
         public Brush Color
         {
             get { return color; }
@@ -193,10 +194,10 @@ namespace AlgoTreeDraw.ViewModel
         public List<NodeViewModel> neighbours = new List<NodeViewModel>();
 
         private LinkedList<NodeViewModel> queue = new LinkedList<NodeViewModel>();
-        private bool isLeftChild = false;
-        public bool IsLeftChild { get { return isLeftChild; } }
-        private NodeViewModel[] childrenFromList;
-        public NodeViewModel[] ChildrenFromList { get { return childrenFromList; } }
+        public bool isLeftChild = false;
+        //public bool IsLeftChild { get { return isLeftChild; } }
+        public NodeViewModel[] childrenFromList;
+        //public NodeViewModel[] ChildrenFromList { get { return childrenFromList; } }
 
 
 
@@ -321,7 +322,7 @@ namespace AlgoTreeDraw.ViewModel
             }
         }*/
 
-        private bool isSingleChildLeft()
+        public bool isSingleChildLeft()
         {
             NodeViewModel parent = getParent();
             if (parent == null)
@@ -445,36 +446,41 @@ namespace AlgoTreeDraw.ViewModel
         }
 
        // private List<NodeViewModel> bfList;
-        public List<NodeViewModel> getbfList()
-        {
-            List<NodeViewModel> bfList = new List<NodeViewModel>();
-            int i = 0;
-            NodeViewModel nvm = getRoot();
-            queue.Clear();
-            queue.AddLast(nvm);
+        //public List<NodeViewModel> getbfList(List<NodeViewModel> markedArea)
+        //{
+        //    List<NodeViewModel> bfList = new List<NodeViewModel>();
+        //    int i = 0;
+        //    NodeViewModel nvm = markedArea.root;
+        //    queue.Clear();
+        //    queue.AddLast(nvm);
 
-            for (;;)
-            {
-                nvm.childrenFromList = nvm.getChildren();
-                bfList.Add(nvm);
-                i = 0;
-                foreach (NodeViewModel child in nvm.childrenFromList)
-                    if (child != null)
-                    {
-                        queue.AddLast(nvm.childrenFromList[i]);
-                        i++;
-                    }
-                if (i == 1)
-                    nvm.childrenFromList[LEFT].isLeftChild = nvm.childrenFromList[LEFT].isSingleChildLeft();
+        //    for (;;)
+        //    {
+        //        if (markedArea.Contains(nvm)) {
+        //            Console.WriteLine("Does the code even get here?");
+        //            nvm.childrenFromList = nvm.getChildren();
+        //            bfList.Add(nvm);
+        //            i = 0;
+        //            foreach (NodeViewModel child in nvm.childrenFromList)
+        //                if (child != null)
+        //                {
+        //                    queue.AddLast(nvm.childrenFromList[i]);
+        //                    i++;
+        //                }
+        //            if (i == 1)
+        //                nvm.childrenFromList[LEFT].isLeftChild = nvm.childrenFromList[LEFT].isSingleChildLeft();
 
-                if (queue.Count == 1)
-                    break;
-                queue.RemoveFirst();
-                nvm = queue.First();
-            }
-            return bfList;
+                    
 
-        }
+        //        }
+        //        if (queue.Count == 1)
+        //            break;
+        //        queue.RemoveFirst();
+        //        nvm = queue.First();
+        //    }
+        //    return bfList;
+
+        //}
         
 
     }

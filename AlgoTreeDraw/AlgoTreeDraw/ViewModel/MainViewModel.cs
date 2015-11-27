@@ -141,7 +141,6 @@ namespace AlgoTreeDraw.ViewModel
                         {
                             addToSelectedNodes(n);
                         }
-                    Tree yolo = new Tree(selectedNodes);
 
                     SelectionBoxX = SelectionBoxY = SelectionBoxWidth = SelectionBoxHeight = 0;
                     RaisePropertyChanged(() => SelectionBoxX);
