@@ -38,6 +38,8 @@ namespace AlgoTreeDraw.ViewModel
 
         public ICommand AutoBalanceCommand { get; }
 
+        public ICommand InsertNodeCommand { get; }
+
         public int NODEHEIGHT { get; set; } = 13;
         //sidepanel WIDTHS
         public static int WIDTHS { get; set; } = 240;
@@ -63,13 +65,22 @@ namespace AlgoTreeDraw.ViewModel
             ChangeColorOfText = new RelayCommand(ChangeColorTextClicked);
             MakePrettyCommand = new RelayCommand(CallMakePretty);
             AutoBalanceCommand = new RelayCommand(CallAutoBalance);
+            InsertNodeCommand = new RelayCommand(CallInsertNode);
             ChosenColor = Color.FromRgb(0,0,0);
 
         }
 
+        private void CallInsertNode()
+        {
+            NodeViewModel nvm = new BSTViewModel(new BST() { X = 20, Y = 20, Key = "5", ID = Node.IDCounter });
+            Node.IDCounter++;
+            nvm.Diameter = 50;
+            
+        }
         private void CallAutoBalance()
         {
             undoRedo.InsertInUndoRedo(new AutoBalanceCommand(Nodes, selectedNodes, Lines));
+            CallInsertNode();
         }
         private void CallMakePretty()
         {
