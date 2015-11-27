@@ -14,7 +14,7 @@
         <KeyBinding Command="{Binding DoneEditing}" Gesture="ENTER"/>
     </UserControl.InputBindings>
     
-    <StackPanel Width="150" Orientation="Vertical">
+    <StackPanel Width="{Binding WIDTHS}" Orientation="Vertical">
         
 
         <StackPanel.Background>
@@ -25,7 +25,7 @@
             </LinearGradientBrush>
         </StackPanel.Background>
         <TextBlock FontSize="13" HorizontalAlignment="Center" Text="Nodes" Margin="0,10,0,0" />
-        <StackPanel Margin="0,5,0,0" Width="150" Orientation="Horizontal">
+        <StackPanel Margin="0,5,0,0" Width="{Binding WIDTHS}" Orientation="Horizontal">
 
             <Grid>
                 <Grid.RowDefinitions>
@@ -80,15 +80,14 @@
                 <RowDefinition />
             </Grid.RowDefinitions>
 
-            <Button Grid.Row="1" Grid.Column="1" Content="Delete from tree"  Margin="3" />
-            <Button Command="{Binding AutoBalanceCommand}" Grid.Row="1" Grid.Column="0" Content ="Auto Balance" Margin="3" />
-            <TextBox Grid.Row="3" Grid.Column="1" Text="Bind her!" VerticalAlignment="Center" Margin="3" />
-            <Button Grid.Row="3" Grid.Column="0" Content="Insert"  Margin="3" />
-            
+            <TextBox Grid.Row="2" Grid.Column="1" Text="Bind her!" VerticalAlignment="Center" Margin="3" />
+            <Button Grid.Row="2" Grid.Column="0" Content="Insert"  Margin="3" />
 
 
         </Grid>
-        
+        <Button Grid.Row="3" Content="Delete from tree"  />
+        <Button Command="{Binding AutoBalanceCommand}" Content ="Auto Balance" Margin="3" />
+
 
     </StackPanel>
    

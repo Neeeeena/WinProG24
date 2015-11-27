@@ -33,6 +33,7 @@ namespace AlgoTreeDraw.ViewModel
         private Brush color;
         private Brush preColor;
 
+
         public Brush Color
         {
             get { return color; }
