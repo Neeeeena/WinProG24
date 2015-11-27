@@ -50,12 +50,11 @@ namespace AlgoTreeDraw.ViewModel
 
         private int _HEIGHT = 1000;
         private int _WIDTH = 1000;
-        private static int canvasWidth = 500;
-        private static int canvasHeight = 500;
+        private static int canvasWidth = 900;
+        private static int canvasHeight = 600;
         public int CanvasWidth { get { return canvasWidth; } set { canvasWidth = value; RaisePropertyChanged();} }
         public int CanvasHeight { get { return canvasHeight; } set { canvasHeight = value; RaisePropertyChanged(); } }
-
-
+        
         private Brush _TEST = Brushes.Black;
         public Brush TEST { get { return _TEST; } set { _TEST = value; RaisePropertyChanged(); } }
     
