@@ -87,6 +87,9 @@
             <Button Command="{Binding CutCommand}" ToolTip="Cut">
                 <Image Source="/Images/cut.png"/>
             </Button>
+            <Button Command="{Binding ExportCommand}" ToolTip="Export canvas as image">
+                <Image Source="/Images/pic.png"/>
+            </Button>
         </ToolBar>
 
     </StackPanel>

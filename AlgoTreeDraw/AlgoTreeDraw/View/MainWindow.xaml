@@ -37,7 +37,7 @@
                 <Border.LayoutTransform>
                     <ScaleTransform CenterX="1000" CenterY="1000" ScaleX="{Binding ElementName=zoomSlider, Path=Value}" ScaleY="{Binding ElementName=zoomSlider, Path=Value}"/>
                 </Border.LayoutTransform>
-                <Grid Background="White" >
+                <Grid Background="White" Name="MainGrid">
                     <!-- Skal være Transparent! -->
                     <i:Interaction.Triggers>
                         <i:EventTrigger EventName="MouseLeftButtonDown">
