@@ -13,11 +13,15 @@ namespace AlgoTreeDraw.Command
     {
         private ObservableCollection<LineViewModel> lines;
         private LineViewModel line;
+        private NodeViewModel fromNode;
+        private NodeViewModel toNode;
 
-        public AddLineCommand(ObservableCollection<LineViewModel> _lines, LineViewModel _line)
+        public AddLineCommand(ObservableCollection<LineViewModel> _lines, LineViewModel _line, NodeViewModel _fromNode, NodeViewModel _toNode)
         {
             lines = _lines;
             line = _line;
+            fromNode = _fromNode;
+            toNode = _toNode;
         }
 
         public override String ToString()
@@ -28,11 +32,13 @@ namespace AlgoTreeDraw.Command
         public void Execute()
         {
             lines.Add(line);
+            fromNode.addNeighbour(toNode);
         }
 
         public void UnExecute()
         {
-           lines.Remove(line);
+            lines.Remove(line);
+            fromNode.removeNeighbour(toNode);
         }
     }
 }

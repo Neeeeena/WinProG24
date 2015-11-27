@@ -118,6 +118,7 @@ namespace AlgoTreeDraw.ViewModel
 
         public void RemoveNodeKeybordDelete()
         {
+            isAddingLine = false;
             undoRedo.InsertInUndoRedo(new DeleteNodeCommand(Nodes, selectedNodes, Lines));
         }
 
@@ -171,8 +172,7 @@ namespace AlgoTreeDraw.ViewModel
             fromNode.Color = fromNode.PreColor;
 
             LineViewModel tempLine = new LineViewModel(new Line()) { From = fromNode, To = to };
-            undoRedo.InsertInUndoRedo(new AddLineCommand(Lines,tempLine));
-            fromNode.addNeighbour(to);
+            undoRedo.InsertInUndoRedo(new AddLineCommand(Lines,tempLine,fromNode,to));
             fromNode = null;
         }
 
