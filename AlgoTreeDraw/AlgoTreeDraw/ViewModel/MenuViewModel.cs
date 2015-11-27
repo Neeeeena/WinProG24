@@ -10,11 +10,18 @@ using AlgoTreeDraw.Model;
 using AlgoTreeDraw.Serialization;
 using System.Collections.ObjectModel;
 using System.Diagnostics;
+using System.Windows.Media;
+using System.Windows;
+using System.Windows.Media.Imaging;
+using GalaSoft.MvvmLight.Messaging;
+using System.IO;
+using System.Windows.Controls;
 
 namespace AlgoTreeDraw.ViewModel
 {
     public class MenuViewModel : MainViewModelBase
     {
+        public Grid mainGrid { get; set; }
 
         public ICommand NewDiagramCommand { get; }
         public ICommand OpenDiagramCommand { get; }
@@ -22,6 +29,8 @@ namespace AlgoTreeDraw.ViewModel
         public DialogBox dialogVM { get; set; }
         public ICommand UndoCommand { get; }
         public ICommand RedoCommand { get; }
+        public ICommand ExportCommand { get; }
+
         public MenuViewModel()
         {
             NewDiagramCommand = new RelayCommand(NewDiagram);
@@ -30,6 +39,14 @@ namespace AlgoTreeDraw.ViewModel
             dialogVM = new DialogBox();
             UndoCommand = new RelayCommand<int>(undoClicked);
             RedoCommand = new RelayCommand<int>(redoClicked,undoRedo.CanRedo);
+            ExportCommand = new RelayCommand(SaveImage);
+            Messenger.Default.Register<Grid>(this, initGrid);
+
+        }
+
+        private void initGrid(Grid mainGrid)
+        {
+            this.mainGrid = mainGrid;
         }
 
         private Boolean _isUndoOpen;
@@ -157,6 +174,44 @@ namespace AlgoTreeDraw.ViewModel
             {
                 Diagram diagram = new Diagram() { Nodes = Nodes.Select(n => n.Node).ToList(), Lines = Lines.Select(l => l.Line).ToList() };
                 XMLserializer.Instance.AsyncSerializeToFile(diagram, path);
+            }
+        }
+
+        private void SaveImage()
+        {
+            string path = dialogVM.ShowImageSave();
+            if(path != null)
+            {
+                 CreateBitmapFromVisual(mainGrid, path);
+            }
+        }
+
+        private void CreateBitmapFromVisual(Visual target, string path)
+        {
+            if (target == null)
+                return;
+
+            Rect bounds = VisualTreeHelper.GetDescendantBounds(target);
+
+            RenderTargetBitmap rtb = new RenderTargetBitmap((Int32)bounds.Width, (Int32)bounds.Height, 96, 96, PixelFormats.Pbgra32);
+
+            DrawingVisual dv = new DrawingVisual();
+
+            using (DrawingContext dc = dv.RenderOpen())
+            {
+                VisualBrush vb = new VisualBrush(target);
+                dc.DrawRectangle(vb, null, new Rect(new Point(), bounds.Size));
+            }
+
+            rtb.Render(dv);
+
+            PngBitmapEncoder png = new PngBitmapEncoder();
+
+            png.Frames.Add(BitmapFrame.Create(rtb));
+
+            using (Stream stm = File.Create(path))
+            {
+                png.Save(stm);
             }
         }
 
