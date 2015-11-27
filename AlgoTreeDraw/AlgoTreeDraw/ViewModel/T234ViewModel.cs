@@ -11,7 +11,7 @@ using System.Windows.Media;
 
 namespace AlgoTreeDraw.ViewModel
 {
-    class T234ViewModel : NodeViewModel
+    public class T234ViewModel : NodeViewModel
     {
         public string TxtOne { get{ return ((T234)Node).TextOne; }set{ ((T234)Node).TextOne = value; RaisePropertyChanged(); } }
         public string TxtTwo { get { return ((T234)Node).TextTwo; } set { ((T234)Node).TextTwo = value; RaisePropertyChanged(); } }

@@ -48,12 +48,26 @@ namespace AlgoTreeDraw.ViewModel
         public static ObservableCollection<NodeViewModel> NodesSP{ get; set; } 
             = new ObservableCollection<NodeViewModel>
             {
-                 new BSTViewModel(new BST() { X = WIDTHS/3-WIDTHS/3+(240-(WIDTHS-WIDTHS/3+50))/2, Y = 0, diameter = 50 }),
-                 new RBTViewModel(new RBT() { X = WIDTHS/3*2-WIDTHS/3+(240-(WIDTHS-WIDTHS/3+50))/2-15, Y = 0, diameter = 50 }),
-                 //hvis man sætter y = 10, ser det væsentligt bedre ud, men så hopper de når man dragger..
-                 new T234ViewModel(new T234() { X = WIDTHS-WIDTHS/3+(240-(WIDTHS-WIDTHS/3+50))/2-30, Y = 0, diameter = 30, IsTwoNode=true })
+                 new BSTViewModel(new BST() { X = 20, Y = 20, diameter = 50 }),
+                 new RBTViewModel(new RBT() { X = 20, Y = 95, diameter = 50 }),
+                 new T234ViewModel(new T234() { X = 20, Y = 170, diameter = 30, IsTwoNode=true })
             };
-        
+        public ObservableCollection<BSTViewModel> BST { get; set; }
+        = new ObservableCollection<BSTViewModel>
+        {
+            new BSTViewModel(new BST() { X = 20, Y = 20, diameter = 50 })
+        };
+        public ObservableCollection<RBTViewModel> RBT { get; set; }
+        = new ObservableCollection<RBTViewModel>
+        {
+            new RBTViewModel(new RBT() { X = 20, Y = 95, diameter = 50 })
+        };
+        public ObservableCollection<T234ViewModel> T234 { get; set; }
+        = new ObservableCollection<T234ViewModel>
+        {
+            new T234ViewModel(new T234() { X = 15, Y = 170, diameter = 30, IsThreeNode=true })
+        };
+
         public  SidePanelViewModel()
         {
             MouseLeftButtonUp = new RelayCommand<MouseButtonEventArgs>(MouseUpNode);
@@ -85,7 +99,7 @@ namespace AlgoTreeDraw.ViewModel
         {
             isAddingLine = !isAddingLine;
             if(!isAddingLine) fromNode = null;
-            RaisePropertyChanged("BackgroundAddLine");
+
         }
 
         public void MouseUpNode(MouseButtonEventArgs e)
@@ -124,11 +138,7 @@ namespace AlgoTreeDraw.ViewModel
         }
 
 
-        public Brush BackgroundAddLine
-        {
-            get { return isAddingLine ? Brushes.Pink : Brushes.LightGreen; }
-            set { _background = value; }
-        }
+
 
     }
 }

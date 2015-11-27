@@ -83,6 +83,14 @@ namespace AlgoTreeDraw.ViewModel
                     if (fromNode != null) { fromNode.Color = fromNode.PreColor; fromNode = null; }
 
                 }
+                else
+                {
+                    var node = TargetShape(e);
+                    if(node != editNode)
+                    {
+                        _DoneEditing();
+                    }
+                }
             }
             e.MouseDevice.Target.CaptureMouse();
         }
