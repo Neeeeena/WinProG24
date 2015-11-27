@@ -44,6 +44,7 @@ namespace AlgoTreeDraw.ViewModel
         public ICommand DeleteKeyPressed { get; }
         public ICommand CopyCommand { get; }
         public ICommand PasteCommand { get; }
+        public ICommand CutCommand { get; }
 
         public static Point initialMousePosition { get; set; }
 
@@ -88,9 +89,16 @@ namespace AlgoTreeDraw.ViewModel
             DoneEditing = new RelayCommand(_DoneEditing);
             CopyCommand = new RelayCommand(copyClicked);
             PasteCommand = new RelayCommand(pasteClicked);
+            CutCommand = new RelayCommand(cutClicked);
 
-            DeleteKeyPressed = new RelayCommand<KeyEventArgs>(RemoveNodeKeybordDelete);
+            DeleteKeyPressed = new RelayCommand(RemoveNodeKeybordDelete);
 
+        }
+
+        public void cutClicked()
+        {
+            copyClicked();
+            RemoveNodeKeybordDelete();
         }
 
         public void copyClicked()
@@ -109,7 +117,7 @@ namespace AlgoTreeDraw.ViewModel
             undoRedo.InsertInUndoRedo(new PasteCommand(Nodes, copiedNodes, selectedNodes, mostRecentPastedNodes));
         }
 
-        public void RemoveNodeKeybordDelete(KeyEventArgs e)
+        public void RemoveNodeKeybordDelete()
         {
             undoRedo.InsertInUndoRedo(new DeleteNodeCommand(Nodes, selectedNodes, Lines));
         }
@@ -136,7 +144,8 @@ namespace AlgoTreeDraw.ViewModel
         // WHYYYY det skulle jo være alle selected nodes
         public void makePretty()
         {
-            Nodes.ElementAt(0).makePretty();
+            Tree selTree = new Tree(selectedNodes);
+            selTree.makePretty();
         }
 
         public void autoBalance()
@@ -145,6 +154,7 @@ namespace AlgoTreeDraw.ViewModel
             selTree.tAutoBalance();
         }
 
+        
         public void _DoneEditing()
         {
             if(editNode != null)

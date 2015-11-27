@@ -46,7 +46,7 @@
                 <Image Source="/Images/save.png"/>
             </Button>
 
-            <xctk:SplitButton BorderThickness="0,0,0,0" IsOpen="{Binding isUndoOpen, Mode=TwoWay}" Command="{Binding UndoCommand}" Background="Transparent" Name="UndoBtn">
+            <xctk:SplitButton BorderBrush="AliceBlue" IsOpen="{Binding isUndoOpen, Mode=TwoWay}" Command="{Binding UndoCommand}" Background="Transparent" Name="UndoBtn">
                 <xctk:SplitButton.Content >
                     <Image Source="/Images/undo.png"/>
                 </xctk:SplitButton.Content>
@@ -63,7 +63,7 @@
                 </xctk:SplitButton.DropDownContent>
             </xctk:SplitButton>
 
-            <xctk:SplitButton IsOpen="{Binding isRedoOpen, Mode=TwoWay}"  Command="{Binding RedoCommand}" Background="Transparent" Name="UndoBtn2">
+            <xctk:SplitButton BorderBrush="AliceBlue" IsOpen="{Binding isRedoOpen, Mode=TwoWay}"  Command="{Binding RedoCommand}" Background="Transparent" Name="UndoBtn2">
                 <xctk:SplitButton.Content>
                     <Image Source="/Images/redo.png"/>
                 </xctk:SplitButton.Content>
@@ -83,6 +83,9 @@
             </Button>
             <Button Command="{Binding PasteCommand}" ToolTip="Paste">
                 <Image Source="/Images/paste.png"/>
+            </Button>
+            <Button Command="{Binding CutCommand}" ToolTip="Cut">
+                <Image Source="/Images/cut.png"/>
             </Button>
         </ToolBar>
 
