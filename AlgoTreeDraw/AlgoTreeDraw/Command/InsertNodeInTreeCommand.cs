@@ -28,7 +28,6 @@ namespace AlgoTreeDraw.Command
         
         public void Execute()
         {
-            nodes.Add(nvm);
             Tree selTree = new Tree(selNodes);
             selTree.insert(nvm);
         }

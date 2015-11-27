@@ -165,8 +165,12 @@ namespace AlgoTreeDraw.ViewModel
 
         public void insert(NodeViewModel newNode) 
         {
-            if(selectedNodes.Count != 0)
+            if (selectedNodes.Count != 0)
+            {
+                nodes.Add(newNode);
                 insertBST(newNode, root);
+            }
+            else MessageBox.Show("No node or tree selected");
             
         }
 
