@@ -10,7 +10,7 @@ using System.Windows.Media;
 
 namespace AlgoTreeDraw.ViewModel
 {
-    class RBTViewModel : NodeViewModel
+    public class RBTViewModel : NodeViewModel
     {
         public ICommand SwitchToBlack { get; }
         public ICommand SwitchToRed { get; }

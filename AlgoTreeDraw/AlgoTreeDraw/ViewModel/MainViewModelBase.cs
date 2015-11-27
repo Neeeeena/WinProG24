@@ -142,11 +142,11 @@ namespace AlgoTreeDraw.ViewModel
         }
 
         // WHYYYY det skulle jo være alle selected nodes
-        public void makePretty()
-        {
-            Tree selTree = new Tree(selectedNodes);
-            selTree.makePretty();
-        }
+        //public void makePretty()
+        //{
+        //    Tree selTree = new Tree(selectedNodes);
+        //    selTree.makePretty();
+        //}
 
         public void autoBalance()
         {
