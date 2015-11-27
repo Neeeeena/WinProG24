@@ -166,6 +166,7 @@
     <Compile Include="Model\Node.cs" />
     <Compile Include="Model\T234.cs" />
     <Compile Include="Serialization\XMLserializer.cs" />
+    <Compile Include="UndoRedoEnabledMsg.cs" />
     <Compile Include="ViewModel\BSTViewModel.cs" />
     <Compile Include="ViewModel\DialogBox.cs" />
     <Compile Include="ViewModel\MainViewModelBase.cs" />

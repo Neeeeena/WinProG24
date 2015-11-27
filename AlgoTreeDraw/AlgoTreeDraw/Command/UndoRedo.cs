@@ -1,5 +1,6 @@
 ﻿using AlgoTreeDraw.ViewModel;
 using GalaSoft.MvvmLight;
+using GalaSoft.MvvmLight.Messaging;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
@@ -48,7 +49,7 @@ namespace AlgoTreeDraw.Command
             EnableUndo = CanUndo(1);
             RaisePropertyChanged(nameof(EnableUndo));
             RaisePropertyChanged(nameof(EnableRedo));
-
+            Messenger.Default.Send(new UndoRedoEnabledMsg(true,false));
         }
 
         public bool CanRedo(int levels)
@@ -73,6 +74,9 @@ namespace AlgoTreeDraw.Command
                 RaisePropertyChanged(nameof(EnableRedo));
 
             }
+            if(redoList.Length == 0) Messenger.Default.Send(new UndoRedoEnabledMsg(true, false));
+            if (redoList.Length != 0) Messenger.Default.Send(new UndoRedoEnabledMsg(true, true));
+
         }
         public void Undo(int levels)
         {
@@ -88,6 +92,8 @@ namespace AlgoTreeDraw.Command
                 RaisePropertyChanged(nameof(EnableUndo));
                 RaisePropertyChanged(nameof(EnableRedo));
             }
+            if (undoList.Length == 0) Messenger.Default.Send(new UndoRedoEnabledMsg(false, true));
+            if (undoList.Length != 0) Messenger.Default.Send(new UndoRedoEnabledMsg(true, true));
         }
     }
 }

@@ -1,4 +1,5 @@
 ﻿using AlgoTreeDraw.ViewModel;
+using GalaSoft.MvvmLight.Messaging;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -22,13 +23,27 @@ namespace AlgoTreeDraw.View
     /// </summary>
     public partial class MenuBar : UserControl
     {
-
+        
         public MenuBar()
         {
             InitializeComponent();
+            this.DataContext = new MenuViewModel();
+            Loaded += OnLoaded;
         }
 
-        
+        private void OnLoaded(object sender, RoutedEventArgs e)
+        {
+            this.UndoBtn.IsEnabled = false;
+            this.UndoBtn2.IsEnabled = false;
+            Messenger.Default.Register<UndoRedoEnabledMsg>(this, updateUndoRedoEnabled);
+        }
+
+        private void updateUndoRedoEnabled(UndoRedoEnabledMsg msg)
+        {
+            this.UndoBtn.IsEnabled = msg.undo;
+            this.UndoBtn2.IsEnabled = msg.redo;
+        }
+
         private void Button_Click(object sender, RoutedEventArgs e)
         {
             UndoBtn.IsOpen = false;

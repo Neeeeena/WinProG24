@@ -2,6 +2,7 @@ using AlgoTreeDraw.Model;
 using AlgoTreeDraw.ViewModel;
 using GalaSoft.MvvmLight;
 using GalaSoft.MvvmLight.CommandWpf;
+using GalaSoft.MvvmLight.Messaging;
 using System;
 using System.Collections.ObjectModel;
 using System.Diagnostics;
@@ -82,6 +83,7 @@ namespace AlgoTreeDraw.ViewModel
                     isAddingLine = false;
                     isChangingColor = false;
                     isChangingColorText = false;
+                    Messenger.Default.Send(Cursors.Arrow);
                     if (fromNode != null) { fromNode.Color = fromNode.PreColor; fromNode = null; }
 
                 }

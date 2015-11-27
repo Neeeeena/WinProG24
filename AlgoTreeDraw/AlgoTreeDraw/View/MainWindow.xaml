@@ -25,16 +25,18 @@
                 <View:SidePanel DockPanel.Dock="Left"/>
                 <!-- Draw sidepanel -->
             </Border>
+        <!--
             <StackPanel DockPanel.Dock="Bottom">
                 <Slider x:Name="zoomSlider" ToolTip="Zoom" Value="1" Minimum="0.1" Maximum="10"/>
             </StackPanel>
+        -->
             <!-- Draw lines -->
 
         <!-- <ScrollViewer HorizontalContentAlignment="Stretch" VerticalContentAlignment="Stretch" HorizontalScrollBarVisibility="Auto"  VerticalScrollBarVisibility="Auto" Margin="5" > -->
         <ScrollViewer Panel.ZIndex="0" HorizontalScrollBarVisibility="Visible" VerticalScrollBarVisibility="Visible" Margin="0">
             <Border BorderBrush="Black" BorderThickness="0,0,1,1" Height="{Binding CanvasHeight}" Width="{Binding CanvasWidth}" HorizontalAlignment="Left" VerticalAlignment="Top">
                 <Border.LayoutTransform>
-                    <ScaleTransform CenterX="1000" CenterY="1000" ScaleX="{Binding ElementName=zoomSlider, Path=Value}" ScaleY="{Binding ElementName=zoomSlider, Path=Value}"/>
+                    <ScaleTransform CenterX="1000" CenterY="1000" ScaleX="{Binding zoomValue}" ScaleY="{Binding zoomValue}"/>
                 </Border.LayoutTransform>
                 <Grid Background="White" Name="MainGrid">
                     <!-- Skal være Transparent! -->
