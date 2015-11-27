@@ -19,9 +19,9 @@
 
         <StackPanel.Background>
             <LinearGradientBrush StartPoint="0,0.5" EndPoint="1,0.5">
-                <GradientStop Color="White" Offset="0.0" />
-                <GradientStop Color="Snow"  Offset="0.5" />
-                <GradientStop Color="White" Offset="1.0" />
+               <!--<GradientStop Color="White" Offset="0.0" />-->
+                <GradientStop Color="AliceBlue"  Offset="0.5" />
+                <!--<GradientStop Color="White" Offset="1.0" />-->
             </LinearGradientBrush>
         </StackPanel.Background>
 

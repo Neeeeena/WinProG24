@@ -1,4 +1,5 @@
-﻿using System;
+﻿using AlgoTreeDraw.ViewModel;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -21,12 +22,13 @@ namespace AlgoTreeDraw.View
     /// </summary>
     public partial class MenuBar : UserControl
     {
+
         public MenuBar()
         {
             InitializeComponent();
-            
         }
 
+        
         private void Button_Click(object sender, RoutedEventArgs e)
         {
             UndoBtn.IsOpen = false;
@@ -36,5 +38,7 @@ namespace AlgoTreeDraw.View
         {
             UndoBtn2.IsOpen = false;
         }
+
+
     }
 }
