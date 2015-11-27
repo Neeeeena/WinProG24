@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows;
 
 namespace AlgoTreeDraw.ViewModel
 {
@@ -78,6 +79,8 @@ namespace AlgoTreeDraw.ViewModel
                 if (!int.TryParse(n.Key, out yolo))
                 {
                     Console.WriteLine("All Nodes not valid keys");
+                    MessageBox.Show("Error: Some nodes does not have valid values (numbers)");
+
                     return false;
                 }
             }
@@ -92,6 +95,7 @@ namespace AlgoTreeDraw.ViewModel
                 {
                     //Messagebox?
                     Console.WriteLine("All Nodes not bst");
+                    MessageBox.Show("Error: All nodes are not BST-nodes");
                     return false;
                 }
             }
@@ -108,6 +112,7 @@ namespace AlgoTreeDraw.ViewModel
                 {
                     //MessageBox?
                     Console.WriteLine("All nodes not connected");
+                    MessageBox.Show("Error: All nodes are not connected");
                     return false;
                 }
             }
@@ -121,6 +126,8 @@ namespace AlgoTreeDraw.ViewModel
                 if (!hasOneParentAndLessThanThreeChildren(n) && !(n == root))
                 {
                     //MessageBox?
+                    MessageBox.Show("Error: Some nodes have more than one parent or too many children");
+
                     Console.WriteLine("All Nodes does not have one parent and less than two children");
                     Console.WriteLine(n.Key);
                     Console.WriteLine(root.Key);
@@ -154,6 +161,13 @@ namespace AlgoTreeDraw.ViewModel
                 if (n.Y < nvm.Y) pCount++;
             }
             return pCount == 1 && nvm.neighbours.Count <= 3;
+        }
+
+        public void insert(NodeViewModel newNode) 
+        {
+            if(selectedNodes.Count != 0)
+                insertBST(newNode, root);
+            
         }
 
         public List<LineViewModel> tAutoBalance()
