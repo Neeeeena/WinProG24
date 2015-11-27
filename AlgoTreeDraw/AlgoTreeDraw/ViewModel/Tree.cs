@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows;
 
 namespace AlgoTreeDraw.ViewModel
 {
@@ -78,6 +79,8 @@ namespace AlgoTreeDraw.ViewModel
                 if (!int.TryParse(n.Key, out yolo))
                 {
                     Console.WriteLine("All Nodes not valid keys");
+                    MessageBox.Show("Error: Some nodes does not have valid values (numbers)");
+
                     return false;
                 }
             }
@@ -92,6 +95,7 @@ namespace AlgoTreeDraw.ViewModel
                 {
                     //Messagebox?
                     Console.WriteLine("All Nodes not bst");
+                    MessageBox.Show("Error: All nodes are not BST-nodes");
                     return false;
                 }
             }
@@ -108,6 +112,7 @@ namespace AlgoTreeDraw.ViewModel
                 {
                     //MessageBox?
                     Console.WriteLine("All nodes not connected");
+                    MessageBox.Show("Error: All nodes are not connected");
                     return false;
                 }
             }
@@ -121,6 +126,8 @@ namespace AlgoTreeDraw.ViewModel
                 if (!hasOneParentAndLessThanThreeChildren(n) && !(n == root))
                 {
                     //MessageBox?
+                    MessageBox.Show("Error: Some nodes have more than one parent or too many children");
+
                     Console.WriteLine("All Nodes does not have one parent and less than two children");
                     Console.WriteLine(n.Key);
                     Console.WriteLine(root.Key);
@@ -154,6 +161,13 @@ namespace AlgoTreeDraw.ViewModel
                 if (n.Y < nvm.Y) pCount++;
             }
             return pCount == 1 && nvm.neighbours.Count <= 3;
+        }
+
+        public void insert(NodeViewModel newNode) 
+        {
+            if(selectedNodes.Count != 0)
+                insertBST(newNode, root);
+            
         }
 
         public List<LineViewModel> tAutoBalance()
@@ -324,17 +338,21 @@ namespace AlgoTreeDraw.ViewModel
         }
 
 
-#pragma warning disable CS0108 // Member hides inherited member; missing new keyword
         public bool makePretty()
-#pragma warning restore CS0108 // Member hides inherited member; missing new keyword
         {
+            if(nodes == null || nodes.Count <= 1)
+            {
+                //errrormsg
+                return false;
+            }else
             if(!allNodesConnected()){
                 //errorMSG 
+                return false;
             }
 
 
 
-            List<NodeViewModel> bfList = root.getbfList(); //Updating the nodes in allNodes, to run the tree through breadth-first
+            List<NodeViewModel> bfList = getbfList(); //Updating the nodes in allNodes, to run the tree through breadth-first
            // NodeViewModel originalRoot = 
             double originalRootPos = bfList.ElementAt(0).X;
             //if (!isValidBST())
@@ -342,25 +360,25 @@ namespace AlgoTreeDraw.ViewModel
 
             foreach (NodeViewModel nvm in bfList)
             {
-                if (nvm.ChildrenFromList[0] == null) //IF THERE IS NO CHILDREN
+                if (nvm.childrenFromList[0] == null) //IF THERE IS NO CHILDREN
                 {
 
                 }
-                else if (nvm.ChildrenFromList[RIGHT] == null)    //One child
+                else if (nvm.childrenFromList[RIGHT] == null)    //One child
                 {
-                    if (nvm.ChildrenFromList[ONLY].IsLeftChild)
-                        nvm.moveOffset(nvm.ChildrenFromList[ONLY], LEFT);
+                    if (nvm.childrenFromList[ONLY].isLeftChild)
+                        nvm.moveOffset(nvm.childrenFromList[ONLY], LEFT);
                     else
-                        nvm.moveOffset(nvm.ChildrenFromList[ONLY], RIGHT);
-                    nvm.pushAncenstors(nvm.ChildrenFromList[ONLY]);
+                        nvm.moveOffset(nvm.childrenFromList[ONLY], RIGHT);
+                    nvm.pushAncenstors(nvm.childrenFromList[ONLY]);
                 }
                 else
                 {
-                    nvm.moveOffset(nvm.ChildrenFromList[LEFT], LEFT);
-                    nvm.moveOffset(nvm.ChildrenFromList[RIGHT], RIGHT);
+                    nvm.moveOffset(nvm.childrenFromList[LEFT], LEFT);
+                    nvm.moveOffset(nvm.childrenFromList[RIGHT], RIGHT);
 
-                    nvm.pushAncenstors(nvm.ChildrenFromList[LEFT]);
-                    nvm.pushAncenstors(nvm.ChildrenFromList[RIGHT]);
+                    nvm.pushAncenstors(nvm.childrenFromList[LEFT]);
+                    nvm.pushAncenstors(nvm.childrenFromList[RIGHT]);
                 }
             }
             //For making the root stationary :>
@@ -370,6 +388,57 @@ namespace AlgoTreeDraw.ViewModel
                 root.pushTree(RIGHT, -64000, null, originalRootPos - bfList.ElementAt(0).X);
 
             return true;
+        }
+
+        private LinkedList<NodeViewModel> queue = new LinkedList<NodeViewModel>();
+        public List<NodeViewModel> getbfList()
+        {
+            List<NodeViewModel> bfList = new List<NodeViewModel>();
+            int i = 0;
+            NodeViewModel nvm = root;
+            queue.Clear();
+            queue.AddLast(nvm);
+
+            for (;;)
+            {
+                nvm.childrenFromList = nvm.getChildren();
+
+                bfList.Add(nvm);
+                i = 0;
+                int selectedChildren = 0;
+                foreach (NodeViewModel child in nvm.childrenFromList)
+                    if (child != null)
+                    {
+                        if (nodes.Contains(child))
+                        {
+                            queue.AddLast(nvm.childrenFromList[i]);
+                            selectedChildren++;
+                        }
+                        else
+                            nvm.childrenFromList[i] = null;
+                        i++;
+                    }
+                if (nvm.childrenFromList[LEFT] != null && selectedChildren == 1)
+                {
+                    nvm.childrenFromList[LEFT].isLeftChild = nvm.childrenFromList[LEFT].isSingleChildLeft();
+                    Console.WriteLine("Do we get here???????????");
+                }
+                else if(i == 2 && selectedChildren == 2)
+                {
+                    nvm.childrenFromList[LEFT].isLeftChild = true;
+                }
+                else if(selectedChildren == 1 && i == 2)
+                {
+                    nvm.childrenFromList[LEFT] = nvm.childrenFromList[RIGHT];
+                    nvm.childrenFromList[RIGHT] = null;
+                }
+                if (queue.Count == 1)
+                    break;
+                queue.RemoveFirst();
+                nvm = queue.First();
+            }
+            return bfList;
+
         }
 
     }

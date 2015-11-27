@@ -17,8 +17,7 @@
         <KeyBinding Command="{Binding DeleteKeyPressed}" Key="Delete"/>
     </Window.InputBindings>
     
-    
-        <DockPanel Background="Gainsboro">
+    <DockPanel Background="Gainsboro">
             
             <View:MenuBar DockPanel.Dock="Top"/>
             <!-- Draw Menu bar -->
