@@ -73,7 +73,7 @@ namespace AlgoTreeDraw.ViewModel
         }
         private void CallMakePretty()
         {
-            makePretty();
+            undoRedo.InsertInUndoRedo(new MakePrettyCommand(Nodes, selectedNodes));
         }
         private void Select()
         {
