@@ -44,8 +44,7 @@ namespace AlgoTreeDraw.ViewModel
         //sidepanel WIDTHS
         public static int WIDTHS { get; set; } = 150;
 
-
-
+        public string AddNodeValue { get; set; }
 
         public static ObservableCollection<NodeViewModel> NodesSP{ get; set; } 
             = new ObservableCollection<NodeViewModel>
@@ -86,15 +85,23 @@ namespace AlgoTreeDraw.ViewModel
 
         private void CallInsertNode()
         {
-            NodeViewModel nvm = new BSTViewModel(new BST() { X = 20, Y = 20, Key = "5", ID = Node.IDCounter });
-            Node.IDCounter++;
-            nvm.Diameter = 50;
+            int key = 0;
+            if(int.TryParse(AddNodeValue, out key))
+            {
+                NodeViewModel nvm = new BSTViewModel(new BST() { X = 20, Y = 20, Key = key.ToString(), ID = Node.IDCounter });
+                Node.IDCounter++;
+                nvm.Diameter = 50;
+                undoRedo.InsertInUndoRedo(new InsertNodeInTreeCommand(Nodes, selectedNodes, nvm, Lines));
+            }
+            else
+            {
+                System.Windows.MessageBox.Show("Invalid Key");
+            }
             
         }
         private void CallAutoBalance()
         {
             undoRedo.InsertInUndoRedo(new AutoBalanceCommand(Nodes, selectedNodes, Lines));
-            CallInsertNode();
         }
         private void CallMakePretty()
         {
@@ -109,6 +116,13 @@ namespace AlgoTreeDraw.ViewModel
         private void AddLineClicked(MouseButtonEventArgs e)
         {
             isAddingLine = !isAddingLine;
+            if(isAddingLine)
+            {
+                Messenger.Default.Send(Cursors.Cross);
+            } else
+            {
+                Messenger.Default.Send(Cursors.Arrow);
+            }
             if(!isAddingLine) fromNode = null;
 
         }
@@ -136,11 +150,26 @@ namespace AlgoTreeDraw.ViewModel
         private void ChangeColorClicked()
         {
             isChangingColor = !isChangingColor;
+            if(isChangingColor)
+            {
+                Messenger.Default.Send(Cursors.Pen);
+            } else
+            {
+                Messenger.Default.Send(Cursors.Arrow);
+            }
         }
 
         private void ChangeColorTextClicked()
         {
             isChangingColorText = !isChangingColorText;
+            if (isChangingColorText)
+            {
+                Messenger.Default.Send(Cursors.Pen);
+            }
+            else
+            {
+                Messenger.Default.Send(Cursors.Arrow);
+            }
         }
 
 

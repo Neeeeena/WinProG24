@@ -22,11 +22,21 @@ namespace AlgoTreeDraw.ViewModel
 {
     public abstract class MainViewModelBase : ViewModelBase
     {
+        class ZoomValue
+        {
+            int value { get; set; } = 1;
+            public ZoomValue(int value)
+            {
+                this.value = value;
+            }
+        }
         public UndoRedo undoRedo {get; set;} = UndoRedo.Instance;
         public static ObservableCollection<NodeViewModel> Nodes { get; set; } = new ObservableCollection<NodeViewModel>();
         public static ObservableCollection<LineViewModel> Lines { get; set; } = new ObservableCollection<LineViewModel>();
         public static NodeViewModel fromNode { get; set; }
         public static Color ChosenColor { get; set; }
+        private static int _zoomValue = 1;
+        public int zoomValue { get { return _zoomValue; } set {_zoomValue = value; Messenger.Default.Send(new ZoomValue(_zoomValue)); RaisePropertyChanged(); } }
 
 
         public static List<NodeViewModel> selectedNodes = new List<NodeViewModel>();
@@ -45,6 +55,7 @@ namespace AlgoTreeDraw.ViewModel
         public ICommand CopyCommand { get; }
         public ICommand PasteCommand { get; }
         public ICommand CutCommand { get; }
+
 
         public static Point initialMousePosition { get; set; }
 
@@ -91,7 +102,12 @@ namespace AlgoTreeDraw.ViewModel
             CutCommand = new RelayCommand(cutClicked);
 
             DeleteKeyPressed = new RelayCommand(RemoveNodeKeybordDelete);
+            Messenger.Default.Register<ZoomValue>(this, UpdateZoom);
+        }
 
+        private void UpdateZoom(ZoomValue value)
+        {
+            RaisePropertyChanged("zoomValue");
         }
 
         public void cutClicked()
@@ -118,6 +134,7 @@ namespace AlgoTreeDraw.ViewModel
 
         public void RemoveNodeKeybordDelete()
         {
+            isAddingLine = false;
             undoRedo.InsertInUndoRedo(new DeleteNodeCommand(Nodes, selectedNodes, Lines));
         }
 
@@ -171,8 +188,7 @@ namespace AlgoTreeDraw.ViewModel
             fromNode.Color = fromNode.PreColor;
 
             LineViewModel tempLine = new LineViewModel(new Line()) { From = fromNode, To = to };
-            undoRedo.InsertInUndoRedo(new AddLineCommand(Lines,tempLine));
-            fromNode.addNeighbour(to);
+            undoRedo.InsertInUndoRedo(new AddLineCommand(Lines,tempLine,fromNode,to));
             fromNode = null;
         }
 
@@ -201,14 +217,12 @@ namespace AlgoTreeDraw.ViewModel
             if (isChangingColor)
             {
                 undoRedo.InsertInUndoRedo(new ChangeColorCommand(node, new SolidColorBrush(ChosenColor), node.Color));
-                isChangingColor = false;
             }
 
             else if (isChangingColorText)
             {
                 undoRedo.InsertInUndoRedo(new ChangeColorTextCommand(node, new SolidColorBrush(ChosenColor), node.PreColorOfText));
             }
-
             else if (isAddingLine)
             {
                 if (fromNode == null) { fromNode = node; fromNode.Color = Brushes.Blue; }
