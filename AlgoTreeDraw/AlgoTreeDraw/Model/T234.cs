@@ -66,14 +66,17 @@ namespace AlgoTreeDraw.Model
             temp.Add(this);
             if (IsThreeNode)
             {  
-                temp.Add(new T234() { TextOne = this.TextOne, IsTwoNode = true });
+                temp.Add(new T234() { TextOne = this.TextOne, IsTwoNode = true, ID=IDCounter });
+                IDCounter++;
                 IsThreeNode = false;
                 IsTwoNode = true;
             }
             else if (IsFourNode)
             {
-                temp.Add(new T234() { TextOne = this.TextOne, IsTwoNode=true });
-                temp.Add(new T234() { TextOne = this.TextTwo, IsTwoNode = true });
+                temp.Add(new T234() { TextOne = this.TextOne, IsTwoNode=true, ID=IDCounter });
+                IDCounter++;
+                temp.Add(new T234() { TextOne = this.TextTwo, IsTwoNode = true, ID=IDCounter });
+                IDCounter++;
                 IsFourNode = false;
                 IsTwoNode = true;
                 

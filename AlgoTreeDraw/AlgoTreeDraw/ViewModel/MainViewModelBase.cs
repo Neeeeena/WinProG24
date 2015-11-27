@@ -43,6 +43,7 @@ namespace AlgoTreeDraw.ViewModel
         public ICommand DeleteKeyPressed { get; }
         public ICommand CopyCommand { get; }
         public ICommand PasteCommand { get; }
+        public ICommand CutCommand { get; }
 
         public static Point initialMousePosition { get; set; }
 
@@ -50,8 +51,7 @@ namespace AlgoTreeDraw.ViewModel
         private int _WIDTH = 1000;
         private static int canvasWidth = 500;
         private static int canvasHeight = 500;
-        public int CanvasWidth { get { return canvasWidth; } set { canvasWidth = value; RaisePropertyChanged();
-                } }
+        public int CanvasWidth { get { return canvasWidth; } set { canvasWidth = value; RaisePropertyChanged();} }
         public int CanvasHeight { get { return canvasHeight; } set { canvasHeight = value; RaisePropertyChanged(); } }
 
 
@@ -78,10 +78,6 @@ namespace AlgoTreeDraw.ViewModel
         public static bool isMarking { get; set; }
         public static bool hasmarkedSomething { get; set; }
 
-        
-
-
-
         public MainViewModelBase()
         {
             MouseLeftButtonDown = new RelayCommand<MouseButtonEventArgs>(MouseDownNode);
@@ -92,9 +88,16 @@ namespace AlgoTreeDraw.ViewModel
             DoneEditing = new RelayCommand(_DoneEditing);
             CopyCommand = new RelayCommand(copyClicked);
             PasteCommand = new RelayCommand(pasteClicked);
+            CutCommand = new RelayCommand(cutClicked);
 
-            DeleteKeyPressed = new RelayCommand<KeyEventArgs>(RemoveNodeKeybordDelete);
+            DeleteKeyPressed = new RelayCommand(RemoveNodeKeybordDelete);
 
+        }
+
+        public void cutClicked()
+        {
+            copyClicked();
+            RemoveNodeKeybordDelete();
         }
 
         public void copyClicked()
@@ -113,7 +116,7 @@ namespace AlgoTreeDraw.ViewModel
             undoRedo.InsertInUndoRedo(new PasteCommand(Nodes, copiedNodes, selectedNodes, mostRecentPastedNodes));
         }
 
-        public void RemoveNodeKeybordDelete(KeyEventArgs e)
+        public void RemoveNodeKeybordDelete()
         {
             undoRedo.InsertInUndoRedo(new DeleteNodeCommand(Nodes, selectedNodes, Lines));
         }
@@ -157,6 +160,7 @@ namespace AlgoTreeDraw.ViewModel
             {
                 editNode.IsEditing = Visibility.Hidden;
                 editNode.IsNotEditing = Visibility.Visible;
+                editNode = null;
             }
             
         }
@@ -174,12 +178,7 @@ namespace AlgoTreeDraw.ViewModel
 
         public void AddNode(NodeViewModel node)
         {
-            
-            undoRedo.InsertInUndoRedo(new AddNodeCommand(Nodes, node));
-            if (node.X + node.Diameter > CanvasWidth)
-                CanvasWidth = (int)(node.X + node.Diameter);
-            if (node.Y + node.Diameter > CanvasHeight)
-                CanvasHeight = (int)(node.Y + node.Diameter);
+            if (!(node.X + node.Diameter > CanvasWidth || node.Y + node.Diameter > CanvasHeight)) undoRedo.InsertInUndoRedo(new AddNodeCommand(Nodes, node));
         }
                 
         public NodeViewModel MouseUpNodeSP2(MouseButtonEventArgs e)
@@ -193,38 +192,45 @@ namespace AlgoTreeDraw.ViewModel
 
         public void MouseUpNode(MouseButtonEventArgs e)
         {
-            Console.WriteLine("MUNode called");
 
             nodeClicked = false;
             var node = TargetShape(e);
   
-            foreach(NodeViewModel n in selectedNodes)
-            {
-                n.X = n.initialNodePosition.X;
-                n.Y = n.initialNodePosition.Y;
-            }
+
 
             if (isChangingColor)
             {
-                undoRedo.InsertInUndoRedo(new ChangeColorCommand(node, new SolidColorBrush(ChosenColor),node.Color));
+                undoRedo.InsertInUndoRedo(new ChangeColorCommand(node, new SolidColorBrush(ChosenColor), node.Color));
                 isChangingColor = false;
             }
 
-            if(isChangingColorText)
+            else if (isChangingColorText)
             {
                 undoRedo.InsertInUndoRedo(new ChangeColorTextCommand(node, new SolidColorBrush(ChosenColor), node.PreColorOfText));
             }
 
-            if (isAddingLine)
+            else if (isAddingLine)
             {
                 if (fromNode == null) { fromNode = node; fromNode.Color = Brushes.Blue; }
                 else if (!Object.ReferenceEquals(fromNode, node)) { AddLine(node); }
                 
             }
+            else if (node==editNode)
+            {
+
+            }
+            else
+            {
 
                 var mousePosition = RelativeMousePosition(e);
 
-            if(!(initialMousePosition.X == mousePosition.X && initialMousePosition.Y == mousePosition.Y)) //Only when it actually moves
+                foreach (NodeViewModel n in selectedNodes)
+                {
+                    n.X = n.initialNodePosition.X;
+                    n.Y = n.initialNodePosition.Y;
+                }
+
+                if (!(initialMousePosition.X == mousePosition.X && initialMousePosition.Y == mousePosition.Y)) //Only when it actually moves
             {
                 undoRedo.InsertInUndoRedo(new MoveNodeCommand(selectedNodes, mousePosition.X - initialMousePosition.X, mousePosition.Y - initialMousePosition.Y));
                 foreach (var n in selectedNodes)
@@ -236,6 +242,7 @@ namespace AlgoTreeDraw.ViewModel
                 }
 
             }
+            }
                 e.MouseDevice.Target.ReleaseMouseCapture();
             
         }
@@ -244,7 +251,6 @@ namespace AlgoTreeDraw.ViewModel
         private void MouseDownNode(MouseButtonEventArgs e)
         {
             nodeClicked = true;
-            Console.WriteLine("MDNode called");
             var node = TargetShape(e);
             var mousePosition = RelativeMousePosition(e);
 
@@ -275,7 +281,8 @@ namespace AlgoTreeDraw.ViewModel
 
         private void MouseMoveNode(MouseEventArgs e)
         {
-            if (Mouse.Captured != null && !isAddingLine && !isChangingColor && !isChangingColorText)
+            var node = TargetShape(e);
+            if (Mouse.Captured != null && !isAddingLine && !isChangingColor && !isChangingColorText && node!=editNode)
             {
 
                 var mousePosition = RelativeMousePosition(e);

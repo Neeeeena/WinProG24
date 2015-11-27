@@ -14,47 +14,7 @@ namespace AlgoTreeDraw.Command
         public bool EnableRedo { get; set; }
         private Stack<IUndoRedoCommand> _undoCommands = new Stack<IUndoRedoCommand>();
         private Stack<IUndoRedoCommand> _redoCommands = new Stack<IUndoRedoCommand>();
-        //Start på mega mange variabler til undo redo menuen
-        public string undoOne
-        {
-            get { return getUndoCommandFromIndex(0); }
-        }
-        public string undoTwo
-        {
-            get { return getUndoCommandFromIndex(1); }
-        }
-        public string undoThree
-        {
-            get { return getUndoCommandFromIndex(2); }
-        }
-        public string undoFour
-        {
-            get { return getUndoCommandFromIndex(3); }
-        }
-        public string undoFive
-        {
-            get { return getUndoCommandFromIndex(4); }
-        }
-        public string redoOne
-        {
-            get { return getRedoCommandFromIndex(0); }
-        }
-        public string redoTwo
-        {
-            get { return getRedoCommandFromIndex(1); }
-        }
-        public string redoThree
-        {
-            get { return getRedoCommandFromIndex(2); }
-        }
-        public string redoFour
-        {
-            get { return getRedoCommandFromIndex(3); }
-        }
-        public string redoFive
-        {
-            get { return getRedoCommandFromIndex(4); }
-        }
+
 
         public IUndoRedoCommand[] undoList { get { return _undoCommands.ToArray(); } }
         public IUndoRedoCommand[] redoList { get { return _redoCommands.ToArray(); } }

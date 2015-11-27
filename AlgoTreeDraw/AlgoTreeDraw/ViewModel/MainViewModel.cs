@@ -57,6 +57,7 @@ namespace AlgoTreeDraw.ViewModel
 
         private void MouseDownCanvas(MouseButtonEventArgs e)
         {
+
             Point CurrentMousePosition = Mouse.GetPosition(e.MouseDevice.Target);
             if (CurrentMousePosition.X <= CanvasWidth + 10 && CurrentMousePosition.X >= CanvasWidth - 10 && CurrentMousePosition.Y <= CanvasHeight + 10 && CurrentMousePosition.Y >= CanvasHeight - 10)
             {
@@ -72,11 +73,15 @@ namespace AlgoTreeDraw.ViewModel
             }
             else
             {
-                if (!nodeClicked && !isAddingLine)
+                if (!nodeClicked)
                 {
                     clearSelectedNodes();
                     SelectionBoxStart = Mouse.GetPosition(e.MouseDevice.Target);
                     MouseDownCanvasCalled = true;
+                    _DoneEditing();
+                    isAddingLine = false;
+                    if (fromNode != null) { fromNode.Color = fromNode.PreColor; fromNode = null; }
+
                 }
             }
             e.MouseDevice.Target.CaptureMouse();

@@ -16,7 +16,7 @@ namespace AlgoTreeDraw.Model
 
         public _color color;
         public _color preColor;
-
+        public static int IDCounter { get; set; }
         public Node()
         {
         }
@@ -39,7 +39,7 @@ namespace AlgoTreeDraw.Model
 
         public double diameter {get; set; } // Tilføj Notify hvis Diameter skal ændres
 
-        private string key = "0";
+        private string key = "1";
         public string Key { get { return key; } set { key = value; } }
 
         public abstract Node NewNode();
@@ -52,8 +52,9 @@ namespace AlgoTreeDraw.Model
         const int LEFT = 0;
         const int RIGHT = 1;
 
-        public int ID = 0;
+        public int ID { get; set; }
 
+        [XmlIgnore]
         public List<Node> neighbours = new List<Node>();
 
         //For adding data structure
