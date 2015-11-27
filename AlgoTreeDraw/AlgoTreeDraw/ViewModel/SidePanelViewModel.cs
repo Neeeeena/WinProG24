@@ -85,7 +85,7 @@ namespace AlgoTreeDraw.ViewModel
         {
             isAddingLine = !isAddingLine;
             if(!isAddingLine) fromNode = null;
-            RaisePropertyChanged("BackgroundAddLine");
+
         }
 
         public void MouseUpNode(MouseButtonEventArgs e)
@@ -124,11 +124,7 @@ namespace AlgoTreeDraw.ViewModel
         }
 
 
-        public Brush BackgroundAddLine
-        {
-            get { return isAddingLine ? Brushes.Pink : Brushes.LightGreen; }
-            set { _background = value; }
-        }
+
 
     }
 }

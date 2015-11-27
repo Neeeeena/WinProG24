@@ -28,6 +28,7 @@ namespace AlgoTreeDraw.ViewModel
         public static NodeViewModel fromNode { get; set; }
         public static Color ChosenColor { get; set; }
 
+
         public static List<NodeViewModel> selectedNodes = new List<NodeViewModel>();
         public static List<NodeViewModel> copiedNodes = new List<NodeViewModel>();
         public static List<LineViewModel> copiedLines = new List<LineViewModel>();
@@ -66,7 +67,7 @@ namespace AlgoTreeDraw.ViewModel
         public bool nodeClicked = false;
 
         private static Boolean moved = true;
-        private NodeViewModel editNode { get; set; }
+        public NodeViewModel editNode { get; set; }
         private bool hasEdited { get; set; }
 
         //Tools
@@ -159,7 +160,7 @@ namespace AlgoTreeDraw.ViewModel
         public void AddLine( NodeViewModel to)
         {
             fromNode.Color = fromNode.PreColor;
-            isAddingLine = false;
+
             LineViewModel tempLine = new LineViewModel(new Line()) { From = fromNode, To = to };
             undoRedo.InsertInUndoRedo(new AddLineCommand(Lines,tempLine));
             fromNode.addNeighbour(to);
