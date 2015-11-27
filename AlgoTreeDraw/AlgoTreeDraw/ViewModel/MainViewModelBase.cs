@@ -201,14 +201,12 @@ namespace AlgoTreeDraw.ViewModel
             if (isChangingColor)
             {
                 undoRedo.InsertInUndoRedo(new ChangeColorCommand(node, new SolidColorBrush(ChosenColor), node.Color));
-                isChangingColor = false;
             }
 
             else if (isChangingColorText)
             {
                 undoRedo.InsertInUndoRedo(new ChangeColorTextCommand(node, new SolidColorBrush(ChosenColor), node.PreColorOfText));
             }
-
             else if (isAddingLine)
             {
                 if (fromNode == null) { fromNode = node; fromNode.Color = Brushes.Blue; }

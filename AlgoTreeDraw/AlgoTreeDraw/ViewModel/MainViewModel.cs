@@ -80,6 +80,8 @@ namespace AlgoTreeDraw.ViewModel
                     MouseDownCanvasCalled = true;
                     _DoneEditing();
                     isAddingLine = false;
+                    isChangingColor = false;
+                    isChangingColorText = false;
                     if (fromNode != null) { fromNode.Color = fromNode.PreColor; fromNode = null; }
 
                 }
