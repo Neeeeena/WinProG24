@@ -102,6 +102,8 @@ namespace AlgoTreeDraw.ViewModel
             return true;
         }
 
+
+
         public bool allNodesConnected()
         {
             root.hasBeenFound = true;
@@ -110,8 +112,6 @@ namespace AlgoTreeDraw.ViewModel
             {
                 if (!n.hasBeenFound)
                 {
-                    //MessageBox?
-                    Console.WriteLine("All nodes not connected");
                     MessageBox.Show("Error: All nodes are not connected");
                     return false;
                 }
@@ -128,7 +128,7 @@ namespace AlgoTreeDraw.ViewModel
                     //MessageBox?
                     MessageBox.Show("Error: Some nodes have more than one parent or too many children");
 
-                    Console.WriteLine("All Nodes does not have one parent and less than two children");
+                    Console.WriteLine("All Nodes do not have one parent and less than two children");
                     Console.WriteLine(n.Key);
                     Console.WriteLine(root.Key);
                     foreach(NodeViewModel bla in n.neighbours)
@@ -172,7 +172,7 @@ namespace AlgoTreeDraw.ViewModel
 
         public List<LineViewModel> tAutoBalance()
         {
-            if (nodes != null && allNodesIntKeys() && allNodesBST() && allNodesConnected() && allNodesOneParentAndLessThanTwoChildren())
+            if (nodes != null && allNodesIntKeys() )//&& allNodesConnected() && allNodesOneParentAndLessThanTwoChildren())
             {
                 nodes.Sort((x, y) => int.Parse(x.Key).CompareTo(int.Parse(y.Key)));
                 removeLinesAndNeighbours();
@@ -268,7 +268,7 @@ namespace AlgoTreeDraw.ViewModel
             }
         }
 
-        public void addNeighbourAndLineAndUpdatePosition(NodeViewModel n1, NodeViewModel n2)
+        public void addNeighbourAndLineAndUpdatePosition(NodeViewModel n2, NodeViewModel n1)
         {
             n1.addNeighbour(n2);
             LineViewModel temp = new LineViewModel(new Line()) { From = n1, To = n2 };
@@ -289,25 +289,29 @@ namespace AlgoTreeDraw.ViewModel
 
         public NodeViewModel[] getChildren(NodeViewModel nvm)
         {
-
-            NodeViewModel[] children = new NodeViewModel[2];
-            int i = 0;
-            foreach (NodeViewModel n in nvm.neighbours)
+            if (nvm != null)
             {
-                if (n.Y > nvm.Y)
+
+                NodeViewModel[] children = new NodeViewModel[2];
+                int i = 0;
+                foreach (NodeViewModel n in nvm.neighbours)
                 {
-                    children[i] = n;
-                    i++;
+                    if (n.Y > nvm.Y)
+                    {
+                        children[i] = n;
+                        i++;
+                    }
                 }
-            }                
 
-            if (i == 2 && children[0].X > children[1].X)
-            {
-                NodeViewModel temp = children[0];
-                children[0] = children[1];
-                children[1] = temp;
+                if (i == 2 && children[0].X > children[1].X)
+                {
+                    NodeViewModel temp = children[0];
+                    children[0] = children[1];
+                    children[1] = temp;
+                }
+                return children;
             }
-            return children;
+            return null;
         }
 
         // FUCKING TEMP TING PGA ILLIGEAL OPERATION REMOVE LIST MAN FOREACHER GOD DAMMIT BEDRE LØSNING PLz!!?

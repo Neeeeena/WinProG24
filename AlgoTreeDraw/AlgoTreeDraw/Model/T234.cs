@@ -29,6 +29,7 @@ namespace AlgoTreeDraw.Model
             TextOne = "1";
             TextTwo = "1";
             TextThree = "1";
+            diameter = 30;
         }
     
 
@@ -37,33 +38,35 @@ namespace AlgoTreeDraw.Model
             return new T234();
         }
 
-        public T234 Merge(T234 other, T234 optional = null)
+        public void Merge(T234 other, T234 optional = null)
         {
-            if (IsTwoNode && other.IsTwoNode)
+            if (other != null)
             {
-                TextTwo = other.TextOne;
-                IsTwoNode = false;
-                IsThreeNode = true;
-            }else if (IsTwoNode && other.IsThreeNode)
-            {
-                TextTwo = other.TextOne;
-                TextThree = other.TextTwo;
-                IsTwoNode = false;
-                IsFourNode = true;
+                if (IsTwoNode && other.IsTwoNode)
+                {
+                    TextTwo = other.TextOne;
+                    IsTwoNode = false;
+                    IsThreeNode = true;
+                }
+                else if (IsTwoNode && other.IsThreeNode)
+                {
+                    TextTwo = other.TextOne;
+                    TextThree = other.TextTwo;
+                    IsTwoNode = false;
+                    IsFourNode = true;
+                }
+                if (optional != null && optional.IsTwoNode && IsThreeNode)
+                {
+                    TextThree = optional.TextOne;
+                    IsThreeNode = false;
+                    IsFourNode = true;
+                }
             }
-            if (optional != null && optional.IsTwoNode && IsThreeNode)
-            {
-                TextThree = optional.TextOne;
-                IsThreeNode = false;
-                IsFourNode = true;
-            }
-            return this;
         }
 
         public List<T234> Split()
         {
             List<T234> temp = new List<T234>();
-            temp.Add(this);
             if (IsThreeNode)
             {  
                 temp.Add(new T234() { TextOne = this.TextOne, IsTwoNode = true, ID=IDCounter });

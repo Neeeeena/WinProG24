@@ -13,8 +13,18 @@
         DataContext="{Binding Source={StaticResource Locator}, Path=Main}"
         >
     <Window.InputBindings>
+        
         <KeyBinding Command="{Binding DoneEditing}" Gesture="ENTER"/>
         <KeyBinding Command="{Binding DeleteKeyPressed}" Key="Delete"/>
+        <KeyBinding Command="{Binding NewDiagramCommand}" Gesture="CTRL+N"/>
+        <KeyBinding Command="{Binding OpenDiagramCommand}" Gesture="CTRL+O"/>
+        <KeyBinding Command="{Binding SaveDiagramCommand}" Gesture="CTRL+S"/>
+        <KeyBinding Command="{Binding UndoCommand}" Gesture="CTRL+Z"/>
+        <KeyBinding Command="{Binding RedoCommand}" Gesture="CTRL+Y"/>
+        <KeyBinding Command="{Binding CutCommand}" Gesture="CTRL+X"/>
+        <KeyBinding Command="{Binding CopyCommand}" Gesture="CTRL+C"/>
+        <KeyBinding Command="{Binding PasteCommand}" Gesture="CTRL+V"/>
+        
     </Window.InputBindings>
     
     <DockPanel Background="Gainsboro">
