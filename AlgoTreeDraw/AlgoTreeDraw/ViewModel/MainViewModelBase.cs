@@ -140,7 +140,8 @@ namespace AlgoTreeDraw.ViewModel
         // WHYYYY det skulle jo være alle selected nodes
         public void makePretty()
         {
-            Nodes.ElementAt(0).makePretty();
+            Tree selTree = new Tree(selectedNodes);
+            selTree.makePretty();
         }
 
         public void autoBalance()
@@ -149,6 +150,7 @@ namespace AlgoTreeDraw.ViewModel
             selTree.tAutoBalance();
         }
 
+        
         public void _DoneEditing()
         {
             if(editNode != null)

@@ -194,7 +194,11 @@ namespace AlgoTreeDraw.ViewModel
 
         private LinkedList<NodeViewModel> queue = new LinkedList<NodeViewModel>();
         private bool isLeftChild = false;
+        public bool IsLeftChild { get { return isLeftChild; } }
         private NodeViewModel[] childrenFromList;
+        public NodeViewModel[] ChildrenFromList { get { return childrenFromList; } }
+
+
 
         public void addNeighbour(NodeViewModel NVM)
         {
@@ -335,46 +339,46 @@ namespace AlgoTreeDraw.ViewModel
             return null;
         }
 
-        public bool makePretty()
-        {
-            List<NodeViewModel> bfList = getbfList(); //Updating the nodes in allNodes, to run the tree through breadth-first
-            double originalRootPos = bfList.ElementAt(0).X;
-            //if (!isValidBST())
-            //    return false;
+        //public bool makePretty()
+        //{
+        //    List<NodeViewModel> bfList = getbfList(); //Updating the nodes in allNodes, to run the tree through breadth-first
+        //    double originalRootPos = bfList.ElementAt(0).X;
+        //    //if (!isValidBST())
+        //    //    return false;
 
-            foreach (NodeViewModel nvm in bfList)
-            {
-                if (nvm.childrenFromList[0] == null) //IF THERE IS NO CHILDREN
-                {
+        //    foreach (NodeViewModel nvm in bfList)
+        //    {
+        //        if (nvm.childrenFromList[0] == null) //IF THERE IS NO CHILDREN
+        //        {
 
-                }
-                else if (nvm.childrenFromList[RIGHT] == null)    //One child
-                {
-                    if (nvm.childrenFromList[ONLY].isLeftChild)
-                        nvm.moveOffset(nvm.childrenFromList[ONLY], LEFT);
-                    else
-                        nvm.moveOffset(nvm.childrenFromList[ONLY], RIGHT);
-                    nvm.pushAncenstors(nvm.childrenFromList[ONLY]);
-                }
-                else
-                {
-                    nvm.moveOffset(nvm.childrenFromList[LEFT], LEFT);
-                    nvm.moveOffset(nvm.childrenFromList[RIGHT], RIGHT);
+        //        }
+        //        else if (nvm.childrenFromList[RIGHT] == null)    //One child
+        //        {
+        //            if (nvm.childrenFromList[ONLY].isLeftChild)
+        //                nvm.moveOffset(nvm.childrenFromList[ONLY], LEFT);
+        //            else
+        //                nvm.moveOffset(nvm.childrenFromList[ONLY], RIGHT);
+        //            nvm.pushAncenstors(nvm.childrenFromList[ONLY]);
+        //        }
+        //        else
+        //        {
+        //            nvm.moveOffset(nvm.childrenFromList[LEFT], LEFT);
+        //            nvm.moveOffset(nvm.childrenFromList[RIGHT], RIGHT);
 
-                    nvm.pushAncenstors(nvm.childrenFromList[LEFT]);
-                    nvm.pushAncenstors(nvm.childrenFromList[RIGHT]);
-                }
-            }
-            //For making the root stationary :>
-            if (originalRootPos < bfList.ElementAt(0).X)
-                pushTree(LEFT, 64000, null, bfList.ElementAt(0).X - originalRootPos);
-            else if (originalRootPos > bfList.ElementAt(0).X)
-                pushTree(RIGHT, -64000, null, originalRootPos - bfList.ElementAt(0).X);
+        //            nvm.pushAncenstors(nvm.childrenFromList[LEFT]);
+        //            nvm.pushAncenstors(nvm.childrenFromList[RIGHT]);
+        //        }
+        //    }
+        //    //For making the root stationary :>
+        //    if (originalRootPos < bfList.ElementAt(0).X)
+        //        pushTree(LEFT, 64000, null, bfList.ElementAt(0).X - originalRootPos);
+        //    else if (originalRootPos > bfList.ElementAt(0).X)
+        //        pushTree(RIGHT, -64000, null, originalRootPos - bfList.ElementAt(0).X);
 
-            return true;
-        }
+        //    return true;
+        //}
 
-        private bool pushAncenstors(NodeViewModel orig)
+        public bool pushAncenstors(NodeViewModel orig)
         {
             NodeViewModel parent = getParent();
             if (parent == null)
@@ -399,7 +403,7 @@ namespace AlgoTreeDraw.ViewModel
             return parent.pushAncenstors(orig);
         }
 
-        private bool pushTree(int direction, double threshold, NodeViewModel orig, double offset)
+        public bool pushTree(int direction, double threshold, NodeViewModel orig, double offset)
         {
             NodeViewModel[] children = getChildren();
             if (this == orig)
@@ -421,7 +425,7 @@ namespace AlgoTreeDraw.ViewModel
             return true;
         }
 
-        private bool move(int direction, double offset)
+        public bool move(int direction, double offset)
         {
             if (LEFT == direction)
                 X = X - offset;
@@ -430,7 +434,7 @@ namespace AlgoTreeDraw.ViewModel
             return true;
         }
 
-        private bool moveOffset(NodeViewModel child, int direction)
+        public bool moveOffset(NodeViewModel child, int direction)
         {
             if (LEFT == direction)
                 child.X = X - X_OFFSET;
@@ -441,7 +445,7 @@ namespace AlgoTreeDraw.ViewModel
         }
 
        // private List<NodeViewModel> bfList;
-        private List<NodeViewModel> getbfList()
+        public List<NodeViewModel> getbfList()
         {
             List<NodeViewModel> bfList = new List<NodeViewModel>();
             int i = 0;

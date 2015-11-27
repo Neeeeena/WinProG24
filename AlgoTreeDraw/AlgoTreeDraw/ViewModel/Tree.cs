@@ -17,8 +17,17 @@ namespace AlgoTreeDraw.ViewModel
         public List<LineViewModel> addedLinesAutoBalance = new List<LineViewModel>();
 
         // Temporary prolly
-        const int X_OFFSET = 70;
+        //const int X_OFFSET = 70;
+        //const int Y_OFFSET = 50;
+
+        const int LEFT = 0;
+        const int RIGHT = 1;
+        const int X_OFFSET =  40;
         const int Y_OFFSET = 50;
+        const int X_ONSET = 28;
+        const int NOMOVE = -1;
+        const int ONLY = 0;
+        const int NONE = -1;
 
         public Tree(List<NodeViewModel> selNodes)
         {
@@ -312,6 +321,55 @@ namespace AlgoTreeDraw.ViewModel
             {
                 Lines.Remove(l);
             }
+        }
+
+
+#pragma warning disable CS0108 // Member hides inherited member; missing new keyword
+        public bool makePretty()
+#pragma warning restore CS0108 // Member hides inherited member; missing new keyword
+        {
+            if(!allNodesConnected()){
+                //errorMSG 
+            }
+
+
+
+            List<NodeViewModel> bfList = root.getbfList(); //Updating the nodes in allNodes, to run the tree through breadth-first
+           // NodeViewModel originalRoot = 
+            double originalRootPos = bfList.ElementAt(0).X;
+            //if (!isValidBST())
+            //    return false;
+
+            foreach (NodeViewModel nvm in bfList)
+            {
+                if (nvm.ChildrenFromList[0] == null) //IF THERE IS NO CHILDREN
+                {
+
+                }
+                else if (nvm.ChildrenFromList[RIGHT] == null)    //One child
+                {
+                    if (nvm.ChildrenFromList[ONLY].IsLeftChild)
+                        nvm.moveOffset(nvm.ChildrenFromList[ONLY], LEFT);
+                    else
+                        nvm.moveOffset(nvm.ChildrenFromList[ONLY], RIGHT);
+                    nvm.pushAncenstors(nvm.ChildrenFromList[ONLY]);
+                }
+                else
+                {
+                    nvm.moveOffset(nvm.ChildrenFromList[LEFT], LEFT);
+                    nvm.moveOffset(nvm.ChildrenFromList[RIGHT], RIGHT);
+
+                    nvm.pushAncenstors(nvm.ChildrenFromList[LEFT]);
+                    nvm.pushAncenstors(nvm.ChildrenFromList[RIGHT]);
+                }
+            }
+            //For making the root stationary :>
+            if (originalRootPos < bfList.ElementAt(0).X)
+                root.pushTree(LEFT, 64000, null, bfList.ElementAt(0).X - originalRootPos);
+            else if (originalRootPos > bfList.ElementAt(0).X)
+                root.pushTree(RIGHT, -64000, null, originalRootPos - bfList.ElementAt(0).X);
+
+            return true;
         }
 
     }
