@@ -50,12 +50,11 @@ namespace AlgoTreeDraw.ViewModel
 
         private int _HEIGHT = 1000;
         private int _WIDTH = 1000;
-        private static int canvasWidth = 500;
-        private static int canvasHeight = 500;
+        private static int canvasWidth = 900;
+        private static int canvasHeight = 600;
         public int CanvasWidth { get { return canvasWidth; } set { canvasWidth = value; RaisePropertyChanged();} }
         public int CanvasHeight { get { return canvasHeight; } set { canvasHeight = value; RaisePropertyChanged(); } }
-
-
+        
         private Brush _TEST = Brushes.Black;
         public Brush TEST { get { return _TEST; } set { _TEST = value; RaisePropertyChanged(); } }
     
@@ -222,27 +221,43 @@ namespace AlgoTreeDraw.ViewModel
             }
             else
             {
-
-                var mousePosition = RelativeMousePosition(e);
-
-                foreach (NodeViewModel n in selectedNodes)
+                bool isOutside = false;
+                foreach (NodeViewModel n1 in selectedNodes)
                 {
-                    n.X = n.initialNodePosition.X;
-                    n.Y = n.initialNodePosition.Y;
+                    if (n1.X < 0 || n1.Y < 0)
+                    {
+                        isOutside = true;
+                        break;
+                    }
                 }
-
-                if (!(initialMousePosition.X == mousePosition.X && initialMousePosition.Y == mousePosition.Y)) //Only when it actually moves
-            {
-                undoRedo.InsertInUndoRedo(new MoveNodeCommand(selectedNodes, mousePosition.X - initialMousePosition.X, mousePosition.Y - initialMousePosition.Y));
-                foreach (var n in selectedNodes)
+                if (isOutside)
                 {
-                    if (n.X + n.Diameter > CanvasWidth)
-                        CanvasWidth = (int)(n.X + n.Diameter);
-                    if (n.Y + n.Diameter > CanvasHeight)
-                        CanvasHeight = (int)(n.Y + n.Diameter);
-                }
+                    foreach (NodeViewModel n in selectedNodes)
+                    {
+                        n.X = n.initialNodePosition.X;
+                        n.Y = n.initialNodePosition.Y;
+                    }
+                } else { 
+                        var mousePosition = RelativeMousePosition(e);
 
-            }
+                        foreach (NodeViewModel n in selectedNodes)
+                        {
+                            n.X = n.initialNodePosition.X;
+                            n.Y = n.initialNodePosition.Y;
+                        }
+
+                        if (!(initialMousePosition.X == mousePosition.X && initialMousePosition.Y == mousePosition.Y)) //Only when it actually moves
+                    {
+                        undoRedo.InsertInUndoRedo(new MoveNodeCommand(selectedNodes, mousePosition.X - initialMousePosition.X, mousePosition.Y - initialMousePosition.Y));
+                        foreach (var n in selectedNodes)
+                        {
+                            if (n.X + n.Diameter > CanvasWidth)
+                                CanvasWidth = (int)(n.X + n.Diameter);
+                            if (n.Y + n.Diameter > CanvasHeight)
+                                CanvasHeight = (int)(n.Y + n.Diameter);
+                        }
+                        }
+                }
             }
                 e.MouseDevice.Target.ReleaseMouseCapture();
             
@@ -269,15 +284,15 @@ namespace AlgoTreeDraw.ViewModel
                 n.initialNodePosition.Y = n.Y;
             }
 
+            
+            
             e.MouseDevice.Target.CaptureMouse();
             if (e.ClickCount == 2 && e.LeftButton == MouseButtonState.Pressed)
             {
                 node.IsEditing = Visibility.Visible;
                 node.IsNotEditing = Visibility.Hidden;
-                editNode = node;
-                
+                editNode = node;   
             }
-
         }
 
         private void MouseMoveNode(MouseEventArgs e)
@@ -295,11 +310,8 @@ namespace AlgoTreeDraw.ViewModel
                 {
                     tempX = n.initialNodePosition.X + (mousePosition.X - initialMousePosition.X);
                     tempY = n.initialNodePosition.Y + (mousePosition.Y - initialMousePosition.Y);
-                    if (!(tempX < 0 || tempY < 0))
-                    {
-                        n.X = tempX;
-                        n.Y = tempY;
-                    }
+                    n.X = tempX;
+                    n.Y = tempY;
                 }
             }
         }

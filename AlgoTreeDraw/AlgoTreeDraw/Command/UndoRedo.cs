@@ -19,9 +19,6 @@ namespace AlgoTreeDraw.Command
         public IUndoRedoCommand[] undoList { get { return _undoCommands.ToArray(); } }
         public IUndoRedoCommand[] redoList { get { return _redoCommands.ToArray(); } }
 
-
-
-
         public string getUndoCommandFromIndex(int index)
         {
             if (_undoCommands.Count - 1 >= index)
@@ -90,11 +87,7 @@ namespace AlgoTreeDraw.Command
                 EnableRedo = CanRedo(levels);
                 RaisePropertyChanged(nameof(EnableUndo));
                 RaisePropertyChanged(nameof(EnableRedo));
-
             }
-
         }
-
-
     }
 }

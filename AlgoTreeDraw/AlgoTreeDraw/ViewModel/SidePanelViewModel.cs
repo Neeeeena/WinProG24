@@ -40,12 +40,11 @@ namespace AlgoTreeDraw.ViewModel
 
         public ICommand InsertNodeCommand { get; }
 
-        public int NODEHEIGHT { get; set; } = 13;
+        
         //sidepanel WIDTHS
-        public static int WIDTHS { get; set; } = 240;
+        public static int WIDTHS { get; set; } = 150;
 
-
-
+        public string AddNodeValue { get; set; }
 
         public static ObservableCollection<NodeViewModel> NodesSP{ get; set; } 
             = new ObservableCollection<NodeViewModel>
@@ -86,15 +85,23 @@ namespace AlgoTreeDraw.ViewModel
 
         private void CallInsertNode()
         {
-            NodeViewModel nvm = new BSTViewModel(new BST() { X = 20, Y = 20, Key = "5", ID = Node.IDCounter });
-            Node.IDCounter++;
-            nvm.Diameter = 50;
+            int key = 0;
+            if(int.TryParse(AddNodeValue, out key))
+            {
+                NodeViewModel nvm = new BSTViewModel(new BST() { X = 20, Y = 20, Key = key.ToString(), ID = Node.IDCounter });
+                Node.IDCounter++;
+                nvm.Diameter = 50;
+                undoRedo.InsertInUndoRedo(new InsertNodeInTreeCommand(Nodes, selectedNodes, nvm, Lines));
+            }
+            else
+            {
+                System.Windows.MessageBox.Show("Invalid Key");
+            }
             
         }
         private void CallAutoBalance()
         {
             undoRedo.InsertInUndoRedo(new AutoBalanceCommand(Nodes, selectedNodes, Lines));
-            CallInsertNode();
         }
         private void CallMakePretty()
         {
@@ -117,11 +124,11 @@ namespace AlgoTreeDraw.ViewModel
         {
             var node = MouseUpNodeSP2(e);
 
-            if(node.X > WIDTHS)
+            if(node.X > 120)
             {
                 NodeViewModel tempNode = node.newNodeViewModel();
-                tempNode.X = node.X - WIDTHS;
-                tempNode.Y = node.Y + NODEHEIGHT;
+                tempNode.X = node.X - WIDTHS+27;
+                tempNode.Y = node.Y + 31;
                 tempNode.ID = Node.IDCounter;
                 AddNode(tempNode);
             }
