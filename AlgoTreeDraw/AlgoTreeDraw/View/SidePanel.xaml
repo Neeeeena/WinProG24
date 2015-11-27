@@ -82,8 +82,8 @@
 
             <Button Grid.Row="1" Grid.Column="1" Content="Delete from tree"  Margin="3" />
             <Button Command="{Binding AutoBalanceCommand}" Grid.Row="1" Grid.Column="0" Content ="Auto Balance" Margin="3" />
-            <TextBox Grid.Row="3" Grid.Column="1" Text="Bind her!" VerticalAlignment="Center" Margin="3" />
-            <Button Grid.Row="3" Grid.Column="0" Content="Insert"  Margin="3" />
+            <TextBox Grid.Row="3" Grid.Column="1" Text="{Binding AddNodeValue}" VerticalAlignment="Center" Margin="3" />
+            <Button Command="{Binding InsertNodeCommand}" Grid.Row="3" Grid.Column="0" Content="Insert"  Margin="3" />
             
 
 
