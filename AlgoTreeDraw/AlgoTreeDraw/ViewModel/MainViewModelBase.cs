@@ -349,5 +349,9 @@ namespace AlgoTreeDraw.ViewModel
             dynamic parent = VisualTreeHelper.GetParent(o);
             return parent.GetType().IsAssignableFrom(typeof(T)) ? parent : FindParentOfType<T>(parent);
         }
+
+
+
+
     }
 }
