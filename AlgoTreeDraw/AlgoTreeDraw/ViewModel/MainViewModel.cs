@@ -25,7 +25,7 @@ namespace AlgoTreeDraw.ViewModel
     /// See http://www.galasoft.ch/mvvm
     /// </para>
     /// </summary>
-    public class MainViewModel : MainViewModelBase
+    public class MainViewModel : MenuViewModel
     {
         //public SidePanelViewModel SidePanelViewModel { get; set; }
         /// <summary>

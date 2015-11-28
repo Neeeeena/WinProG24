@@ -30,6 +30,7 @@ namespace AlgoTreeDraw.ViewModel
         public ICommand UndoCommand { get; }
         public ICommand RedoCommand { get; }
         public ICommand ExportCommand { get; }
+        public ICommand UndoCommandM { get; }
 
         public MenuViewModel()
         {
@@ -37,8 +38,9 @@ namespace AlgoTreeDraw.ViewModel
             OpenDiagramCommand = new RelayCommand(OpenDiagram);
             SaveDiagramCommand = new RelayCommand(SaveDiagram);
             dialogVM = new DialogBox();
-            UndoCommand = new RelayCommand<int>(undoClicked);
+            UndoCommand = new RelayCommand<int>(undoClicked, undoRedo.CanUndo);
             RedoCommand = new RelayCommand<int>(redoClicked,undoRedo.CanRedo);
+
             ExportCommand = new RelayCommand(SaveImage);
             Messenger.Default.Register<Grid>(this, initGrid);
 

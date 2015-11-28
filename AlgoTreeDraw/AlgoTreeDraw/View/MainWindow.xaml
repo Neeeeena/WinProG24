@@ -31,7 +31,7 @@
             
             <View:MenuBar DockPanel.Dock="Top"/>
             <!-- Draw Menu bar -->
-            <Border Panel.ZIndex="1" BorderBrush="Gainsboro" BorderThickness="1">
+            <Border Panel.ZIndex="2" BorderBrush="Gainsboro" BorderThickness="1">
                 <View:SidePanel DockPanel.Dock="Left"/>
                 <!-- Draw sidepanel -->
             </Border>

@@ -119,7 +119,7 @@ namespace AlgoTreeDraw.ViewModel
             return true;
         }
 
-        public bool allNodesOneParentAndLessThanTwoChildren()
+        public bool allNodesOneParentAndLessThanThreeChildren()
         {
             foreach(NodeViewModel n in nodes)
             {
@@ -296,25 +296,25 @@ namespace AlgoTreeDraw.ViewModel
             if (nvm != null)
             {
 
-                NodeViewModel[] children = new NodeViewModel[2];
-                int i = 0;
-                foreach (NodeViewModel n in nvm.neighbours)
+            NodeViewModel[] children = new NodeViewModel[2];
+            int i = 0;
+            foreach (NodeViewModel n in nvm.neighbours)
+            {
+                if (n.Y > nvm.Y)
                 {
-                    if (n.Y > nvm.Y)
-                    {
-                        children[i] = n;
-                        i++;
-                    }
+                    children[i] = n;
+                    i++;
                 }
+            }                
 
-                if (i == 2 && children[0].X > children[1].X)
-                {
-                    NodeViewModel temp = children[0];
-                    children[0] = children[1];
-                    children[1] = temp;
-                }
-                return children;
+            if (i == 2 && children[0].X > children[1].X)
+            {
+                NodeViewModel temp = children[0];
+                children[0] = children[1];
+                children[1] = temp;
             }
+            return children;
+        }
             return null;
         }
 

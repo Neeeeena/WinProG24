@@ -54,11 +54,23 @@ namespace AlgoTreeDraw.Command
 
         public bool CanRedo(int levels)
         {
-            return levels <= _redoCommands.Count;
+            if(redoList.Length == 0) {
+                return false;
+            } else
+            {
+                return true;
+            }
         }
         public bool CanUndo(int levels)
         {
-            return levels <= _undoCommands.Count;
+            if (undoList.Length == 0)
+            {
+                return false;
+            }
+            else
+            {
+                return true;
+            }
         }
         public void Redo(int levels)
         {
@@ -72,7 +84,6 @@ namespace AlgoTreeDraw.Command
                 EnableRedo = CanRedo(levels);
                 RaisePropertyChanged(nameof(EnableUndo));
                 RaisePropertyChanged(nameof(EnableRedo));
-
             }
             if(redoList.Length == 0) Messenger.Default.Send(new UndoRedoEnabledMsg(true, false));
             if (redoList.Length != 0) Messenger.Default.Send(new UndoRedoEnabledMsg(true, true));
@@ -83,7 +94,6 @@ namespace AlgoTreeDraw.Command
             if (!CanUndo(levels)) throw new InvalidOperationException();
             for (int i = 0; i <= levels; i++)
             {
-
                 IUndoRedoCommand command = _undoCommands.Pop();
                 command.UnExecute();
                 _redoCommands.Push(command);
