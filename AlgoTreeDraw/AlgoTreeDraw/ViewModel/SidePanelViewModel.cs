@@ -116,6 +116,13 @@ namespace AlgoTreeDraw.ViewModel
         private void AddLineClicked(MouseButtonEventArgs e)
         {
             isAddingLine = !isAddingLine;
+            if(isAddingLine)
+            {
+                Messenger.Default.Send(Cursors.Cross);
+            } else
+            {
+                Messenger.Default.Send(Cursors.Arrow);
+            }
             if(!isAddingLine) fromNode = null;
 
         }
@@ -143,11 +150,26 @@ namespace AlgoTreeDraw.ViewModel
         private void ChangeColorClicked()
         {
             isChangingColor = !isChangingColor;
+            if(isChangingColor)
+            {
+                Messenger.Default.Send(Cursors.Pen);
+            } else
+            {
+                Messenger.Default.Send(Cursors.Arrow);
+            }
         }
 
         private void ChangeColorTextClicked()
         {
             isChangingColorText = !isChangingColorText;
+            if (isChangingColorText)
+            {
+                Messenger.Default.Send(Cursors.Pen);
+            }
+            else
+            {
+                Messenger.Default.Send(Cursors.Arrow);
+            }
         }
 
 

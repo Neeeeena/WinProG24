@@ -88,7 +88,7 @@
         </Grid>
         <Button Grid.Row="3" Content="Delete from tree"  />
         <Button Command="{Binding AutoBalanceCommand}" Content ="Auto Balance" Margin="3" />
-        
+        <Slider x:Name="zoomSlider" ToolTip="Zoom" Value="{Binding zoomValue, Mode=TwoWay}" IsSnapToTickEnabled="True" TickFrequency="0.1" Minimum="0.01" Maximum="10"/>
 
     </StackPanel>
    

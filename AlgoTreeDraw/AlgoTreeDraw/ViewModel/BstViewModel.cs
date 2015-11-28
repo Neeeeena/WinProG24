@@ -14,6 +14,7 @@ namespace AlgoTreeDraw.ViewModel
     public class BSTViewModel : NodeViewModel
     {
         public BSTViewModel(Node _node) : base(_node) {
+            ColorOfText = Brushes.Black;
         }
 
 

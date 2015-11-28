@@ -166,6 +166,7 @@
     <Compile Include="Model\Node.cs" />
     <Compile Include="Model\T234.cs" />
     <Compile Include="Serialization\XMLserializer.cs" />
+    <Compile Include="UndoRedoEnabledMsg.cs" />
     <Compile Include="ViewModel\BSTViewModel.cs" />
     <Compile Include="ViewModel\DialogBox.cs" />
     <Compile Include="ViewModel\MainViewModelBase.cs" />
@@ -177,6 +178,7 @@
     <Compile Include="ViewModel\SidePanelViewModel.cs" />
     <Compile Include="ViewModel\T234ViewModel.cs" />
     <Compile Include="ViewModel\Tree.cs" />
+    <Compile Include="ViewModel\Tree234.cs" />
     <Compile Include="ViewModel\UndoRedoItem.cs" />
     <Compile Include="ViewModel\ViewModelLocator.cs" />
     <Compile Include="View\BstViewUserControl.xaml.cs">

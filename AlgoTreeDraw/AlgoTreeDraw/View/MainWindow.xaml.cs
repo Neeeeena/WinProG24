@@ -25,7 +25,12 @@ namespace AlgoTreeDraw.View
         {
             InitializeComponent();
             Messenger.Default.Send(MainGrid);
+            Messenger.Default.Register<Cursor>(this, updateCursor);
+        }
 
+        private void updateCursor(Cursor Cursor)
+        {
+            this.Cursor = Cursor;
         }
 
         private void Grid_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
