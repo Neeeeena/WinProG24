@@ -119,7 +119,7 @@ namespace AlgoTreeDraw.ViewModel
             return true;
         }
 
-        public bool allNodesOneParentAndLessThanTwoChildren()
+        public bool allNodesOneParentAndLessThanThreeChildren()
         {
             foreach(NodeViewModel n in nodes)
             {
@@ -176,7 +176,7 @@ namespace AlgoTreeDraw.ViewModel
 
         public List<LineViewModel> tAutoBalance()
         {
-            if (nodes != null && allNodesIntKeys() && allNodesBST() && allNodesConnected() && allNodesOneParentAndLessThanTwoChildren())
+            if (nodes != null && allNodesIntKeys() && allNodesBST() && allNodesConnected() && allNodesOneParentAndLessThanThreeChildren())
             {
                 nodes.Sort((x, y) => int.Parse(x.Key).CompareTo(int.Parse(y.Key)));
                 removeLinesAndNeighbours();
