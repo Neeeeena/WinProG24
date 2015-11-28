@@ -29,8 +29,8 @@
                 <MenuItem Header="Redo" Command="{Binding RedoCommand}" IsEnabled="{Binding Path=undoRedo.EnableRedo}" CommandParameter="{Binding one}"/>
             </MenuItem>
             <MenuItem Header="View">
-                <MenuItem Header="Zoom out"/>
-                <MenuItem Header="Zoom in"/>
+                <MenuItem Header="Zoom in" Command="{Binding ZoomInCommand}"/>
+                <MenuItem Header="Zoom out" Command="{Binding ZoomOutCommand}"/>
             </MenuItem>
         </Menu>
         <ToolBar>
@@ -87,6 +87,12 @@
             </Button>
             <Button Command="{Binding ExportCommand}" ToolTip="Export canvas as image">
                 <Image Source="/Images/pic.png"/>
+            </Button>
+            <Button Command="{Binding ZoomInCommand}" ToolTip="Zoom in">
+                <Image Source="/Images/zoom_in.png"/>
+            </Button>
+            <Button Command="{Binding ZoomOutCommand}" ToolTip="Zoom out">
+                <Image Source="/Images/zoom_out.png"/>
             </Button>
         </ToolBar>
 
