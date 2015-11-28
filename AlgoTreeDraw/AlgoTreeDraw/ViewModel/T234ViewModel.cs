@@ -17,6 +17,12 @@ namespace AlgoTreeDraw.ViewModel
         public string TxtTwo { get { return ((T234)Node).TextTwo; } set { ((T234)Node).TextTwo = value; RaisePropertyChanged(); } }
         public string TxtThree { get { return ((T234)Node).TextThree; } set { ((T234)Node).TextThree = value; RaisePropertyChanged(); } }
 
+        public bool _IsTwoNode { get { return ((T234)Node).IsTwoNode; } set{ ((T234)Node).IsTwoNode = value;RaisePropertyChanged(); ShowCorrectNode(); } }
+        public bool _IsThreeNode { get { return ((T234)Node).IsThreeNode; } set { ((T234)Node).IsThreeNode = value; RaisePropertyChanged(); ShowCorrectNode(); } }
+        public bool _IsFourNode { get { return ((T234)Node).IsFourNode; } set { ((T234)Node).IsFourNode = value; RaisePropertyChanged(); ShowCorrectNode(); } }
+
+        public new string Key { get { return TxtOne; } set { TxtOne = value; RaisePropertyChanged(); } }
+
         public T234ViewModel(T234 _node) : base(_node)
         {
             ShowOneT234 = new RelayCommand(ChangeTo2Node);
@@ -43,11 +49,11 @@ namespace AlgoTreeDraw.ViewModel
 
         public void ShowCorrectNode()
         {
-            if (((T234)Node).IsTwoNode)
+            if (_IsTwoNode)
             {
                 ShowOneT234Node();
             }
-            else if (((T234)Node).IsThreeNode)
+            else if (_IsThreeNode)
             {
                 ShowTwoT234Node();
             }
@@ -59,24 +65,24 @@ namespace AlgoTreeDraw.ViewModel
 
         public void ChangeTo2Node()
         {
-            ((T234)Node).IsTwoNode = true;
-            ((T234)Node).IsThreeNode = false;
-            ((T234)Node).IsFourNode = false;
+            _IsTwoNode = true;
+            _IsThreeNode = false;
+            _IsFourNode = false;
             ShowCorrectNode();
         }
 
         public void ChangeTo3Node()
         {
-            ((T234)Node).IsTwoNode = false;
-            ((T234)Node).IsThreeNode = true;
-            ((T234)Node).IsFourNode = false;
+            _IsTwoNode = false;
+            _IsThreeNode = true;
+            _IsFourNode = false;
             ShowCorrectNode();
         }
         public void ChangeTo4Node()
         {
-            ((T234)Node).IsTwoNode = false;
-            ((T234)Node).IsThreeNode = false;
-            ((T234)Node).IsFourNode = true;
+            _IsTwoNode = false;
+            _IsThreeNode = false;
+            _IsFourNode = true;
             ShowCorrectNode();
         }
 
@@ -105,11 +111,11 @@ namespace AlgoTreeDraw.ViewModel
 
         public override NodeViewModel newNodeViewModel()
         {
-            if (((T234)Node).IsThreeNode)
+            if (_IsThreeNode)
             {
                 return new T234ViewModel(new T234() { X = this.X, Y = this.Y, diameter = this.Diameter, IsThreeNode = true});
             }
-            else if(((T234)Node).IsTwoNode)
+            else if(_IsTwoNode)
             {
                 return new T234ViewModel(new T234() { X = this.X, Y = this.Y, diameter = this.Diameter, IsTwoNode = true });
             }
@@ -119,6 +125,84 @@ namespace AlgoTreeDraw.ViewModel
             }
             
         }
+        public void Merge(T234ViewModel other, T234ViewModel optional = null)
+        {
+            if (other != null)
+            {
+                if (_IsTwoNode && other._IsTwoNode)
+                {
+                    if(int.Parse(TxtOne) > int.Parse(other.TxtOne))
+                    {
+                        TxtTwo = TxtOne;
+                        TxtOne = other.TxtOne;
+                    }
+                    else
+                    {
+                        TxtTwo = other.TxtOne;
+                    }
+                    
+                    _IsTwoNode = false;
+                    _IsThreeNode = true;
+                }
+                else if (_IsTwoNode && other._IsThreeNode)
+                {
+                    if(int.Parse(TxtOne) > int.Parse(other.TxtOne))
+                    {
+                        if(int.Parse(TxtOne) > int.Parse(other.TxtTwo))
+                        {
+                            TxtThree = TxtOne;
+                            TxtOne = other.TxtOne;
+                            TxtTwo = other.TxtTwo;
+                        }
+                        else
+                        {
+                            TxtTwo = TxtOne;
+                            TxtOne = other.TxtOne;
+                            TxtThree = other.TxtTwo;
+                        }
+                    }
+                    else
+                    {
+                        TxtTwo = other.TxtOne;
+                        TxtThree = other.TxtTwo;
+                    }
+
+                    _IsTwoNode = false;
+                    _IsFourNode = true;
+                }
+                if (optional != null && optional._IsTwoNode && _IsThreeNode)
+                {
+                    TxtThree = optional.TxtOne;
+                    _IsThreeNode = false;
+                    _IsFourNode = true;
+                }
+            }
+        }
+
+        public List<T234ViewModel> Split()
+        {
+            List<T234ViewModel> temp = new List<T234ViewModel>();
+            if (_IsThreeNode)
+            {
+                temp.Add(new T234ViewModel(new T234() { TextOne = TxtTwo, IsTwoNode = true, ID = Node.IDCounter }));
+                Node.IDCounter++;
+                _IsThreeNode = false;
+                _IsTwoNode = true;
+            }
+            else if (_IsFourNode)
+            {
+                temp.Add(new T234ViewModel (new T234() { TextOne = this.TxtTwo, IsTwoNode = true, ID = Node.IDCounter }));
+                Node.IDCounter++;
+                temp.Add(new T234ViewModel (new T234() { TextOne = this.TxtThree, IsTwoNode = true, ID = Node.IDCounter }));
+                Node.IDCounter++;
+                _IsFourNode = false;
+                _IsTwoNode = true;
+
+            }
+            return temp;
+        }
+
+
         //public void MouseDoubleClickNode(MouseButtonEventArgs e)
         //{
         //    var node = TargetShape(e);

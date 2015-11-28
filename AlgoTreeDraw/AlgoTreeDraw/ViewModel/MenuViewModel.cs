@@ -157,7 +157,15 @@ namespace AlgoTreeDraw.ViewModel
                 }
                 Lines.Clear();
                 diagram.Lines.Select(l => new LineViewModel(l)).ToList().ForEach(l => Lines.Add(l));
-
+                int largestId = 0;
+                foreach(var n in Nodes)
+                {
+                    if(n.ID > largestId)
+                    {
+                        largestId = n.ID;
+                    }
+                }
+                Node.IDCounter = largestId;
                 // Reconstruct object graph.
                 foreach (LineViewModel line in Lines)
                 {

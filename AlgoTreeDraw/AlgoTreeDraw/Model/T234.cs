@@ -38,54 +38,7 @@ namespace AlgoTreeDraw.Model
             return new T234();
         }
 
-        public void Merge(T234 other, T234 optional = null)
-        {
-            if (other != null)
-            {
-                if (IsTwoNode && other.IsTwoNode)
-                {
-                    TextTwo = other.TextOne;
-                    IsTwoNode = false;
-                    IsThreeNode = true;
-                }
-                else if (IsTwoNode && other.IsThreeNode)
-                {
-                    TextTwo = other.TextOne;
-                    TextThree = other.TextTwo;
-                    IsTwoNode = false;
-                    IsFourNode = true;
-                }
-                if (optional != null && optional.IsTwoNode && IsThreeNode)
-                {
-                    TextThree = optional.TextOne;
-                    IsThreeNode = false;
-                    IsFourNode = true;
-                }
-            }
-        }
 
-        public List<T234> Split()
-        {
-            List<T234> temp = new List<T234>();
-            if (IsThreeNode)
-            {  
-                temp.Add(new T234() { TextOne = this.TextOne, IsTwoNode = true, ID=IDCounter });
-                IDCounter++;
-                IsThreeNode = false;
-                IsTwoNode = true;
-            }
-            else if (IsFourNode)
-            {
-                temp.Add(new T234() { TextOne = this.TextOne, IsTwoNode=true, ID=IDCounter });
-                IDCounter++;
-                temp.Add(new T234() { TextOne = this.TextTwo, IsTwoNode = true, ID=IDCounter });
-                IDCounter++;
-                IsFourNode = false;
-                IsTwoNode = true;
-                
-            }
-            return temp;
-        }
 
 
     }
