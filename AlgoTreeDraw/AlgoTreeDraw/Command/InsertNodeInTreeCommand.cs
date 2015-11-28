@@ -11,15 +11,15 @@ namespace AlgoTreeDraw.Command
     class InsertNodeInTreeCommand : IUndoRedoCommand
     {
         private ObservableCollection<NodeViewModel> nodes;
-        private NodeViewModel nvm;
         private List<NodeViewModel> selNodes = new List<NodeViewModel>();
         private ObservableCollection<LineViewModel> lines;
+        private NodeViewModel newNode;
 
-        public InsertNodeInTreeCommand(ObservableCollection<NodeViewModel> _nodes, List<NodeViewModel> _selectedNodes, NodeViewModel _nvm, ObservableCollection<LineViewModel> _lines)
+        public InsertNodeInTreeCommand(ObservableCollection<NodeViewModel> _nodes, List<NodeViewModel> _selectedNodes, NodeViewModel _newNode, ObservableCollection<LineViewModel> _lines)
         {
             nodes = _nodes;
             lines = _lines;
-            nvm = _nvm;
+            newNode = _newNode;
             foreach(NodeViewModel n in _selectedNodes)
             {
                 selNodes.Add(n);
@@ -28,19 +28,21 @@ namespace AlgoTreeDraw.Command
         
         public void Execute()
         {
+            nodes.Add(newNode);
             Tree selTree = new Tree(selNodes);
-            selTree.insert(nvm);
+
+            selTree.insert(newNode);
         }
 
         public void UnExecute()
         {
-            nodes.Remove(nvm);
-            foreach(LineViewModel l in lines)
+            nodes.Remove(newNode);
+            foreach (LineViewModel l in lines)
             {
-                if(l.From == nvm)
+                if (l.From == newNode)
                 {
                     lines.Remove(l);
-                    nvm.removeNeighbour(l.To);
+                    newNode.removeNeighbour(l.To);
                     break;
                 }
             }
