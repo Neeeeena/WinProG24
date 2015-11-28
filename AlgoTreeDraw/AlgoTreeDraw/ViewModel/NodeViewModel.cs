@@ -105,7 +105,7 @@ namespace AlgoTreeDraw.ViewModel
         public double X
         {
             get { return Node.X; }
-            set { Node.X = value; RaisePropertyChanged(); RaisePropertyChanged(() => CanvasCenterX); if (value > 10) WIDTH = 1500; RaisePropertyChanged(() => WIDTH); Debug.Write(value + "\n" + "lol:" + WIDTH + "\n"); }
+            set { Node.X = value; RaisePropertyChanged(); RaisePropertyChanged(() => CanvasCenterX); if (value > 10) WIDTH = 1500; RaisePropertyChanged(() => WIDTH);}
         }
 
         public int Offset { get; set; }

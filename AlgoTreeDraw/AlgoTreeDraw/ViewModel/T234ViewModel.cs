@@ -41,6 +41,22 @@ namespace AlgoTreeDraw.ViewModel
         public Visibility ShowNode2 { get { return _ShowNode2; } set { _ShowNode2 = value; RaisePropertyChanged(); } }
         public Visibility ShowNode3 { get { return _ShowNode3; } set { _ShowNode3 = value; RaisePropertyChanged(); } }
 
+        public new double CanvasCenterX { get {
+                    if(((T234)Node).IsTwoNode) {
+                        return X + Diameter / 2;
+                    } else if(((T234)Node).IsThreeNode)
+                    {
+                        return X + Diameter;
+                    } else
+                    {
+                        return X + (Diameter * 3) / 2;
+                    }
+                } set { X = value - Diameter / 2; RaisePropertyChanged(() => X); } }
+        public new double CanvasCenterY { get {
+                return Y + Diameter / 2;
+                
+            } set { Y = value - Diameter / 2; RaisePropertyChanged(() => Y); } }
+
         public void ShowCorrectNode()
         {
             if (((T234)Node).IsTwoNode)
@@ -86,14 +102,15 @@ namespace AlgoTreeDraw.ViewModel
             this.ShowNode1 = Visibility.Visible;
             this.ShowNode2 = Visibility.Hidden;
             this.ShowNode3 = Visibility.Hidden;
+            RaisePropertyChanged(() => CanvasCenterX);
         }
 
         public void ShowTwoT234Node()
         {
-
             this.ShowNode1 = Visibility.Visible;
             this.ShowNode2 = Visibility.Visible;
             this.ShowNode3 = Visibility.Hidden;
+            RaisePropertyChanged(() => CanvasCenterX);
         }
 
         public void ShowThreeT234Node()
@@ -101,6 +118,7 @@ namespace AlgoTreeDraw.ViewModel
             this.ShowNode1 = Visibility.Visible;
             this.ShowNode2 = Visibility.Visible;
             this.ShowNode3 = Visibility.Visible;
+            RaisePropertyChanged(() => CanvasCenterX);
         }
 
         public override NodeViewModel newNodeViewModel()
@@ -117,7 +135,6 @@ namespace AlgoTreeDraw.ViewModel
             {
                 return new T234ViewModel(new T234() { X = this.X, Y = this.Y, diameter = this.Diameter, IsFourNode = true });
             }
-            
         }
         //public void MouseDoubleClickNode(MouseButtonEventArgs e)
         //{
