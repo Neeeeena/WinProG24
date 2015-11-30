@@ -459,5 +459,50 @@ namespace AlgoTreeDraw.ViewModel
 
         }
 
+
+        public NodeViewModel remove(string _key)
+        {
+            return removeBST(_key);
+        }
+
+        public NodeViewModel removeBST(string _key)
+        {
+            NodeViewModel removeNode = null;
+            foreach (NodeViewModel n in nodes)
+            {
+                if (n.Key == _key)
+                {
+                    removeNode = n;
+                    break;
+                }
+                return null;
+            }
+
+            NodeViewModel parent = removeNode.getParent();
+            NodeViewModel[] children = removeNode.getChildren();
+            NodeViewModel replacementNode;
+            if (children[LEFT] == null)
+            {
+                
+            }else
+            {
+                replacementNode = children[LEFT].getMostRightNode();
+                for(;;)
+                {
+                    children = replacementNode.getChildren();
+                    removeNode.Key = replacementNode.Key;
+
+                    if (children[LEFT] == null)
+                        return replacementNode;
+                    else
+                    {
+                        removeNode = replacementNode;
+                        replacementNode = children[LEFT].getMostRightNode();
+                    }
+                }           
+            }
+            return null;
+        }
+
     }
 }

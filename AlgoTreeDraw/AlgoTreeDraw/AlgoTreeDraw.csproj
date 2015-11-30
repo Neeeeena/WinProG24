@@ -172,6 +172,7 @@
     <Compile Include="Command\DeleteNodeCommand.cs" />
     <Compile Include="Command\IUndoRedoCommand.cs" />
     <Compile Include="Command\MoveNodeCommand.cs" />
+    <Compile Include="Command\RemoveNodeInTreeCommand.cs" />
     <Compile Include="Command\UndoRedo.cs" />
     <Compile Include="Model\BST.cs" />
     <Compile Include="Model\Diagram.cs" />

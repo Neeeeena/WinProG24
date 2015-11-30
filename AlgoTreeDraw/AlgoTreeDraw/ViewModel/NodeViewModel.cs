@@ -333,11 +333,21 @@ namespace AlgoTreeDraw.ViewModel
                 return true;
         }
 
-        private NodeViewModel getParent()
+        public NodeViewModel getParent()
         {
             foreach (NodeViewModel neighbour in neighbours)
                 if (neighbour.Y < Y) return neighbour;
             return null;
+        }
+
+        public NodeViewModel getMostRightNode()
+        {
+            NodeViewModel[] children = getChildren();
+            if(children[RIGHT] != null)
+            {
+                return children[RIGHT].getMostRightNode();
+            }
+            return this;
         }
 
         //public bool makePretty()

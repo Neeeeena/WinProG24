@@ -40,6 +40,8 @@ namespace AlgoTreeDraw.ViewModel
 
         public ICommand InsertNodeCommand { get; }
 
+        public ICommand RemoveNodeInTreeCommand { get; }
+
         
         //sidepanel WIDTHS
         public static int WIDTHS { get; set; } = 150;
@@ -79,6 +81,7 @@ namespace AlgoTreeDraw.ViewModel
             MakePrettyCommand = new RelayCommand(CallMakePretty);
             AutoBalanceCommand = new RelayCommand(CallAutoBalance);
             InsertNodeCommand = new RelayCommand(CallInsertNode);
+            RemoveNodeInTreeCommand = new RelayCommand(CallRemoveNodeInTree);
             ChosenColor = Color.FromRgb(0,0,0);
 
         }
@@ -103,6 +106,16 @@ namespace AlgoTreeDraw.ViewModel
             
             
         }
+
+        private void CallRemoveNodeInTree()
+        {
+            //ADD ERROR IF THERE IS ONLY ONE ELEMENT IN THE TREE
+            if(selectedNodes == null || selectedNodes.Count != 1 )
+                System.Windows.MessageBox.Show("You have to mark excactly one node");
+            else
+            undoRedo.InsertInUndoRedo(new RemoveNodeInTreeCommand(Nodes, selectedNodes, Lines)) ;
+        }
+
         private void CallAutoBalance()
         {
             undoRedo.InsertInUndoRedo(new AutoBalanceCommand(Nodes, selectedNodes, Lines));
