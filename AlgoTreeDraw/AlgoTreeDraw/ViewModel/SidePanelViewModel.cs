@@ -39,6 +39,8 @@ namespace AlgoTreeDraw.ViewModel
 
         public ICommand InsertNodeCommand { get; }
 
+        public ICommand RemoveNodeInTreeCommand { get; }
+
         
         //sidepanel WIDTHS
         public static int WIDTHS { get; set; } = 150;
@@ -71,6 +73,7 @@ namespace AlgoTreeDraw.ViewModel
             MakePrettyCommand = new RelayCommand(CallMakePretty);
             AutoBalanceCommand = new RelayCommand(CallAutoBalance);
             InsertNodeCommand = new RelayCommand(CallInsertNode);
+            RemoveNodeInTreeCommand = new RelayCommand(CallRemoveNodeInTree);
             ChosenColor = Color.FromRgb(0,0,0);
 
 
@@ -79,19 +82,33 @@ namespace AlgoTreeDraw.ViewModel
         private void CallInsertNode()
         {
             int key = 0;
-            if(int.TryParse(AddNodeValue, out key))
+            if(!int.TryParse(AddNodeValue, out key))
             {
-                NodeViewModel nvm = new BSTViewModel(new BST() { X = 20, Y = 20, Key = key.ToString(), ID = Node.IDCounter });
-                Node.IDCounter++;
-                nvm.Diameter = 50;
-                undoRedo.InsertInUndoRedo(new InsertNodeInTreeCommand(Nodes, selectedNodes, nvm, Lines));
+                System.Windows.MessageBox.Show("Invalid Key\nHint: Try an integer");
+            }
+            else if (!(selectedNodes != null && selectedNodes.Count > 0)) {
+                System.Windows.MessageBox.Show("No node or tree selected");
             }
             else
             {
-                System.Windows.MessageBox.Show("Invalid Key");
+                NodeViewModel newNode = new BSTViewModel(new BST() { X = 20, Y = 20, Key = key.ToString(), ID = Node.IDCounter });
+                Node.IDCounter++;
+                newNode.Diameter = 50;
+                undoRedo.InsertInUndoRedo(new InsertNodeInTreeCommand(Nodes, selectedNodes, newNode, Lines));
             }
             
+            
         }
+
+        private void CallRemoveNodeInTree()
+        {
+            //ADD ERROR IF THERE IS ONLY ONE ELEMENT IN THE TREE
+            if(selectedNodes == null || selectedNodes.Count != 1 )
+                System.Windows.MessageBox.Show("You have to mark excactly one node");
+            else
+            undoRedo.InsertInUndoRedo(new RemoveNodeInTreeCommand(Nodes, selectedNodes, Lines)) ;
+        }
+
         private void CallAutoBalance()
         {
             if (selectedNodes.Count != 0)
@@ -146,7 +163,8 @@ namespace AlgoTreeDraw.ViewModel
             if(node.X > 120)
             {
                 NodeViewModel tempNode = node.newNodeViewModel();
-                tempNode.X = (node.X - WIDTHS+27)/zoomValue;
+                double floorValueOfZoom = Math.Floor(zoomValue);
+                tempNode.X = (node.X - WIDTHS + 27) / zoomValue;
                 tempNode.Y = (node.Y + 31)/zoomValue;
                 Debug.Write("Zoom: " + zoomValue);
                 tempNode.ID = Node.IDCounter;

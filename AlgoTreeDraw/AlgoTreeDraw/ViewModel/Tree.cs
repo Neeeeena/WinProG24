@@ -165,13 +165,7 @@ namespace AlgoTreeDraw.ViewModel
 
         public void insert(NodeViewModel newNode) 
         {
-            if (selectedNodes.Count != 0)
-            {
-                nodes.Add(newNode);
-                insertBST(newNode, root);
-            }
-            else MessageBox.Show("No node or tree selected");
-            
+            insertBST(newNode, root);      
         }
 
         public List<LineViewModel> tAutoBalance()
@@ -239,13 +233,31 @@ namespace AlgoTreeDraw.ViewModel
         public void insertBST(NodeViewModel newNode, NodeViewModel nvm)
         {
             NodeViewModel[] children = getChildren(nvm);
-            // Zero children
+
+            //if (int.Parse(newNode.Key) > int.Parse(nvm.Key))
+            //{
+            //    if (children[RIGHT] == null)
+            //        addNeighbourAndLineAndUpdatePosition(newNode, nvm);
+            //    else
+            //        insertBST(newNode, children[RIGHT]);
+            //}
+            //else
+            //{
+            //    if (children[LEFT] == null)
+            //        addNeighbourAndLineAndUpdatePosition(newNode, nvm);
+            //    else
+            //        insertBST(newNode, children[LEFT]);
+            //}
+
+
+            //Zero children
             if (children[0] == null)
             {
-                addNeighbourAndLineAndUpdatePosition(newNode, nvm);                 
+                addNeighbourAndLineAndUpdatePosition(newNode, nvm);
             }
+
             // One child
-            else if(children[1] == null)
+            else if (children[1] == null)
             {
                 // If both the new node and the one child needs to be on the same side
                 if ((int.Parse(newNode.Key) <= int.Parse(nvm.Key) && int.Parse(children[0].Key) <= int.Parse(nvm.Key)) ||
@@ -261,7 +273,7 @@ namespace AlgoTreeDraw.ViewModel
             // Two children
             else
             {
-                if(int.Parse(newNode.Key) < int.Parse(nvm.Key))
+                if (int.Parse(newNode.Key) < int.Parse(nvm.Key))
                 {
                     insertBST(newNode, children[0]);
                 }
@@ -272,7 +284,7 @@ namespace AlgoTreeDraw.ViewModel
             }
         }
 
-        public void addNeighbourAndLineAndUpdatePosition(NodeViewModel n2, NodeViewModel n1)
+        public void addNeighbourAndLineAndUpdatePosition(NodeViewModel n1, NodeViewModel n2)
         {
             n1.addNeighbour(n2);
             LineViewModel temp = new LineViewModel(new Line()) { From = n1, To = n2 };
@@ -346,7 +358,7 @@ namespace AlgoTreeDraw.ViewModel
         }
 
 
-        public bool makePretty()
+        public bool makePretty(bool entireTree)
         {
             if(nodes == null || nodes.Count <= 1)
             {
@@ -358,9 +370,7 @@ namespace AlgoTreeDraw.ViewModel
                 return false;
             }
 
-
-
-            List<NodeViewModel> bfList = getbfList(); //Updating the nodes in allNodes, to run the tree through breadth-first
+            List<NodeViewModel> bfList = getbfList(entireTree); //Updating the nodes in allNodes, to run the tree through breadth-first
            // NodeViewModel originalRoot = 
             double originalRootPos = bfList.ElementAt(0).X;
             //if (!isValidBST())
@@ -399,7 +409,7 @@ namespace AlgoTreeDraw.ViewModel
         }
 
         private LinkedList<NodeViewModel> queue = new LinkedList<NodeViewModel>();
-        public List<NodeViewModel> getbfList()
+        public List<NodeViewModel> getbfList(bool entireTree)
         {
             List<NodeViewModel> bfList = new List<NodeViewModel>();
             int i = 0;
@@ -423,19 +433,19 @@ namespace AlgoTreeDraw.ViewModel
                             selectedChildren++;
                         }
                         else
-                            nvm.childrenFromList[i] = null;
+                            if(!entireTree)
+                                nvm.childrenFromList[i] = null;
                         i++;
                     }
-                if (nvm.childrenFromList[LEFT] != null && selectedChildren == 1)
+                if ((nvm.childrenFromList[LEFT] != null && selectedChildren == 1) || entireTree && i == 1)
                 {
                     nvm.childrenFromList[LEFT].isLeftChild = nvm.childrenFromList[LEFT].isSingleChildLeft();
-                    Console.WriteLine("Do we get here???????????");
                 }
-                else if(i == 2 && selectedChildren == 2)
+                else if(i == 2 && selectedChildren == 2 && !entireTree)
                 {
                     nvm.childrenFromList[LEFT].isLeftChild = true;
                 }
-                else if(selectedChildren == 1 && i == 2)
+                else if(selectedChildren == 1 && i == 2 && !entireTree)
                 {
                     nvm.childrenFromList[LEFT] = nvm.childrenFromList[RIGHT];
                     nvm.childrenFromList[RIGHT] = null;
@@ -447,6 +457,51 @@ namespace AlgoTreeDraw.ViewModel
             }
             return bfList;
 
+        }
+
+
+        public NodeViewModel remove(string _key)
+        {
+            return removeBST(_key);
+        }
+
+        public NodeViewModel removeBST(string _key)
+        {
+            NodeViewModel removeNode = null;
+            foreach (NodeViewModel n in nodes)
+            {
+                if (n.Key == _key)
+                {
+                    removeNode = n;
+                    break;
+                }
+                return null;
+            }
+
+            NodeViewModel parent = removeNode.getParent();
+            NodeViewModel[] children = removeNode.getChildren();
+            NodeViewModel replacementNode;
+            if (children[LEFT] == null)
+            {
+                
+            }else
+            {
+                replacementNode = children[LEFT].getMostRightNode();
+                for(;;)
+                {
+                    children = replacementNode.getChildren();
+                    removeNode.Key = replacementNode.Key;
+
+                    if (children[LEFT] == null)
+                        return replacementNode;
+                    else
+                    {
+                        removeNode = replacementNode;
+                        replacementNode = children[LEFT].getMostRightNode();
+                    }
+                }           
+            }
+            return null;
         }
 
     }

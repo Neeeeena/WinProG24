@@ -172,6 +172,7 @@
     <Compile Include="Command\DeleteNodeCommand.cs" />
     <Compile Include="Command\IUndoRedoCommand.cs" />
     <Compile Include="Command\MoveNodeCommand.cs" />
+    <Compile Include="Command\RemoveNodeInTreeCommand.cs" />
     <Compile Include="Command\UndoRedo.cs" />
     <Compile Include="Model\BST.cs" />
     <Compile Include="Model\Diagram.cs" />
@@ -312,6 +313,12 @@
       <ProductName>.NET Framework 3.5 SP1</ProductName>
       <Install>false</Install>
     </BootstrapperPackage>
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\zoom_in.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\zoom_out.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Import Project="..\packages\PostSharp.4.1.30\tools\PostSharp.targets" Condition="Exists('..\packages\PostSharp.4.1.30\tools\PostSharp.targets')" />
