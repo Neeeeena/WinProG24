@@ -24,8 +24,8 @@ namespace AlgoTreeDraw.ViewModel
     {
         class ZoomValue
         {
-            int value { get; set; } = 1;
-            public ZoomValue(int value)
+            double value { get; set; } = 1;
+            public ZoomValue(double value)
             {
                 this.value = value;
             }
@@ -35,8 +35,8 @@ namespace AlgoTreeDraw.ViewModel
         public static ObservableCollection<LineViewModel> Lines { get; set; } = new ObservableCollection<LineViewModel>();
         public static NodeViewModel fromNode { get; set; }
         public static Color ChosenColor { get; set; }
-        private static int _zoomValue = 1;
-        public int zoomValue { get { return _zoomValue; } set {_zoomValue = value; Messenger.Default.Send(new ZoomValue(_zoomValue)); RaisePropertyChanged(); } }
+        private static double _zoomValue = 1;
+        public double zoomValue { get { return _zoomValue; } set {_zoomValue = value; Messenger.Default.Send(new ZoomValue(_zoomValue)); RaisePropertyChanged(); } }
 
 
         public static List<NodeViewModel> selectedNodes = new List<NodeViewModel>();
@@ -55,6 +55,8 @@ namespace AlgoTreeDraw.ViewModel
         public ICommand CopyCommand { get; }
         public ICommand PasteCommand { get; }
         public ICommand CutCommand { get; }
+        public ICommand ZoomInCommand { get; }
+        public ICommand ZoomOutCommand { get; }
 
 
         public static Point initialMousePosition { get; set; }
@@ -100,9 +102,21 @@ namespace AlgoTreeDraw.ViewModel
             CopyCommand = new RelayCommand(copyClicked);
             PasteCommand = new RelayCommand(pasteClicked);
             CutCommand = new RelayCommand(cutClicked);
+            ZoomInCommand = new RelayCommand(ZoomIn);
+            ZoomOutCommand = new RelayCommand(ZoomOut);
 
             DeleteKeyPressed = new RelayCommand(RemoveNodeKeybordDelete);
             Messenger.Default.Register<ZoomValue>(this, UpdateZoom);
+        }
+
+        private void ZoomIn()
+        {
+            zoomValue += 0.2;
+        }
+
+        private void ZoomOut()
+        {
+            zoomValue -= 0.2;
         }
 
         private void UpdateZoom(ZoomValue value)

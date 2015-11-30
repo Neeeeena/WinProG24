@@ -151,7 +151,8 @@ namespace AlgoTreeDraw.ViewModel
             if(node.X > 120)
             {
                 NodeViewModel tempNode = node.newNodeViewModel();
-                tempNode.X = (node.X - WIDTHS+27)/zoomValue;
+                double floorValueOfZoom = Math.Floor(zoomValue);
+                tempNode.X = (node.X - WIDTHS + 27) / zoomValue;
                 tempNode.Y = (node.Y + 31)/zoomValue;
                 Debug.Write("Zoom: " + zoomValue);
                 tempNode.ID = Node.IDCounter;
