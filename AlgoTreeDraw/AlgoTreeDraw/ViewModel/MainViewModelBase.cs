@@ -145,7 +145,7 @@ namespace AlgoTreeDraw.ViewModel
 
         public void pasteClicked()
         {
-            undoRedo.InsertInUndoRedo(new PasteCommand(Nodes, copiedNodes, selectedNodes, mostRecentPastedNodes));
+            undoRedo.InsertInUndoRedo(new PasteCommand(Nodes, copiedNodes, selectedNodes));
         }
 
         public void RemoveNodeKeybordDelete()

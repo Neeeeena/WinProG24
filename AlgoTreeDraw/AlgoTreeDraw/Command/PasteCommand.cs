@@ -16,11 +16,11 @@ namespace AlgoTreeDraw.Command
         public List<NodeViewModel> selectedNodes = new List<NodeViewModel>();
         public List<NodeViewModel> copiedNodes = new List<NodeViewModel>();
         
-        public PasteCommand(ObservableCollection<NodeViewModel> Nodes, List<NodeViewModel> copiedNodes, List<NodeViewModel> selectedNodes, List<NodeViewModel> mostRecentPastedNodes)
+        public PasteCommand(ObservableCollection<NodeViewModel> Nodes, List<NodeViewModel> copiedNodes, List<NodeViewModel> selectedNodes)
         {
             this.Nodes = Nodes;
             this.selectedNodes = selectedNodes;
-            this.mostRecentPastedNodes = mostRecentPastedNodes;
+            mostRecentPastedNodes = new List<NodeViewModel>();
             this.copiedNodes = copiedNodes;
         }
 
