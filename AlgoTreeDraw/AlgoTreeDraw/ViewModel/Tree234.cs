@@ -11,6 +11,7 @@ namespace AlgoTreeDraw.ViewModel
     public class Tree234 : Tree
     {
         List<LineViewModel> lines = new List<LineViewModel>();
+        int offsetY { get; } = 70;
         public Tree234(List<NodeViewModel> selNodes) : base(selNodes)
         {
             if (allNodesT234())
@@ -20,7 +21,6 @@ namespace AlgoTreeDraw.ViewModel
                 nodes = nodes.OrderBy(n => int.Parse(((T234ViewModel)n).TxtOne)).ToList();
 
             }
-
 
         }
 
@@ -71,7 +71,28 @@ namespace AlgoTreeDraw.ViewModel
         {
             removeLines();
             autobalance(nodes);
-
+            double furthestLeft = 500;
+            foreach(var n in nodes)
+            {
+                if (n.X < furthestLeft)
+                {
+                    furthestLeft = n.X;
+                }
+            }
+            if (furthestLeft < 150 && furthestLeft > 0)
+            {
+                foreach (var n in nodes)
+                {
+                    n.X += furthestLeft;
+                }
+            }
+            else if(furthestLeft <= 0)
+            {
+                foreach (var n in nodes)
+                {
+                    n.X += (-furthestLeft)+150;
+                }
+            }
             return new Tuple<List<LineViewModel>, List<NodeViewModel>>(lines,nodes);
         }
 
@@ -115,47 +136,53 @@ namespace AlgoTreeDraw.ViewModel
 
         }
 
-        private NodeViewModel autobalance(List<NodeViewModel> _nodes)
+        private NodeViewModel autobalance(List<NodeViewModel> _nodes, double x = 0,double y=0, double offSetX = 300)
         {
             if(_nodes.Count >= 3)
             {
                 var median = findMedian(_nodes);
+                if(x != 0)
+                {
+                    median.X = x;
+                    median.Y = y;
+                }
+
                 var leftMedian = findLeftMedian(_nodes);
 
                 var rightMedian = findRightMedian(_nodes);
 
                 ((T234ViewModel)median).Merge((T234ViewModel)leftMedian, (T234ViewModel)rightMedian);
-                var left = autobalance(range(_nodes, null, leftMedian));
+                var left = autobalance(range(_nodes, null, leftMedian),median.X-offSetX/2,median.Y+offsetY,offSetX/2);
                 if (left != null)
                 {
                     lines.Add(new LineViewModel(new Line() { From = median.Node, To = left.Node }) { From = median, To = left });
                     median.addNeighbour(left);
-                    left.X = median.X - 200;
-                    left.Y = median.Y + 70; 
+                    left.X = median.X - offSetX;
+                    left.Y = median.Y + offsetY; 
                 }
-                var leftright = autobalance(range(_nodes, leftMedian, median));
+                var leftright = autobalance(range(_nodes, leftMedian, median), median.X - offSetX / 4, median.Y + offsetY, offSetX / 2);
                 if(leftright != null)
                 {
                     lines.Add(new LineViewModel(new Line() { From = median.Node, To = leftright.Node }) { From = median, To = leftright });
                     median.addNeighbour(leftright);
-                    leftright.X = median.X - 100;
-                    leftright.Y = median.Y + 70;
+                    leftright.X = median.X - offSetX/3;
+                    leftright.Y = median.Y + offsetY;
                 } 
-                var rightleft = autobalance(range(_nodes, median, rightMedian));
+                var rightleft = autobalance(range(_nodes, median, rightMedian), median.X + offSetX / 4, median.Y + offsetY, offSetX / 2);
                 if(rightleft != null)
                 {
                     lines.Add(new LineViewModel(new Line() { From = median.Node, To = rightleft.Node }) { From = median, To = rightleft });
                     median.addNeighbour(rightleft);
-                    rightleft.X = median.X + 100;
-                    rightleft.Y = median.Y + 70;
+                    rightleft.X = median.X + offSetX/3;
+                    rightleft.Y = median.Y + offsetY;
                 }
-                var right = autobalance(range(_nodes, rightMedian, null));
+                var right = autobalance(range(_nodes, rightMedian, null), median.X + offSetX / 2, median.Y + offsetY, offSetX / 2);
                 if(right != null)
                 {
                     lines.Add(new LineViewModel(new Line() { From = median.Node, To = right.Node }) { From = median, To = right });
                     median.addNeighbour(right);
-                    right.X = median.X + 200;
-                    right.Y = median.Y + 70;
+                    right.X = median.X + offSetX;
+                    right.Y = median.Y + offsetY;
                 }
                 
                 nodes.Remove(leftMedian);
