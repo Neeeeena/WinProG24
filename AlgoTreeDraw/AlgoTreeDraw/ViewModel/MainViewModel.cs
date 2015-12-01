@@ -1,3 +1,4 @@
+using AlgoTreeDraw.Command;
 using AlgoTreeDraw.Model;
 using AlgoTreeDraw.ViewModel;
 using GalaSoft.MvvmLight;
@@ -90,7 +91,7 @@ namespace AlgoTreeDraw.ViewModel
                 else
                 {
                     var node = TargetShape(e);
-                    if(node != editNode)
+                    if(editNode != null && node != editNode)
                     {
                         _DoneEditing();
                     }

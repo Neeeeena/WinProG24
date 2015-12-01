@@ -43,7 +43,8 @@ namespace AlgoTreeDraw.Model
         public string Key { get { return key; } set { key = value; } }
 
         public abstract Node NewNode();
-
+        private string preKey = "1";
+        public string PreKey { get { return preKey; }set { preKey = value; } }
 
         public double CanvasCenterX { get { return X + diameter / 2; } set { X = value - diameter / 2; } }
 

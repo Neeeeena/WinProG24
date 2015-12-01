@@ -75,7 +75,9 @@ namespace AlgoTreeDraw.ViewModel
         public bool nodeClicked = false;
 
         private static Boolean moved = true;
-        public NodeViewModel editNode { get; set; }
+
+        private static NodeViewModel _editNode;
+        public NodeViewModel editNode { get { return _editNode; } set { _editNode = value; } }
         private bool hasEdited { get; set; }
 
         //Tools
@@ -145,7 +147,7 @@ namespace AlgoTreeDraw.ViewModel
 
         public void pasteClicked()
         {
-            undoRedo.InsertInUndoRedo(new PasteCommand(Nodes, copiedNodes, selectedNodes, mostRecentPastedNodes));
+            undoRedo.InsertInUndoRedo(new PasteCommand(Nodes, copiedNodes, selectedNodes));
         }
 
         public void RemoveNodeKeybordDelete()
@@ -186,16 +188,18 @@ namespace AlgoTreeDraw.ViewModel
             {
                 editNode.IsEditing = Visibility.Hidden;
                 editNode.IsNotEditing = Visibility.Visible;
+                if (editNode.Key != editNode.PreKey)
+                {
+                    undoRedo.InsertInUndoRedo(new TextChangeCommand(editNode, editNode.Key, editNode.PreKey));
+                }
                 editNode = null;
             }
             
         }
-
-
+        
         public void AddLine( NodeViewModel to)
         {
             fromNode.Color = fromNode.PreColor;
-
             LineViewModel tempLine = new LineViewModel(new Line()) { From = fromNode, To = to };
             undoRedo.InsertInUndoRedo(new AddLineCommand(Lines,tempLine,fromNode,to));
             fromNode = null;
@@ -308,22 +312,21 @@ namespace AlgoTreeDraw.ViewModel
             }
             
             e.MouseDevice.Target.CaptureMouse();
-            if (e.ClickCount == 2 && e.LeftButton == MouseButtonState.Pressed)
+            if (e.ClickCount == 2 && e.LeftButton == MouseButtonState.Pressed && !(node.ID == 0 || node.ID == 1 || node.ID == 2))
             {
                 node.IsEditing = Visibility.Visible;
                 node.IsNotEditing = Visibility.Hidden;
-                editNode = node;   
+                editNode = node;
             }
 
             var shapeVisualElement = (FrameworkElement)e.MouseDevice.Target;
             var canvas = FindParentOfType<Canvas>(shapeVisualElement);
-            
         }
 
         private void MouseMoveNode(MouseEventArgs e)
         {
             var node = TargetShape(e);
-            if (Mouse.Captured != null && !isAddingLine && !isChangingColor && !isChangingColorText && node!=editNode)
+            if (Mouse.Captured != null && !isAddingLine && !isChangingColor && !isChangingColorText && (node!=editNode || node.ID == 0 || node.ID == 1 || node.ID == 2))
             {
 
                 var mousePosition = RelativeMousePosition(e);
