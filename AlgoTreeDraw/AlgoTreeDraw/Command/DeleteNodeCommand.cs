@@ -41,6 +41,7 @@ namespace AlgoTreeDraw.Command
                     {
                         removedLines.Add(l);
                         l.From.removeNeighbour(l.To);
+                        Console.WriteLine("Her er jeg");
                     }
                 }
                 nodes.Remove(n);
@@ -61,7 +62,9 @@ namespace AlgoTreeDraw.Command
             {
                 lines.Add(l);
                 l.From.addNeighbour(l.To);
+                Console.WriteLine("removedLines :" + removedLines.Count);
             }
+            removedLines.Clear();
         }
     }
 }
