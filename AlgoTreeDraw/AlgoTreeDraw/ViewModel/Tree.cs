@@ -168,30 +168,30 @@ namespace AlgoTreeDraw.ViewModel
             insertBST(newNode, root);      
         }
 
+        public bool isValidBST()
+        {
+            return hasIntKeysAndBSTNodes() && allNodesConnected() && allNodesOneParentAndLessThanThreeChildren();
+        }
+
         public List<LineViewModel> tAutoBalance()
         {
-            if (nodes != null && allNodesIntKeys() )//&& allNodesConnected() && allNodesOneParentAndLessThanTwoChildren())
+            nodes.Sort((x, y) => int.Parse(x.Key).CompareTo(int.Parse(y.Key)));
+            removeLinesAndNeighbours();
+            root = nodes.ElementAt(nodes.Count / 2);
+            hasBeenInsertedList.Add(root);
+            subFromIndex.Add((nodes.Count / 2 + 1) / 2);
+            balancedInsert(nodes.Count / 2,0);
+
+            // Inserts the rest of the nodes (they will all be leaves)
+            foreach (NodeViewModel n in nodes)
             {
-                nodes.Sort((x, y) => int.Parse(x.Key).CompareTo(int.Parse(y.Key)));
-                removeLinesAndNeighbours();
-                root = nodes.ElementAt(nodes.Count / 2);
-                hasBeenInsertedList.Add(root);
-                subFromIndex.Add((nodes.Count / 2 + 1) / 2);
-                balancedInsert(nodes.Count / 2,0);
-
-                // Inserts the rest of the nodes (they will all be leaves)
-                foreach (NodeViewModel n in nodes)
+                if (!hasBeenInsertedList.Contains(n))
                 {
-                    if (!hasBeenInsertedList.Contains(n))
-                    {
-                        insertBST(n, root);
-                    }
+                    insertBST(n, root);
                 }
-                return addedLinesAutoBalance;
-
             }
-            return null;
-            
+            return addedLinesAutoBalance;
+                           
             // if markedNodesConnected
             // and isValidBst
             // new list - sort all nodes in bst -> List<NodeViewModel> SortedList = nodesList.OrderBy(n=>n.Key).ToList();
@@ -201,6 +201,10 @@ namespace AlgoTreeDraw.ViewModel
             // Brug insert i denne rækkefølge - sørg for at der også bliver tegnet linjer imellem dem
         }
 
+        public bool hasIntKeysAndBSTNodes()
+        {
+            return (allNodesBST() && allNodesIntKeys());
+        }
 
         private void balancedInsert(int index, int subIndex)
         {
@@ -273,7 +277,7 @@ namespace AlgoTreeDraw.ViewModel
             // Two children
             else
             {
-                if (int.Parse(newNode.Key) < int.Parse(nvm.Key))
+                if (int.Parse(newNode.Key) <= int.Parse(nvm.Key))
                 {
                     insertBST(newNode, children[0]);
                 }
@@ -457,6 +461,55 @@ namespace AlgoTreeDraw.ViewModel
             }
             return bfList;
 
+        }
+
+
+        public NodeViewModel remove(NodeViewModel _nvm)
+        {
+            return removeBST(_nvm);
+        }
+
+        public NodeViewModel removeBST(NodeViewModel _nvm)
+        {
+            NodeViewModel removeNode = null;
+            foreach (NodeViewModel n in nodes)
+            {
+                if (n == _nvm)
+                {
+                    removeNode = n;
+                    break;
+                }
+                return null;
+            }
+
+            NodeViewModel parent = removeNode.getParent();
+            NodeViewModel[] children = removeNode.getChildren();
+            NodeViewModel replacementNode;
+            if (children[LEFT] == null)
+            {
+                
+            }else
+            {
+                replacementNode = children[LEFT].getMostRightNode();
+                for(;;)
+                {
+                    children = replacementNode.getChildren();
+                    removeNode.Key = replacementNode.Key;
+                    removeNode.Color = replacementNode.Color;
+                    removeNode.ColorOfText = replacementNode.ColorOfText;
+                    removeNode.PreColor = replacementNode.PreColor;
+                    //removeNode.ID = replacementNode.ID;
+
+                    if (children[LEFT] == null)
+                        return replacementNode;
+                    else
+                    {
+                        removeNode = replacementNode;
+                        replacementNode = children[LEFT].getMostRightNode();
+                    }
+                }           
+            }
+            return null;
         }
 
     }

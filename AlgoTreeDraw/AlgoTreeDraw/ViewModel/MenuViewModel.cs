@@ -117,9 +117,6 @@ namespace AlgoTreeDraw.ViewModel
                 }
                 return _UndoCommands;
             }
-
-
-            /* get { return _RedoCommands; } set { _RedoCommands = value; Debug.Write("Heeeeey"); } */
         }
 
         //Kun for test
@@ -159,13 +156,25 @@ namespace AlgoTreeDraw.ViewModel
                 }
                 Lines.Clear();
                 diagram.Lines.Select(l => new LineViewModel(l)).ToList().ForEach(l => Lines.Add(l));
-
+                int largestId = 0;
+                foreach(var n in Nodes)
+                {
+                    if(n.ID > largestId)
+                    {
+                        largestId = n.ID;
+                    }
+                }
+                Node.IDCounter = largestId;
                 // Reconstruct object graph.
                 foreach (LineViewModel line in Lines)
                 {
                     line.From = Nodes.Single(n => line.Line.From.ID == n.Node.ID);
                     line.To = Nodes.Single(n => line.Line.To.ID == n.Node.ID);
                 }
+                foreach (LineViewModel line in Lines)
+                {
+                    line.From.addNeighbour(line.To);
+                }                
             }
         }
         //command to save diagram
