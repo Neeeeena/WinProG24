@@ -95,9 +95,8 @@ namespace AlgoTreeDraw.ViewModel
                 Tree tree = new Tree(selectedNodes);
                 if (tree.isValidBST())
                 {
-                    NodeViewModel newNode = new BSTViewModel(new BST() { X = 20, Y = 20, Key = key.ToString(), ID = Node.IDCounter });
-                    Node.IDCounter++;
-                newNode.Diameter = 50;
+                    NodeViewModel newNode = new BSTViewModel(new BST() { X = 20, Y = 20, Key = key.ToString()});
+                    newNode.Diameter = 50;
                     undoRedo.InsertInUndoRedo(new InsertNodeInTreeCommand(tree, Nodes, selectedNodes, newNode, Lines));
                 }
             }
