@@ -460,17 +460,17 @@ namespace AlgoTreeDraw.ViewModel
         }
 
 
-        public NodeViewModel remove(string _key)
+        public NodeViewModel remove(NodeViewModel _nvm)
         {
-            return removeBST(_key);
+            return removeBST(_nvm);
         }
 
-        public NodeViewModel removeBST(string _key)
+        public NodeViewModel removeBST(NodeViewModel _nvm)
         {
             NodeViewModel removeNode = null;
             foreach (NodeViewModel n in nodes)
             {
-                if (n.Key == _key)
+                if (n == _nvm)
                 {
                     removeNode = n;
                     break;
@@ -491,6 +491,10 @@ namespace AlgoTreeDraw.ViewModel
                 {
                     children = replacementNode.getChildren();
                     removeNode.Key = replacementNode.Key;
+                    removeNode.Color = replacementNode.Color;
+                    removeNode.ColorOfText = replacementNode.ColorOfText;
+                    removeNode.PreColor = replacementNode.PreColor;
+                    //removeNode.ID = replacementNode.ID;
 
                     if (children[LEFT] == null)
                         return replacementNode;
