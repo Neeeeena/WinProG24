@@ -59,25 +59,25 @@ namespace AlgoTreeDraw.Command
 
         public void UnExecute()
         {
+            
+            nodes.Add(removeThis);
+            foreach (Tuple<string, int, Brush, Brush, Brush> n in prevNodes) 
+                foreach(NodeViewModel nn in nodes)
+                    if(n.Item2 == nn.ID)
+                    {
+                        Console.WriteLine("ALRIGHT!! " + nn.Key + " " + n.Item1);
+                        nn.Key = n.Item1;
+                        nn.ID = n.Item2;
+                        nn.Color = n.Item3;
+                        nn.ColorOfText = n.Item4;
+                        nn.PreColor = n.Item5;
+                    }
+            foreach (LineViewModel l in removedLines)
             {
-                nodes.Add(removeThis);
-                foreach (Tuple<string, int, Brush, Brush, Brush> n in prevNodes) 
-                    foreach(NodeViewModel nn in nodes)
-                        if(n.Item2 == nn.ID)
-                        {
-                            Console.WriteLine("ALRIGHT!! " + nn.Key + " " + n.Item1);
-                            nn.Key = n.Item1;
-                            //nn.ID = n.Item2;
-                            nn.Color = n.Item3;
-                            nn.ColorOfText = n.Item4;
-                            nn.PreColor = n.Item5;
-                        }
-                foreach (LineViewModel l in removedLines)
-                {
-                    lines.Add(l);
-                    l.From.addNeighbour(l.To);
-                }
+                lines.Add(l);
+                l.From.addNeighbour(l.To);
             }
+            
         }
 
 

@@ -9,7 +9,8 @@
              xmlns:ViewModel="clr-namespace:AlgoTreeDraw.ViewModel"
              mc:Ignorable="d" 
              d:DesignHeight="300" d:DesignWidth="300"
-             Canvas.Left="{Binding X}" Canvas.Top="{Binding Y}" Width="{Binding Diameter}" Height="{Binding Diameter}" 
+             Canvas.Left="{Binding X}" Canvas.Top="{Binding Y}" Width="{Binding Diameter}" Height="{Binding Diameter}"
+             
              >
     <i:Interaction.Triggers>
         <i:EventTrigger EventName="MouseLeftButtonDown">

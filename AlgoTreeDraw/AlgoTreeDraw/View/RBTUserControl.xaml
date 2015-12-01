@@ -39,7 +39,7 @@
                 <RowDefinition Height="auto" />
                 <RowDefinition />
             </Grid.RowDefinitions>
-            <TextBlock Text="{Binding Key}" Visibility="{Binding IsNotEditing}" Grid.Row="1" HorizontalAlignment="Center" VerticalAlignment="Center" Foreground="{Binding ColorOfText}"/>
+            <TextBlock Text="{Binding Key}" Visibility="{Binding IsNotEditing}"  Grid.Row="1" HorizontalAlignment="Center" VerticalAlignment="Center" Foreground="{Binding ColorOfText}"/>
             <TextBox Text="{Binding Key}" Visibility="{Binding IsEditing}" Grid.Row="1" HorizontalAlignment="Center" VerticalAlignment="Center" Foreground="{Binding ColorOfText}"/>
         </Grid>
     </Grid>

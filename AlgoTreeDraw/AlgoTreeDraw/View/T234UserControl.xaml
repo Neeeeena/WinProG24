@@ -34,17 +34,17 @@
     <StackPanel Orientation="Horizontal">
         <Grid Visibility="{Binding ShowNode1}">
             <Rectangle Width="{Binding Diameter}" Stroke="{Binding BorderColor}" Fill="{Binding Color}" StrokeThickness="{Binding BorderThickness}"></Rectangle>
-            <TextBlock Text="{Binding TxtOne}" Visibility="{Binding IsNotEditing}" HorizontalAlignment="Center" VerticalAlignment="Center" Foreground="Black"/>
+            <TextBlock Text="{Binding TxtOne}" Visibility="{Binding IsNotEditing}" Foreground="{Binding ColorOfText}" HorizontalAlignment="Center" VerticalAlignment="Center"/>
             <TextBox Text="{Binding TxtOne}" Visibility="{Binding IsEditing}"  HorizontalAlignment="Center" VerticalAlignment="Center" Foreground="Black"/>
         </Grid>
         <Grid Visibility="{Binding ShowNode2}">
             <Rectangle Width="{Binding Diameter}" Stroke="{Binding BorderColor}" Fill="{Binding Color}" StrokeThickness="{Binding BorderThickness}"></Rectangle>
-            <TextBlock Text="{Binding TxtTwo}" Visibility="{Binding IsNotEditing}" HorizontalAlignment="Center" VerticalAlignment="Center" Foreground="Black"/>
+            <TextBlock Text="{Binding TxtTwo}" Visibility="{Binding IsNotEditing}" Foreground="{Binding ColorOfText}" HorizontalAlignment="Center" VerticalAlignment="Center"/>
             <TextBox Text="{Binding TxtTwo}" Visibility="{Binding IsEditing}"  HorizontalAlignment="Center" VerticalAlignment="Center" Foreground="Black"/>
         </Grid>
         <Grid Visibility="{Binding ShowNode3}">
             <Rectangle Width="{Binding Diameter}" Stroke="{Binding BorderColor}" Fill="{Binding Color}" StrokeThickness="{Binding BorderThickness}"></Rectangle>
-            <TextBlock Text="{Binding TxtThree}" Visibility="{Binding IsNotEditing}" HorizontalAlignment="Center" VerticalAlignment="Center" Foreground="Black"/>
+            <TextBlock Text="{Binding TxtThree}" Visibility="{Binding IsNotEditing}" Foreground="{Binding ColorOfText}" HorizontalAlignment="Center" VerticalAlignment="Center"/>
             <TextBox Text="{Binding TxtThree}" Visibility="{Binding IsEditing}"  HorizontalAlignment="Center" VerticalAlignment="Center" Foreground="Black"/>
         </Grid>
     </StackPanel>

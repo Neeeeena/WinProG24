@@ -1,4 +1,5 @@
-﻿using GalaSoft.MvvmLight.Messaging;
+﻿using AlgoTreeDraw.ViewModel;
+using GalaSoft.MvvmLight.Messaging;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -26,7 +27,13 @@ namespace AlgoTreeDraw.View
             InitializeComponent();
             Messenger.Default.Send(MainGrid);
             Messenger.Default.Register<Cursor>(this, updateCursor);
-            
+            Scroll.ScrollChanged += Scroll_ScrollChanged1;
+        }
+
+        private void Scroll_ScrollChanged1(object sender, ScrollChangedEventArgs e)
+        {
+            var mvm = (MainViewModel)DataContext;
+            mvm.VOff = Scroll.VerticalOffset;
         }
 
         private void updateCursor(Cursor Cursor)
@@ -37,6 +44,16 @@ namespace AlgoTreeDraw.View
         private void Grid_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
         {
 
+        }
+
+        private void Scroll_ScrollChanged(object sender, ScrollChangedEventArgs e)
+        {
+            
+        }
+
+        private void Canvas_MouseMove(object sender, MouseEventArgs e)
+        {
+           
         }
     }
 }

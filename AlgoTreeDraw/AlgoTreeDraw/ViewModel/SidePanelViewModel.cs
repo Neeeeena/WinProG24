@@ -40,12 +40,15 @@ namespace AlgoTreeDraw.ViewModel
         public ICommand InsertNodeCommand { get; }
 
         public ICommand RemoveNodeInTreeCommand { get; }
-
+        
         
         //sidepanel WIDTHS
         public static int WIDTHS { get; set; } = 150;
 
         public string AddNodeValue { get; set; }
+
+        public static double _VOffSP = 0;
+        public double VOffSP { get { return _VOffSP;  } set { _VOffSP = value; } }
 
         public ObservableCollection<BSTViewModel> BST { get; set; }
         = new ObservableCollection<BSTViewModel>
@@ -96,13 +99,13 @@ namespace AlgoTreeDraw.ViewModel
                 if (tree.isValidBST())
                 {
                     NodeViewModel newNode = new BSTViewModel(new BST() { X = 20, Y = 20, Key = key.ToString()});
-                    newNode.Diameter = 50;
+                newNode.Diameter = 50;
                     undoRedo.InsertInUndoRedo(new InsertNodeInTreeCommand(tree, Nodes, selectedNodes, newNode, Lines));
-                }
+            }
             }
             
         }
-
+            
         private void CallRemoveNodeInTree()
         {
             //ADD ERROR IF THERE IS ONLY ONE ELEMENT IN THE TREE
@@ -170,7 +173,9 @@ namespace AlgoTreeDraw.ViewModel
                 NodeViewModel tempNode = node.newNodeViewModel();
                 double floorValueOfZoom = Math.Floor(zoomValue);
                 tempNode.X = (node.X - WIDTHS + 27) / zoomValue;
-                tempNode.Y = (node.Y + 31)/zoomValue;
+                tempNode.Y = (node.Y + 31 + VOff - VOffSP)/zoomValue;
+                Debug.Write("Zoom: " + zoomValue);
+                tempNode.ID = Node.IDCounter;
                 AddNode(tempNode);
             }
             node.X = node.initialNodePosition.X;
