@@ -162,7 +162,7 @@ namespace AlgoTreeDraw.ViewModel
                     _IsThreeNode = true;
                 }
                 else if (_IsTwoNode && other._IsThreeNode)
-                {
+            {
                     if(int.Parse(TxtOne) > int.Parse(other.TxtOne))
                     {
                         if(int.Parse(TxtOne) > int.Parse(other.TxtTwo))
@@ -170,16 +170,16 @@ namespace AlgoTreeDraw.ViewModel
                             TxtThree = TxtOne;
                             TxtOne = other.TxtOne;
                             TxtTwo = other.TxtTwo;
-                        }
+            }
                         else
-                        {
+            {
                             TxtTwo = TxtOne;
                             TxtOne = other.TxtOne;
                             TxtThree = other.TxtTwo;
                         }
-                    }
-                    else
-                    {
+            }
+            else
+            {
                         TxtTwo = other.TxtOne;
                         TxtThree = other.TxtTwo;
                     }
@@ -215,21 +215,5 @@ namespace AlgoTreeDraw.ViewModel
             }
             return temp;
         }
-
-
-        //public void MouseDoubleClickNode(MouseButtonEventArgs e)
-        //{
-        //    var node = TargetShape(e);
-        //    if (!(node.isTextBoxVisible == Visibility.Visible))
-        //    {
-
-        //        node.isTextBoxVisible = Visibility.Visible;
-        //    }
-        //    else
-        //    {
-        //        node.isTextBoxVisible = Visibility.Hidden;
-        //    }
-        //    MessageBox.Show("lol");
-        //}
     }
 }

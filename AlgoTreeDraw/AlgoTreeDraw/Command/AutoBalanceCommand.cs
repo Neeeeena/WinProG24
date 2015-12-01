@@ -17,9 +17,11 @@ namespace AlgoTreeDraw.Command
         private List<LineViewModel> autoBalanceLines = new List<LineViewModel>();
         private List<LineViewModel> originalLines = new List<LineViewModel>();
         private List<Point> nodePositions = new List<Point>();
+        private Tree tree;
         
-        public AutoBalanceCommand(ObservableCollection<NodeViewModel> _nodes, List<NodeViewModel> _selectedNodes, ObservableCollection<LineViewModel> _lines)
+        public AutoBalanceCommand(Tree _tree, ObservableCollection<NodeViewModel> _nodes, List<NodeViewModel> _selectedNodes, ObservableCollection<LineViewModel> _lines)
         {
+            tree = _tree;
             nodes = _nodes;
             lines = _lines;
 
@@ -37,14 +39,13 @@ namespace AlgoTreeDraw.Command
                     }
                 }
             }
-            
-
+            tree.nodes = selectedNodes;
         }
 
         public void Execute()
         {
-            Tree selTree = new Tree(selectedNodes);
-            autoBalanceLines = selTree.tAutoBalance();
+            
+            autoBalanceLines = tree.tAutoBalance();
             
         }
 

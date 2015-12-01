@@ -14,8 +14,8 @@
         <ViewModel:ViewModelLocator x:Key="Locator" />
         <DataTemplate DataType="{x:Type ViewModel:BSTViewModel}">
             <Canvas>
-                <View:BstViewUserControl/>
-            </Canvas>
+                    <View:BstViewUserControl/>
+                </Canvas>
         </DataTemplate>
         <DataTemplate DataType="{x:Type ViewModel:RBTViewModel}">
             <Canvas>

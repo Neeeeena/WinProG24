@@ -14,9 +14,11 @@ namespace AlgoTreeDraw.Command
         private List<NodeViewModel> selNodes = new List<NodeViewModel>();
         private ObservableCollection<LineViewModel> lines;
         private NodeViewModel newNode;
+        private Tree tree;
 
-        public InsertNodeInTreeCommand(ObservableCollection<NodeViewModel> _nodes, List<NodeViewModel> _selectedNodes, NodeViewModel _newNode, ObservableCollection<LineViewModel> _lines)
+        public InsertNodeInTreeCommand(Tree _tree, ObservableCollection<NodeViewModel> _nodes, List<NodeViewModel> _selectedNodes, NodeViewModel _newNode, ObservableCollection<LineViewModel> _lines)
         {
+            tree = _tree;
             nodes = _nodes;
             lines = _lines;
             newNode = _newNode;
@@ -24,14 +26,14 @@ namespace AlgoTreeDraw.Command
             {
                 selNodes.Add(n);
             }
+            tree.nodes = selNodes;
         }
         
         public void Execute()
         {
             nodes.Add(newNode);
-            Tree selTree = new Tree(selNodes);
-
-            selTree.insert(newNode);
+            
+            tree.insert(newNode);
         }
 
         public void UnExecute()
