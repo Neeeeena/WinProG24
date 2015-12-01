@@ -161,7 +161,6 @@ namespace AlgoTreeDraw.ViewModel
                 Messenger.Default.Send(Cursors.Arrow);
             }
             if(!isAddingLine) fromNode = null;
-
         }
 
         public void MouseUpNode(MouseButtonEventArgs e)
@@ -171,10 +170,8 @@ namespace AlgoTreeDraw.ViewModel
             if(node.X > 120)
             {
                 NodeViewModel tempNode = node.newNodeViewModel();
-                double floorValueOfZoom = Math.Floor(zoomValue);
                 tempNode.X = (node.X - WIDTHS + 27) / zoomValue;
                 tempNode.Y = (node.Y + 31 + VOff - VOffSP)/zoomValue;
-                Debug.Write("Zoom: " + zoomValue);
                 tempNode.ID = Node.IDCounter;
                 AddNode(tempNode);
             }
@@ -210,7 +207,6 @@ namespace AlgoTreeDraw.ViewModel
                 Messenger.Default.Send(Cursors.Arrow);
             }
         }
-
 
         public bool isNodeOutSideSidePanel(NodeViewModel node) {
             return node.X > WIDTHS;
