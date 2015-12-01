@@ -16,7 +16,7 @@ namespace AlgoTreeDraw.Model
 
         public _color color;
         public _color preColor;
-        public static int IDCounter { get; set; }
+        public static int IDCounter { get; set; } = 3;
         public Node()
         {
         }

@@ -24,7 +24,6 @@ namespace AlgoTreeDraw.ViewModel
     {
 
         public new ICommand MouseLeftButtonUp { get; }
-        Brush _background;
         
         
         public ICommand AddLineCommand { get; }
@@ -48,27 +47,20 @@ namespace AlgoTreeDraw.ViewModel
 
         public string AddNodeValue { get; set; }
 
-        public static ObservableCollection<NodeViewModel> NodesSP{ get; set; } 
-            = new ObservableCollection<NodeViewModel>
-            {
-                 new BSTViewModel(new BST() { X = 20, Y = 20, diameter = 50 }),
-                 new RBTViewModel(new RBT() { X = 20, Y = 95, diameter = 50 }),
-                 new T234ViewModel(new T234() { X = 20, Y = 170, diameter = 30, IsTwoNode=true })
-            };
         public ObservableCollection<BSTViewModel> BST { get; set; }
         = new ObservableCollection<BSTViewModel>
         {
-            new BSTViewModel(new BST() { X = 20, Y = 20, diameter = 50 })
+            new BSTViewModel(new BST() { X = 20, Y = 20, diameter = 50, ID=0})
         };
         public ObservableCollection<RBTViewModel> RBT { get; set; }
         = new ObservableCollection<RBTViewModel>
         {
-            new RBTViewModel(new RBT() { X = 20, Y = 95, diameter = 50 })
+            new RBTViewModel(new RBT() { X = 20, Y = 95, diameter = 50, ID=1 })
         };
         public ObservableCollection<T234ViewModel> T234 { get; set; }
         = new ObservableCollection<T234ViewModel>
         {
-            new T234ViewModel(new T234() { X = 15, Y = 170, diameter = 30, IsThreeNode=true })
+            new T234ViewModel(new T234() { X = 15, Y = 170, diameter = 30, IsThreeNode=true, ID=2 })
         };
 
         public  SidePanelViewModel()
@@ -83,6 +75,7 @@ namespace AlgoTreeDraw.ViewModel
             InsertNodeCommand = new RelayCommand(CallInsertNode);
             RemoveNodeInTreeCommand = new RelayCommand(CallRemoveNodeInTree);
             ChosenColor = Color.FromRgb(0,0,0);
+
 
         }
 
@@ -118,7 +111,26 @@ namespace AlgoTreeDraw.ViewModel
 
         private void CallAutoBalance()
         {
-            undoRedo.InsertInUndoRedo(new AutoBalanceCommand(Nodes, selectedNodes, Lines));
+            if (selectedNodes.Count != 0)
+            {
+                if (selectedNodes.ElementAt(0) is BSTViewModel)
+                {
+                    undoRedo.InsertInUndoRedo(new AutoBalanceCommand(Nodes, selectedNodes, Lines));
+                }
+                else if (selectedNodes.ElementAt(0) is T234ViewModel)
+                {
+                    List<NodeViewModel> nodesCopy = selectedNodes;
+                    foreach (var n in selectedNodes)
+                    {
+                        Nodes.Remove(n);
+                    }
+                    Tree234 tree = new Tree234(nodesCopy);
+                    Tuple<List<LineViewModel>, List<NodeViewModel>> tuple = tree.BalanceT234();
+                    Nodes.AddRange(tuple.Item2);
+                    Lines.AddRange(tuple.Item1);
+                }
+            }
+            
         }
         private void CallMakePretty()
         {
@@ -156,6 +168,7 @@ namespace AlgoTreeDraw.ViewModel
                 tempNode.Y = (node.Y + 31)/zoomValue;
                 Debug.Write("Zoom: " + zoomValue);
                 tempNode.ID = Node.IDCounter;
+                Node.IDCounter++;
                 AddNode(tempNode);
             }
             node.X = node.initialNodePosition.X;
@@ -163,7 +176,7 @@ namespace AlgoTreeDraw.ViewModel
             node.BorderColor = Brushes.Black;
             node.BorderThickness = 1;
             selectedNodes.Remove(node);
-            Node.IDCounter++;
+            
         }
 
         private void ChangeColorClicked()
