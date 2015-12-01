@@ -30,11 +30,25 @@ namespace AlgoTreeDraw.View
         {
             if (e.Key == Key.Enter)
             {
-                var mvm = (MainViewModelBase)DataContext;
-                NodeViewModel node = mvm.editNode;
+                UpdateKeys();
+            }
+        }
+
+        private void UpdateKeys()
+        {
+            var mvm = (MainViewModelBase)DataContext;
+            NodeViewModel node = mvm.editNode;
+            if (node != null)
+            {
                 node.Key = NodeTextBox.Text;
                 mvm._DoneEditing();
             }
+
+        }
+
+        private void NodeTextBox_PreviewLostKeyboardFocus(object sender, KeyboardFocusChangedEventArgs e)
+        {
+            UpdateKeys();
         }
     }
 }
