@@ -468,23 +468,16 @@ namespace AlgoTreeDraw.ViewModel
         public NodeViewModel removeBST(NodeViewModel _nvm)
         {
             NodeViewModel removeNode = null;
-            foreach (NodeViewModel n in nodes)
-            {
-                if (n == _nvm)
-                {
-                    removeNode = n;
-                    break;
-                }
-                return null;
-            }
+            removeNode = _nvm;
 
             NodeViewModel parent = removeNode.getParent();
             NodeViewModel[] children = removeNode.getChildren();
             NodeViewModel replacementNode;
             if (children[LEFT] == null)
             {
-                
-            }else
+                return removeNode;
+            }
+            else
             {
                 replacementNode = children[LEFT].getMostRightNode();
                 for(;;)
