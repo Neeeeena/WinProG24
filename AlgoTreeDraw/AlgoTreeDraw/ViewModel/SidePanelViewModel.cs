@@ -81,22 +81,26 @@ namespace AlgoTreeDraw.ViewModel
 
         private void CallInsertNode()
         {
+            
             int key = 0;
             if(!int.TryParse(AddNodeValue, out key))
             {
-                System.Windows.MessageBox.Show("Invalid Key\nHint: Try an integer");
+                System.Windows.MessageBox.Show("Invalid Key to be inserted\nHint: Try an integer");
             }
             else if (!(selectedNodes != null && selectedNodes.Count > 0)) {
                 System.Windows.MessageBox.Show("No node or tree selected");
             }
             else
             {
-                NodeViewModel newNode = new BSTViewModel(new BST() { X = 20, Y = 20, Key = key.ToString(), ID = Node.IDCounter });
-                Node.IDCounter++;
-                newNode.Diameter = 50;
-                undoRedo.InsertInUndoRedo(new InsertNodeInTreeCommand(Nodes, selectedNodes, newNode, Lines));
-            }
-            
+                Tree tree = new Tree(selectedNodes);
+                if (tree.isValidBST())
+                {
+                    NodeViewModel newNode = new BSTViewModel(new BST() { X = 20, Y = 20, Key = key.ToString(), ID = Node.IDCounter });
+                    Node.IDCounter++;
+                    newNode.Diameter = 50;
+                    undoRedo.InsertInUndoRedo(new InsertNodeInTreeCommand(tree, Nodes, selectedNodes, newNode, Lines));
+                }
+            }            
             
         }
 
@@ -111,11 +115,12 @@ namespace AlgoTreeDraw.ViewModel
 
         private void CallAutoBalance()
         {
+            Tree treeTest = new Tree(selectedNodes);
             if (selectedNodes.Count != 0)
             {
-                if (selectedNodes.ElementAt(0) is BSTViewModel)
+                if (treeTest.hasIntKeysAndBSTNodes())
                 {
-                    undoRedo.InsertInUndoRedo(new AutoBalanceCommand(Nodes, selectedNodes, Lines));
+                    undoRedo.InsertInUndoRedo(new AutoBalanceCommand(treeTest, Nodes, selectedNodes, Lines));
                 }
                 else if (selectedNodes.ElementAt(0) is T234ViewModel)
                 {

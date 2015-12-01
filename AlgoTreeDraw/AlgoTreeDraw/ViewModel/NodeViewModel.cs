@@ -206,10 +206,6 @@ namespace AlgoTreeDraw.ViewModel
             // ViewModel
             neighbours.Add(NVM);
             NVM.neighbours.Add(this);
-
-            // Model
-            Node.neighbours.Add(NVM.Node);
-            NVM.Node.neighbours.Add(Node);
         }
 
         //returns true if tree is valid after remove
@@ -218,24 +214,12 @@ namespace AlgoTreeDraw.ViewModel
             //ViewModel
             neighbours.Remove(NVM);
             NVM.neighbours.Remove(this);
-
-            //Model
-            Node.neighbours.Remove(NVM.Node);
-            NVM.Node.neighbours.Remove(Node);
         }
 
         public bool isChild(NodeViewModel NVM)
         {
             return NVM.Y > Y;
         }
-
-        //Returns true if node has maximum of one parent
-        public bool isValid()
-        {
-            return Node.isValid();
-        }
-
-
 
         public NodeViewModel[] getChildren()
         {
