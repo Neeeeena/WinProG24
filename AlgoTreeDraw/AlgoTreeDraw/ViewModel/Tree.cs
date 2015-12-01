@@ -36,7 +36,6 @@ namespace AlgoTreeDraw.ViewModel
             if (!(selNodes.Count == 0))
             {
                 nodes = selNodes;
-                unmarkNodes();
                 root = setRoot();
 
                 // Sort test works
@@ -106,6 +105,7 @@ namespace AlgoTreeDraw.ViewModel
 
         public bool allNodesConnected()
         {
+            unmarkNodes();
             root.hasBeenFound = true;
             markNeighbours(root);
             foreach(NodeViewModel n in nodes)
@@ -145,7 +145,7 @@ namespace AlgoTreeDraw.ViewModel
         {
             foreach(NodeViewModel n in nvm.neighbours)
             {
-                if(!n.hasBeenFound)
+                if(!n.hasBeenFound && nodes.Contains(n))
                 {
                     n.hasBeenFound = true;
                     markNeighbours(n);
@@ -343,7 +343,7 @@ namespace AlgoTreeDraw.ViewModel
             {
                 foreach(LineViewModel l in Lines)
                 {
-                    if ((l.From == n || l.To == n)) tempLines.Add(l);
+                    if ((l.From == n || l.To == n) && !tempLines.Contains(l)) tempLines.Add(l);
                 }
                 foreach (NodeViewModel neigh in n.neighbours)
                 {
@@ -353,6 +353,7 @@ namespace AlgoTreeDraw.ViewModel
                 {
                     n.removeNeighbour(neigh);
                 }
+                tempNeighs.Clear();
             }
             
             foreach(LineViewModel l in tempLines)
@@ -472,23 +473,16 @@ namespace AlgoTreeDraw.ViewModel
         public NodeViewModel removeBST(NodeViewModel _nvm)
         {
             NodeViewModel removeNode = null;
-            foreach (NodeViewModel n in nodes)
-            {
-                if (n == _nvm)
-                {
-                    removeNode = n;
-                    break;
-                }
-                return null;
-            }
+            removeNode = _nvm;
 
             NodeViewModel parent = removeNode.getParent();
             NodeViewModel[] children = removeNode.getChildren();
             NodeViewModel replacementNode;
             if (children[LEFT] == null)
             {
-                
-            }else
+                return removeNode;
+            }
+            else
             {
                 replacementNode = children[LEFT].getMostRightNode();
                 for(;;)

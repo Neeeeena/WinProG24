@@ -8,6 +8,6 @@
              d:DesignHeight="300" d:DesignWidth="300">
 
     
-           <Line Stroke="Black" X1="{Binding From.CanvasCenterX}" Y1="{Binding From.CanvasCenterY}" X2="{Binding To.CanvasCenterX}" Y2="{Binding To.CanvasCenterY}" StrokeThickness="3"/>
+           <Line Stroke="Black" X1="{Binding From.CanvasCenterX}" Y1="{Binding From.CanvasCenterY}" X2="{Binding To.CanvasCenterX}" Y2="{Binding To.CanvasCenterY}" StrokeThickness="2"/>
 
 </UserControl>

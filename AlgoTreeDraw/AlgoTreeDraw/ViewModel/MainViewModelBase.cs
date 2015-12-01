@@ -147,7 +147,7 @@ namespace AlgoTreeDraw.ViewModel
 
         public void pasteClicked()
         {
-            undoRedo.InsertInUndoRedo(new PasteCommand(Nodes, copiedNodes, selectedNodes, mostRecentPastedNodes));
+            undoRedo.InsertInUndoRedo(new PasteCommand(Nodes, copiedNodes, selectedNodes));
         }
 
         public void RemoveNodeKeybordDelete()
@@ -188,6 +188,10 @@ namespace AlgoTreeDraw.ViewModel
             {
                 editNode.IsEditing = Visibility.Hidden;
                 editNode.IsNotEditing = Visibility.Visible;
+                if (editNode.Key != editNode.PreKey)
+                {
+                    undoRedo.InsertInUndoRedo(new TextChangeCommand(editNode, editNode.Key, editNode.PreKey));
+                }
                 editNode = null;
             }
             
