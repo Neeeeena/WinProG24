@@ -13,7 +13,7 @@
     <UserControl.InputBindings>
         <KeyBinding Command="{Binding DoneEditing}" Gesture="ENTER"/>
     </UserControl.InputBindings>
-    <ScrollViewer VerticalScrollBarVisibility="Visible">
+    <ScrollViewer VerticalScrollBarVisibility="Visible" Name="Scroll">
         <StackPanel Width="{Binding WIDTHS}" Orientation="Vertical">
         <StackPanel.Background>
             <LinearGradientBrush StartPoint="0,0.5" EndPoint="1,0.5">

@@ -47,6 +47,9 @@ namespace AlgoTreeDraw.ViewModel
 
         public string AddNodeValue { get; set; }
 
+        public static double _VOffSP = 0;
+        public double VOffSP { get { return _VOffSP;  } set { _VOffSP = value; } }
+
         public ObservableCollection<BSTViewModel> BST { get; set; }
         = new ObservableCollection<BSTViewModel>
         {
@@ -170,7 +173,7 @@ namespace AlgoTreeDraw.ViewModel
                 NodeViewModel tempNode = node.newNodeViewModel();
                 double floorValueOfZoom = Math.Floor(zoomValue);
                 tempNode.X = (node.X - WIDTHS + 27) / zoomValue;
-                tempNode.Y = (node.Y + 31)/zoomValue;
+                tempNode.Y = (node.Y + 31 + VOff - VOffSP)/zoomValue;
                 Debug.Write("Zoom: " + zoomValue);
                 tempNode.ID = Node.IDCounter;
                 AddNode(tempNode);
