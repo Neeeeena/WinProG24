@@ -72,8 +72,6 @@ namespace AlgoTreeDraw.ViewModel
             removeLines();
             autobalance(nodes);
 
-
-
             return new Tuple<List<LineViewModel>, List<NodeViewModel>>(lines,nodes);
         }
 
@@ -94,7 +92,7 @@ namespace AlgoTreeDraw.ViewModel
             }
         }
 
-        //Gets the elements between the two indices, both included
+        //Gets the elements between the two elements, both not included
         private List<NodeViewModel> range(List<NodeViewModel> _nodes, NodeViewModel n1 = null, NodeViewModel n2 = null)
         {
             int index1 = 0;
@@ -131,21 +129,33 @@ namespace AlgoTreeDraw.ViewModel
                 if (left != null)
                 {
                     lines.Add(new LineViewModel(new Line() { From = median.Node, To = left.Node }) { From = median, To = left });
+                    median.addNeighbour(left);
+                    left.X = median.X - 200;
+                    left.Y = median.Y + 70; 
                 }
                 var leftright = autobalance(range(_nodes, leftMedian, median));
                 if(leftright != null)
                 {
                     lines.Add(new LineViewModel(new Line() { From = median.Node, To = leftright.Node }) { From = median, To = leftright });
+                    median.addNeighbour(leftright);
+                    leftright.X = median.X - 100;
+                    leftright.Y = median.Y + 70;
                 } 
                 var rightleft = autobalance(range(_nodes, median, rightMedian));
                 if(rightleft != null)
                 {
                     lines.Add(new LineViewModel(new Line() { From = median.Node, To = rightleft.Node }) { From = median, To = rightleft });
+                    median.addNeighbour(rightleft);
+                    rightleft.X = median.X + 100;
+                    rightleft.Y = median.Y + 70;
                 }
                 var right = autobalance(range(_nodes, rightMedian, null));
                 if(right != null)
                 {
                     lines.Add(new LineViewModel(new Line() { From = median.Node, To = right.Node }) { From = median, To = right });
+                    median.addNeighbour(right);
+                    right.X = median.X + 200;
+                    right.Y = median.Y + 70;
                 }
                 
                 nodes.Remove(leftMedian);
@@ -159,14 +169,17 @@ namespace AlgoTreeDraw.ViewModel
                 var right = (T234ViewModel)_nodes.ElementAt(1);
                 left.Merge(right);
                 nodes.Remove(right);
+
                 return left;
             }
             else if(_nodes.Count == 1)
             {
-                return _nodes.ElementAt(0);
+                NodeViewModel temp = _nodes.ElementAt(0);
+                return temp;
             }
             return null;
         }
+
         //private void mergeNodes(List<LineViewModel> lines, NodeViewModel node)
         //{
         //    if (node != null)

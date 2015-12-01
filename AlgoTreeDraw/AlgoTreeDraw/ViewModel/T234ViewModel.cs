@@ -131,15 +131,15 @@ namespace AlgoTreeDraw.ViewModel
         {
             if (_IsThreeNode)
             {
-                return new T234ViewModel(new T234() { X = this.X, Y = this.Y, diameter = this.Diameter, IsThreeNode = true});
+                return new T234ViewModel(new T234() { X = this.X, Y = this.Y, diameter = this.Diameter, IsThreeNode = true,TextOne=TxtOne,TextTwo=TxtTwo}) { Color = Color, PreColor = PreColor, ColorOfText = ColorOfText, PreColorOfText = PreColorOfText };
             }
             else if(_IsTwoNode)
             {
-                return new T234ViewModel(new T234() { X = this.X, Y = this.Y, diameter = this.Diameter, IsTwoNode = true });
+                return new T234ViewModel(new T234() { X = this.X, Y = this.Y, diameter = this.Diameter, IsTwoNode = true,TextOne=TxtOne }) { Color = Color, PreColor = PreColor, ColorOfText = ColorOfText, PreColorOfText = PreColorOfText };
             }
             else
             {
-                return new T234ViewModel(new T234() { X = this.X, Y = this.Y, diameter = this.Diameter, IsFourNode = true });
+                return new T234ViewModel(new T234() { X = this.X, Y = this.Y, diameter = this.Diameter, IsFourNode = true, TextOne = TxtOne, TextTwo = TxtTwo, TextThree=TxtThree }) { Color = Color, PreColor = PreColor, ColorOfText = ColorOfText, PreColorOfText = PreColorOfText };
             }
         }
         public void Merge(T234ViewModel other, T234ViewModel optional = null)
@@ -162,7 +162,7 @@ namespace AlgoTreeDraw.ViewModel
                     _IsThreeNode = true;
                 }
                 else if (_IsTwoNode && other._IsThreeNode)
-                {
+            {
                     if(int.Parse(TxtOne) > int.Parse(other.TxtOne))
                     {
                         if(int.Parse(TxtOne) > int.Parse(other.TxtTwo))
@@ -170,16 +170,16 @@ namespace AlgoTreeDraw.ViewModel
                             TxtThree = TxtOne;
                             TxtOne = other.TxtOne;
                             TxtTwo = other.TxtTwo;
-                        }
+            }
                         else
-                        {
+            {
                             TxtTwo = TxtOne;
                             TxtOne = other.TxtOne;
                             TxtThree = other.TxtTwo;
                         }
-                    }
-                    else
-                    {
+            }
+            else
+            {
                         TxtTwo = other.TxtOne;
                         TxtThree = other.TxtTwo;
                     }
@@ -201,38 +201,19 @@ namespace AlgoTreeDraw.ViewModel
             List<T234ViewModel> temp = new List<T234ViewModel>();
             if (_IsThreeNode)
             {
-                temp.Add(new T234ViewModel(new T234() { TextOne = TxtTwo, IsTwoNode = true, ID = Node.IDCounter }));
-                Node.IDCounter++;
+                temp.Add(new T234ViewModel(new T234() { TextOne = TxtTwo, IsTwoNode = true }));
                 _IsThreeNode = false;
                 _IsTwoNode = true;
             }
             else if (_IsFourNode)
             {
-                temp.Add(new T234ViewModel (new T234() { TextOne = this.TxtTwo, IsTwoNode = true, ID = Node.IDCounter }));
-                Node.IDCounter++;
-                temp.Add(new T234ViewModel (new T234() { TextOne = this.TxtThree, IsTwoNode = true, ID = Node.IDCounter }));
-                Node.IDCounter++;
+                temp.Add(new T234ViewModel (new T234() { TextOne = this.TxtTwo, IsTwoNode = true }));
+                temp.Add(new T234ViewModel (new T234() { TextOne = this.TxtThree, IsTwoNode = true}));
                 _IsFourNode = false;
                 _IsTwoNode = true;
 
             }
             return temp;
         }
-
-
-        //public void MouseDoubleClickNode(MouseButtonEventArgs e)
-        //{
-        //    var node = TargetShape(e);
-        //    if (!(node.isTextBoxVisible == Visibility.Visible))
-        //    {
-
-        //        node.isTextBoxVisible = Visibility.Visible;
-        //    }
-        //    else
-        //    {
-        //        node.isTextBoxVisible = Visibility.Hidden;
-        //    }
-        //    MessageBox.Show("lol");
-        //}
     }
 }

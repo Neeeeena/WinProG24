@@ -40,12 +40,15 @@ namespace AlgoTreeDraw.ViewModel
         public ICommand InsertNodeCommand { get; }
 
         public ICommand RemoveNodeInTreeCommand { get; }
-
+        
         
         //sidepanel WIDTHS
         public static int WIDTHS { get; set; } = 150;
 
         public string AddNodeValue { get; set; }
+
+        public static double _VOffSP = 0;
+        public double VOffSP { get { return _VOffSP;  } set { _VOffSP = value; } }
 
         public ObservableCollection<BSTViewModel> BST { get; set; }
         = new ObservableCollection<BSTViewModel>
@@ -81,25 +84,28 @@ namespace AlgoTreeDraw.ViewModel
 
         private void CallInsertNode()
         {
+            
             int key = 0;
             if(!int.TryParse(AddNodeValue, out key))
             {
-                System.Windows.MessageBox.Show("Invalid Key\nHint: Try an integer");
+                System.Windows.MessageBox.Show("Invalid Key to be inserted\nHint: Try an integer");
             }
             else if (!(selectedNodes != null && selectedNodes.Count > 0)) {
                 System.Windows.MessageBox.Show("No node or tree selected");
             }
             else
             {
-                NodeViewModel newNode = new BSTViewModel(new BST() { X = 20, Y = 20, Key = key.ToString(), ID = Node.IDCounter });
-                Node.IDCounter++;
+                Tree tree = new Tree(selectedNodes);
+                if (tree.isValidBST())
+                {
+                    NodeViewModel newNode = new BSTViewModel(new BST() { X = 20, Y = 20, Key = key.ToString()});
                 newNode.Diameter = 50;
-                undoRedo.InsertInUndoRedo(new InsertNodeInTreeCommand(Nodes, selectedNodes, newNode, Lines));
+                    undoRedo.InsertInUndoRedo(new InsertNodeInTreeCommand(tree, Nodes, selectedNodes, newNode, Lines));
+            }
             }
             
-            
         }
-
+            
         private void CallRemoveNodeInTree()
         {
             //ADD ERROR IF THERE IS ONLY ONE ELEMENT IN THE TREE
@@ -111,23 +117,25 @@ namespace AlgoTreeDraw.ViewModel
 
         private void CallAutoBalance()
         {
+            Tree treeTest = new Tree(selectedNodes);
             if (selectedNodes.Count != 0)
             {
-                if (selectedNodes.ElementAt(0) is BSTViewModel)
+                if (treeTest.hasIntKeysAndBSTNodes())
                 {
-                    undoRedo.InsertInUndoRedo(new AutoBalanceCommand(Nodes, selectedNodes, Lines));
+                    undoRedo.InsertInUndoRedo(new AutoBalanceCommand(treeTest, Nodes, selectedNodes, Lines));
                 }
                 else if (selectedNodes.ElementAt(0) is T234ViewModel)
                 {
-                    List<NodeViewModel> nodesCopy = selectedNodes;
-                    foreach (var n in selectedNodes)
-                    {
-                        Nodes.Remove(n);
-                    }
-                    Tree234 tree = new Tree234(nodesCopy);
-                    Tuple<List<LineViewModel>, List<NodeViewModel>> tuple = tree.BalanceT234();
-                    Nodes.AddRange(tuple.Item2);
-                    Lines.AddRange(tuple.Item1);
+                    //List<NodeViewModel> nodesCopy = selectedNodes;
+                    //foreach (var n in selectedNodes)
+                    //{
+                    //    Nodes.Remove(n);
+                    //}
+                    //Tree234 tree = new Tree234(nodesCopy);
+                    //Tuple<List<LineViewModel>, List<NodeViewModel>> tuple = tree.BalanceT234();
+                    //Nodes.AddRange(tuple.Item2);
+                    //Lines.AddRange(tuple.Item1);
+                    undoRedo.InsertInUndoRedo(new AutoBalance234(Nodes, selectedNodes, Lines));
                 }
             }
             
@@ -165,10 +173,9 @@ namespace AlgoTreeDraw.ViewModel
                 NodeViewModel tempNode = node.newNodeViewModel();
                 double floorValueOfZoom = Math.Floor(zoomValue);
                 tempNode.X = (node.X - WIDTHS + 27) / zoomValue;
-                tempNode.Y = (node.Y + 31)/zoomValue;
+                tempNode.Y = (node.Y + 31 + VOff - VOffSP)/zoomValue;
                 Debug.Write("Zoom: " + zoomValue);
                 tempNode.ID = Node.IDCounter;
-                Node.IDCounter++;
                 AddNode(tempNode);
             }
             node.X = node.initialNodePosition.X;
