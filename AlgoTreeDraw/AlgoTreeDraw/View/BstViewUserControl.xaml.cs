@@ -24,18 +24,6 @@ namespace AlgoTreeDraw.View
         public BstViewUserControl()
         {
             InitializeComponent();
-            NodeTextBox.TextChanged += NodeTextBox_TextChanged;
-        }
-
-        private void NodeTextBox_TextChanged(object sender, TextChangedEventArgs e)
-        {
-            var mvm = (MainViewModelBase)DataContext;
-            NodeViewModel node = mvm.editNode;
-            if(node != null)
-            {
-                node.Key = NodeTextBox.Text;
-            }
-            
         }
 
         private void NodeTextBox_KeyDown(object sender, KeyEventArgs e)
@@ -43,6 +31,8 @@ namespace AlgoTreeDraw.View
             if(e.Key == Key.Enter)
             {
                 var mvm = (MainViewModelBase)DataContext;
+                NodeViewModel node = mvm.editNode;
+                node.Key = NodeTextBox.Text;
                 mvm._DoneEditing();
             }
         }
