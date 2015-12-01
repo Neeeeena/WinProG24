@@ -17,10 +17,6 @@ namespace AlgoTreeDraw.ViewModel
 
         public List<LineViewModel> addedLinesAutoBalance = new List<LineViewModel>();
 
-        // Temporary prolly
-        //const int X_OFFSET = 70;
-        //const int Y_OFFSET = 50;
-
         const int LEFT = 0;
         const int RIGHT = 1;
         const int X_OFFSET =  40;
@@ -163,6 +159,36 @@ namespace AlgoTreeDraw.ViewModel
             return pCount == 1 && nvm.neighbours.Count <= 3;
         }
 
+        public bool checkChildrenKey(NodeViewModel nvm)
+        {
+            NodeViewModel[] children = getChildren(nvm);
+            foreach (NodeViewModel child in children) {
+                if (child != null) { 
+                    if (!checkChildrenKey(child)) return false;
+                }
+            }
+            if (children[0] == null) return true;
+            if (children[1] == null)
+            {
+                if (int.Parse(children[0].Key) <= int.Parse(nvm.Key) && children[0].X < nvm.X) return true;
+                if (int.Parse(children[0].Key) > int.Parse(nvm.Key) && children[0].X > nvm.X) return true;
+                return false;
+            }
+            // getChildren already switches such that children[0] is further to the left than children[1]. 
+            // Therefore it is enough to check that children[0].Key <= nvm.Key and not also >
+            return (int.Parse(children[0].Key) <= int.Parse(nvm.Key) && int.Parse(children[1].Key) > int.Parse(nvm.Key) &&
+                children[0].X < nvm.X && children[1].X > nvm.X);
+        }
+
+        public bool childrenKeyCorrectlyPlaced()
+        {
+            if(checkChildrenKey(root)) return true;
+            MessageBox.Show("The chosen tree is not a valid BST" +
+                "\nMake sure that every node to the left is smaller than it's parent and every node to the right is larger" +
+                "\nAlso make sure that left child is further to the left than it's parent and the same with the right");
+            return false;
+        }
+
         public void insert(NodeViewModel newNode) 
         {
             insertBST(newNode, root);      
@@ -170,7 +196,7 @@ namespace AlgoTreeDraw.ViewModel
 
         public bool isValidBST()
         {
-            return hasIntKeysAndBSTNodes() && allNodesConnected() && allNodesOneParentAndLessThanThreeChildren();
+            return hasIntKeysAndBSTNodes() && allNodesConnected() && allNodesOneParentAndLessThanThreeChildren() && childrenKeyCorrectlyPlaced();
         }
 
         public List<LineViewModel> tAutoBalance()
