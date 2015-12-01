@@ -27,13 +27,14 @@
         
     </Window.InputBindings>
     
-    <DockPanel Background="Gainsboro">
+    <DockPanel Name="DP" Background="Gainsboro">
             
             <View:MenuBar DockPanel.Dock="Top"/>
             <!-- Draw Menu bar -->
-            <Border Panel.ZIndex="2" BorderBrush="Gainsboro" BorderThickness="1">
-                <View:SidePanel DockPanel.Dock="Left"/>
-                <!-- Draw sidepanel -->
+        <!-- Draw sidepanel -->
+            <Border Panel.ZIndex="99" BorderBrush="Gainsboro" BorderThickness="1" Name="side">
+                <View:SidePanel />
+                
             </Border>
         <!--
             <StackPanel DockPanel.Dock="Bottom">
@@ -43,7 +44,7 @@
             <!-- Draw lines -->
 
         <!-- <ScrollViewer HorizontalContentAlignment="Stretch" VerticalContentAlignment="Stretch" HorizontalScrollBarVisibility="Auto"  VerticalScrollBarVisibility="Auto" Margin="5" > -->
-        <ScrollViewer Panel.ZIndex="0" HorizontalScrollBarVisibility="Visible" VerticalScrollBarVisibility="Visible" Margin="0" Name="Scroll">
+        <ScrollViewer HorizontalScrollBarVisibility="Visible" VerticalScrollBarVisibility="Visible" Margin="0" Name="Scroll" >
             <Border BorderBrush="Black" BorderThickness="0,0,1,1" Height="{Binding CanvasHeight}" Width="{Binding CanvasWidth}" HorizontalAlignment="Left" VerticalAlignment="Top">
                 <Border.LayoutTransform>
                     <ScaleTransform CenterX="1000" CenterY="1000" ScaleX="{Binding zoomValue}" ScaleY="{Binding zoomValue}"/>
@@ -63,7 +64,7 @@
                     </i:Interaction.Triggers>
                     <ItemsControl ItemsSource="{Binding Lines}" />
                     <ItemsControl ItemsSource="{Binding Nodes}"/>
-                    <Canvas>
+                    <Canvas MouseMove="Canvas_MouseMove">
                         <Border Canvas.Left="{Binding SelectionBoxX}" Canvas.Top="{Binding SelectionBoxY}" Width="{Binding SelectionBoxWidth}" Height="{Binding SelectionBoxHeight}"
                                 BorderBrush="Black" BorderThickness="1">
                             <Rectangle Fill="SteelBlue" Opacity=".15"/>

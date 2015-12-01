@@ -67,14 +67,9 @@ namespace AlgoTreeDraw.ViewModel
         private static int canvasHeight = 600;
         public int CanvasWidth { get { return canvasWidth; } set { canvasWidth = value; RaisePropertyChanged();} }
         public int CanvasHeight { get { return canvasHeight; } set { canvasHeight = value; RaisePropertyChanged(); } }
-        
-        private Brush _TEST = Brushes.Black;
-        public Brush TEST { get { return _TEST; } set { _TEST = value; RaisePropertyChanged(); } }
     
-        public int HEIGHT { get { return _HEIGHT; } set { _HEIGHT = value; RaisePropertyChanged(); RaisePropertyChanged(() => TEST); } }
-        public int WIDTH { get { return _WIDTH; } set { _WIDTH = value; RaisePropertyChanged(); RaisePropertyChanged(() => TEST); } }
-
-        //public static Point initialNodePosition { get; set; }
+        public int HEIGHT { get { return _HEIGHT; } set { _HEIGHT = value; RaisePropertyChanged();} }
+        public int WIDTH { get { return _WIDTH; } set { _WIDTH = value; RaisePropertyChanged();}}
 
         //select
         public bool nodeClicked = false;
@@ -90,6 +85,13 @@ namespace AlgoTreeDraw.ViewModel
         public static bool isChangingColorText { get; set; }
         public static bool isMarking { get; set; }
         public static bool hasmarkedSomething { get; set; }
+
+        public static double _VOff = 0;
+        public double VOff
+        {
+            get { return _VOff; }
+            set { _VOff = value; }
+        }
 
         public MainViewModelBase()
         {
@@ -170,13 +172,6 @@ namespace AlgoTreeDraw.ViewModel
             }
             selectedNodes.Clear();
         }
-
-        // WHYYYY det skulle jo være alle selected nodes
-        //public void makePretty()
-        //{
-        //    Tree selTree = new Tree(selectedNodes);
-        //    selTree.makePretty();
-        //}
 
         public void autoBalance()
         {
@@ -311,8 +306,6 @@ namespace AlgoTreeDraw.ViewModel
                 n.initialNodePosition.X = n.X;
                 n.initialNodePosition.Y = n.Y;
             }
-
-            
             
             e.MouseDevice.Target.CaptureMouse();
             if (e.ClickCount == 2 && e.LeftButton == MouseButtonState.Pressed)
@@ -321,6 +314,10 @@ namespace AlgoTreeDraw.ViewModel
                 node.IsNotEditing = Visibility.Hidden;
                 editNode = node;   
             }
+
+            var shapeVisualElement = (FrameworkElement)e.MouseDevice.Target;
+            var canvas = FindParentOfType<Canvas>(shapeVisualElement);
+            
         }
 
         private void MouseMoveNode(MouseEventArgs e)

@@ -136,19 +136,5 @@ namespace AlgoTreeDraw.ViewModel
                 return new T234ViewModel(new T234() { X = this.X, Y = this.Y, diameter = this.Diameter, IsFourNode = true });
             }
         }
-        //public void MouseDoubleClickNode(MouseButtonEventArgs e)
-        //{
-        //    var node = TargetShape(e);
-        //    if (!(node.isTextBoxVisible == Visibility.Visible))
-        //    {
-
-        //        node.isTextBoxVisible = Visibility.Visible;
-        //    }
-        //    else
-        //    {
-        //        node.isTextBoxVisible = Visibility.Hidden;
-        //    }
-        //    MessageBox.Show("lol");
-        //}
     }
 }
