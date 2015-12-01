@@ -131,15 +131,15 @@ namespace AlgoTreeDraw.ViewModel
         {
             if (_IsThreeNode)
             {
-                return new T234ViewModel(new T234() { X = this.X, Y = this.Y, diameter = this.Diameter, IsThreeNode = true});
+                return new T234ViewModel(new T234() { X = this.X, Y = this.Y, diameter = this.Diameter, IsThreeNode = true,TextOne=TxtOne,TextTwo=TxtTwo}) { Color = Color, PreColor = PreColor, ColorOfText = ColorOfText, PreColorOfText = PreColorOfText };
             }
             else if(_IsTwoNode)
             {
-                return new T234ViewModel(new T234() { X = this.X, Y = this.Y, diameter = this.Diameter, IsTwoNode = true });
+                return new T234ViewModel(new T234() { X = this.X, Y = this.Y, diameter = this.Diameter, IsTwoNode = true,TextOne=TxtOne }) { Color = Color, PreColor = PreColor, ColorOfText = ColorOfText, PreColorOfText = PreColorOfText };
             }
             else
             {
-                return new T234ViewModel(new T234() { X = this.X, Y = this.Y, diameter = this.Diameter, IsFourNode = true });
+                return new T234ViewModel(new T234() { X = this.X, Y = this.Y, diameter = this.Diameter, IsFourNode = true, TextOne = TxtOne, TextTwo = TxtTwo, TextThree=TxtThree }) { Color = Color, PreColor = PreColor, ColorOfText = ColorOfText, PreColorOfText = PreColorOfText };
             }
         }
         public void Merge(T234ViewModel other, T234ViewModel optional = null)
@@ -201,17 +201,14 @@ namespace AlgoTreeDraw.ViewModel
             List<T234ViewModel> temp = new List<T234ViewModel>();
             if (_IsThreeNode)
             {
-                temp.Add(new T234ViewModel(new T234() { TextOne = TxtTwo, IsTwoNode = true, ID = Node.IDCounter }));
-                Node.IDCounter++;
+                temp.Add(new T234ViewModel(new T234() { TextOne = TxtTwo, IsTwoNode = true }));
                 _IsThreeNode = false;
                 _IsTwoNode = true;
             }
             else if (_IsFourNode)
             {
-                temp.Add(new T234ViewModel (new T234() { TextOne = this.TxtTwo, IsTwoNode = true, ID = Node.IDCounter }));
-                Node.IDCounter++;
-                temp.Add(new T234ViewModel (new T234() { TextOne = this.TxtThree, IsTwoNode = true, ID = Node.IDCounter }));
-                Node.IDCounter++;
+                temp.Add(new T234ViewModel (new T234() { TextOne = this.TxtTwo, IsTwoNode = true }));
+                temp.Add(new T234ViewModel (new T234() { TextOne = this.TxtThree, IsTwoNode = true}));
                 _IsFourNode = false;
                 _IsTwoNode = true;
 
