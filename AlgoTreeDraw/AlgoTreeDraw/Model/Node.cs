@@ -19,6 +19,8 @@ namespace AlgoTreeDraw.Model
         public static int IDCounter { get; set; } = 3;
         public Node()
         {
+            ID = IDCounter;
+            IDCounter++;
         }
 
         public struct _color
