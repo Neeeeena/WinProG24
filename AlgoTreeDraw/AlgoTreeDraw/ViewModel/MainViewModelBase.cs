@@ -186,6 +186,10 @@ namespace AlgoTreeDraw.ViewModel
             {
                 editNode.IsEditing = Visibility.Hidden;
                 editNode.IsNotEditing = Visibility.Visible;
+                if (editNode.Key != editNode.PreKey)
+                {
+                    undoRedo.InsertInUndoRedo(new TextChangeCommand(editNode, editNode.Key, editNode.PreKey));
+                }
                 editNode = null;
             }
             

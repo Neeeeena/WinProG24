@@ -146,7 +146,12 @@ namespace AlgoTreeDraw.ViewModel
         public string Key
         {
             get { return Node.Key; }
-            set { Node.Key = value; RaisePropertyChanged(); }
+            set { Node.PreKey = Node.Key; Node.Key=value; RaisePropertyChanged(); }
+        }
+        public string PreKey
+        {
+            get { return Node.PreKey; }
+            set { Node.PreKey = value; }
         }
 
         public bool hasBeenFound { get; set; }
