@@ -1,4 +1,5 @@
-﻿using System;
+﻿using AlgoTreeDraw.ViewModel;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -23,6 +24,27 @@ namespace AlgoTreeDraw.View
         public BstViewUserControl()
         {
             InitializeComponent();
+            NodeTextBox.TextChanged += NodeTextBox_TextChanged;
+        }
+
+        private void NodeTextBox_TextChanged(object sender, TextChangedEventArgs e)
+        {
+            var mvm = (MainViewModelBase)DataContext;
+            NodeViewModel node = mvm.editNode;
+            if(node != null)
+            {
+                node.Key = NodeTextBox.Text;
+            }
+            
+        }
+
+        private void NodeTextBox_KeyDown(object sender, KeyEventArgs e)
+        {
+            if(e.Key == Key.Enter)
+            {
+                var mvm = (MainViewModelBase)DataContext;
+                mvm._DoneEditing();
+            }
         }
     }
 }

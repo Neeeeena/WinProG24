@@ -181,6 +181,8 @@ namespace AlgoTreeDraw.ViewModel
             selTree.tAutoBalance();
         }
 
+
+
         
         public void _DoneEditing()
         {
@@ -196,6 +198,7 @@ namespace AlgoTreeDraw.ViewModel
             }
             
         }
+        
         
         public void AddLine( NodeViewModel to)
         {
