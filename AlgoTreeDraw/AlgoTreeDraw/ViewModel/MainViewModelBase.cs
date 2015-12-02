@@ -206,8 +206,9 @@ namespace AlgoTreeDraw.ViewModel
         {
             if(editNode != null)
             {
-            editNode.IsEditing = Visibility.Hidden;
-            editNode.IsNotEditing = Visibility.Visible;
+                editNode.IsEditing = Visibility.Hidden;
+                editNode.IsNotEditing = Visibility.Visible;
+                editNode = null;
             }
         }
         
@@ -215,17 +216,17 @@ namespace AlgoTreeDraw.ViewModel
         {
             if(editNode != null)
             {
-                NodeBoxUpdate();
+                
                 if (editNode.Key != editNode.PreKey)
                 {
                     undoRedo.InsertInUndoRedo(new TextChangeCommand(editNode, editNode.Key, editNode.PreKey));
                 }
+                NodeBoxUpdate();
                 editNode = null;
             }
             
         }
-        
-        
+
         public void AddLine( NodeViewModel to)
         {
             fromNode.Color = fromNode.PreColor;
