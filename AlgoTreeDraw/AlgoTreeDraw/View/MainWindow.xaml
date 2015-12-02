@@ -13,8 +13,6 @@
         DataContext="{Binding Source={StaticResource Locator}, Path=Main}"
         >
     <Window.InputBindings>
-        
-        <KeyBinding Command="{Binding DoneEditing}" Gesture="ENTER"/>
         <KeyBinding Command="{Binding DeleteKeyPressed}" Key="Delete"/>
         <KeyBinding Command="{Binding NewDiagramCommand}" Gesture="CTRL+N"/>
         <KeyBinding Command="{Binding OpenDiagramCommand}" Gesture="CTRL+O"/>

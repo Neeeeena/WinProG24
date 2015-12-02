@@ -1,4 +1,5 @@
-﻿using System;
+﻿using AlgoTreeDraw.ViewModel;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -23,6 +24,31 @@ namespace AlgoTreeDraw.View
         public RBTUserControl()
         {
             InitializeComponent();
+        }
+
+        private void NodeTextBox_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.Key == Key.Enter)
+            {
+                UpdateKeys();
+            }
+        }
+
+        private void UpdateKeys()
+        {
+            var mvm = (MainViewModelBase)DataContext;
+            NodeViewModel node = mvm.editNode;
+            if (node != null)
+            {
+                node.Key = NodeTextBox.Text;
+                mvm._DoneEditing();
+            }
+
+        }
+
+        private void NodeTextBox_PreviewLostKeyboardFocus(object sender, KeyboardFocusChangedEventArgs e)
+        {
+            UpdateKeys();
         }
     }
 }

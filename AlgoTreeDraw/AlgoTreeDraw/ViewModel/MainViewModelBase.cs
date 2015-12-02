@@ -181,6 +181,26 @@ namespace AlgoTreeDraw.ViewModel
             selTree.tAutoBalance();
         }
 
+
+        public void _DoneEditingT234()
+        {
+            if (editNode != null)
+            {
+                editNode.IsEditing = Visibility.Hidden;
+                editNode.IsNotEditing = Visibility.Visible;
+
+                if(((T234ViewModel)editNode)._IsTwoNode)
+                {
+
+                }
+
+                if (editNode.Key != editNode.PreKey)
+                {
+                    undoRedo.InsertInUndoRedo(new TextChangeCommand(editNode, editNode.Key, editNode.PreKey));
+                }
+                editNode = null;
+            }
+        }
         
         public void _DoneEditing()
         {
@@ -196,6 +216,7 @@ namespace AlgoTreeDraw.ViewModel
             }
             
         }
+        
         
         public void AddLine( NodeViewModel to)
         {

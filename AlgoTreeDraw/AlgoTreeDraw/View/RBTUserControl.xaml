@@ -40,7 +40,7 @@
                 <RowDefinition />
             </Grid.RowDefinitions>
             <TextBlock Text="{Binding Key}" Visibility="{Binding IsNotEditing}"  Grid.Row="1" HorizontalAlignment="Center" VerticalAlignment="Center" Foreground="{Binding ColorOfText}" MaxWidth="43"/>
-            <TextBox Text="{Binding Key}" Visibility="{Binding IsEditing}" Grid.Row="1" HorizontalAlignment="Center" VerticalAlignment="Center" Foreground="{Binding ColorOfText}" MaxWidth="43"/>
+            <TextBox Name="NodeTextBox" Keyboard.PreviewLostKeyboardFocus="NodeTextBox_PreviewLostKeyboardFocus" Keyboard.KeyDown="NodeTextBox_KeyDown" Text="{Binding Key}" Visibility="{Binding IsEditing}" Grid.Row="1" HorizontalAlignment="Center" VerticalAlignment="Center" Foreground="{Binding ColorOfText}" MaxWidth="43"/>
         </Grid>
     </Grid>
 </UserControl>
