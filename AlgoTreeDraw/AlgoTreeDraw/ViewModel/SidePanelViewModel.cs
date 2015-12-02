@@ -117,12 +117,15 @@ namespace AlgoTreeDraw.ViewModel
 
         private void CallAutoBalance()
         {
-            Tree treeTest = new Tree(selectedNodes);
             if (selectedNodes.Count != 0)
             {
-                if (treeTest.hasIntKeysAndBSTNodes())
+                if (selectedNodes.ElementAt(0) is BSTViewModel)
                 {
-                    undoRedo.InsertInUndoRedo(new AutoBalanceCommand(treeTest, Nodes, selectedNodes, Lines));
+                    Tree treeTest = new Tree(selectedNodes);
+                    if (treeTest.hasIntKeysAndBSTNodes())
+                    {
+                        undoRedo.InsertInUndoRedo(new AutoBalanceCommand(treeTest, Nodes, selectedNodes, Lines));
+                    }
                 }
                 else if (selectedNodes.ElementAt(0) is T234ViewModel)
                 {

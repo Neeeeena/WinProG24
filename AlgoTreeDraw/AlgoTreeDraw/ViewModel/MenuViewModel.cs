@@ -128,6 +128,7 @@ namespace AlgoTreeDraw.ViewModel
             {
                 Nodes.Clear();
                 Lines.Clear();
+                undoRedo.clearStacks();
             }
         }
 

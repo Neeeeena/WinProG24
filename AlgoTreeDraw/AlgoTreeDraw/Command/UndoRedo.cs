@@ -105,5 +105,14 @@ namespace AlgoTreeDraw.Command
             if (undoList.Length == 0) Messenger.Default.Send(new UndoRedoEnabledMsg(false, true));
             if (undoList.Length != 0) Messenger.Default.Send(new UndoRedoEnabledMsg(true, true));
         }
+
+        public void clearStacks()
+        {
+            _undoCommands.Clear();
+            _redoCommands.Clear();
+            RaisePropertyChanged(nameof(EnableUndo));
+            RaisePropertyChanged(nameof(EnableRedo));
+            Messenger.Default.Send(new UndoRedoEnabledMsg(false, false));
+        }
     }
 }
