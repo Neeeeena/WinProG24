@@ -32,8 +32,8 @@
     <Grid>
         <Ellipse Fill="{Binding Color}" Stroke="{Binding BorderColor}" StrokeThickness="{Binding BorderThickness}" />
         <!--<TextBox Name="BSTValue" Visibility="Visible" Text="{Binding VisualText}" VerticalAlignment="Center"></TextBox>-->
-        <TextBlock Text="{Binding Key}" Visibility="{Binding IsNotEditing}" Foreground="{Binding ColorOfText}" Grid.Row="1" HorizontalAlignment="Center" VerticalAlignment="Center"/>
-        <TextBox x:Name="NodeTextBox" Text="{Binding Key}" Visibility="{Binding IsEditing}" Grid.Row="1" HorizontalAlignment="Center" VerticalAlignment="Center" Foreground="Black"/>
+        <TextBlock Text="{Binding Key}" Visibility="{Binding IsNotEditing}" Foreground="{Binding ColorOfText}" Grid.Row="1" HorizontalAlignment="Center" VerticalAlignment="Center" MaxWidth="43"/>
+        <TextBox x:Name="NodeTextBox" Text="{Binding Key}" Visibility="{Binding IsEditing}" Grid.Row="1" HorizontalAlignment="Center" VerticalAlignment="Center" Foreground="Black" MaxWidth="43"/>
 
     </Grid>
     
