@@ -208,7 +208,7 @@ namespace AlgoTreeDraw.ViewModel
             {
                 editNode.IsEditing = Visibility.Hidden;
                 editNode.IsNotEditing = Visibility.Visible;
-                editNode = null;
+                
             }
         }
         
