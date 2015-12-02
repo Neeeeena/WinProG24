@@ -201,13 +201,21 @@ namespace AlgoTreeDraw.ViewModel
                 editNode = null;
             }
         }
+
+        public void NodeBoxUpdate()
+        {
+            if(editNode != null)
+            {
+            editNode.IsEditing = Visibility.Hidden;
+            editNode.IsNotEditing = Visibility.Visible;
+            }
+        }
         
         public void _DoneEditing()
         {
             if(editNode != null)
             {
-                editNode.IsEditing = Visibility.Hidden;
-                editNode.IsNotEditing = Visibility.Visible;
+                NodeBoxUpdate();
                 if (editNode.Key != editNode.PreKey)
                 {
                     undoRedo.InsertInUndoRedo(new TextChangeCommand(editNode, editNode.Key, editNode.PreKey));
