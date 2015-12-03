@@ -220,14 +220,14 @@ namespace AlgoTreeDraw.ViewModel
         {
             if (_IsTwoNode)
             {
-                return 15;
+                return 30;
             }else if (_IsThreeNode)
             {
-                return 30;
+                return 60;
             }
             else
             {
-                return 45;
+                return 90;
             }
         }
     }

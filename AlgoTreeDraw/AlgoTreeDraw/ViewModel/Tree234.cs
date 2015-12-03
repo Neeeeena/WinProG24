@@ -15,6 +15,7 @@ namespace AlgoTreeDraw.ViewModel
         List<NodeViewModel> nodes = new List<NodeViewModel>();
         int offsetY { get; } = 70;
         double zeroHeight = 0;
+        double zeroLenght = 0;
         public Tree234(List<NodeViewModel> selNodes, ObservableCollection<LineViewModel> lines)
         {
             if(selNodes.Count != 0)
@@ -149,20 +150,20 @@ namespace AlgoTreeDraw.ViewModel
 
         }
 
-        private NodeViewModel autobalance(List<NodeViewModel> _nodes, double x = 0,double y=0, double offSetX = 300)
+        private NodeViewModel autobalance(List<NodeViewModel> _nodes, double y=0)
         {
             if(_nodes.Count >= 3)
             {
                 var median = findMedian(_nodes);
-                if(x != 0)
+                if(y != 0)
                 {
-                    median.X = x;
+                    median.X = zeroLenght;
                     median.Y = y;
                 }
                 else
                 {
-                    //Only for align
                     zeroHeight = median.Y;
+                    zeroLenght = median.X + 1.5*((T234ViewModel)median).Length()+5;
                 }
 
                 var leftMedian = findLeftMedian(_nodes);
@@ -170,27 +171,27 @@ namespace AlgoTreeDraw.ViewModel
                 var rightMedian = findRightMedian(_nodes);
 
                 ((T234ViewModel)median).Merge((T234ViewModel)leftMedian, (T234ViewModel)rightMedian);
-                var left = autobalance(range(_nodes, null, leftMedian),median.X-offSetX/2,median.Y+offsetY,offSetX/2);
+                var left = autobalance(range(_nodes, null, leftMedian),median.Y+offsetY);
                 if (left != null)
                 {
                     lines.Add(new LineViewModel(new Line() { From = median.Node, To = left.Node }) { From = median, To = left });
                     median.addNeighbour(left);
 
                 }
-                var leftright = autobalance(range(_nodes, leftMedian, median), median.X - offSetX / 4, median.Y + offsetY, offSetX / 2);
+                var leftright = autobalance(range(_nodes, leftMedian, median), median.Y + offsetY);
                 if(leftright != null)
                 {
                     lines.Add(new LineViewModel(new Line() { From = median.Node, To = leftright.Node }) { From = median, To = leftright });
                     median.addNeighbour(leftright);
                 } 
-                var rightleft = autobalance(range(_nodes, median, rightMedian), median.X + offSetX / 4, median.Y + offsetY, offSetX / 2);
+                var rightleft = autobalance(range(_nodes, median, rightMedian), median.Y + offsetY);
                 if(rightleft != null)
                 {
                     lines.Add(new LineViewModel(new Line() { From = median.Node, To = rightleft.Node }) { From = median, To = rightleft });
                     median.addNeighbour(rightleft);
 
                 }
-                var right = autobalance(range(_nodes, rightMedian, null), median.X + offSetX / 2, median.Y + offsetY, offSetX / 2);
+                var right = autobalance(range(_nodes, rightMedian, null), median.Y + offsetY);
                 if(right != null)
                 {
                     lines.Add(new LineViewModel(new Line() { From = median.Node, To = right.Node }) { From = median, To = right });
@@ -209,7 +210,7 @@ namespace AlgoTreeDraw.ViewModel
                 var right = (T234ViewModel)_nodes.ElementAt(1);
                 left.Merge(right);
                 nodes.Remove(right);
-                left.X = x + offSetX;
+                left.X = zeroLenght;
                 left.Y = y;
 
                 return left;
@@ -217,7 +218,7 @@ namespace AlgoTreeDraw.ViewModel
             else if(_nodes.Count == 1)
             {
                 NodeViewModel one = _nodes.ElementAt(0);
-                one.X = x + offSetX;
+                one.X = zeroLenght;
                 one.Y = y;
                 return one;
             }
@@ -233,11 +234,12 @@ namespace AlgoTreeDraw.ViewModel
                 if(level.Count != 0)
                 {
                     level.OrderBy(n => n.X);
-                    for(int i = level.Count/2; i < level.Count-2; i++)
+                    level.ElementAt(level.Count / 2 + 1).X = zeroLenght;
+                    for(int i = level.Count/2; i <= level.Count-2; i++)
                     {
                         var left = ((T234ViewModel)level.ElementAt(i));
                         var right = ((T234ViewModel)level.ElementAt(i+1));
-                        if (left.X+left.Length()>= right.X+right.Length())
+                        if (left.X+left.Length()>= right.X)
                         {
                             right.X = left.X + left.Length() + 10;
                         }
@@ -246,9 +248,9 @@ namespace AlgoTreeDraw.ViewModel
                     {
                         var left = ((T234ViewModel)level.ElementAt(i-1));
                         var right = ((T234ViewModel)level.ElementAt(i));
-                        if (right.X - right.Length() <= left.X+left.Length())
+                        if (right.X <= left.X+left.Length())
                         {
-                            left.X = right.X - right.Length() - 10;
+                            left.X = right.X -right.Length() - 10;
                         }
                     }
                     offset += 70;
