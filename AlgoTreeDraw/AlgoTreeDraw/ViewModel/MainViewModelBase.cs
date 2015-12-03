@@ -201,23 +201,32 @@ namespace AlgoTreeDraw.ViewModel
                 editNode = null;
             }
         }
-        
-        public void _DoneEditing()
+
+        public void NodeBoxUpdate()
         {
             if(editNode != null)
             {
                 editNode.IsEditing = Visibility.Hidden;
                 editNode.IsNotEditing = Visibility.Visible;
+                
+            }
+        }
+        
+        public void _DoneEditing()
+        {
+            if(editNode != null)
+            {
+                
                 if (editNode.Key != editNode.PreKey)
                 {
                     undoRedo.InsertInUndoRedo(new TextChangeCommand(editNode, editNode.Key, editNode.PreKey));
                 }
+                NodeBoxUpdate();
                 editNode = null;
             }
             
         }
-        
-        
+
         public void AddLine( NodeViewModel to)
         {
             fromNode.Color = fromNode.PreColor;

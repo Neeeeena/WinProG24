@@ -80,6 +80,7 @@ namespace AlgoTreeDraw.ViewModel
                     clearSelectedNodes();
                     SelectionBoxStart = Mouse.GetPosition(e.MouseDevice.Target);
                     MouseDownCanvasCalled = true;
+                    NodeBoxUpdate();
                     isAddingLine = false;
                     isChangingColor = false;
                     isChangingColorText = false;
