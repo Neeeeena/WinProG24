@@ -72,6 +72,7 @@ namespace AlgoTreeDraw.ViewModel
             removeLines();
             autobalance(nodes);
             double furthestLeft = 500;
+            //For at træet ikke er inden under sidepanel
             foreach(var n in nodes)
             {
                 if (n.X < furthestLeft)
