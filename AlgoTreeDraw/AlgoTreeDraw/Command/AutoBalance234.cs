@@ -12,33 +12,33 @@ namespace AlgoTreeDraw.Command
     public class AutoBalance234 : IUndoRedoCommand
     {
         private ObservableCollection<NodeViewModel> nodes;
-        private List<NodeViewModel> selectedNodes = new List<NodeViewModel>();
-        private List<NodeViewModel> afterNodes = new List<NodeViewModel>();
+        private readonly List<NodeViewModel> selectedNodes = new List<NodeViewModel>();
         private ObservableCollection<LineViewModel> lines;
-        private List<LineViewModel> autoBalanceLines = new List<LineViewModel>();
+        private List<NodeViewModel> autoBalanceNodes = new List<NodeViewModel>();
         private List<LineViewModel> originalLines = new List<LineViewModel>();
-        private List<NodeViewModel> originalNodes = new List<NodeViewModel>();
-        private List<Point> nodePositions = new List<Point>();
+        private List<NodeViewModel> executeNodes = new List<NodeViewModel>();
+        private List<LineViewModel> executeLines = new List<LineViewModel>();
 
         public AutoBalance234(ObservableCollection<NodeViewModel> _nodes, List<NodeViewModel> _selectedNodes, ObservableCollection<LineViewModel> _lines)
         {
             nodes = _nodes;
             lines = _lines;
 
+            
+
             foreach (NodeViewModel n in _selectedNodes)
             {
                 selectedNodes.Add(n);
-                nodePositions.Add(new Point(n.X, n.Y));
 
                 foreach (LineViewModel l in lines)
                 {
                     if ((l.From == n || l.To == n) && !originalLines.Contains(l))
                     {
                         originalLines.Add(l);
+                        executeLines.Add(l);
 
                     }
                 }
-                originalNodes.Add(n.newNodeViewModel());
             }
 
         }
@@ -50,67 +50,71 @@ namespace AlgoTreeDraw.Command
 
         public void Execute()
         {
+            foreach(var l in originalLines)
+            {
+                lines.Remove(l);
+            }
+            foreach(var l in executeLines)
+            {
+                lines.Remove(l);
+            }
+            foreach(var n in executeNodes)
+            {
+                nodes.Remove(n);   
+            }
+            executeNodes.Clear();
+
             foreach(var n in selectedNodes)
             {
+                executeNodes.Add(n.newNodeViewModel());
                 nodes.Remove(n);
-            }
-            selectedNodes.Clear();
-            //copy all nodes to selectednodes
-            foreach(var n in originalNodes)
-            {
-                selectedNodes.Add(n);
-            }
-            originalNodes.Clear();
-            foreach (var n in selectedNodes)
-            {
-                nodes.Remove(n);
-                originalNodes.Add(n.newNodeViewModel());
             }
 
-            Tree234 tree = new Tree234(selectedNodes);
-            Tuple<List<LineViewModel>, List<NodeViewModel>> tuple = tree.BalanceT234();
-            afterNodes = tuple.Item2;
-            nodes.AddRange(afterNodes);
-            autoBalanceLines = tuple.Item1;
-            lines.AddRange(autoBalanceLines);
+            Tree234 tree = new Tree234(executeNodes, lines);
+            executeNodes = tree.BalanceT234();
+            nodes.AddRange(executeNodes);
+            //lines.AddRange(executeLines);
 
         }
 
         public void UnExecute()
         {
-            int index = 0;
-            if (autoBalanceLines != null)
+
+            removeLines();
+            foreach (NodeViewModel n in executeNodes)
             {
-                // Slet lines og neighbours
-                foreach (LineViewModel l in autoBalanceLines)
-                {
-                    lines.Remove(l);
-                    l.From.removeNeighbour(l.To);
-                }
-
-                foreach (NodeViewModel n in afterNodes)
-                {
-                    nodes.Remove(n);
-                }
-
-                // Tilføj og ryk nodes til deres originale position
-                foreach (NodeViewModel n in originalNodes)
-                {
-                    nodes.Add(n);
-                    n.X = nodePositions.ElementAt(index).X;
-                    n.Y = nodePositions.ElementAt(index).Y;
-                    index++;
-                }
-
-                // Tilføje lines og neighbours
-                foreach (LineViewModel l in originalLines)
-                {
-                    lines.Add(l);
-                    l.From.addNeighbour(l.To);
-                }
-
+                nodes.Remove(n);
             }
 
+            foreach (NodeViewModel n in selectedNodes)
+            {
+                nodes.Add(n);
+            }
+
+                // Tilføje lines og neighbours
+            foreach (LineViewModel l in originalLines)
+            {
+                lines.Add(l);
+             }
+
         }
+
+        public void removeLines()
+        {
+            List<LineViewModel> tempLines = new List<LineViewModel>();
+            foreach (NodeViewModel n in nodes)
+            {
+                foreach (LineViewModel l in lines)
+                {
+                    if ((l.From == n || l.To == n)) tempLines.Add(l);
+                }
+            }
+
+            foreach (LineViewModel l in tempLines)
+            {
+                lines.Remove(l);
+            }
+        }
+
     }
 }
