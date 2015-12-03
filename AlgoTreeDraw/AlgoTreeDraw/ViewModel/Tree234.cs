@@ -21,18 +21,41 @@ namespace AlgoTreeDraw.ViewModel
             if(selNodes.Count != 0)
             {
                 nodes = selNodes;
-                if (allNodesT234())
+                if (allNodesT234() && allNodesIntKeys())
                 {
 
                     nodes = splitAllNodes(nodes);
                     nodes = nodes.OrderBy(n => int.Parse(((T234ViewModel)n).TxtOne)).ToList();
 
+                    this.lines = lines;
+
                 }
 
+
             }
-            this.lines = lines;
+           
+            
 
 
+        }
+        public bool testValidTree()
+        {
+            return allNodesIntKeys() && allNodesT234();
+        }
+
+        private bool allNodesIntKeys()
+        {
+            int throwaway;
+            foreach (NodeViewModel n in nodes)
+            {
+                if (!int.TryParse(((T234ViewModel)n).TxtOne, out throwaway))
+                {
+                    MessageBox.Show("Error: Some nodes does not have valid values (numbers)");
+
+                    return false;
+                }
+            }
+            return true;
         }
 
 
@@ -233,7 +256,7 @@ namespace AlgoTreeDraw.ViewModel
                 List<NodeViewModel> level = nodes.FindAll(n => n.Y == zeroHeight + offset);
                 if(level.Count != 0)
                 {
-                    level.OrderBy(n => n.X);
+                    level.OrderBy(n => int.Parse(((T234ViewModel)n).TxtOne));
                     level.ElementAt(level.Count / 2 + 1).X = zeroLenght;
                     for(int i = level.Count/2; i <= level.Count-2; i++)
                     {

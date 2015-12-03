@@ -138,11 +138,36 @@ namespace AlgoTreeDraw.ViewModel
                     //Tuple<List<LineViewModel>, List<NodeViewModel>> tuple = tree.BalanceT234();
                     //Nodes.AddRange(tuple.Item2);
                     //Lines.AddRange(tuple.Item1);
-                    undoRedo.InsertInUndoRedo(new AutoBalance234(Nodes, selectedNodes, Lines));
+                    if (validT234Tree())
+                    {
+                        undoRedo.InsertInUndoRedo(new AutoBalance234(Nodes, selectedNodes, Lines));
+                    }
+                    
                 }
             }
             
         }
+
+        private bool validT234Tree()
+        {
+            int throwaway;
+            foreach (NodeViewModel n in selectedNodes)
+            {
+                if (!(n is T234ViewModel))
+                {
+                    System.Windows.MessageBox.Show("Error: All nodes are not T234-nodes");
+                    return false;
+                }
+                if (!int.TryParse(((T234ViewModel)n).TxtOne, out throwaway))
+                {
+                    System.Windows.MessageBox.Show("Error: Some nodes does not have valid values (numbers)");
+
+                    return false;
+                }
+            }
+            return true;
+        }
+
         private void CallMakePretty()
         {
             undoRedo.InsertInUndoRedo(new MakePrettyCommand(Nodes, selectedNodes));
