@@ -33,6 +33,11 @@ namespace AlgoTreeDraw.Command
 
         }
 
+        public override String ToString()
+        {
+            return "Align";
+        }
+
         public void Execute()
         {
             Tree selTree = new Tree(selectedNodes);
