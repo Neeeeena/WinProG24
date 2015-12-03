@@ -39,7 +39,11 @@ namespace AlgoTreeDraw.Command
                     }
                 }
             }
-            tree.nodes = selectedNodes;
+            tree.nodes = new List<NodeViewModel>();
+            foreach(NodeViewModel n in selectedNodes)
+            {
+                tree.nodes.Add(n);
+            }
         }
 
         public void Execute()

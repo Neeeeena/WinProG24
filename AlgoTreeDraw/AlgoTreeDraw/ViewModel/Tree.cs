@@ -167,6 +167,7 @@ namespace AlgoTreeDraw.ViewModel
                     if (!checkChildrenKey(child)) return false;
                 }
             }
+            if (!checkCorrectParentToRoot(nvm)) return false;
             if (children[0] == null) return true;
             if (children[1] == null)
             {
@@ -178,6 +179,23 @@ namespace AlgoTreeDraw.ViewModel
             // Therefore it is enough to check that children[0].Key <= nvm.Key and not also >
             return (int.Parse(children[0].Key) <= int.Parse(nvm.Key) && int.Parse(children[1].Key) > int.Parse(nvm.Key) &&
                 children[0].X < nvm.X && children[1].X > nvm.X);
+        }
+
+        public bool checkCorrectParentToRoot(NodeViewModel nvm)
+        {
+            NodeViewModel grandParent = nvm.getParent();
+            NodeViewModel parent = nvm.getParent();
+        
+            while (grandParent != root)
+            {
+                if (grandParent == null || grandParent.getParent() == null) break;
+                grandParent = grandParent.getParent();                
+                if (parent.X < grandParent.X && int.Parse(nvm.Key) > int.Parse(grandParent.Key) ||
+                    parent.X > grandParent.X && int.Parse(nvm.Key) <= int.Parse(grandParent.Key))
+                    return false;
+                parent = parent.getParent();
+            }
+            return true;            
         }
 
         public bool childrenKeyCorrectlyPlaced()
