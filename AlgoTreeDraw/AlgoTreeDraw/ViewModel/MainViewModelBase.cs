@@ -208,22 +208,31 @@ namespace AlgoTreeDraw.ViewModel
         }
 
 
-        public void _DoneEditingT234()
+        public void _DoneEditingT234(int type)
         {
             if (editNode != null)
             {
-                editNode.IsEditing = Visibility.Hidden;
-                editNode.IsNotEditing = Visibility.Visible;
-
-                if(((T234ViewModel)editNode)._IsTwoNode)
+                T234ViewModel node= ((T234ViewModel)editNode);
+                if (type == 0)
                 {
-
-                }
-
-                if (editNode.Key != editNode.PreKey)
+                    if (node.TxtOne != node.PreTxtOne)
+                    {
+                        undoRedo.InsertInUndoRedo(new TextChangeCommandT234(node, node.TxtOne, node.PreTxtOne, type));
+                    }
+                } else if(node._IsThreeNode)
                 {
-                    undoRedo.InsertInUndoRedo(new TextChangeCommand(editNode, editNode.Key, editNode.PreKey));
+                    if (node.TxtTwo != node.PreTxtTwo)
+                    {
+                        undoRedo.InsertInUndoRedo(new TextChangeCommandT234(node, node.TxtTwo, node.PreTxtTwo, type));
+                    }
+                } else
+                {
+                    if (node.TxtThree != node.PreTxtThree)
+                    {
+                        undoRedo.InsertInUndoRedo(new TextChangeCommandT234(node, node.TxtThree, node.PreTxtThree, type));
+                    }
                 }
+                NodeBoxUpdate();
                 editNode = null;
             }
         }

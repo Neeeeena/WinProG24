@@ -174,6 +174,7 @@
     <Compile Include="Command\IUndoRedoCommand.cs" />
     <Compile Include="Command\MoveNodeCommand.cs" />
     <Compile Include="Command\RemoveNodeInTreeCommand.cs" />
+    <Compile Include="Command\TextChangeCommandT234.cs" />
     <Compile Include="Command\TextChangeCommand.cs" />
     <Compile Include="Command\UndoRedo.cs" />
     <Compile Include="Model\BST.cs" />

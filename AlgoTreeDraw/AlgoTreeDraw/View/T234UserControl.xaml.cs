@@ -36,12 +36,15 @@ namespace AlgoTreeDraw.View
                 {
                     case TextBoxx.txt1:
                         node.TxtOne = textbox1.Text;
+                        mvm._DoneEditingT234(0);
                         break;
                     case TextBoxx.txt2:
                         node.TxtTwo = textbox2.Text;
+                        mvm._DoneEditingT234(1);
                         break;
                     case TextBoxx.txt3:
                         node.TxtThree = textbox3.Text;
+                        mvm._DoneEditingT234(2);
                         break;
                 }
                 
