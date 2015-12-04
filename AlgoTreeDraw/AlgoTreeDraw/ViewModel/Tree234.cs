@@ -257,7 +257,14 @@ namespace AlgoTreeDraw.ViewModel
                 if(level.Count != 0)
                 {
                     level.OrderBy(n => int.Parse(((T234ViewModel)n).TxtOne));
-                    level.ElementAt(level.Count / 2 + 1).X = zeroLenght;
+                    if (level.Count > 1)
+                    {
+                        level.ElementAt(level.Count / 2).X = zeroLenght;
+                    }
+                    else
+                    {
+                        level.ElementAt(0).X = zeroLenght;
+                    }
                     for(int i = level.Count/2; i <= level.Count-2; i++)
                     {
                         var left = ((T234ViewModel)level.ElementAt(i));
@@ -266,14 +273,14 @@ namespace AlgoTreeDraw.ViewModel
                         {
                             right.X = left.X + left.Length() + 10;
                         }
-                    }
-                    for (int i = level.Count / 2; i > 0; i--)
+                    }                    
+                    for (int i = level.Count / 2 ; i > 0; i--)
                     {
                         var left = ((T234ViewModel)level.ElementAt(i-1));
                         var right = ((T234ViewModel)level.ElementAt(i));
                         if (right.X <= left.X+left.Length())
                         {
-                            left.X = right.X -right.Length() - 10;
+                            left.X = right.X -left.Length() - 10;
                         }
                     }
                     offset += 70;
