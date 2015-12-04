@@ -129,15 +129,7 @@ namespace AlgoTreeDraw.ViewModel
                 }
                 else if (selectedNodes.ElementAt(0) is T234ViewModel)
                 {
-                    //List<NodeViewModel> nodesCopy = selectedNodes;
-                    //foreach (var n in selectedNodes)
-                    //{
-                    //    Nodes.Remove(n);
-                    //}
-                    //Tree234 tree = new Tree234(nodesCopy);
-                    //Tuple<List<LineViewModel>, List<NodeViewModel>> tuple = tree.BalanceT234();
-                    //Nodes.AddRange(tuple.Item2);
-                    //Lines.AddRange(tuple.Item1);
+
                     if (validT234Tree())
                     {
                         undoRedo.InsertInUndoRedo(new AutoBalance234(Nodes, selectedNodes, Lines));
