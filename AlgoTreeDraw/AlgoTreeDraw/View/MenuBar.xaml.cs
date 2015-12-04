@@ -35,6 +35,8 @@ namespace AlgoTreeDraw.View
         {
             this.UndoBtn.IsEnabled = false;
             this.UndoBtn2.IsEnabled = false;
+            UndoMenu.IsEnabled = false;
+            RedoMenu.IsEnabled = false;
             Messenger.Default.Register<UndoRedoEnabledMsg>(this, updateUndoRedoEnabled);
         }
 
@@ -42,8 +44,8 @@ namespace AlgoTreeDraw.View
         {
             this.UndoBtn.IsEnabled = msg.undo;
             this.UndoBtn2.IsEnabled = msg.redo;
-            this.undomenu.IsEnabled = msg.undo;
-            this.redomenu.IsEnabled = msg.redo;
+            UndoMenu.IsEnabled = msg.undo;
+            RedoMenu.IsEnabled = msg.redo;
         }
 
         private void Button_Click(object sender, RoutedEventArgs e)
