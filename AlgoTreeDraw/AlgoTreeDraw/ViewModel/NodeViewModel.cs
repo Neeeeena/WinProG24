@@ -74,17 +74,20 @@ namespace AlgoTreeDraw.ViewModel
 
         public void deleteNode(MouseButtonEventArgs e)
         {
-            Console.WriteLine("Delete Kaldt");
+
             if (selectedNodes.Contains(this))
             {
                 undoRedo.InsertInUndoRedo(new DeleteNodeCommand(Nodes, selectedNodes, Lines));
             }
             else
             {
-                clearSelectedNodes();
-                selectedNodes.Add(this);
-                undoRedo.InsertInUndoRedo(new DeleteNodeCommand(Nodes, selectedNodes, Lines));
-                selectedNodes.Clear();
+                if (ID != 0 && ID != 1 && ID != 2)
+                {
+                    clearSelectedNodes();
+                    selectedNodes.Add(this);
+                    undoRedo.InsertInUndoRedo(new DeleteNodeCommand(Nodes, selectedNodes, Lines));
+                    selectedNodes.Clear();
+                }
             }
         }
 
