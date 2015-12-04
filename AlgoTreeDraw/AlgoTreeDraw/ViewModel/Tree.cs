@@ -254,6 +254,7 @@ namespace AlgoTreeDraw.ViewModel
                     insertBST(n, root);
                 }
             }
+            makePretty(false);
             return addedLinesAutoBalance;
                            
             // if markedNodesConnected
@@ -481,6 +482,14 @@ namespace AlgoTreeDraw.ViewModel
             else if (originalRootPos > bfList.ElementAt(0).X)
                 root.pushTree(RIGHT, -64000, null, originalRootPos - bfList.ElementAt(0).X);
 
+
+            foreach(NodeViewModel n in nodes)
+            {
+                if(n.X < 10)
+                {
+                    root.pushTree(RIGHT, -64000, null, -n.X+10);
+                }
+            }
             return true;
         }
 
