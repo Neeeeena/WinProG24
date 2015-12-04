@@ -219,7 +219,7 @@ namespace AlgoTreeDraw.ViewModel
                     {
                         undoRedo.InsertInUndoRedo(new TextChangeCommandT234(node, node.TxtOne, node.PreTxtOne, type));
                     }
-                } else if(node._IsThreeNode)
+                } else if(type == 1)
                 {
                     if (node.TxtTwo != node.PreTxtTwo)
                     {
