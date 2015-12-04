@@ -119,7 +119,7 @@ namespace AlgoTreeDraw.ViewModel
         {
             foreach(NodeViewModel n in nodes)
             {
-                if (!hasOneParentAndLessThanThreeChildren(n) && !(n == root))
+                if ((!hasOneParentAndLessThanThreeChildren(n) && !(n == root)) || (n==root && n.neighbours.Count() > 2))
                 {
                     //MessageBox?
                     MessageBox.Show("Error: Some nodes have more than one parent or too many children");
@@ -216,6 +216,7 @@ namespace AlgoTreeDraw.ViewModel
         {
             return hasIntKeysAndBSTNodes() && allNodesConnected() && allNodesOneParentAndLessThanThreeChildren() && childrenKeyCorrectlyPlaced();
         }
+        
 
         public List<NodeViewModel> getWholeTree()
         {
