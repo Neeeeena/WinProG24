@@ -25,8 +25,8 @@
                 <MenuItem Header="Save" Command="{Binding SaveDiagramCommand}"/>
             </MenuItem>
             <MenuItem Header="Edit">
-                <MenuItem Header="Undo" Command="{Binding UndoCommand}" IsEnabled="{Binding Path=undoRedo.EnableUndo}" CommandParameter="{Binding one}"/>
-                <MenuItem Header="Redo" Command="{Binding RedoCommand}" IsEnabled="{Binding Path=undoRedo.EnableRedo}" CommandParameter="{Binding one}"/>
+                <MenuItem Name="undomenu" Header="Undo" Command="{Binding UndoCommand}" CommandParameter="{Binding one}"/>
+                <MenuItem Name="redomenu" Header="Redo" Command="{Binding RedoCommand}" CommandParameter="{Binding one}"/>
             </MenuItem>
             <MenuItem Header="View">
                 <MenuItem Header="Zoom in" Command="{Binding ZoomInCommand}"/>

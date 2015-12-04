@@ -42,6 +42,8 @@ namespace AlgoTreeDraw.View
         {
             this.UndoBtn.IsEnabled = msg.undo;
             this.UndoBtn2.IsEnabled = msg.redo;
+            this.undomenu.IsEnabled = msg.undo;
+            this.redomenu.IsEnabled = msg.redo;
         }
 
         private void Button_Click(object sender, RoutedEventArgs e)

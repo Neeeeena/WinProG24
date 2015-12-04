@@ -13,9 +13,13 @@ namespace AlgoTreeDraw.ViewModel
 {
     public class T234ViewModel : NodeViewModel
     {
-        public string TxtOne { get{ return ((T234)Node).TextOne; }set{ ((T234)Node).TextOne = value; RaisePropertyChanged(); } }
-        public string TxtTwo { get { return ((T234)Node).TextTwo; } set { ((T234)Node).TextTwo = value; RaisePropertyChanged(); } }
-        public string TxtThree { get { return ((T234)Node).TextThree; } set { ((T234)Node).TextThree = value; RaisePropertyChanged(); } }
+        public string TxtOne { get{ return ((T234)Node).TextOne; }set{ ((T234)Node).PreTextOne = ((T234)Node).TextOne; ((T234)Node).TextOne = value; RaisePropertyChanged(); } }
+        public string TxtTwo { get { return ((T234)Node).TextTwo; } set { ((T234)Node).PreTextTwo = ((T234)Node).TextTwo; ((T234)Node).TextTwo = value; RaisePropertyChanged(); } }
+        public string TxtThree { get { return ((T234)Node).TextThree; } set { ((T234)Node).PreTextThree = ((T234)Node).TextThree; ((T234)Node).TextThree = value; RaisePropertyChanged(); } }
+
+        public string PreTxtOne { get { return ((T234)Node).PreTextOne; } set { ((T234)Node).PreTextOne = value; RaisePropertyChanged(); } }
+        public string PreTxtTwo { get { return ((T234)Node).PreTextTwo; } set { ((T234)Node).PreTextTwo = value; RaisePropertyChanged(); } }
+        public string PreTxtThree { get { return ((T234)Node).PreTextThree; } set { ((T234)Node).PreTextThree = value; RaisePropertyChanged(); } }
 
         public bool _IsTwoNode { get { return ((T234)Node).IsTwoNode; } set{ ((T234)Node).IsTwoNode = value;RaisePropertyChanged(); ShowCorrectNode(); } }
         public bool _IsThreeNode { get { return ((T234)Node).IsThreeNode; } set { ((T234)Node).IsThreeNode = value; RaisePropertyChanged(); ShowCorrectNode(); } }

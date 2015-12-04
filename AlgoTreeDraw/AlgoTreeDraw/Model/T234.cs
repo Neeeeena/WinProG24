@@ -16,6 +16,10 @@ namespace AlgoTreeDraw.Model
         public string TextTwo { get; set; }
         public string TextThree { get; set; }
 
+        public string PreTextOne { get; set; }
+        public string PreTextTwo { get; set; }
+        public string PreTextThree { get; set; }
+
         public T234()
         {
             color.R = 255;
