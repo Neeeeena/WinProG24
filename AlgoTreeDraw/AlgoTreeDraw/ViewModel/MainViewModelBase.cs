@@ -136,18 +136,44 @@ namespace AlgoTreeDraw.ViewModel
 
         public void copyClicked()
         {
+            copiedLines.Clear();
             copiedNodes.Clear();
+            foreach (LineViewModel l in Lines)
+                if (selectedNodes.Contains(l.To) && selectedNodes.Contains(l.From) && !copiedLines.Contains(l))
+                {
+                    Console.WriteLine("Line to key " + l.To.Key + " from " + l.From.Key + " added..");
+                    LineViewModel line = new LineViewModel(new Line() { From = l.From.Node, To = l.To.Node }) { From = l.From, To = l.To };
+                    copiedLines.Add(line);
+                }
+
             foreach (NodeViewModel n in selectedNodes)
             {
                 NodeViewModel node = n.newNodeViewModel();
                 copiedNodes.Add(node);
+                foreach (LineViewModel l in copiedLines)
+                {
+                    if (node.X == l.From.X && node.Y == l.From.Y)
+                    {
+                        l.From = node;
+                    }
+                    else if (node.X == l.To.X && node.Y == l.To.Y)
+                        l.To = node;
+                }
             }
-           
+
+            //DEBUGGING STUFF
+            foreach(LineViewModel l in copiedLines)
+            {
+                if(selectedNodes.Contains(l.To) || selectedNodes.Contains(l.From))
+                    Console.WriteLine("NOOOOO!");
+            }
+
+
         }
 
         public void pasteClicked()
         {
-            undoRedo.InsertInUndoRedo(new PasteCommand(Nodes, copiedNodes, selectedNodes));
+            undoRedo.InsertInUndoRedo(new PasteCommand(Nodes, copiedNodes, selectedNodes,copiedLines,Lines));
         }
 
         public void RemoveNodeKeybordDelete()
