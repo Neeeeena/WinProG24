@@ -14,7 +14,7 @@ namespace AlgoTreeDraw.ViewModel
         public NodeViewModel root;
         public List<NodeViewModel> hasBeenInsertedList = new List<NodeViewModel>();
         public List<int> subFromIndex = new List<int>();
-
+        public List<NodeViewModel> wholeTree = new List<NodeViewModel>();
         public List<LineViewModel> addedLinesAutoBalance = new List<LineViewModel>();
 
         const int LEFT = 0;
@@ -217,6 +217,25 @@ namespace AlgoTreeDraw.ViewModel
             return hasIntKeysAndBSTNodes() && allNodesConnected() && allNodesOneParentAndLessThanThreeChildren() && childrenKeyCorrectlyPlaced();
         }
 
+        public List<NodeViewModel> getWholeTree()
+        {
+            wholeTree.Add(root);
+            generateTreeFromOneNode(root);
+            return wholeTree;
+        }
+
+        public void generateTreeFromOneNode(NodeViewModel nvm)
+        {
+            foreach(NodeViewModel n in nvm.neighbours)
+            {
+                if(!wholeTree.Contains(n))
+                {
+                    wholeTree.Add(n);
+                    generateTreeFromOneNode(n);
+                }
+            }         
+        }
+
         public List<LineViewModel> tAutoBalance()
         {
             nodes.Sort((x, y) => int.Parse(x.Key).CompareTo(int.Parse(y.Key)));
@@ -413,10 +432,17 @@ namespace AlgoTreeDraw.ViewModel
             {
                 //errrormsg
                 return false;
-            }else
-            if(!allNodesConnected()){
+            }else if(!allNodesConnected()){
                 //errorMSG 
                 return false;
+            }
+            foreach(NodeViewModel n in nodes)
+            {
+                if (n is T234ViewModel)
+                {
+                    MessageBox.Show("2-3-4 tree align not implemented");
+                    return false;
+                }
             }
 
             List<NodeViewModel> bfList = getbfList(entireTree); //Updating the nodes in allNodes, to run the tree through breadth-first
