@@ -113,8 +113,8 @@ namespace AlgoTreeDraw.ViewModel
             Tree wholeTree = new Tree(tree.getWholeTree());
             if (selectedNodes == null || selectedNodes.Count != 1)
                 System.Windows.MessageBox.Show("You have to mark excactly one node");
-            else if (!wholeTree.isValidBST()) ;
-
+            else if (!wholeTree.isValidBST())
+                System.Windows.MessageBox.Show("This tree is not valid");
             else
             {
                 Console.Write("wtfff");
@@ -142,7 +142,8 @@ namespace AlgoTreeDraw.ViewModel
                         undoRedo.InsertInUndoRedo(new AutoBalance234(Nodes, selectedNodes, Lines));
                     }
                     
-                }
+                }else
+                    System.Windows.MessageBox.Show("Tree contains red/black nodes.");
             }
             
         }
@@ -169,7 +170,11 @@ namespace AlgoTreeDraw.ViewModel
 
         private void CallMakePretty()
         {
-            undoRedo.InsertInUndoRedo(new MakePrettyCommand(Nodes, selectedNodes));
+            
+            Tree tree = new Tree(selectedNodes);
+            Tree wholeTree = new Tree(tree.getWholeTree());
+            if (wholeTree.allNodesOneParentAndLessThanThreeChildren())
+                undoRedo.InsertInUndoRedo(new MakePrettyCommand(Nodes, selectedNodes));
         }
         private void Select()
         {

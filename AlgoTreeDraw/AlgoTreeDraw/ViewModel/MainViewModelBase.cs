@@ -37,7 +37,7 @@ namespace AlgoTreeDraw.ViewModel
         public static Color ChosenColor { get; set; }
         private static double _zoomValue = 1;
         public double zoomValue { get { return _zoomValue; } set {_zoomValue = value; Messenger.Default.Send(new ZoomValue(_zoomValue)); RaisePropertyChanged(); } }
-
+        private bool newLineError = false;
 
         public static List<NodeViewModel> selectedNodes = new List<NodeViewModel>();
         public static List<NodeViewModel> copiedNodes = new List<NodeViewModel>();
@@ -255,9 +255,16 @@ namespace AlgoTreeDraw.ViewModel
 
         public void AddLine( NodeViewModel to)
         {
+            
             fromNode.Color = fromNode.PreColor;
-            LineViewModel tempLine = new LineViewModel(new Line()) { From = fromNode, To = to };
-            undoRedo.InsertInUndoRedo(new AddLineCommand(Lines,tempLine,fromNode,to));
+            if (fromNode.neighbours.Contains(to))
+                newLineError = true;
+            else
+            {
+                LineViewModel tempLine = new LineViewModel(new Line()) { From = fromNode, To = to };
+                undoRedo.InsertInUndoRedo(new AddLineCommand(Lines,tempLine,fromNode,to));
+
+            }
             fromNode = null;
         }
 
@@ -343,7 +350,12 @@ namespace AlgoTreeDraw.ViewModel
                 }
             }
                 e.MouseDevice.Target.ReleaseMouseCapture();
-            
+            if(newLineError)
+            {
+                System.Windows.MessageBox.Show("There is a line here already :):):)");
+                newLineError = false;
+            }
+
         }
 
 
