@@ -54,21 +54,22 @@ namespace AlgoTreeDraw.Command
 
             foreach (LineViewModel l in copiedLines)
             {
+                LineViewModel line = new LineViewModel(new Line() { From = l.From.Node, To = l.To.Node }) { From = l.From, To = l.To };
                 foreach (NodeViewModel n in mostRecentPastedNodes)
                 {
-                    Console.WriteLine("DD" + l.To.X + " " + n.X);
-                    if (l.To.X + 30 == n.X && l.To.Y + 30 == n.Y)
+                    Console.WriteLine("DD" + line.To.X + " " + n.X);
+                    if (line.To.X + 30 == n.X && line.To.Y + 30 == n.Y)
                     {
-                        l.To = n;
+                        line.To = n;
                         Console.WriteLine("Does it get here? ÆÆÆÆÆÆÆÆÆÆÆÆÆ " + n.Key);
                     }
-                    if (l.From.X + 30 == n.X && l.From.Y + 30 == n.Y)
+                    if (line.From.X + 30 == n.X && line.From.Y + 30 == n.Y)
                     {
-                        l.From = n;
+                        line.From = n;
                         Console.WriteLine("Does it get here? ØÅØÅØÅØÅØÅØÅØ" + n.Key);
                     }
                 }
-                LineViewModel line = new LineViewModel(new Line() { From = l.From.Node, To = l.To.Node }) { From = l.From, To = l.To };
+                //LineViewModel line = new LineViewModel(new Line() { From = l.From.Node, To = l.To.Node }) { From = l.From, To = l.To };
                 //LineViewModel line = new LineViewModel(l.Line);
                 Lines.Add(line);
                 line.From.addNeighbour(line.To);
@@ -86,11 +87,12 @@ namespace AlgoTreeDraw.Command
                 Lines.Remove(l);
                 l.To.removeNeighbour(l.From);
             }
-
+            mostRecentPastedLines.Clear();
             foreach (NodeViewModel n in mostRecentPastedNodes)
             {
                 Nodes.Remove(n);
             }
+            mostRecentPastedNodes.Clear();
         }
 
         public void addToSelectedNodes(NodeViewModel n)
