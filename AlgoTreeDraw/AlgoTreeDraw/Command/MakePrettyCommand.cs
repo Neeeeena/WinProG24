@@ -26,11 +26,12 @@ namespace AlgoTreeDraw.Command
             }
 
             //foreach (NodeViewModel n in _nodes)
-            //    nodePositions.Add(new Point(n.X, n.Y));
+            //    nodePositions.Add(new Point(n.X, n.Y));            
+        }
 
-
-
-
+        public override String ToString()
+        {
+            return "Align";
         }
 
         public void Execute()

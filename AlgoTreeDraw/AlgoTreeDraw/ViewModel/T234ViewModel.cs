@@ -215,5 +215,20 @@ namespace AlgoTreeDraw.ViewModel
             }
             return temp;
         }
+
+        public int Length()
+        {
+            if (_IsTwoNode)
+            {
+                return 30;
+            }else if (_IsThreeNode)
+            {
+                return 60;
+            }
+            else
+            {
+                return 90;
+            }
+        }
     }
 }

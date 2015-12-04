@@ -128,6 +128,7 @@ namespace AlgoTreeDraw.ViewModel
             {
                 Nodes.Clear();
                 Lines.Clear();
+                undoRedo.clearStacks();
             }
         }
 
@@ -136,6 +137,7 @@ namespace AlgoTreeDraw.ViewModel
             string path = dialogVM.ShowOpen();
             if (path != null)
             {
+                undoRedo.clearStacks();
                 Diagram diagram = await XMLserializer.Instance.AsyncDeserializeFromFile(path);
 
                 Nodes.Clear();

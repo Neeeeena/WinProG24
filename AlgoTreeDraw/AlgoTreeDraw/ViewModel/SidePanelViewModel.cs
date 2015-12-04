@@ -117,29 +117,49 @@ namespace AlgoTreeDraw.ViewModel
 
         private void CallAutoBalance()
         {
-            Tree treeTest = new Tree(selectedNodes);
             if (selectedNodes.Count != 0)
             {
-                if (treeTest.hasIntKeysAndBSTNodes())
+                if (selectedNodes.ElementAt(0) is BSTViewModel)
                 {
-                    undoRedo.InsertInUndoRedo(new AutoBalanceCommand(treeTest, Nodes, selectedNodes, Lines));
+                    Tree treeTest = new Tree(selectedNodes);
+                    if (treeTest.hasIntKeysAndBSTNodes())
+                    {
+                        undoRedo.InsertInUndoRedo(new AutoBalanceCommand(treeTest, Nodes, selectedNodes, Lines));
+                    }
                 }
                 else if (selectedNodes.ElementAt(0) is T234ViewModel)
                 {
-                    //List<NodeViewModel> nodesCopy = selectedNodes;
-                    //foreach (var n in selectedNodes)
-                    //{
-                    //    Nodes.Remove(n);
-                    //}
-                    //Tree234 tree = new Tree234(nodesCopy);
-                    //Tuple<List<LineViewModel>, List<NodeViewModel>> tuple = tree.BalanceT234();
-                    //Nodes.AddRange(tuple.Item2);
-                    //Lines.AddRange(tuple.Item1);
-                    undoRedo.InsertInUndoRedo(new AutoBalance234(Nodes, selectedNodes, Lines));
+
+                    if (validT234Tree())
+                    {
+                        undoRedo.InsertInUndoRedo(new AutoBalance234(Nodes, selectedNodes, Lines));
+                    }
+                    
                 }
             }
             
         }
+
+        private bool validT234Tree()
+        {
+            int throwaway;
+            foreach (NodeViewModel n in selectedNodes)
+            {
+                if (!(n is T234ViewModel))
+                {
+                    System.Windows.MessageBox.Show("Error: All nodes are not T234-nodes");
+                    return false;
+                }
+                if (!int.TryParse(((T234ViewModel)n).TxtOne, out throwaway))
+                {
+                    System.Windows.MessageBox.Show("Error: Some nodes does not have valid values (numbers)");
+
+                    return false;
+                }
+            }
+            return true;
+        }
+
         private void CallMakePretty()
         {
             undoRedo.InsertInUndoRedo(new MakePrettyCommand(Nodes, selectedNodes));

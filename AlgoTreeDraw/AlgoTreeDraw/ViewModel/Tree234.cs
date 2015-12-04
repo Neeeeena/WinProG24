@@ -1,6 +1,7 @@
 ﻿using AlgoTreeDraw.Model;
 using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -8,20 +9,53 @@ using System.Windows;
 
 namespace AlgoTreeDraw.ViewModel
 {
-    public class Tree234 : Tree
+    public class Tree234 
     {
-        List<LineViewModel> lines = new List<LineViewModel>();
+        ObservableCollection<LineViewModel> lines;
+        List<NodeViewModel> nodes = new List<NodeViewModel>();
         int offsetY { get; } = 70;
-        public Tree234(List<NodeViewModel> selNodes) : base(selNodes)
+        double zeroHeight = 0;
+        double zeroLenght = 0;
+        public Tree234(List<NodeViewModel> selNodes, ObservableCollection<LineViewModel> lines)
         {
-            if (allNodesT234())
+            if(selNodes.Count != 0)
             {
-                
-                nodes = splitAllNodes(nodes);
-                nodes = nodes.OrderBy(n => int.Parse(((T234ViewModel)n).TxtOne)).ToList();
+                nodes = selNodes;
+                if (allNodesT234() && allNodesIntKeys())
+                {
+
+                    nodes = splitAllNodes(nodes);
+                    nodes = nodes.OrderBy(n => int.Parse(((T234ViewModel)n).TxtOne)).ToList();
+
+                    this.lines = lines;
+
+                }
+
 
             }
+           
+            
 
+
+        }
+        public bool testValidTree()
+        {
+            return allNodesIntKeys() && allNodesT234();
+        }
+
+        private bool allNodesIntKeys()
+        {
+            int throwaway;
+            foreach (NodeViewModel n in nodes)
+            {
+                if (!int.TryParse(((T234ViewModel)n).TxtOne, out throwaway))
+                {
+                    MessageBox.Show("Error: Some nodes does not have valid values (numbers)");
+
+                    return false;
+                }
+            }
+            return true;
         }
 
 
@@ -67,11 +101,13 @@ namespace AlgoTreeDraw.ViewModel
             return treeList.ElementAt(3*treeList.Count / 4);
         }
 
-        public Tuple<List<LineViewModel>, List<NodeViewModel>> BalanceT234()
+        public List<NodeViewModel> BalanceT234()
         {
             removeLines();
             autobalance(nodes);
             double furthestLeft = 500;
+            //For at træet ikke er inden under sidepanel
+            align();
             foreach(var n in nodes)
             {
                 if (n.X < furthestLeft)
@@ -93,7 +129,8 @@ namespace AlgoTreeDraw.ViewModel
                     n.X += (-furthestLeft)+150;
                 }
             }
-            return new Tuple<List<LineViewModel>, List<NodeViewModel>>(lines,nodes);
+            //Slut på for at træet ikke er inden under sidepanel
+            return nodes;
         }
 
         public void removeLines()
@@ -101,7 +138,7 @@ namespace AlgoTreeDraw.ViewModel
             List<LineViewModel> tempLines = new List<LineViewModel>();
             foreach (NodeViewModel n in nodes)
             {
-                foreach (LineViewModel l in Lines)
+                foreach (LineViewModel l in lines)
                 {
                     if ((l.From == n || l.To == n)) tempLines.Add(l);
                 }
@@ -109,7 +146,7 @@ namespace AlgoTreeDraw.ViewModel
 
             foreach (LineViewModel l in tempLines)
             {
-                Lines.Remove(l);
+                lines.Remove(l);
             }
         }
 
@@ -136,15 +173,20 @@ namespace AlgoTreeDraw.ViewModel
 
         }
 
-        private NodeViewModel autobalance(List<NodeViewModel> _nodes, double x = 0,double y=0, double offSetX = 300)
+        private NodeViewModel autobalance(List<NodeViewModel> _nodes, double y=0)
         {
             if(_nodes.Count >= 3)
             {
                 var median = findMedian(_nodes);
-                if(x != 0)
+                if(y != 0)
                 {
-                    median.X = x;
+                    median.X = zeroLenght;
                     median.Y = y;
+                }
+                else
+                {
+                    zeroHeight = median.Y;
+                    zeroLenght = median.X + 1.5*((T234ViewModel)median).Length()+5;
                 }
 
                 var leftMedian = findLeftMedian(_nodes);
@@ -152,37 +194,32 @@ namespace AlgoTreeDraw.ViewModel
                 var rightMedian = findRightMedian(_nodes);
 
                 ((T234ViewModel)median).Merge((T234ViewModel)leftMedian, (T234ViewModel)rightMedian);
-                var left = autobalance(range(_nodes, null, leftMedian),median.X-offSetX/2,median.Y+offsetY,offSetX/2);
+                var left = autobalance(range(_nodes, null, leftMedian),median.Y+offsetY);
                 if (left != null)
                 {
                     lines.Add(new LineViewModel(new Line() { From = median.Node, To = left.Node }) { From = median, To = left });
                     median.addNeighbour(left);
-                    left.X = median.X - offSetX;
-                    left.Y = median.Y + offsetY; 
+
                 }
-                var leftright = autobalance(range(_nodes, leftMedian, median), median.X - offSetX / 4, median.Y + offsetY, offSetX / 2);
+                var leftright = autobalance(range(_nodes, leftMedian, median), median.Y + offsetY);
                 if(leftright != null)
                 {
                     lines.Add(new LineViewModel(new Line() { From = median.Node, To = leftright.Node }) { From = median, To = leftright });
                     median.addNeighbour(leftright);
-                    leftright.X = median.X - offSetX/3;
-                    leftright.Y = median.Y + offsetY;
                 } 
-                var rightleft = autobalance(range(_nodes, median, rightMedian), median.X + offSetX / 4, median.Y + offsetY, offSetX / 2);
+                var rightleft = autobalance(range(_nodes, median, rightMedian), median.Y + offsetY);
                 if(rightleft != null)
                 {
                     lines.Add(new LineViewModel(new Line() { From = median.Node, To = rightleft.Node }) { From = median, To = rightleft });
                     median.addNeighbour(rightleft);
-                    rightleft.X = median.X + offSetX/3;
-                    rightleft.Y = median.Y + offsetY;
+
                 }
-                var right = autobalance(range(_nodes, rightMedian, null), median.X + offSetX / 2, median.Y + offsetY, offSetX / 2);
+                var right = autobalance(range(_nodes, rightMedian, null), median.Y + offsetY);
                 if(right != null)
                 {
                     lines.Add(new LineViewModel(new Line() { From = median.Node, To = right.Node }) { From = median, To = right });
                     median.addNeighbour(right);
-                    right.X = median.X + offSetX;
-                    right.Y = median.Y + offsetY;
+
                 }
                 
                 nodes.Remove(leftMedian);
@@ -196,84 +233,69 @@ namespace AlgoTreeDraw.ViewModel
                 var right = (T234ViewModel)_nodes.ElementAt(1);
                 left.Merge(right);
                 nodes.Remove(right);
+                left.X = zeroLenght;
+                left.Y = y;
 
                 return left;
             }
             else if(_nodes.Count == 1)
             {
-                NodeViewModel temp = _nodes.ElementAt(0);
-                return temp;
+                NodeViewModel one = _nodes.ElementAt(0);
+                one.X = zeroLenght;
+                one.Y = y;
+                return one;
             }
             return null;
         }
 
-        //private void mergeNodes(List<LineViewModel> lines, NodeViewModel node)
-        //{
-        //    if (node != null)
-        //    {
-        //        var children = getChildren(node);
-        //        if(children[0]!=null && children[1] != null)
-        //        {
-        //            ((T234ViewModel)root).Merge((T234ViewModel)children[0], (T234ViewModel)children[1]);
-        //            var leftgrandchildren = getChildren(children[0]);
-        //            var rightgrandchildren = getChildren(children[1]);
-        //            nodes.Remove(children[0]);
-        //            nodes.Remove(children[1]);
-        //            lines.Remove(lines.Find(l => l.From == node && l.To == children[0]));
-        //            lines.Remove(lines.Find(l => l.From == node && l.To == children[1]));
-        //            lines.Add(new LineViewModel(new Line { From = node.Node, To = leftgrandchildren[0].Node }));
-        //            lines.Add(new LineViewModel(new Line { From = node.Node, To = leftgrandchildren[1].Node }));
-        //            lines.Add(new LineViewModel(new Line { From = node.Node, To = rightgrandchildren[0].Node }));
-        //            lines.Add(new LineViewModel(new Line { From = node.Node, To = rightgrandchildren[1].Node }));
-        //            mergeNodes(lines, leftgrandchildren[0]);
-        //            mergeNodes(lines, leftgrandchildren[1]);
-        //            mergeNodes(lines, rightgrandchildren[0]);
-        //            mergeNodes(lines, rightgrandchildren[1]);
-        //        }
-        //        else if(children[1]==null && children[0] != null)
-        //        {
-        //            ((T234ViewModel)root).Merge((T234ViewModel)children[0]);
-        //            var leftgrandchildren = getChildren(children[0]);
-        //            nodes.Remove(children[0]);
-        //            lines.Remove(lines.Find(l => l.From == node && l.To == children[0]));
-        //            if(leftgrandchildren[0]!=null && leftgrandchildren[1] != null)
-        //            {
-        //                lines.Add(new LineViewModel(new Line { From = node.Node, To = leftgrandchildren[0].Node }));
-        //                lines.Add(new LineViewModel(new Line { From = node.Node, To = leftgrandchildren[1].Node }));
-        //                mergeNodes(lines, leftgrandchildren[0]);
-        //                mergeNodes(lines, leftgrandchildren[1]);
-        //            }
-        //            if (leftgrandchildren[0] != null && leftgrandchildren[1] == null)
-        //            {
-        //                lines.Add(new LineViewModel(new Line { From = node.Node, To = leftgrandchildren[0].Node }));
-        //                mergeNodes(lines, leftgrandchildren[0]);
-        //            }
+        private void align()
+        {
+            int offset = 70;
+            while (true)
+            {
+                List<NodeViewModel> level = nodes.FindAll(n => n.Y == zeroHeight + offset);
+                if(level.Count != 0)
+                {
+                    level.OrderBy(n => int.Parse(((T234ViewModel)n).TxtOne));
+                    if (level.Count > 1)
+                    {
+                        level.ElementAt(level.Count / 2).X = zeroLenght;
+                    }
+                    else
+                    {
+                        level.ElementAt(0).X = zeroLenght;
+                    }
+                    for(int i = level.Count/2; i <= level.Count-2; i++)
+                    {
+                        var left = ((T234ViewModel)level.ElementAt(i));
+                        var right = ((T234ViewModel)level.ElementAt(i+1));
+                        if (left.X+left.Length()>= right.X)
+                        {
+                            right.X = left.X + left.Length() + 10;
+                        }
+                    }                    
+                    for (int i = level.Count / 2 ; i > 0; i--)
+                    {
+                        var left = ((T234ViewModel)level.ElementAt(i-1));
+                        var right = ((T234ViewModel)level.ElementAt(i));
+                        if (right.X <= left.X+left.Length())
+                        {
+                            left.X = right.X -left.Length() - 10;
+                        }
+                    }
+                    offset += 70;
 
-
-        //        }
+                }
+                else
+                {
+                    break;
+                }
                 
-                
-        //    }
-        //}
 
+            }
 
-        //private Tuple<List<LineViewModel>, List<T234ViewModel>> balanceT234(List<LineViewModel> lines, List<T234ViewModel> _nodes)
-        //{
-        //var nodes = _nodes.OrderBy(n => n.TxtOne).ToList();
-        //var mid = findMedian(nodes);
-        //nodes.Remove(mid);
-        //var leftList = nodes.GetRange(0, nodes.Count / 2);
-        //var left = findMedian(leftList);
-        //var rigthList = nodes.GetRange(nodes.Count / 2 + 1, nodes.Count);
-        //var right = findMedian(rigthList);
-        //leftList.Remove(left);
-        //rigthList.Remove(right);
-        //((T234)mid.Node).Merge((T234)left.Node, (T234)right.Node);
+        }
 
-
-
-
-        //}
 
     }
 }
