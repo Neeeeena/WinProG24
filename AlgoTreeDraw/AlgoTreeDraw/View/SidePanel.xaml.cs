@@ -24,12 +24,9 @@ namespace AlgoTreeDraw.View
         public SidePanel()
         {
             InitializeComponent();
-            Scroll.ScrollChanged += Scroll_ScrollChanged1;
         }
         private void Scroll_ScrollChanged1(object sender, ScrollChangedEventArgs e)
         {
-            var spvm = (SidePanelViewModel)DataContext;
-            spvm.VOffSP = Scroll.VerticalOffset;
         }
 
     }

@@ -105,14 +105,21 @@ namespace AlgoTreeDraw.ViewModel
             }
             
         }
-            
+
         private void CallRemoveNodeInTree()
         {
             //ADD ERROR IF THERE IS ONLY ONE ELEMENT IN THE TREE
-            if(selectedNodes == null || selectedNodes.Count != 1 )
+            Tree tree = new Tree(selectedNodes);
+            Tree wholeTree = new Tree(tree.getWholeTree());
+            if (selectedNodes == null || selectedNodes.Count != 1)
                 System.Windows.MessageBox.Show("You have to mark excactly one node");
+            else if (!wholeTree.isValidBST()) ;
+
             else
-            undoRedo.InsertInUndoRedo(new RemoveNodeInTreeCommand(Nodes, selectedNodes, Lines)) ;
+            {
+                Console.Write("wtfff");
+                undoRedo.InsertInUndoRedo(new RemoveNodeInTreeCommand(tree, Nodes, selectedNodes, Lines));
+            }        
         }
 
         private void CallAutoBalance()
@@ -129,15 +136,7 @@ namespace AlgoTreeDraw.ViewModel
                 }
                 else if (selectedNodes.ElementAt(0) is T234ViewModel)
                 {
-                    //List<NodeViewModel> nodesCopy = selectedNodes;
-                    //foreach (var n in selectedNodes)
-                    //{
-                    //    Nodes.Remove(n);
-                    //}
-                    //Tree234 tree = new Tree234(nodesCopy);
-                    //Tuple<List<LineViewModel>, List<NodeViewModel>> tuple = tree.BalanceT234();
-                    //Nodes.AddRange(tuple.Item2);
-                    //Lines.AddRange(tuple.Item1);
+
                     if (validT234Tree())
                     {
                         undoRedo.InsertInUndoRedo(new AutoBalance234(Nodes, selectedNodes, Lines));

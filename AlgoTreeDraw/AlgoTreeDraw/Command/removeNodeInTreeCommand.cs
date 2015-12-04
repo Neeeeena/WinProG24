@@ -19,11 +19,13 @@ namespace AlgoTreeDraw.Command
         private ObservableCollection<LineViewModel> lines;
         private NodeViewModel removeThis;
         private List<LineViewModel> removedLines = new List<LineViewModel>();
+        private Tree tree;
 
-        public RemoveNodeInTreeCommand(ObservableCollection<NodeViewModel> _nodes, List<NodeViewModel> _selectedNodes, ObservableCollection<LineViewModel> _lines)
+        public RemoveNodeInTreeCommand(Tree _tree, ObservableCollection<NodeViewModel> _nodes, List<NodeViewModel> _selectedNodes, ObservableCollection<LineViewModel> _lines)
         {
             nodes = _nodes;
             lines = _lines;
+            tree = _tree;
 
             //foreach (NodeViewModel n in nodes)
             //{
@@ -33,15 +35,21 @@ namespace AlgoTreeDraw.Command
                 selNodes.Add(n);
         }
 
+        public override String ToString()
+        {
+            return "Delete" + selNodes.ElementAt(0).Key + "tree";
+        }
+
         public void Execute()
         {
-            Tree selTree = new Tree(selNodes);
+            tree.nodes.Clear();
+            tree.nodes.Add(selNodes.ElementAt(0));
             foreach (NodeViewModel n in nodes)
             {
                 prevNodes.Add(new Tuple<string, int, Brush, Brush, Brush>(n.Key, n.ID, n.Color, n.ColorOfText, n.PreColor));
             }
 
-            removeThis = selTree.remove(selNodes.ElementAt(0));       
+            removeThis = tree.remove(selNodes.ElementAt(0));       
             foreach (LineViewModel l in lines)
             {
                 if ((l.From == removeThis || l.To == removeThis) && !removedLines.Contains(l))
@@ -77,6 +85,7 @@ namespace AlgoTreeDraw.Command
                 lines.Add(l);
                 l.From.addNeighbour(l.To);
             }
+            removedLines.Clear();
             
         }
 
