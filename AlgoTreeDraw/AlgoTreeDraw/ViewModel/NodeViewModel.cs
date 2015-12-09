@@ -146,15 +146,15 @@ namespace AlgoTreeDraw.ViewModel
             set { Node.diameter = value; }
         }
 
-        public string Key
+        public string TxtOne
         {
-            get { return Node.Key; }
-            set { Node.PreKey = Node.Key; Node.Key=value; RaisePropertyChanged(); }
+            get { return Node.TextOne; }
+            set { Node.PreTextOne = Node.TextOne; Node.TextOne=value; RaisePropertyChanged(); }
         }
         public string PreKey
         {
-            get { return Node.PreKey; }
-            set { Node.PreKey = value; }
+            get { return Node.PreTextOne; }
+            set { Node.PreTextOne = value; }
         }
 
         public bool hasBeenFound { get; set; }
@@ -282,7 +282,7 @@ namespace AlgoTreeDraw.ViewModel
         //        foreach (NodeViewModel child in children)
         //            if (child != null)
         //                if (!child.isValidBST()) return false;
-        //        if (children[RIGHT] != null) return int.Parse(children[LEFT].Key) <= int.Parse(children[RIGHT].Key);
+        //        if (children[RIGHT] != null) return int.Parse(children[LEFT].TxtOne) <= int.Parse(children[RIGHT].TxtOne);
         //    }
         //    else return false;
         //    return true;

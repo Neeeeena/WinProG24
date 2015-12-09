@@ -29,7 +29,7 @@ namespace AlgoTreeDraw.Command
 
             //foreach (NodeViewModel n in nodes)
             //{
-            //    prevNodes.Add(new Tuple<string,int,Brush,Brush,Brush>(n.Key,n.ID,n.Color,n.ColorOfText,n.PreColor));
+            //    prevNodes.Add(new Tuple<string,int,Brush,Brush,Brush>(n.TxtOne,n.ID,n.Color,n.ColorOfText,n.PreColor));
             //}
             foreach (NodeViewModel n in _selectedNodes)
                 selNodes.Add(n);
@@ -37,7 +37,7 @@ namespace AlgoTreeDraw.Command
 
         public override String ToString()
         {
-            return "Delete" + selNodes.ElementAt(0).Key + "tree";
+            return "Delete" + selNodes.ElementAt(0).TxtOne + "tree";
         }
 
         public void Execute()
@@ -46,7 +46,7 @@ namespace AlgoTreeDraw.Command
             tree.nodes.Add(selNodes.ElementAt(0));
             foreach (NodeViewModel n in nodes)
             {
-                prevNodes.Add(new Tuple<string, int, Brush, Brush, Brush>(n.Key, n.ID, n.Color, n.ColorOfText, n.PreColor));
+                prevNodes.Add(new Tuple<string, int, Brush, Brush, Brush>(n.TxtOne, n.ID, n.Color, n.ColorOfText, n.PreColor));
             }
 
             removeThis = tree.remove(selNodes.ElementAt(0));       
@@ -73,8 +73,8 @@ namespace AlgoTreeDraw.Command
                 foreach(NodeViewModel nn in nodes)
                     if(n.Item2 == nn.ID)
                     {
-                        Console.WriteLine("ALRIGHT!! " + nn.Key + " " + n.Item1);
-                        nn.Key = n.Item1;
+                        Console.WriteLine("ALRIGHT!! " + nn.TxtOne + " " + n.Item1);
+                        nn.TxtOne = n.Item1;
                         nn.ID = n.Item2;
                         nn.Color = n.Item3;
                         nn.ColorOfText = n.Item4;

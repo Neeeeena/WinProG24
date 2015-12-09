@@ -37,13 +37,13 @@ namespace AlgoTreeDraw.ViewModel
                 // Sort test works
                 //foreach (NodeViewModel n in nodes)
                 //{
-                //    Console.WriteLine(n.Key);
+                //    Console.WriteLine(n.TxtOne);
                 //}
                 //Console.WriteLine("Oh yea");
-                //nodes.Sort((x, y) => int.Parse(x.Key).CompareTo(int.Parse(y.Key)));
+                //nodes.Sort((x, y) => int.Parse(x.TxtOne).CompareTo(int.Parse(y.TxtOne)));
                 //foreach (NodeViewModel n in nodes)
                 //{
-                //    Console.WriteLine(n.Key);
+                //    Console.WriteLine(n.TxtOne);
                 //}
             }
         }
@@ -71,9 +71,8 @@ namespace AlgoTreeDraw.ViewModel
             int yolo;
             foreach(NodeViewModel n in nodes)
             {
-                if (!int.TryParse(n.Key, out yolo))
+                if (!int.TryParse(n.TxtOne, out yolo))
                 {
-                    Console.WriteLine("All Nodes not valid keys");
                     MessageBox.Show("Error: Some nodes does not have valid values (numbers)");
 
                     return false;
@@ -89,7 +88,6 @@ namespace AlgoTreeDraw.ViewModel
                 if (!(n is BSTViewModel))
                 {
                     //Messagebox?
-                    Console.WriteLine("All Nodes not bst");
                     MessageBox.Show("Error: All nodes are not BST-nodes");
                     return false;
                 }
@@ -115,6 +113,7 @@ namespace AlgoTreeDraw.ViewModel
             return true;
         }
 
+        //Hvad er det her?
         public bool allNodesOneParentAndLessThanThreeChildren()
         {
             foreach(NodeViewModel n in nodes)
@@ -125,8 +124,8 @@ namespace AlgoTreeDraw.ViewModel
                     MessageBox.Show("Error: Some nodes have more than one parent or too many children");
 
                     Console.WriteLine("All Nodes do not have one parent and less than two children");
-                    Console.WriteLine(n.Key);
-                    Console.WriteLine(root.Key);
+                    Console.WriteLine(n.TxtOne);
+                    Console.WriteLine(root.TxtOne);
                     foreach(NodeViewModel bla in n.neighbours)
                     {
                         Console.WriteLine("Jeg skriver ikke noget kap");
@@ -171,13 +170,13 @@ namespace AlgoTreeDraw.ViewModel
             if (children[0] == null) return true;
             if (children[1] == null)
             {
-                if (int.Parse(children[0].Key) <= int.Parse(nvm.Key) && children[0].X < nvm.X) return true;
-                if (int.Parse(children[0].Key) > int.Parse(nvm.Key) && children[0].X > nvm.X) return true;
+                if (int.Parse(children[0].TxtOne) <= int.Parse(nvm.TxtOne) && children[0].X < nvm.X) return true;
+                if (int.Parse(children[0].TxtOne) > int.Parse(nvm.TxtOne) && children[0].X > nvm.X) return true;
                 return false;
             }
             // getChildren already switches such that children[0] is further to the left than children[1]. 
-            // Therefore it is enough to check that children[0].Key <= nvm.Key and not also >
-            return (int.Parse(children[0].Key) <= int.Parse(nvm.Key) && int.Parse(children[1].Key) > int.Parse(nvm.Key) &&
+            // Therefore it is enough to check that children[0].TxtOne <= nvm.TxtOne and not also >
+            return (int.Parse(children[0].TxtOne) <= int.Parse(nvm.TxtOne) && int.Parse(children[1].TxtOne) > int.Parse(nvm.TxtOne) &&
                 children[0].X < nvm.X && children[1].X > nvm.X);
         }
 
@@ -190,8 +189,8 @@ namespace AlgoTreeDraw.ViewModel
             {
                 if (grandParent == null || grandParent.getParent() == null) break;
                 grandParent = grandParent.getParent();                
-                if (parent.X < grandParent.X && int.Parse(nvm.Key) > int.Parse(grandParent.Key) ||
-                    parent.X > grandParent.X && int.Parse(nvm.Key) <= int.Parse(grandParent.Key))
+                if (parent.X < grandParent.X && int.Parse(nvm.TxtOne) > int.Parse(grandParent.TxtOne) ||
+                    parent.X > grandParent.X && int.Parse(nvm.TxtOne) <= int.Parse(grandParent.TxtOne))
                     return false;
                 parent = parent.getParent();
             }
@@ -239,7 +238,7 @@ namespace AlgoTreeDraw.ViewModel
 
         public List<LineViewModel> tAutoBalance()
         {
-            nodes.Sort((x, y) => int.Parse(x.Key).CompareTo(int.Parse(y.Key)));
+            nodes.Sort((x, y) => int.Parse(x.TxtOne).CompareTo(int.Parse(y.TxtOne)));
             removeLinesAndNeighbours();
             root = nodes.ElementAt(nodes.Count / 2);
             hasBeenInsertedList.Add(root);
@@ -259,7 +258,7 @@ namespace AlgoTreeDraw.ViewModel
                            
             // if markedNodesConnected
             // and isValidBst
-            // new list - sort all nodes in bst -> List<NodeViewModel> SortedList = nodesList.OrderBy(n=>n.Key).ToList();
+            // new list - sort all nodes in bst -> List<NodeViewModel> SortedList = nodesList.OrderBy(n=>n.TxtOne).ToList();
             // eller objListOrder.Sort((x, y) => x.OrderDate.CompareTo(y.OrderDate));
             // fjern alle linjer
             // Midterste element er rod - midterst til højre er højre barn ligeså med venstre osv osv. 
@@ -303,7 +302,7 @@ namespace AlgoTreeDraw.ViewModel
         {
             NodeViewModel[] children = getChildren(nvm);
 
-            //if (int.Parse(newNode.Key) > int.Parse(nvm.Key))
+            //if (int.Parse(newNode.TxtOne) > int.Parse(nvm.TxtOne))
             //{
             //    if (children[RIGHT] == null)
             //        addNeighbourAndLineAndUpdatePosition(newNode, nvm);
@@ -329,8 +328,8 @@ namespace AlgoTreeDraw.ViewModel
             else if (children[1] == null)
             {
                 // If both the new node and the one child needs to be on the same side
-                if ((int.Parse(newNode.Key) <= int.Parse(nvm.Key) && int.Parse(children[0].Key) <= int.Parse(nvm.Key)) ||
-                    (int.Parse(newNode.Key) > int.Parse(nvm.Key) && int.Parse(children[0].Key) > int.Parse(nvm.Key)))
+                if ((int.Parse(newNode.TxtOne) <= int.Parse(nvm.TxtOne) && int.Parse(children[0].TxtOne) <= int.Parse(nvm.TxtOne)) ||
+                    (int.Parse(newNode.TxtOne) > int.Parse(nvm.TxtOne) && int.Parse(children[0].TxtOne) > int.Parse(nvm.TxtOne)))
                 {
                     insertBST(newNode, children[0]);
                 }
@@ -342,7 +341,7 @@ namespace AlgoTreeDraw.ViewModel
             // Two children
             else
             {
-                if (int.Parse(newNode.Key) <= int.Parse(nvm.Key))
+                if (int.Parse(newNode.TxtOne) <= int.Parse(nvm.TxtOne))
                 {
                     insertBST(newNode, children[0]);
                 }
@@ -359,7 +358,7 @@ namespace AlgoTreeDraw.ViewModel
             LineViewModel temp = new LineViewModel(new Line()) { From = n1, To = n2 };
             Lines.Add(temp);
             addedLinesAutoBalance.Add(temp);
-            if(int.Parse(n1.Key) > int.Parse(n2.Key))
+            if(int.Parse(n1.TxtOne) > int.Parse(n2.TxtOne))
             {
                 n1.X = n2.X + X_OFFSET;
                 n1.Y = n2.Y + Y_OFFSET;
@@ -568,7 +567,7 @@ namespace AlgoTreeDraw.ViewModel
                 for(;;)
                 {
                     children = replacementNode.getChildren();
-                    removeNode.Key = replacementNode.Key;
+                    removeNode.TxtOne = replacementNode.TxtOne;
                     removeNode.Color = replacementNode.Color;
                     removeNode.ColorOfText = replacementNode.ColorOfText;
                     removeNode.PreColor = replacementNode.PreColor;
@@ -583,7 +582,6 @@ namespace AlgoTreeDraw.ViewModel
                     }
                 }           
             }
-            return null;
         }
 
     }

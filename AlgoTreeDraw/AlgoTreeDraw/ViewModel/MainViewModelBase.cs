@@ -141,7 +141,7 @@ namespace AlgoTreeDraw.ViewModel
             foreach (LineViewModel l in Lines)
                 if (selectedNodes.Contains(l.To) && selectedNodes.Contains(l.From) && !copiedLines.Contains(l))
                 {
-                    Console.WriteLine("Line to key " + l.To.Key + " from " + l.From.Key + " added..");
+                    Console.WriteLine("Line to key " + l.To.TxtOne + " from " + l.From.TxtOne + " added..");
                     LineViewModel line = new LineViewModel(new Line() { From = l.From.Node, To = l.To.Node }) { From = l.From, To = l.To };
                     copiedLines.Add(line);
                 }
@@ -252,9 +252,9 @@ namespace AlgoTreeDraw.ViewModel
             if(editNode != null)
             {
                 
-                if (editNode.Key != editNode.PreKey)
+                if (editNode.TxtOne != editNode.PreKey)
                 {
-                    undoRedo.InsertInUndoRedo(new TextChangeCommand(editNode, editNode.Key, editNode.PreKey));
+                    undoRedo.InsertInUndoRedo(new TextChangeCommand(editNode, editNode.TxtOne, editNode.PreKey));
                 }
                 NodeBoxUpdate();
                 editNode = null;

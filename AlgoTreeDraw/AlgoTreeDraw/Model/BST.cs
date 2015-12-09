@@ -25,7 +25,7 @@ namespace AlgoTreeDraw.Model
 
         public override Node NewNode()
         {
-            return new BST() { X = -225, Y = 20, diameter = 50, Key = this.Key };
+            return new BST() { X = -225, Y = 20, diameter = 50, TextOne = this.TextOne };
         }
 
     }

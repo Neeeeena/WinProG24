@@ -40,11 +40,11 @@ namespace AlgoTreeDraw.Model
         public double diameter {get; set; } // Tilføj Notify hvis Diameter skal ændres
 
         private string key = "1";
-        public string Key { get { return key; } set { key = value; } }
+        public string TextOne { get { return key; } set { key = value; } }
 
         public abstract Node NewNode();
         private string preKey = "0";
-        public string PreKey { get { return preKey; }set { preKey = value; } }
+        public string PreTextOne { get { return preKey; }set { preKey = value; } }
 
         public double CanvasCenterX { get { return X + diameter / 2; } set { X = value - diameter / 2; } }
 

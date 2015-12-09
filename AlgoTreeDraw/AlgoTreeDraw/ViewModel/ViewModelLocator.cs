@@ -2,7 +2,7 @@
   In App.xaml:
   <Application.Resources>
       <vm:ViewModelLocator xmlns:vm="clr-namespace:AlgoTreeDraw"
-                           x:Key="Locator" />
+                           x:TxtOne="Locator" />
   </Application.Resources>
   
   In the View:

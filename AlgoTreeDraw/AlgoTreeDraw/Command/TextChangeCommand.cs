@@ -28,12 +28,12 @@ namespace AlgoTreeDraw.Command
 
         public void Execute()
         {
-            _node.Key = _key;
+            _node.TxtOne = _key;
         }
 
         public void UnExecute()
         {
-            _node.Key = _preKey;
+            _node.TxtOne = _preKey;
         }
     }
 }

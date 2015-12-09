@@ -19,7 +19,7 @@ namespace AlgoTreeDraw.ViewModel
         public override NodeViewModel newNodeViewModel()
         {
             
-            return new BSTViewModel(new BST() {X = this.X, Y = this.Y, diameter = this.Diameter,Key=Key }) { Color = Color, PreColor = PreColor, ColorOfText = ColorOfText, PreColorOfText = PreColorOfText };
+            return new BSTViewModel(new BST() {X = this.X, Y = this.Y, diameter = this.Diameter,TextOne=TxtOne }) { Color = Color, PreColor = PreColor, ColorOfText = ColorOfText, PreColorOfText = PreColorOfText };
         }
 
 

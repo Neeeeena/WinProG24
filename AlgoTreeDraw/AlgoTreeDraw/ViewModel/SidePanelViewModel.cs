@@ -88,7 +88,7 @@ namespace AlgoTreeDraw.ViewModel
             int key = 0;
             if(!int.TryParse(AddNodeValue, out key))
             {
-                System.Windows.MessageBox.Show("Invalid Key to be inserted\nHint: Try an integer");
+                System.Windows.MessageBox.Show("Invalid TxtOne to be inserted\nHint: Try an integer");
             }
             else if (!(selectedNodes != null && selectedNodes.Count > 0)) {
                 System.Windows.MessageBox.Show("No node or tree selected");
@@ -98,7 +98,7 @@ namespace AlgoTreeDraw.ViewModel
                 Tree tree = new Tree(selectedNodes);
                 if (tree.isValidBST())
                 {
-                    NodeViewModel newNode = new BSTViewModel(new BST() { X = 20, Y = 20, Key = key.ToString()});
+                    NodeViewModel newNode = new BSTViewModel(new BST() { X = 20, Y = 20, TextOne = key.ToString()});
                 newNode.Diameter = 50;
                     undoRedo.InsertInUndoRedo(new InsertNodeInTreeCommand(tree, Nodes, selectedNodes, newNode, Lines));
             }

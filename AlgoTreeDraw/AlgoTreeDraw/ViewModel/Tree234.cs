@@ -59,7 +59,6 @@ namespace AlgoTreeDraw.ViewModel
         }
 
 
-
         private bool allNodesT234()
         {
             foreach (NodeViewModel n in nodes)
@@ -106,9 +105,10 @@ namespace AlgoTreeDraw.ViewModel
             removeLines();
             autobalance(nodes);
             double furthestLeft = 500;
-            //For at træet ikke er inden under sidepanel
+            
             align();
-            foreach(var n in nodes)
+            //For at træet ikke er inden under sidepanel
+            foreach (var n in nodes)
             {
                 if (n.X < furthestLeft)
                 {

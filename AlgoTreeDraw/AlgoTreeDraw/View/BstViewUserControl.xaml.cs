@@ -41,7 +41,7 @@ namespace AlgoTreeDraw.View
             NodeViewModel node = mvm.editNode;
             if (node != null)
             {
-                node.Key = NodeTextBox.Text;
+                node.TxtOne = NodeTextBox.Text;
                 mvm._DoneEditing();
             }
             

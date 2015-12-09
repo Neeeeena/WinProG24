@@ -12,11 +12,9 @@ namespace AlgoTreeDraw.Model
         public bool IsTwoNode { get; set; }
         public bool IsThreeNode { get; set; }
         public bool IsFourNode { get; set; }
-        public string TextOne { get; set; }
         public string TextTwo { get; set; }
         public string TextThree { get; set; }
 
-        public string PreTextOne { get; set; }
         public string PreTextTwo { get; set; }
         public string PreTextThree { get; set; }
 
