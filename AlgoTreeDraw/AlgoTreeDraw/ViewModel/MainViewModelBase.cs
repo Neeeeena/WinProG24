@@ -252,9 +252,9 @@ namespace AlgoTreeDraw.ViewModel
             if(editNode != null)
             {
                 
-                if (editNode.TxtOne != editNode.PreKey)
+                if (editNode.TxtOne != editNode.PreTxtOne)
                 {
-                    undoRedo.InsertInUndoRedo(new TextChangeCommand(editNode, editNode.TxtOne, editNode.PreKey));
+                    undoRedo.InsertInUndoRedo(new TextChangeCommand(editNode, editNode.TxtOne, editNode.PreTxtOne));
                 }
                 NodeBoxUpdate();
                 editNode = null;

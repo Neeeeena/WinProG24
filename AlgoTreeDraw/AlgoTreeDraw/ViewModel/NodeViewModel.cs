@@ -151,7 +151,7 @@ namespace AlgoTreeDraw.ViewModel
             get { return Node.TextOne; }
             set { Node.PreTextOne = Node.TextOne; Node.TextOne=value; RaisePropertyChanged(); }
         }
-        public string PreKey
+        public string PreTxtOne
         {
             get { return Node.PreTextOne; }
             set { Node.PreTextOne = value; }
