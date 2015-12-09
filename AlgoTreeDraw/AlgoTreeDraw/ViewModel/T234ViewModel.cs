@@ -1,13 +1,9 @@
-﻿using AlgoTreeDraw.Model;
-using GalaSoft.MvvmLight.CommandWpf;
-using System;
+﻿using GalaSoft.MvvmLight.CommandWpf;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Input;
 using System.Windows.Media;
+using AlgoTreeDraw.Model;
 
 namespace AlgoTreeDraw.ViewModel
 {
@@ -17,7 +13,6 @@ namespace AlgoTreeDraw.ViewModel
         public string TxtTwo { get { return ((T234)Node).TextTwo; } set { ((T234)Node).PreTextTwo = ((T234)Node).TextTwo; ((T234)Node).TextTwo = value; RaisePropertyChanged(); } }
         public string TxtThree { get { return ((T234)Node).TextThree; } set { ((T234)Node).PreTextThree = ((T234)Node).TextThree; ((T234)Node).TextThree = value; RaisePropertyChanged(); } }
 
-        public string PreTxtOne { get { return ((T234)Node).PreTextOne; } set { ((T234)Node).PreTextOne = value; RaisePropertyChanged(); } }
         public string PreTxtTwo { get { return ((T234)Node).PreTextTwo; } set { ((T234)Node).PreTextTwo = value; RaisePropertyChanged(); } }
         public string PreTxtThree { get { return ((T234)Node).PreTextThree; } set { ((T234)Node).PreTextThree = value; RaisePropertyChanged(); } }
 

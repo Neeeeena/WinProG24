@@ -177,13 +177,6 @@
     <Compile Include="Command\TextChangeCommandT234.cs" />
     <Compile Include="Command\TextChangeCommand.cs" />
     <Compile Include="Command\UndoRedo.cs" />
-    <Compile Include="Model\BST.cs" />
-    <Compile Include="Model\Diagram.cs" />
-    <Compile Include="Model\Line.cs" />
-    <Compile Include="Model\RBT.cs" />
-    <Compile Include="Model\NotifyBase.cs" />
-    <Compile Include="Model\Node.cs" />
-    <Compile Include="Model\T234.cs" />
     <Compile Include="Serialization\XMLserializer.cs" />
     <Compile Include="UndoRedoEnabledMsg.cs" />
     <Compile Include="ViewModel\BSTViewModel.cs" />
@@ -322,6 +315,12 @@
   </ItemGroup>
   <ItemGroup>
     <Resource Include="Images\zoom_out.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\AlgoTreeDraw.Model\AlgoTreeDraw.Model.csproj">
+      <Project>{f077fdf3-d4eb-471e-9925-41c709841a8d}</Project>
+      <Name>AlgoTreeDraw.Model</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Import Project="..\packages\PostSharp.4.1.30\tools\PostSharp.targets" Condition="Exists('..\packages\PostSharp.4.1.30\tools\PostSharp.targets')" />
