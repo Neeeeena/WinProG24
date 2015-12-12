@@ -19,11 +19,13 @@ namespace AlgoTreeDraw.Command
         public MakePrettyCommand(ObservableCollection<NodeViewModel> _nodes, List<NodeViewModel> _selectedNodes)
         {
             nodes = _nodes;
-            selectedNodes = _selectedNodes;
             foreach (NodeViewModel n in _nodes)
             {
+
                 nodePositions.Add(new Point(n.X, n.Y));
-            }         
+            }
+            foreach (NodeViewModel n in _selectedNodes)
+                selectedNodes.Add(n);         
         }
 
         public override String ToString()
