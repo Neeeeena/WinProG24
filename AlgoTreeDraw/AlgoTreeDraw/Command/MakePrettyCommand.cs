@@ -12,21 +12,18 @@ namespace AlgoTreeDraw.Command
     class MakePrettyCommand : IUndoRedoCommand
     {
         private ObservableCollection<NodeViewModel> nodes;
+        private List<NodeViewModel> oldNodes = new List<NodeViewModel>();
         private List<NodeViewModel> selectedNodes = new List<NodeViewModel>();
         private List<Point> nodePositions = new List<Point>();
 
         public MakePrettyCommand(ObservableCollection<NodeViewModel> _nodes, List<NodeViewModel> _selectedNodes)
         {
             nodes = _nodes;
-
-            foreach (NodeViewModel n in _selectedNodes)
+            selectedNodes = _selectedNodes;
+            foreach (NodeViewModel n in _nodes)
             {
-                selectedNodes.Add(n);
                 nodePositions.Add(new Point(n.X, n.Y));
-            }
-
-            //foreach (NodeViewModel n in _nodes)
-            //    nodePositions.Add(new Point(n.X, n.Y));            
+            }         
         }
 
         public override String ToString()
@@ -43,7 +40,7 @@ namespace AlgoTreeDraw.Command
         public void UnExecute()
         {
             int index = 0;
-            foreach (NodeViewModel n in selectedNodes)
+            foreach (NodeViewModel n in nodes)
             {
                 n.X = nodePositions.ElementAt(index).X;
                 n.Y = nodePositions.ElementAt(index).Y;
