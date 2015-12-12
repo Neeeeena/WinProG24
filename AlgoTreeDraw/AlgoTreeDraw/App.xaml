@@ -2,7 +2,6 @@
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation" 
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" 
              xmlns:local="clr-namespace:AlgoTreeDraw" 
-             xmlns:Model="clr-namespace:AlgoTreeDraw.Model" 
              xmlns:View="clr-namespace:AlgoTreeDraw.View" 
              xmlns:ViewModel="clr-namespace:AlgoTreeDraw.ViewModel"
              StartupUri="View/MainWindow.xaml" 
