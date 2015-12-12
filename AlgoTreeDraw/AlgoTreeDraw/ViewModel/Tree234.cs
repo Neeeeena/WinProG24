@@ -30,11 +30,7 @@ namespace AlgoTreeDraw.ViewModel
                     this.lines = lines;
 
                 }
-
-
             }
-           
-            
 
 
         }
