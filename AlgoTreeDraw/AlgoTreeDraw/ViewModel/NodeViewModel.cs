@@ -67,6 +67,7 @@ namespace AlgoTreeDraw.ViewModel
             if (selectedNodes.Contains(this))
             {
                 undoRedo.InsertInUndoRedo(new DeleteNodeCommand(Nodes, selectedNodes, Lines));
+                selectedNodes.Clear();
             }
             else
             {

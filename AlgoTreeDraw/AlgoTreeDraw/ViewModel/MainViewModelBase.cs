@@ -174,6 +174,7 @@ namespace AlgoTreeDraw.ViewModel
         {
             isAddingLine = false;
             undoRedo.InsertInUndoRedo(new DeleteNodeCommand(Nodes, selectedNodes, Lines));
+            selectedNodes.Clear();
         }
 
         //Select
@@ -194,9 +195,6 @@ namespace AlgoTreeDraw.ViewModel
             }
             selectedNodes.Clear();
         }
-
-
-
 
         public void _DoneEditingT234(int type)
         {

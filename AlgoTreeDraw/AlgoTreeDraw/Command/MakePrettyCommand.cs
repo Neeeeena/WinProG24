@@ -35,7 +35,7 @@ namespace AlgoTreeDraw.Command
 
         public void Execute()
         {
-            Tree selTree = new Tree(selectedNodes);
+            Tree selTree = new Tree(selectedNodes, null);
             selTree.makePretty(false);
         }
 
