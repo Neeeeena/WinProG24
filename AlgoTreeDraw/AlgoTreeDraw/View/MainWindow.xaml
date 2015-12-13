@@ -9,9 +9,12 @@
         xmlns:i="clr-namespace:System.Windows.Interactivity;assembly=System.Windows.Interactivity"
         xmlns:cmd="clr-namespace:GalaSoft.MvvmLight.Command;assembly=GalaSoft.MvvmLight.Platform"
         mc:Ignorable="d"
-        Title="MainWindow" Height="600" Width="900"
-        DataContext="{Binding Source={StaticResource Locator}, Path=Main}"
-        >
+        Title="MainWindow" Height="600" Width="900">
+
+    <Window.DataContext>
+        <ViewModel:MainViewModel />
+    </Window.DataContext>
+
     <Window.InputBindings>
         <KeyBinding Command="{Binding DeleteKeyPressed}" Key="Delete"/>
         <KeyBinding Command="{Binding NewDiagramCommand}" Gesture="CTRL+N"/>
