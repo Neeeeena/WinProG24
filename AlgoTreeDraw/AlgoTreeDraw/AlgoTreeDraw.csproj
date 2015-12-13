@@ -192,7 +192,6 @@
     <Compile Include="ViewModel\Tree.cs" />
     <Compile Include="ViewModel\Tree234.cs" />
     <Compile Include="ViewModel\UndoRedoItem.cs" />
-    <Compile Include="ViewModel\ViewModelLocator.cs" />
     <Compile Include="View\BstViewUserControl.xaml.cs">
       <DependentUpon>BstViewUserControl.xaml</DependentUpon>
     </Compile>

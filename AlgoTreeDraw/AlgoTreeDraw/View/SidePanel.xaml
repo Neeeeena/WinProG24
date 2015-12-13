@@ -7,9 +7,10 @@
              xmlns:xctk="http://schemas.xceed.com/wpf/xaml/toolkit"
              mc:Ignorable="d" 
              d:DesignHeight="500" d:DesignWidth="240"
-             xmlns:ViewModel="clr-namespace:AlgoTreeDraw.ViewModel"
-             DataContext="{Binding Source={StaticResource Locator}, Path=SidePanel}">
-
+             xmlns:ViewModel="clr-namespace:AlgoTreeDraw.ViewModel">
+    <UserControl.DataContext>
+        <ViewModel:SidePanelViewModel />
+    </UserControl.DataContext>
     <UserControl.InputBindings>
         <KeyBinding Command="{Binding DoneEditing}" Gesture="ENTER"/>
     </UserControl.InputBindings>

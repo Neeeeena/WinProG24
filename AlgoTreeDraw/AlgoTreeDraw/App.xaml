@@ -10,7 +10,6 @@
              d1p1:Ignorable="d" 
              xmlns:d1p1="http://schemas.openxmlformats.org/markup-compatibility/2006">
     <Application.Resources>
-        <ViewModel:ViewModelLocator x:Key="Locator" />
         <DataTemplate DataType="{x:Type ViewModel:BSTViewModel}">
             <Canvas>
                     <View:BstViewUserControl/>
