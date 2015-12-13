@@ -86,7 +86,7 @@
             </Setter>
         </Style>
 
-        
+
 
         <Style TargetType="Button">
             <Setter Property="OverridesDefaultStyle" Value="True"/>
@@ -164,26 +164,6 @@
                 </Setter.Value>
             </Setter>
         </Style>
-<!--
-        <Style TargetType="Button">
-            
-            <Setter Property="Foreground" Value="Black" />
-            <Setter Property="FontFamily" Value="Andale Mono" />
-            <Setter Property="Focusable" Value="False" />
-            <Setter Property="BorderThickness" Value="1" />
-            <Setter Property="Background">
-                <Setter.Value>
-                    <LinearGradientBrush StartPoint="0.5,0" EndPoint="0.5,1">
-                        <GradientStop Color="LightSteelBlue" Offset="0.0" />
-                        <GradientStop Color="White" Offset="2.0" />
-                    </LinearGradientBrush>
-                </Setter.Value>
-            </Setter>
-        </Style>
-        <Style TargetType="TextBlock">
-            <Setter Property="FontFamily" Value="Andale Mono" />
-        </Style>
-        -->
     </Application.Resources>
     
 </Application>
