@@ -180,6 +180,7 @@ namespace AlgoTreeDraw.ViewModel
         {
             isAddingLine = false;
             undoRedo.InsertInUndoRedo(new DeleteNodeCommand(Nodes, selectedNodes, Lines));
+            selectedNodes.Clear();
         }
 
         //Select
@@ -200,13 +201,6 @@ namespace AlgoTreeDraw.ViewModel
             }
             selectedNodes.Clear();
         }
-
-        public void autoBalance()
-        {
-            Tree selTree = new Tree(selectedNodes);
-            selTree.tAutoBalance();
-        }
-
 
         public void _DoneEditingT234(int type)
         {

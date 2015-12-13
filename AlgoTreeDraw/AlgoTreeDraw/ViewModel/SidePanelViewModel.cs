@@ -95,7 +95,7 @@ namespace AlgoTreeDraw.ViewModel
             }
             else
             {
-                Tree tree = new Tree(selectedNodes);
+                Tree tree = new Tree(selectedNodes, Lines);
                 if (tree.isValidBST())
                 {
                     NodeViewModel newNode = new BSTViewModel(new BST() { X = 20, Y = 20, TextOne = key.ToString()});
@@ -109,8 +109,8 @@ namespace AlgoTreeDraw.ViewModel
         private void CallRemoveNodeInTree()
         {
             //ADD ERROR IF THERE IS ONLY ONE ELEMENT IN THE TREE
-            Tree tree = new Tree(selectedNodes);
-            Tree wholeTree = new Tree(tree.getWholeTree());
+            Tree tree = new Tree(selectedNodes,Lines);
+            Tree wholeTree = new Tree(tree.getWholeTree(),Lines);
             if (selectedNodes == null || selectedNodes.Count != 1)
                 System.Windows.MessageBox.Show("You have to mark excactly one node");
             else if (!wholeTree.isValidBST())
@@ -128,7 +128,7 @@ namespace AlgoTreeDraw.ViewModel
             {
                 if (selectedNodes.ElementAt(0) is BSTViewModel)
                 {
-                    Tree treeTest = new Tree(selectedNodes);
+                    Tree treeTest = new Tree(selectedNodes,Lines);
                     if (treeTest.hasIntKeysAndBSTNodes())
                     {
                         undoRedo.InsertInUndoRedo(new AutoBalanceCommand(treeTest, Nodes, selectedNodes, Lines));
@@ -171,8 +171,8 @@ namespace AlgoTreeDraw.ViewModel
         private void CallMakePretty()
         {
             
-            Tree tree = new Tree(selectedNodes);
-            Tree wholeTree = new Tree(tree.getWholeTree());
+            Tree tree = new Tree(selectedNodes,Lines);
+            Tree wholeTree = new Tree(tree.getWholeTree(),Lines);
             if (wholeTree.allNodesOneParentAndLessThanThreeChildren())
                 undoRedo.InsertInUndoRedo(new MakePrettyCommand(Nodes, selectedNodes));
         }

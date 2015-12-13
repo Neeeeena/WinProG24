@@ -1,6 +1,7 @@
 ﻿using AlgoTreeDraw.Model;
 using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -8,8 +9,9 @@ using System.Windows;
 
 namespace AlgoTreeDraw.ViewModel
 {
-    public class Tree : MainViewModelBase
+    public class Tree
     {
+        ObservableCollection<LineViewModel> Lines;
         public List<NodeViewModel> nodes;
         public NodeViewModel root;
         public List<NodeViewModel> hasBeenInsertedList = new List<NodeViewModel>();
@@ -26,9 +28,10 @@ namespace AlgoTreeDraw.ViewModel
         const int ONLY = 0;
         const int NONE = -1;
 
-        public Tree(List<NodeViewModel> selNodes)
+        public Tree(List<NodeViewModel> selNodes, ObservableCollection<LineViewModel> lines)
         {
             // Tjek at selectedNodes ikke er 0 før new Tree(selectedNodes) bliver kaldt
+            Lines = lines;
             if (!(selNodes.Count == 0))
             {
                 nodes = selNodes;
@@ -95,8 +98,6 @@ namespace AlgoTreeDraw.ViewModel
             return true;
         }
 
-
-
         public bool allNodesConnected()
         {
             unmarkNodes();
@@ -123,13 +124,6 @@ namespace AlgoTreeDraw.ViewModel
                     //MessageBox?
                     MessageBox.Show("Error: Some nodes have more than one parent or too many children");
 
-                    Console.WriteLine("All Nodes do not have one parent and less than two children");
-                    Console.WriteLine(n.TxtOne);
-                    Console.WriteLine(root.TxtOne);
-                    foreach(NodeViewModel bla in n.neighbours)
-                    {
-                        Console.WriteLine("Jeg skriver ikke noget kap");
-                    }
                     return false;
                 }
             }
@@ -289,8 +283,7 @@ namespace AlgoTreeDraw.ViewModel
                     insertBST(nodes.ElementAt(index + subFromIndex.ElementAt(subIndex)), root);
 
                     if (subIndex == subFromIndex.Count - 1) subFromIndex.Add((index - subFromIndex.ElementAt(subIndex) + 1) / 2);
-
-
+                    
                     balancedInsert(index - subFromIndex.ElementAt(subIndex), subIndex + 1);
                     balancedInsert(index + subFromIndex.ElementAt(subIndex), subIndex + 1);
                 }
