@@ -9,7 +9,7 @@
         xmlns:i="clr-namespace:System.Windows.Interactivity;assembly=System.Windows.Interactivity"
         xmlns:cmd="clr-namespace:GalaSoft.MvvmLight.Command;assembly=GalaSoft.MvvmLight.Platform"
         mc:Ignorable="d"
-        Title="MainWindow" Height="600" Width="900">
+        Title="Algorithms TreeDraw" Height="600" Width="900">
 
     <Window.DataContext>
         <ViewModel:MainViewModel />
