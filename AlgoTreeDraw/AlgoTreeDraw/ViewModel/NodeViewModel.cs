@@ -1,21 +1,10 @@
 ﻿using AlgoTreeDraw.Model;
-using System;
-using GalaSoft.MvvmLight;
-using System.Collections;
 using System.Collections.Generic;
-using System.Collections.ObjectModel;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows;
-using System.Windows.Controls;
 using System.Windows.Input;
 using System.Windows.Media;
 using GalaSoft.MvvmLight.CommandWpf;
 using AlgoTreeDraw.Command;
-using GalaSoft.MvvmLight.Messaging;
-using System.ComponentModel;
-using System.Diagnostics;
 
 namespace AlgoTreeDraw.ViewModel
 {
@@ -130,9 +119,6 @@ namespace AlgoTreeDraw.ViewModel
         public double CanvasCenterX { get { return X + Diameter / 2; } set { X = value - Diameter / 2; RaisePropertyChanged(() => X); } }
         public double CanvasCenterY { get { return Y + Diameter / 2; } set { Y = value - Diameter / 2; RaisePropertyChanged(() => Y); } }
 
-        // Unused
-        private bool isSelected;
-        public bool IsSelected { get { return isSelected; } set { isSelected = value; RaisePropertyChanged(); } }
 
         public Brush _ColorOfText;
 
@@ -202,7 +188,6 @@ namespace AlgoTreeDraw.ViewModel
 
         public List<NodeViewModel> neighbours = new List<NodeViewModel>();
 
-        private LinkedList<NodeViewModel> queue = new LinkedList<NodeViewModel>();
         public bool isLeftChild = false;
         //public bool IsLeftChild { get { return isLeftChild; } }
         public NodeViewModel[] childrenFromList;
@@ -225,10 +210,6 @@ namespace AlgoTreeDraw.ViewModel
             NVM.neighbours.Remove(this);
         }
 
-        public bool isChild(NodeViewModel NVM)
-        {
-            return NVM.Y > Y;
-        }
 
         public NodeViewModel[] getChildren()
         {
@@ -251,13 +232,6 @@ namespace AlgoTreeDraw.ViewModel
             return children;
         }
 
-        //public bool isRoot()
-        //{
-        //    foreach (NodeViewModel neighbour in neighbours)
-        //        if (neighbour.Y < Y) return false;
-        //    return true;
-        //}
-
         public NodeViewModel getRoot()
         {
             foreach (NodeViewModel neighbour in neighbours)
@@ -265,55 +239,6 @@ namespace AlgoTreeDraw.ViewModel
             return this;
         }
 
-        //MÅSKE SKROTTES
-        public int childrenCount()
-        {
-            int children = 0;
-            foreach (NodeViewModel neighbour in neighbours)
-                if (neighbour.Y > Y) children++;
-            return children;
-        }
-
-        //public bool isValidBST()
-        //{
-        //    // DER ER PROBLEM HER
-        //    if (isValid() && childrenCount() <= 2)
-        //    {
-        //        NodeViewModel[] children = getChildren();
-        //        foreach (NodeViewModel child in children)
-        //            if (child != null)
-        //                if (!child.isValidBST()) return false;
-        //        if (children[RIGHT] != null) return int.Parse(children[LEFT].TxtOne) <= int.Parse(children[RIGHT].TxtOne);
-        //    }
-        //    else return false;
-        //    return true;
-        //}
-
-        ////USE ON ROOT
-
-        ////USE ON ROOT //KIG MERE HER (visuelle del)
-        ////public bool autoAddBST(int _key)
-        ////{
-        ////    return Node.autoAddBST(_key);
-        ////}
-
-
-        
-        /*public bool isMarkedNodesConnected()
-        {
-
-            List<NodeViewModel> markedNodes = new List<NodeViewModel>();
-            //Her kan getbfList anvendes (tidligere updateList)
-        }
-
-        public void markNodeAndNeighbours(NodeViewModel n, List<NodeViewModel> markedNodes)
-        {
-            if(!markedNodes.Contains(n))
-            {
-                markedNodes.Add(n);
-                foreach
-            }
-        }*/
 
         public bool isSingleChildLeft()
         {
@@ -343,44 +268,6 @@ namespace AlgoTreeDraw.ViewModel
             return this;
         }
 
-        //public bool makePretty()
-        //{
-        //    List<NodeViewModel> bfList = getbfList(); //Updating the nodes in allNodes, to run the tree through breadth-first
-        //    double originalRootPos = bfList.ElementAt(0).X;
-        //    //if (!isValidBST())
-        //    //    return false;
-
-        //    foreach (NodeViewModel nvm in bfList)
-        //    {
-        //        if (nvm.childrenFromList[0] == null) //IF THERE IS NO CHILDREN
-        //        {
-
-        //        }
-        //        else if (nvm.childrenFromList[RIGHT] == null)    //One child
-        //        {
-        //            if (nvm.childrenFromList[ONLY].isLeftChild)
-        //                nvm.moveOffset(nvm.childrenFromList[ONLY], LEFT);
-        //            else
-        //                nvm.moveOffset(nvm.childrenFromList[ONLY], RIGHT);
-        //            nvm.pushAncenstors(nvm.childrenFromList[ONLY]);
-        //        }
-        //        else
-        //        {
-        //            nvm.moveOffset(nvm.childrenFromList[LEFT], LEFT);
-        //            nvm.moveOffset(nvm.childrenFromList[RIGHT], RIGHT);
-
-        //            nvm.pushAncenstors(nvm.childrenFromList[LEFT]);
-        //            nvm.pushAncenstors(nvm.childrenFromList[RIGHT]);
-        //        }
-        //    }
-        //    //For making the root stationary :>
-        //    if (originalRootPos < bfList.ElementAt(0).X)
-        //        pushTree(LEFT, 64000, null, bfList.ElementAt(0).X - originalRootPos);
-        //    else if (originalRootPos > bfList.ElementAt(0).X)
-        //        pushTree(RIGHT, -64000, null, originalRootPos - bfList.ElementAt(0).X);
-
-        //    return true;
-        //}
 
         public bool pushAncenstors(NodeViewModel orig)
         {

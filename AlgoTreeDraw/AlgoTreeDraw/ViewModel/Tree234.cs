@@ -30,17 +30,7 @@ namespace AlgoTreeDraw.ViewModel
                     this.lines = lines;
 
                 }
-
-
             }
-           
-            
-
-
-        }
-        public bool testValidTree()
-        {
-            return allNodesIntKeys() && allNodesT234();
         }
 
         private bool allNodesIntKeys()

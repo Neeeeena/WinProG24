@@ -195,32 +195,18 @@ namespace AlgoTreeDraw.ViewModel
             string path = dialogVM.ShowImageSave();
             if(path != null)
             {
-                 CreateBitmapFromVisual(mainGrid, path);
+                 CreatePngFromGrid(mainGrid, path);
             }
         }
 
-        private void CreateBitmapFromVisual(Visual target, string path)
+        private void CreatePngFromGrid(Grid target, string path)
         {
-            if (target == null)
-                return;
-
-            Rect bounds = VisualTreeHelper.GetDescendantBounds(target);
-
-            RenderTargetBitmap rtb = new RenderTargetBitmap((Int32)bounds.Width, (Int32)bounds.Height, 96, 96, PixelFormats.Pbgra32);
-
-            DrawingVisual dv = new DrawingVisual();
-
-            using (DrawingContext dc = dv.RenderOpen())
-            {
-                VisualBrush vb = new VisualBrush(target);
-                dc.DrawRectangle(vb, null, new Rect(new Point(), bounds.Size));
-            }
-
-            rtb.Render(dv);
+            RenderTargetBitmap bmp = new RenderTargetBitmap((int)target.ActualWidth, (int)target.ActualHeight, 96, 96, PixelFormats.Pbgra32);
+            bmp.Render(target);
 
             PngBitmapEncoder png = new PngBitmapEncoder();
 
-            png.Frames.Add(BitmapFrame.Create(rtb));
+            png.Frames.Add(BitmapFrame.Create(bmp));
 
             using (Stream stm = File.Create(path))
             {
