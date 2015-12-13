@@ -31,12 +31,6 @@ namespace AlgoTreeDraw.ViewModel
 
                 }
             }
-
-
-        }
-        public bool testValidTree()
-        {
-            return allNodesIntKeys() && allNodesT234();
         }
 
         private bool allNodesIntKeys()
