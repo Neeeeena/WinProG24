@@ -190,6 +190,7 @@ namespace AlgoTreeDraw.ViewModel
 
         public bool isLeftChild = false;
         public NodeViewModel[] childrenFromList;
+        
 
 
 
