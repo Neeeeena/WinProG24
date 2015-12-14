@@ -25,7 +25,6 @@ namespace AlgoTreeDraw.Command
             nodes = _nodes;
             lines = _lines;
             tree = _tree;
-
             foreach (NodeViewModel n in _selectedNodes)
                 selNodes.Add(n);
         }
@@ -68,7 +67,7 @@ namespace AlgoTreeDraw.Command
                 foreach(NodeViewModel nn in nodes)
                     if(n.Item2 == nn.ID)
                     {
-                        
+                        Console.WriteLine("ALRIGHT!! " + nn.TxtOne + " " + n.Item1);
                         nn.TxtOne = n.Item1;
                         nn.ID = n.Item2;
                         nn.Color = n.Item3;

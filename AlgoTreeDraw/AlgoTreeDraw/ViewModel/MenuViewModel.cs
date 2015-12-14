@@ -119,7 +119,6 @@ namespace AlgoTreeDraw.ViewModel
             }
         }
 
-        //Kun for test
         public int one = 1;
 
         private void NewDiagram()

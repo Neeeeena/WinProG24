@@ -189,9 +189,7 @@ namespace AlgoTreeDraw.ViewModel
         public List<NodeViewModel> neighbours = new List<NodeViewModel>();
 
         public bool isLeftChild = false;
-        //public bool IsLeftChild { get { return isLeftChild; } }
         public NodeViewModel[] childrenFromList;
-        //public NodeViewModel[] ChildrenFromList { get { return childrenFromList; } }
 
 
 
@@ -306,7 +304,6 @@ namespace AlgoTreeDraw.ViewModel
                 move(RIGHT, offset);
 
             int i = 0;
-            //while (children[i] != null)
             foreach(NodeViewModel child in children)
                 if(child != null)
                 {

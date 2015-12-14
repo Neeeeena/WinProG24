@@ -94,7 +94,6 @@ namespace AlgoTreeDraw.ViewModel
             MouseLeftButtonDown = new RelayCommand<MouseButtonEventArgs>(MouseDownNode);
             MouseMoveNodeCommand = new RelayCommand<MouseEventArgs>(MouseMoveNode);
             MouseLeftButtonUp = new RelayCommand<MouseButtonEventArgs>(MouseUpNode);
-            //MouseDoubleClick = new RelayCommand<MouseButtonEventArgs>(e => Debug.WriteLine(e));
             Mdc = new RelayCommand<MouseButtonEventArgs>(e => Debug.WriteLine(e));
             DoneEditing = new RelayCommand(_DoneEditing);
             CopyCommand = new RelayCommand(copyClicked);
@@ -153,13 +152,6 @@ namespace AlgoTreeDraw.ViewModel
                         l.To = node;
                 }
             }
-
-            //DEBUGGING STUFF
-            //foreach(LineViewModel l in copiedLines)
-            //{
-            //    if(selectedNodes.Contains(l.To) || selectedNodes.Contains(l.From))
-            //        Console.WriteLine("NOOOOO!");
-            //}
 
 
         }

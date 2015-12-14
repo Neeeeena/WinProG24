@@ -41,8 +41,7 @@ namespace AlgoTreeDraw.ViewModel
 
         public ICommand RemoveNodeInTreeCommand { get; }
         
-        
-        //sidepanel WIDTHS
+       
         public static int WIDTHS { get; set; } = 150;
 
         public string AddNodeValue { get; set; }
@@ -178,7 +177,6 @@ namespace AlgoTreeDraw.ViewModel
         private void Select()
         {
             isMarking = !isMarking;
-            //Reset
         }
 
         private void AddLineClicked(MouseButtonEventArgs e)
