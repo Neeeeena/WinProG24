@@ -93,7 +93,7 @@ namespace AlgoTreeDraw.ViewModel
                     var node = TargetShape(e);
                     if(editNode != null && node != editNode)
                     {
-                        _DoneEditing();
+                        NodeBoxUpdate();
                     }
                 }
             }
