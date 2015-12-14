@@ -397,15 +397,10 @@ namespace AlgoTreeDraw.ViewModel
 
                 var mousePosition = RelativeMousePosition(e);
 
-                double tempX;
-                double tempY;
-
                 foreach(NodeViewModel n in selectedNodes)
                 {
-                    tempX = n.initialNodePosition.X + (mousePosition.X - initialMousePosition.X);
-                    tempY = n.initialNodePosition.Y + (mousePosition.Y - initialMousePosition.Y);
-                    n.X = tempX;
-                    n.Y = tempY;
+                    n.X = n.initialNodePosition.X + (mousePosition.X - initialMousePosition.X);
+                    n.Y = n.initialNodePosition.Y + (mousePosition.Y - initialMousePosition.Y);
                 }
             }
         }
