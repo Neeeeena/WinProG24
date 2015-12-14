@@ -8,7 +8,6 @@ using System.Windows;
 
 namespace AlgoTreeDraw.ViewModel
 {
-    //commit test, ignorer denne kommentar
     public class DialogBox
     {
         private static OpenFileDialog openDialog = new OpenFileDialog() { Title = "Open Diagram", Filter = "XML Document (.xml)|*.xml", DefaultExt = "xml", InitialDirectory = Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments), CheckFileExists = true };
