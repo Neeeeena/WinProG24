@@ -334,44 +334,5 @@ namespace AlgoTreeDraw.ViewModel
             child.Y = Y + Y_OFFSET;
             return true;
         }
-
-       // private List<NodeViewModel> bfList;
-        //public List<NodeViewModel> getbfList(List<NodeViewModel> markedArea)
-        //{
-        //    List<NodeViewModel> bfList = new List<NodeViewModel>();
-        //    int i = 0;
-        //    NodeViewModel nvm = markedArea.root;
-        //    queue.Clear();
-        //    queue.AddLast(nvm);
-
-        //    for (;;)
-        //    {
-        //        if (markedArea.Contains(nvm)) {
-        //            Console.WriteLine("Does the code even get here?");
-        //            nvm.childrenFromList = nvm.getChildren();
-        //            bfList.Add(nvm);
-        //            i = 0;
-        //            foreach (NodeViewModel child in nvm.childrenFromList)
-        //                if (child != null)
-        //                {
-        //                    queue.AddLast(nvm.childrenFromList[i]);
-        //                    i++;
-        //                }
-        //            if (i == 1)
-        //                nvm.childrenFromList[LEFT].isLeftChild = nvm.childrenFromList[LEFT].isSingleChildLeft();
-
-                    
-
-        //        }
-        //        if (queue.Count == 1)
-        //            break;
-        //        queue.RemoveFirst();
-        //        nvm = queue.First();
-        //    }
-        //    return bfList;
-
-        //}
-        
-
     }
 }

@@ -36,18 +36,6 @@ namespace AlgoTreeDraw.ViewModel
             {
                 nodes = selNodes;
                 root = setRoot();
-
-                // Sort test works
-                //foreach (NodeViewModel n in nodes)
-                //{
-                //    Console.WriteLine(n.TxtOne);
-                //}
-                //Console.WriteLine("Oh yea");
-                //nodes.Sort((x, y) => int.Parse(x.TxtOne).CompareTo(int.Parse(y.TxtOne)));
-                //foreach (NodeViewModel n in nodes)
-                //{
-                //    Console.WriteLine(n.TxtOne);
-                //}
             }
         }
 
@@ -90,7 +78,6 @@ namespace AlgoTreeDraw.ViewModel
             {
                 if (!(n is BSTViewModel))
                 {
-                    //Messagebox?
                     MessageBox.Show("Error: All nodes are not BST-nodes");
                     return false;
                 }
@@ -114,14 +101,12 @@ namespace AlgoTreeDraw.ViewModel
             return true;
         }
 
-        //Hvad er det her?
         public bool allNodesOneParentAndLessThanThreeChildren()
         {
             foreach(NodeViewModel n in nodes)
             {
                 if ((!hasOneParentAndLessThanThreeChildren(n) && !(n == root)) || (n==root && n.neighbours.Count() > 2))
                 {
-                    //MessageBox?
                     MessageBox.Show("Error: Some nodes have more than one parent or too many children");
 
                     return false;
@@ -249,14 +234,7 @@ namespace AlgoTreeDraw.ViewModel
             }
             makePretty(false);
             return addedLinesAutoBalance;
-                           
-            // if markedNodesConnected
-            // and isValidBst
-            // new list - sort all nodes in bst -> List<NodeViewModel> SortedList = nodesList.OrderBy(n=>n.TxtOne).ToList();
-            // eller objListOrder.Sort((x, y) => x.OrderDate.CompareTo(y.OrderDate));
-            // fjern alle linjer
-            // Midterste element er rod - midterst til højre er højre barn ligeså med venstre osv osv. 
-            // Brug insert i denne rækkefølge - sørg for at der også bliver tegnet linjer imellem dem
+    
         }
 
         public bool hasIntKeysAndBSTNodes()
@@ -294,22 +272,6 @@ namespace AlgoTreeDraw.ViewModel
         public void insertBST(NodeViewModel newNode, NodeViewModel nvm)
         {
             NodeViewModel[] children = getChildren(nvm);
-
-            //if (int.Parse(newNode.TxtOne) > int.Parse(nvm.TxtOne))
-            //{
-            //    if (children[RIGHT] == null)
-            //        addNeighbourAndLineAndUpdatePosition(newNode, nvm);
-            //    else
-            //        insertBST(newNode, children[RIGHT]);
-            //}
-            //else
-            //{
-            //    if (children[LEFT] == null)
-            //        addNeighbourAndLineAndUpdatePosition(newNode, nvm);
-            //    else
-            //        insertBST(newNode, children[LEFT]);
-            //}
-
 
             //Zero children
             if (children[0] == null)
@@ -391,7 +353,6 @@ namespace AlgoTreeDraw.ViewModel
             return null;
         }
 
-        // FUCKING TEMP TING PGA ILLIGEAL OPERATION REMOVE LIST MAN FOREACHER GOD DAMMIT BEDRE LØSNING PLz!!?
         public void removeLinesAndNeighbours()
         {
             List<LineViewModel> tempLines = new List<LineViewModel>();
@@ -440,11 +401,8 @@ namespace AlgoTreeDraw.ViewModel
             }
 
             List<NodeViewModel> bfList = getbfList(entireTree); //Updating the nodes in allNodes, to run the tree through breadth-first
-           // NodeViewModel originalRoot = 
             double originalRootPos = bfList.ElementAt(0).X;
-            //if (!isValidBST())
-            //    return false;
-
+            
             foreach (NodeViewModel nvm in bfList)
             {
                 if (nvm.childrenFromList[0] == null) //IF THERE IS NO CHILDREN
@@ -564,7 +522,6 @@ namespace AlgoTreeDraw.ViewModel
                     removeNode.Color = replacementNode.Color;
                     removeNode.ColorOfText = replacementNode.ColorOfText;
                     removeNode.PreColor = replacementNode.PreColor;
-                    //removeNode.ID = replacementNode.ID;
 
                     if (children[LEFT] == null)
                         return replacementNode;

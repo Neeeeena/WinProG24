@@ -73,7 +73,7 @@ namespace AlgoTreeDraw.Command
             Tree234 tree = new Tree234(executeNodes, lines);
             executeNodes = tree.BalanceT234();
             nodes.AddRange(executeNodes);
-            //lines.AddRange(executeLines);
+            
 
         }
 

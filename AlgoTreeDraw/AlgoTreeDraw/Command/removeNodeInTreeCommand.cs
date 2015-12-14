@@ -2,7 +2,6 @@
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
-//using System.Drawing;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -27,10 +26,6 @@ namespace AlgoTreeDraw.Command
             lines = _lines;
             tree = _tree;
 
-            //foreach (NodeViewModel n in nodes)
-            //{
-            //    prevNodes.Add(new Tuple<string,int,Brush,Brush,Brush>(n.TxtOne,n.ID,n.Color,n.ColorOfText,n.PreColor));
-            //}
             foreach (NodeViewModel n in _selectedNodes)
                 selNodes.Add(n);
         }
@@ -73,7 +68,7 @@ namespace AlgoTreeDraw.Command
                 foreach(NodeViewModel nn in nodes)
                     if(n.Item2 == nn.ID)
                     {
-                        Console.WriteLine("ALRIGHT!! " + nn.TxtOne + " " + n.Item1);
+                        
                         nn.TxtOne = n.Item1;
                         nn.ID = n.Item2;
                         nn.Color = n.Item3;

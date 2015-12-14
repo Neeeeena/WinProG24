@@ -14,25 +14,8 @@ using System.Windows.Media;
 
 namespace AlgoTreeDraw.ViewModel
 {
-    /// <summary>
-    /// This class contains properties that the main View can data bind to.
-    /// <para>
-    /// Use the <strong>mvvminpc</strong> snippet to add bindable properties to this ViewModel.
-    /// </para>
-    /// <para>
-    /// You can also use Blend to data bind with the tool's support.
-    /// </para>
-    /// <para>
-    /// See http://www.galasoft.ch/mvvm
-    /// </para>
-    /// </summary>
     public class MainViewModel : MenuViewModel
     {
-        //public SidePanelViewModel SidePanelViewModel { get; set; }
-        /// <summary>
-        /// Initializes a new instance of the MainViewModel class.
-        /// </summary>
-        /// 
         private PullCanvas pullCanvas { get; set; }
 
         private Point SelectionBoxStart;
@@ -134,7 +117,7 @@ namespace AlgoTreeDraw.ViewModel
             {
                 if (!isAddingLine && MouseDownCanvasCalled)
                 {
-                    Console.WriteLine("Inside");
+                    
                     MouseDownCanvasCalled = false;
                     var SelectionBoxEnd = Mouse.GetPosition(e.MouseDevice.Target);
                     var smallX = Math.Min(SelectionBoxStart.X, SelectionBoxEnd.X);

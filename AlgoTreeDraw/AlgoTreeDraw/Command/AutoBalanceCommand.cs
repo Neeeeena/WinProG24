@@ -81,7 +81,7 @@ namespace AlgoTreeDraw.Command
                 }
 
             }
-            Console.WriteLine("undo autoBalanced done");
+            
 
         }
     }

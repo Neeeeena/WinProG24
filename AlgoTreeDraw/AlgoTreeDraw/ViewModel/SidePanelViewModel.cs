@@ -88,7 +88,7 @@ namespace AlgoTreeDraw.ViewModel
             int key = 0;
             if(!int.TryParse(AddNodeValue, out key))
             {
-                System.Windows.MessageBox.Show("Invalid TxtOne to be inserted\nHint: Try an integer");
+                System.Windows.MessageBox.Show("Invalid key to be inserted\nHint: Try an integer");
             }
             else if (!(selectedNodes != null && selectedNodes.Count > 0)) {
                 System.Windows.MessageBox.Show("No node or tree selected");
@@ -108,7 +108,6 @@ namespace AlgoTreeDraw.ViewModel
 
         private void CallRemoveNodeInTree()
         {
-            //ADD ERROR IF THERE IS ONLY ONE ELEMENT IN THE TREE
             Tree tree = new Tree(selectedNodes,Lines);
             Tree wholeTree = new Tree(tree.getWholeTree(),Lines);
             if (selectedNodes == null || selectedNodes.Count != 1)
@@ -117,7 +116,7 @@ namespace AlgoTreeDraw.ViewModel
                 System.Windows.MessageBox.Show("This tree is not valid");
             else
             {
-                Console.Write("wtfff");
+                
                 undoRedo.InsertInUndoRedo(new RemoveNodeInTreeCommand(tree, Nodes, selectedNodes, Lines));
             }        
         }

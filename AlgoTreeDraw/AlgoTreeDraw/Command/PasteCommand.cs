@@ -57,20 +57,18 @@ namespace AlgoTreeDraw.Command
                 LineViewModel line = new LineViewModel(new Line() { From = l.From.Node, To = l.To.Node }) { From = l.From, To = l.To };
                 foreach (NodeViewModel n in mostRecentPastedNodes)
                 {
-                    Console.WriteLine("DD" + line.To.X + " " + n.X);
+                    
                     if (line.To.X + 30 == n.X && line.To.Y + 30 == n.Y)
                     {
                         line.To = n;
-                        Console.WriteLine("Does it get here? ÆÆÆÆÆÆÆÆÆÆÆÆÆ " + n.TxtOne);
+                        
                     }
                     if (line.From.X + 30 == n.X && line.From.Y + 30 == n.Y)
                     {
                         line.From = n;
-                        Console.WriteLine("Does it get here? ØÅØÅØÅØÅØÅØÅØ" + n.TxtOne);
+                        
                     }
                 }
-                //LineViewModel line = new LineViewModel(new Line() { From = l.From.Node, To = l.To.Node }) { From = l.From, To = l.To };
-                //LineViewModel line = new LineViewModel(l.Line);
                 Lines.Add(line);
                 line.From.addNeighbour(line.To);
                 mostRecentPastedLines.Add(line);
