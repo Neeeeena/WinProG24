@@ -358,6 +358,7 @@ namespace AlgoTreeDraw.ViewModel
 
         private void MouseDownNode(MouseButtonEventArgs e)
         {
+
             nodeClicked = true;
             var node = TargetShape(e);
             var mousePosition = RelativeMousePosition(e);
